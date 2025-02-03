@@ -1,0 +1,7 @@
+trendspy
+sqlalchemy
+apscheduler
+python-dotenv
+PyYAML
+pandas
+pydantic-settings 

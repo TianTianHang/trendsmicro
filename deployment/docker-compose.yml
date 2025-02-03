@@ -1,0 +1,10 @@
+services:
+
+  microservice-dataacquisition:
+    build:
+      context: ../microservices/dataacquisition
+    container_name: trendsmicro-microservice-dataacquisition
+    ports:
+      - "8000:8000"
+    environment:
+      - DATABASE_URL=sqlite:///./test.db
