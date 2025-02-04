@@ -1,6 +1,6 @@
 import httpx
 from fastapi import HTTPException
-from api.config import get_settings
+from config import get_settings
 
 class CollectorGateway:
     def __init__(self):

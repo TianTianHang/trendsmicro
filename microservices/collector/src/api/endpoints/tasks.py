@@ -106,7 +106,7 @@ def terminate_historical_task(
     return {"message": "任务已终止"}
 
 @router.post("/historical/{task_id}/retry")
-def terminate_historical_task(
+def retry_historical_task(
     task_id: int, 
     db: Session = Depends(get_db)
 ):

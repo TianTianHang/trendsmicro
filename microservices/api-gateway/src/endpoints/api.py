@@ -1,9 +1,9 @@
+from datetime import datetime
 from fastapi import APIRouter, HTTPException
 from models.service import ServiceInstance
-from services.registry import ServiceRegistry
-
+from core import registry
 router = APIRouter(prefix="/_internal")
-registry = ServiceRegistry()
+
 
 @router.post("/register")
 async def register_service(instance: ServiceInstance):
@@ -29,3 +29,13 @@ def list_services():
             for name, instances in registry.services.items()
         }
     }
+    
+    # 添加心跳接口
+@router.post("/heartbeat/{instance_id}")
+async def send_heartbeat(instance_id: str):
+    for service in registry.services.values():
+        for inst in service:
+            if inst.instance_id == instance_id:
+                inst.last_health_check = datetime.now()
+                return {"status": "updated"}
+    return {"status": "not_found"}

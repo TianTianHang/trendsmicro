@@ -5,3 +5,5 @@ python-dotenv
 PyYAML
 pandas
 pydantic-settings 
+httpx
+Tenacity

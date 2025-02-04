@@ -64,7 +64,8 @@ class SchedulerManager:
                 task = db.query(HistoricalTask).get(task_id)
             if task and task.status == "pending":
                 task.status = "completed"  # 历史任务是一次性执行的
-
+            if task and task.status == "running":
+                task.status = "failed"  
         # 同步定时任务
         scheduled_tasks = db.query(ScheduledTask).all()
         for task in scheduled_tasks:

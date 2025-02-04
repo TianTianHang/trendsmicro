@@ -3,3 +3,6 @@ uvicorn
 sqlalchemy
 python-dotenv
 pydantic
+pydantic-settings
+apscheduler
+fastapi-pagination[sqlalchemy]

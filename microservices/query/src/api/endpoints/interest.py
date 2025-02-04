@@ -1,35 +1,35 @@
-from datetime import datetime
+from datetime import date, datetime
 from typing import List, Optional
 
 from fastapi import APIRouter, Depends
 from pydantic import BaseModel
 from sqlalchemy.orm import Session
-from microservices.query.src.api.models.interest import RegionInterest
-from microservices.query.src.api.dependencies.database import get_db
-from microservices.query.src.api.models.interest import TimeInterest
+from api.models.interest import RegionInterest
+from api.dependencies.database import get_db
+from api.models.interest import TimeInterest
 router = APIRouter(prefix="/interest")
 
 class RegionInterestResponse(BaseModel):
     id: int
     keyword: str
     geo_code: str
-    timeframe_start: Optional[datetime]
-    timeframe_end: Optional[datetime]
+    timeframe_start: Optional[date]
+    timeframe_end: Optional[date]
     value: int
 
     class Config:
-        orm_mode = True
+        from_attributes = True
 
 class TimeInterestResponse(BaseModel):
     id: int
     keyword: str
     geo_code: Optional[str]
-    time: datetime
+    time: date
     value: int
     is_partial: Optional[bool]
 
     class Config:
-        orm_mode = True
+        from_attributes = True
 
 @router.get("/region-interests/", response_model=List[RegionInterestResponse])
 def get_region_interests(
