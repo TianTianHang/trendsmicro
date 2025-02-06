@@ -12,6 +12,8 @@ from api.endpoints import tasks,interests
 from config import get_settings
 from tenacity import retry, stop_after_attempt
 
+from api.models.permission import RoutePermission, ServicePermissionsResponse
+
 
 setting= get_settings()
 
@@ -22,7 +24,27 @@ service_info = {
         "port": setting.port,
         "health_check_url": f"http://localhost:{setting.port}/health"
     }
-
+service_permissions = ServicePermissionsResponse(
+        service_name="trends_collector",
+        permissions=[
+            RoutePermission(
+                path="/tasks/historical",
+                required_permission=["admin"]
+            ),
+            RoutePermission(
+                path="/tasks/scheduled",
+                required_permission=["admin"]
+            ),
+           RoutePermission(
+                path="/tasks/historical/{task_id}/terminate",
+                required_permission=["admin"]
+            ),
+           RoutePermission(
+                path="/tasks/scheduled/{task_id}/toggle",
+                required_permission=["admin"]
+            ),
+        ]
+    )
 
 @retry(stop=stop_after_attempt(3))
 async def register_service():
@@ -77,7 +99,10 @@ app.include_router(interests.router)
 @app.get("/health")
 async def health_check():
     return {"status": "healthy"}
-
+@app.get("/permissions", response_model=ServicePermissionsResponse)
+async def get_task_permissions():
+    """返回任务服务的权限配置"""    
+    return service_permissions
 if __name__ == "__main__":
     import uvicorn
     uvicorn.run(app, host="0.0.0.0", port=setting.port)

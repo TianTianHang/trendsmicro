@@ -6,12 +6,12 @@ from pydantic import BaseModel
 from sqlalchemy.orm import Session
 from api.models.user import User, UserRole
 from api.dependencies.database import get_db
-from microservices.user_management.src.api.utils.auth import create_access_token, get_current_active_admin, get_current_user, get_password_hash, verify_password
+from api.utils.auth import create_access_token, get_current_active_admin, get_current_user, get_password_hash, verify_password
 from config import get_settings
 from jose import JWTError, jwt
 
 
-router = APIRouter(prefix="/user")
+router = APIRouter()
 setting = get_settings()
 
 class UserCreate(BaseModel):

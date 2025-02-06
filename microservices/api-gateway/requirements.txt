@@ -4,3 +4,4 @@ pydantic
 httpx
 asyncio
 pydantic-settings
+async_lru

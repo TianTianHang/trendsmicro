@@ -7,6 +7,8 @@ from api.dependencies.database import engine, Base
 from config import get_settings
 from tenacity import retry, stop_after_attempt
 
+from api.models.permission import RoutePermission, ServicePermissionsResponse
+
 # 配置信息
 setting = get_settings()
 
@@ -19,11 +21,14 @@ service_info = {
     "health_check_url": f"http://localhost:{setting.port}/health"
 }
 
-# -------------------- 认证配置 --------------------
-
-SECRET_KEY = setting.secret_key
-ALGORITHM = setting.algorithm
-ACCESS_TOKEN_EXPIRE_MINUTES = setting.access_token_expire_minutes
+# 路由权限信息
+permissions = [
+        RoutePermission(path="/register", required_permission=["public"]),
+        RoutePermission(path="/token", required_permission=["public"]),  # 公开接口
+        RoutePermission(path="/users/me", required_permission=["user","admin"]),
+        RoutePermission(path="/users", required_permission=["admin"]),
+        RoutePermission(path="/verify-token", required_permission=["public"]),
+    ]
 
 
 # -------------------- 服务注册逻辑 --------------------
@@ -71,6 +76,14 @@ app.include_router(user.router)
 @app.get("/health")
 async def health_check():
     return {"status": "healthy"}
+
+@app.get("/permissions", response_model=ServicePermissionsResponse)
+async def get_service_permissions():
+    """
+    返回当前服务的路由权限配置
+    """
+    # 返回服务权限配置
+    return ServicePermissionsResponse(service_name=service_info["service_name"], permissions=permissions)
 
 if __name__ == "__main__":
     import uvicorn

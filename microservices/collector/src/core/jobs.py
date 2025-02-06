@@ -1,5 +1,5 @@
 # src/core/jobs.py
-from datetime import datetime
+from datetime import date, datetime
 import logging
 from api.dependencies.database import get_db
 from api.models.tasks import HistoricalTask, ScheduledTask
@@ -53,6 +53,6 @@ def execute_historical_task(task:HistoricalTask):
 
 def execute_scheduled_task(task:ScheduledTask):
     """执行定时数据采集任务"""
-    end_date = datetime.now().strftime("%Y-%m-%d")
-    start_date = (datetime.now() - parse_interval(task.interval)).strftime("%Y-%m-%d")
+    end_date = date.now().strftime("%Y-%m-%d")
+    start_date = (date.now() - parse_interval(task.interval)).strftime("%Y-%m-%d")
     execute_task(task.job_type,task.keyword, task.geo_code, None,start_date,end_date)

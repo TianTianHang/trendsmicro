@@ -1,5 +1,5 @@
 #src/core/trends.py
-from datetime import datetime
+from datetime import date
 import time
 from requests import HTTPError
 from sqlalchemy.exc import IntegrityError
@@ -42,8 +42,8 @@ def get_interest_by_region(keyword: str, geo_code: str, interval: str, start_dat
         # 检查是否已存在数据
         exists = db.query(RegionInterest).filter(
             RegionInterest.keyword == keyword,
-            RegionInterest.timeframe_start == datetime.strptime(start,"%Y-%m-%d"),
-            RegionInterest.timeframe_end == datetime.strptime(end,"%Y-%m-%d")
+            RegionInterest.timeframe_start == date.strptime(start,"%Y-%m-%d"),
+            RegionInterest.timeframe_end == date.strptime(end,"%Y-%m-%d")
         ).first()
         
         if exists:
@@ -62,8 +62,8 @@ def get_interest_by_region(keyword: str, geo_code: str, interval: str, start_dat
                 record = RegionInterest(
                     keyword=keyword,
                     geo_code=row["geoCode"],
-                    timeframe_start=datetime.strptime(start,"%Y-%m-%d"),
-                    timeframe_end=datetime.strptime(end,"%Y-%m-%d"),
+                    timeframe_start=date.strptime(start,"%Y-%m-%d"),
+                    timeframe_end=date.strptime(end,"%Y-%m-%d"),
                     value=row[keyword]  # 假设API返回的列名与keyword一致
                 )   
                 db.add(record)        
@@ -87,8 +87,8 @@ def get_interest_over_time(keyword: str, geo_code: str, interval: str, start_dat
         exists = db.query(TimeInterest).filter(
             TimeInterest.keyword == keyword,
             TimeInterest.geo_code == geo_code,
-            TimeInterest.time >= datetime.strptime(start,"%Y-%m-%d"),
-            TimeInterest.time <= datetime.strptime(end,"%Y-%m-%d")
+            TimeInterest.time >= date.strptime(start,"%Y-%m-%d"),
+            TimeInterest.time <= date.strptime(end,"%Y-%m-%d")
         ).first()
         
         if exists:
@@ -106,7 +106,7 @@ def get_interest_over_time(keyword: str, geo_code: str, interval: str, start_dat
                 record = TimeInterest(
                     keyword=keyword,
                     geo_code=geo_code,
-                    time=datetime.strptime(date,"%Y-%m-%d"),
+                    time=date.strptime(date,"%Y-%m-%d"),
                     value=row[keyword],
                     is_partial=row["isPartial"]
                 )

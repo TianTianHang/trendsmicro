@@ -5,7 +5,7 @@ pandas
 pydantic-settings 
 httpx
 Tenacity
-passlib
+bcrypt==4.0.1
+passlib[bcrypt]
 python-jose[cryptography]
 python-multipart
-bcrypt

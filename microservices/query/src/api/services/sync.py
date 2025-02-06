@@ -1,5 +1,5 @@
 # src/api/services/sync.py
-from datetime import datetime
+from datetime import date, datetime
 from typing import Dict, List
 from fastapi import HTTPException
 from fastapi.logger import logger
@@ -109,7 +109,7 @@ class SyncService:
                 else ["keyword", "time", "geo_code"]
             )
             batch = [
-                    {k: datetime.strptime(v, "%Y-%m-%d") if k in ["timeframe_start", "timeframe_end", "time"] else v 
+                    {k: date.strptime(v, "%Y-%m-%d") if k in ["timeframe_start", "timeframe_end", "time"] else v 
                      for k, v in item.items()} for item in batch
                     ]
             # 构造基础插入语句
