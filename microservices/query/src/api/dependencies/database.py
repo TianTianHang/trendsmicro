@@ -1,4 +1,5 @@
 # src/api/dependencies/database.py
+import operator
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
 from config import get_settings
@@ -16,4 +17,15 @@ def get_db():
         yield db
     finally:
         db.close()
+# 操作符映射
+OPERATOR_MAP = {
+    "eq": operator.eq,
+    "ne": operator.ne,
+    "gt": operator.gt,
+    "ge": operator.ge,
+    "lt": operator.lt,
+    "le": operator.le,
+    "in": lambda field, value: field.in_(value),
+    "like": lambda field, value: field.like(f"%{value}%"),
+}
 

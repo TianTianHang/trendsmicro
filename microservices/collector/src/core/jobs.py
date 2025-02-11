@@ -1,12 +1,13 @@
 # src/core/jobs.py
 from datetime import date, datetime
-import logging
+from sqlalchemy.orm import Session
+from fastapi import Depends
+from fastapi.logger import logger
 from api.dependencies.database import get_db
 from api.models.tasks import HistoricalTask, ScheduledTask
 from core.trends import get_interest_by_region, get_interest_over_time
 from core.utils.time_interval import parse_interval
-logging.basicConfig(level=logging.INFO)
-logger = logging.getLogger(__name__)
+
 def execute_task(job_type,keyword, geo_code, interval,start_date,end_date):
     """通用任务执行函数"""
     # 根据任务类型调用对应的趋势函数
@@ -48,11 +49,9 @@ def execute_historical_task(task:HistoricalTask):
             db_task.status = "failed"
             db.commit()
         raise e  # 重新抛出异常以便APScheduler记录日志
-    finally:
-        db.close()  # 确保关闭会话
 
 def execute_scheduled_task(task:ScheduledTask):
     """执行定时数据采集任务"""
-    end_date = date.now().strftime("%Y-%m-%d")
-    start_date = (date.now() - parse_interval(task.interval)).strftime("%Y-%m-%d")
+    end_date = date.now().strftime("%Y-%m-%d %H:%M:%S")
+    start_date = (date.now() - parse_interval(task.interval)).strftime("%Y-%m-%d %H:%M:%S")
     execute_task(task.job_type,task.keyword, task.geo_code, None,start_date,end_date)

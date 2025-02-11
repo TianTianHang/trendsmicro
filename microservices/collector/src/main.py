@@ -85,7 +85,6 @@ async def lifespan_handler(app: FastAPI):
         await deregister_service()
     except Exception as e:
         logger.error(e)
-    yield
     scheduler_manager.scheduler.shutdown()
 
     

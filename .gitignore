@@ -1,3 +1,5 @@
 .vscode/
 .venv
 *.pyc
+microservices/query/src/lightning_logs/*
+microservices/query/src/models/*

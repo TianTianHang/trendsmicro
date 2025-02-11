@@ -1,5 +1,6 @@
 import socket
-from fastapi import FastAPI, logger
+from fastapi import FastAPI
+from fastapi.logger import logger
 import httpx
 from tenacity import retry, stop_after_attempt
 from apscheduler.schedulers.asyncio import AsyncIOScheduler
@@ -7,6 +8,8 @@ from config import get_settings
 from api.dependencies.database import Base,engine
 from api.endpoints import interest
 from api.services.sync import SyncService
+from api.models.permission import RoutePermission, ServicePermissionsResponse
+from api.endpoints import predict
 
 setting= get_settings()
 service_info = {
@@ -16,6 +19,25 @@ service_info = {
         "port": setting.port,
         "health_check_url": f"http://localhost:{setting.port}/health"
     }
+service_permissions = ServicePermissionsResponse(
+    service_name="trends_collector_interest",
+    permissions=[
+        # 区域兴趣相关
+        RoutePermission(
+            path="/interest/region-interests/timeframes",
+            required_permission=["user","admin"],
+        ),
+        RoutePermission(
+            path="/interest/region-interests/geo-time-slices",
+            required_permission=["user","admin"],
+        ),
+        # 时间兴趣相关
+        RoutePermission(
+            path="/interest/time-interests/",
+            required_permission=["user","admin"],
+        )
+    ]
+)
 
 @retry(stop=stop_after_attempt(3))
 async def register_service():
@@ -49,22 +71,30 @@ async def lifespan_handler(app: FastAPI):
     # 每10分钟同步一次
     scheduler.add_job(sync_service.sync_all_data, 'interval', minutes=10)
     scheduler.start()
-    await register_service()
+    try:
+        await register_service()
+    except Exception as e:
+        logger.error(e)
     yield
-    await deregister_service()
-   
+    try:
+        await deregister_service()
+    except Exception as e:
+        logger.error(e)
             
 Base.metadata.create_all(bind=engine)          
 app = FastAPI(title="Query API",lifespan=lifespan_handler)
 
 app.include_router(interest.router)
-
+app.include_router(predict.router)
 
 
 @app.get("/health")
 async def health_check():
     return {"status": "healthy"}
-
+@app.get("/permissions", response_model=ServicePermissionsResponse)
+async def get_task_permissions():
+    """返回任务服务的权限配置"""    
+    return service_permissions
 if __name__ == "__main__":
     import uvicorn
     uvicorn.run(app, host="0.0.0.0", port=setting.port)

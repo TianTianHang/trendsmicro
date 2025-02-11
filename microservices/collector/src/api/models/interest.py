@@ -1,6 +1,7 @@
 #src/api/models/interest.py
+from datetime import date
 from typing import Dict
-from sqlalchemy import Boolean, Column, Date, Index, Integer, String, UniqueConstraint
+from sqlalchemy import Boolean, Column, Date, DateTime, Index, Integer, String, UniqueConstraint
 from api.dependencies.database import Base
 
 
@@ -29,7 +30,7 @@ class TimeInterest(Base):
     id = Column(Integer, primary_key=True)
     keyword = Column(String, nullable=False)       # 关键词
     geo_code = Column(String)                      # 地区代码（可为空）
-    time = Column(Date, nullable=False)        # 时间点
+    time = Column(DateTime, nullable=False)        # 时间点
     value = Column(Integer)                        # 兴趣值
     is_partial = Column(Boolean)                   # 是否部分数据
     class Config:
@@ -40,3 +41,5 @@ class TimeInterest(Base):
         Index('idx_time', 'time'),
         Index('idx_geo_time', 'geo_code', 'time')
     )
+    
+    

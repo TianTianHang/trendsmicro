@@ -6,3 +6,7 @@ pydantic
 pydantic-settings
 apscheduler
 fastapi-pagination[sqlalchemy]
+ncps
+lightning
+pandas
+numpy
