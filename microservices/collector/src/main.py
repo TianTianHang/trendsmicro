@@ -1,9 +1,7 @@
 #src/api/main.py
-from datetime import datetime
-from json import JSONEncoder
+import logging
 import socket
 from fastapi import FastAPI
-from fastapi.encoders import jsonable_encoder
 from fastapi.logger import logger
 import httpx
 from api.dependencies.database import engine,Base
@@ -13,7 +11,16 @@ from config import get_settings
 from tenacity import retry, stop_after_attempt
 
 from api.models.permission import RoutePermission, ServicePermissionsResponse
-
+# 配置日志
+logging.basicConfig(
+    level=logging.INFO,
+    format="%(asctime)s - %(name)s - %(levelname)s - %(message)s",
+    datefmt="%Y-%m-%d %H:%M:%S",
+    handlers=[
+        logging.StreamHandler(),  # 输出到控制台
+        logging.FileHandler("collector.log"),  # 输出到文件
+    ]
+)
 
 setting= get_settings()
 

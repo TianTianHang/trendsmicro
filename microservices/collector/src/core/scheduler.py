@@ -57,12 +57,10 @@ class SchedulerManager:
         """启动时同步调度器与应用表状态"""
         db = next(get_db())
         # 同步历史任务
-        for job in self.scheduler.get_jobs():
-            if job.id.startswith("historical_"):
-                task_id = int(job.id.split("_")[1])
-                task = db.query(HistoricalTask).get(task_id)
+        historical_tasks = db.query(HistoricalTask).all()
+        for task in historical_tasks:
             if task and task.status == "pending":
-                task.status = "completed"  # 历史任务是一次性执行的
+                task.status = "failed"  # 历史任务是一次性执行的
             if task and task.status == "running":
                 task.status = "failed"  
         # 同步定时任务

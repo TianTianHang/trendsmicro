@@ -1,8 +1,6 @@
 #src/core/trends.py
-from datetime import date, datetime
+from datetime import datetime
 import time
-from sqlalchemy.orm import Session
-from fastapi import Depends
 from fastapi.logger import logger
 from requests import HTTPError
 from sqlalchemy.exc import IntegrityError
@@ -12,17 +10,24 @@ from api.models.interest import RegionInterest, TimeInterest
 from config import get_settings
 from core.utils.time_splitter import split_time_ranges
 from api.models.tasks import RequestHistory
-def _call_trends_api_with_retry(api_call_func, max_retries=3):
+
+def _call_trends_api_with_retry(api_call_func, max_retries=3,**kwargs):
     """封装API调用，包含速率限制处理和重试机制"""
     retries = 0
     while retries < max_retries:
         try:    
-            response = api_call_func()
+            response = api_call_func(**kwargs)
+            logger.info(
+                f"Data fetch successful for API function: {api_call_func.__name__}, "
+                f"with parameters - Keywords: {kwargs.get('_keywords_')}, "
+                f"Timeframe: {kwargs.get('_timeframe_')}, "
+                f"Geo: {kwargs.get('_geo_')}"
+            )
             return response
         except HTTPError as e:
             if e.response.status_code == 429:  # 速率限制错误
                 retry_after = int(e.response.headers.get('Retry-After', 60))  # 默认等待60秒
-                print(f"Rate limited. Retrying after {retry_after} seconds...")
+                logger.warning(f"Rate limited. Retrying after {retry_after} seconds...")
                 time.sleep(retry_after)
                 retries += 1
             else:
@@ -32,7 +37,10 @@ def _call_trends_api_with_retry(api_call_func, max_retries=3):
 settings = get_settings()
 trends=Trends(
         request_delay=settings.request_delay,
-        proxy=settings.proxy
+       proxies = {
+            'http': settings.proxy,
+            'https': settings.proxy
+        }
     )
 
 def get_interest_by_region(keyword: str, geo_code: str, interval: str, start_date: str, end_date: str):
@@ -42,8 +50,8 @@ def get_interest_by_region(keyword: str, geo_code: str, interval: str, start_dat
 
     for start, end in time_ranges:
         # 检查请求历史表判断是否已处理
-        timeframe_start = datetime.strptime(start, "%Y-%m-%d")
-        timeframe_end = datetime.strptime(end, "%Y-%m-%d")
+        timeframe_start = datetime.strptime(start, "%Y-%m-%d").date()
+        timeframe_end = datetime.strptime(end, "%Y-%m-%d").date()
         
         # 查询请求历史表
         history = db.query(RequestHistory).filter(
@@ -75,7 +83,7 @@ def get_interest_by_region(keyword: str, geo_code: str, interval: str, start_dat
             # 调用API获取数据
             timeframe = f"{start} {end}"
             region_data = _call_trends_api_with_retry(
-                lambda: trends.interest_by_region(keyword, geo=geo_code, timeframe=timeframe, inc_low_vol=True)
+                trends.interest_by_region, max_retries=3,keywords=keyword,geo=geo_code, timeframe=timeframe, inc_low_vol=True
             )
             
             # 使用事务保证数据一致性
@@ -106,7 +114,7 @@ def get_interest_by_region(keyword: str, geo_code: str, interval: str, start_dat
             history.status="failed"
             db.commit()
             raise
-    
+            
 def get_interest_over_time(keyword: str, geo_code: str, interval: str, start_date: str, end_date: str):
     db=next(get_db())
     time_ranges = split_time_ranges(start_date, end_date, interval)

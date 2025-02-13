@@ -14,4 +14,4 @@ class QueryParams(BaseModel):
     filters: Optional[List[Filter]] = None
     sorts: Optional[List[Sort]] = None
     skip: Optional[int] = 0
-    limit: Optional[int] = 100
+    limit: Optional[int] = -1

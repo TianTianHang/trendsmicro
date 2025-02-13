@@ -1,0 +1,351 @@
+2025-02-13 22:41:51 - apscheduler.scheduler - INFO - Scheduler started
+2025-02-13 22:41:52 - httpx - INFO - HTTP Request: POST http://localhost:8000/_internal/register "HTTP/1.1 502 Bad Gateway"
+2025-02-13 22:46:54 - apscheduler.scheduler - INFO - Scheduler started
+2025-02-13 22:50:15 - apscheduler.scheduler - INFO - Scheduler started
+2025-02-13 22:50:20 - httpx - INFO - HTTP Request: POST http://localhost:8000/_internal/register "HTTP/1.1 502 Bad Gateway"
+2025-02-13 22:50:27 - apscheduler.scheduler - INFO - Added job "execute_historical_task" to job store "default"
+2025-02-13 22:50:27 - apscheduler.executors.default - INFO - Running job "execute_historical_task (trigger: date[2025-02-13 14:50:27 UTC], next run at: 2025-02-13 14:50:27 UTC)" (scheduled at 2025-02-13 14:50:27.065840+00:00)
+2025-02-13 22:50:27 - apscheduler.scheduler - INFO - Removed job historical_1
+2025-02-13 22:50:27 - fastapi - INFO - 开始采集数据
+2025-02-13 22:50:27 - fastapi - ERROR - 数据已存在或冲突: (sqlite3.IntegrityError) UNIQUE constraint failed: request_history.keyword, request_history.job_type, request_history.geo_code, request_history.timeframe_start, request_history.timeframe_end
+[SQL: INSERT INTO request_history (job_type, keyword, geo_code, timeframe_start, timeframe_end, created_at, status) VALUES (?, ?, ?, ?, ?, ?, ?)]
+[parameters: ('region', '/m/04h9h', '', '2004-01-01', '2004-02-01', '2025-02-13', 'created')]
+(Background on this error at: https://sqlalche.me/e/20/gkpj)
+2025-02-13 22:50:27 - apscheduler.executors.default - ERROR - Job "execute_historical_task (trigger: date[2025-02-13 14:50:27 UTC], next run at: 2025-02-13 14:50:27 UTC)" raised an exception
+Traceback (most recent call last):
+  File "c:\Users\a2450\Desktop\project\backend\trendsmicro\.venv\lib\site-packages\sqlalchemy\engine\base.py", line 1964, in _exec_single_context
+    self.dialect.do_execute(
+  File "c:\Users\a2450\Desktop\project\backend\trendsmicro\.venv\lib\site-packages\sqlalchemy\engine\default.py", line 942, in do_execute
+    cursor.execute(statement, parameters)
+sqlite3.IntegrityError: UNIQUE constraint failed: request_history.keyword, request_history.job_type, request_history.geo_code, request_history.timeframe_start, request_history.timeframe_end
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "c:\Users\a2450\Desktop\project\backend\trendsmicro\.venv\lib\site-packages\apscheduler\executors\base.py", line 131, in run_job
+    retval = job.func(*job.args, **job.kwargs)
+  File "C:\Users\a2450\Desktop\project\backend\trendsmicro\microservices\collector\src\core\jobs.py", line 51, in execute_historical_task
+    raise e  # 重新抛出异常以便APScheduler记录日志
+  File "C:\Users\a2450\Desktop\project\backend\trendsmicro\microservices\collector\src\core\jobs.py", line 35, in execute_historical_task
+    execute_task(
+  File "C:\Users\a2450\Desktop\project\backend\trendsmicro\microservices\collector\src\core\jobs.py", line 16, in execute_task
+    get_interest_by_region(keyword, geo_code, interval, start_date, end_date)
+  File "C:\Users\a2450\Desktop\project\backend\trendsmicro\microservices\collector\src\core\trends.py", line 77, in get_interest_by_region
+    db.commit()
+  File "c:\Users\a2450\Desktop\project\backend\trendsmicro\.venv\lib\site-packages\sqlalchemy\orm\session.py", line 2032, in commit
+    trans.commit(_to_root=True)
+  File "<string>", line 2, in commit
+  File "c:\Users\a2450\Desktop\project\backend\trendsmicro\.venv\lib\site-packages\sqlalchemy\orm\state_changes.py", line 139, in _go
+    ret_value = fn(self, *arg, **kw)
+  File "c:\Users\a2450\Desktop\project\backend\trendsmicro\.venv\lib\site-packages\sqlalchemy\orm\session.py", line 1313, in commit
+    self._prepare_impl()
+  File "<string>", line 2, in _prepare_impl
+  File "c:\Users\a2450\Desktop\project\backend\trendsmicro\.venv\lib\site-packages\sqlalchemy\orm\state_changes.py", line 139, in _go
+    ret_value = fn(self, *arg, **kw)
+  File "c:\Users\a2450\Desktop\project\backend\trendsmicro\.venv\lib\site-packages\sqlalchemy\orm\session.py", line 1288, in _prepare_impl
+    self.session.flush()
+  File "c:\Users\a2450\Desktop\project\backend\trendsmicro\.venv\lib\site-packages\sqlalchemy\orm\session.py", line 4353, in flush
+    self._flush(objects)
+  File "c:\Users\a2450\Desktop\project\backend\trendsmicro\.venv\lib\site-packages\sqlalchemy\orm\session.py", line 4488, in _flush
+    with util.safe_reraise():
+  File "c:\Users\a2450\Desktop\project\backend\trendsmicro\.venv\lib\site-packages\sqlalchemy\util\langhelpers.py", line 146, in __exit__
+    raise exc_value.with_traceback(exc_tb)
+  File "c:\Users\a2450\Desktop\project\backend\trendsmicro\.venv\lib\site-packages\sqlalchemy\orm\session.py", line 4449, in _flush
+    flush_context.execute()
+  File "c:\Users\a2450\Desktop\project\backend\trendsmicro\.venv\lib\site-packages\sqlalchemy\orm\unitofwork.py", line 466, in execute
+    rec.execute(self)
+  File "c:\Users\a2450\Desktop\project\backend\trendsmicro\.venv\lib\site-packages\sqlalchemy\orm\unitofwork.py", line 642, in execute
+    util.preloaded.orm_persistence.save_obj(
+  File "c:\Users\a2450\Desktop\project\backend\trendsmicro\.venv\lib\site-packages\sqlalchemy\orm\persistence.py", line 93, in save_obj
+    _emit_insert_statements(
+  File "c:\Users\a2450\Desktop\project\backend\trendsmicro\.venv\lib\site-packages\sqlalchemy\orm\persistence.py", line 1233, in _emit_insert_statements
+    result = connection.execute(
+  File "c:\Users\a2450\Desktop\project\backend\trendsmicro\.venv\lib\site-packages\sqlalchemy\engine\base.py", line 1416, in execute
+    return meth(
+  File "c:\Users\a2450\Desktop\project\backend\trendsmicro\.venv\lib\site-packages\sqlalchemy\sql\elements.py", line 515, in _execute_on_connection
+    return connection._execute_clauseelement(
+  File "c:\Users\a2450\Desktop\project\backend\trendsmicro\.venv\lib\site-packages\sqlalchemy\engine\base.py", line 1638, in _execute_clauseelement
+    ret = self._execute_context(
+  File "c:\Users\a2450\Desktop\project\backend\trendsmicro\.venv\lib\site-packages\sqlalchemy\engine\base.py", line 1843, in _execute_context
+    return self._exec_single_context(
+  File "c:\Users\a2450\Desktop\project\backend\trendsmicro\.venv\lib\site-packages\sqlalchemy\engine\base.py", line 1983, in _exec_single_context
+    self._handle_dbapi_exception(
+  File "c:\Users\a2450\Desktop\project\backend\trendsmicro\.venv\lib\site-packages\sqlalchemy\engine\base.py", line 2352, in _handle_dbapi_exception
+    raise sqlalchemy_exception.with_traceback(exc_info[2]) from e
+  File "c:\Users\a2450\Desktop\project\backend\trendsmicro\.venv\lib\site-packages\sqlalchemy\engine\base.py", line 1964, in _exec_single_context
+    self.dialect.do_execute(
+  File "c:\Users\a2450\Desktop\project\backend\trendsmicro\.venv\lib\site-packages\sqlalchemy\engine\default.py", line 942, in do_execute
+    cursor.execute(statement, parameters)
+sqlalchemy.exc.IntegrityError: (sqlite3.IntegrityError) UNIQUE constraint failed: request_history.keyword, request_history.job_type, request_history.geo_code, request_history.timeframe_start, request_history.timeframe_end
+[SQL: INSERT INTO request_history (job_type, keyword, geo_code, timeframe_start, timeframe_end, created_at, status) VALUES (?, ?, ?, ?, ?, ?, ?)]
+[parameters: ('region', '/m/04h9h', '', '2004-01-01', '2004-02-01', '2025-02-13', 'created')]
+(Background on this error at: https://sqlalche.me/e/20/gkpj)
+2025-02-13 22:53:02 - apscheduler.scheduler - INFO - Added job "execute_historical_task" to job store "default"
+2025-02-13 22:53:02 - apscheduler.executors.default - INFO - Running job "execute_historical_task (trigger: date[2025-02-13 14:53:02 UTC], next run at: 2025-02-13 14:53:02 UTC)" (scheduled at 2025-02-13 14:53:02.643870+00:00)
+2025-02-13 22:53:02 - apscheduler.scheduler - INFO - Removed job historical_1
+2025-02-13 22:53:02 - fastapi - INFO - 开始采集数据
+2025-02-13 22:56:33 - apscheduler.executors.default - ERROR - Job "execute_historical_task (trigger: date[2025-02-13 14:53:02 UTC], next run at: 2025-02-13 14:53:02 UTC)" raised an exception
+Traceback (most recent call last):
+  File "c:\Users\a2450\Desktop\project\backend\trendsmicro\.venv\lib\site-packages\apscheduler\executors\base.py", line 131, in run_job
+    retval = job.func(*job.args, **job.kwargs)
+  File "C:\Users\a2450\Desktop\project\backend\trendsmicro\microservices\collector\src\core\jobs.py", line 51, in execute_historical_task
+    raise e  # 重新抛出异常以便APScheduler记录日志
+  File "C:\Users\a2450\Desktop\project\backend\trendsmicro\microservices\collector\src\core\jobs.py", line 35, in execute_historical_task
+    execute_task(
+  File "C:\Users\a2450\Desktop\project\backend\trendsmicro\microservices\collector\src\core\jobs.py", line 16, in execute_task
+    get_interest_by_region(keyword, geo_code, interval, start_date, end_date)
+  File "C:\Users\a2450\Desktop\project\backend\trendsmicro\microservices\collector\src\core\trends.py", line 65, in get_interest_by_region
+    if history and history.status=="success":
+AttributeError: 'Query' object has no attribute 'status'
+2025-02-13 22:56:46 - apscheduler.scheduler - INFO - Scheduler started
+2025-02-13 22:56:46 - httpx - INFO - HTTP Request: POST http://localhost:8000/_internal/register "HTTP/1.1 502 Bad Gateway"
+2025-02-13 22:56:50 - apscheduler.scheduler - INFO - Added job "execute_historical_task" to job store "default"
+2025-02-13 22:56:50 - apscheduler.executors.default - INFO - Running job "execute_historical_task (trigger: date[2025-02-13 14:56:50 UTC], next run at: 2025-02-13 14:56:50 UTC)" (scheduled at 2025-02-13 14:56:50.901380+00:00)
+2025-02-13 22:56:50 - apscheduler.scheduler - INFO - Removed job historical_1
+2025-02-13 22:56:50 - fastapi - INFO - 开始采集数据
+2025-02-13 22:56:51 - apscheduler.executors.default - ERROR - Job "execute_historical_task (trigger: date[2025-02-13 14:56:50 UTC], next run at: 2025-02-13 14:56:50 UTC)" raised an exception
+Traceback (most recent call last):
+  File "c:\Users\a2450\Desktop\project\backend\trendsmicro\.venv\lib\site-packages\apscheduler\executors\base.py", line 131, in run_job
+    retval = job.func(*job.args, **job.kwargs)
+  File "C:\Users\a2450\Desktop\project\backend\trendsmicro\microservices\collector\src\core\jobs.py", line 51, in execute_historical_task
+    raise e  # 重新抛出异常以便APScheduler记录日志
+  File "C:\Users\a2450\Desktop\project\backend\trendsmicro\microservices\collector\src\core\jobs.py", line 35, in execute_historical_task
+    execute_task(
+  File "C:\Users\a2450\Desktop\project\backend\trendsmicro\microservices\collector\src\core\jobs.py", line 16, in execute_task
+    get_interest_by_region(keyword, geo_code, interval, start_date, end_date)
+  File "C:\Users\a2450\Desktop\project\backend\trendsmicro\microservices\collector\src\core\trends.py", line 53, in get_interest_by_region
+    timeframe_start = date.strptime(start, "%Y-%m-%d")
+AttributeError: type object 'datetime.date' has no attribute 'strptime'. Did you mean: 'strftime'?
+2025-02-13 22:58:30 - apscheduler.scheduler - INFO - Scheduler started
+2025-02-13 22:58:30 - httpx - INFO - HTTP Request: POST http://localhost:8000/_internal/register "HTTP/1.1 502 Bad Gateway"
+2025-02-13 22:58:33 - apscheduler.scheduler - INFO - Added job "execute_historical_task" to job store "default"
+2025-02-13 22:58:33 - apscheduler.executors.default - INFO - Running job "execute_historical_task (trigger: date[2025-02-13 14:58:33 UTC], next run at: 2025-02-13 14:58:33 UTC)" (scheduled at 2025-02-13 14:58:33.023577+00:00)
+2025-02-13 22:58:33 - apscheduler.scheduler - INFO - Removed job historical_1
+2025-02-13 22:58:33 - fastapi - INFO - 开始采集数据
+2025-02-13 22:58:33 - apscheduler.executors.default - ERROR - Job "execute_historical_task (trigger: date[2025-02-13 14:58:33 UTC], next run at: 2025-02-13 14:58:33 UTC)" raised an exception
+Traceback (most recent call last):
+  File "c:\Users\a2450\Desktop\project\backend\trendsmicro\.venv\lib\site-packages\sqlalchemy\engine\base.py", line 1812, in _execute_context
+    context = constructor(
+  File "c:\Users\a2450\Desktop\project\backend\trendsmicro\.venv\lib\site-packages\sqlalchemy\engine\default.py", line 1475, in _init_compiled
+    l_param: List[Any] = [
+  File "c:\Users\a2450\Desktop\project\backend\trendsmicro\.venv\lib\site-packages\sqlalchemy\engine\default.py", line 1477, in <listcomp>
+    flattened_processors[key](compiled_params[key])
+  File "c:\Users\a2450\Desktop\project\backend\trendsmicro\.venv\lib\site-packages\sqlalchemy\dialects\sqlite\base.py", line 1192, in process
+    raise TypeError(
+TypeError: SQLite Date type only accepts Python date objects as input.
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "c:\Users\a2450\Desktop\project\backend\trendsmicro\.venv\lib\site-packages\apscheduler\executors\base.py", line 131, in run_job
+    retval = job.func(*job.args, **job.kwargs)
+  File "C:\Users\a2450\Desktop\project\backend\trendsmicro\microservices\collector\src\core\jobs.py", line 51, in execute_historical_task
+    raise e  # 重新抛出异常以便APScheduler记录日志
+  File "C:\Users\a2450\Desktop\project\backend\trendsmicro\microservices\collector\src\core\jobs.py", line 35, in execute_historical_task
+    execute_task(
+  File "C:\Users\a2450\Desktop\project\backend\trendsmicro\microservices\collector\src\core\jobs.py", line 16, in execute_task
+    get_interest_by_region(keyword, geo_code, interval, start_date, end_date)
+  File "C:\Users\a2450\Desktop\project\backend\trendsmicro\microservices\collector\src\core\trends.py", line 63, in get_interest_by_region
+    ).first()
+  File "c:\Users\a2450\Desktop\project\backend\trendsmicro\.venv\lib\site-packages\sqlalchemy\orm\query.py", line 2754, in first
+    return self.limit(1)._iter().first()  # type: ignore
+  File "c:\Users\a2450\Desktop\project\backend\trendsmicro\.venv\lib\site-packages\sqlalchemy\orm\query.py", line 2853, in _iter
+    result: Union[ScalarResult[_T], Result[_T]] = self.session.execute(
+  File "c:\Users\a2450\Desktop\project\backend\trendsmicro\.venv\lib\site-packages\sqlalchemy\orm\session.py", line 2365, in execute
+    return self._execute_internal(
+  File "c:\Users\a2450\Desktop\project\backend\trendsmicro\.venv\lib\site-packages\sqlalchemy\orm\session.py", line 2251, in _execute_internal
+    result: Result[Any] = compile_state_cls.orm_execute_statement(
+  File "c:\Users\a2450\Desktop\project\backend\trendsmicro\.venv\lib\site-packages\sqlalchemy\orm\context.py", line 305, in orm_execute_statement
+    result = conn.execute(
+  File "c:\Users\a2450\Desktop\project\backend\trendsmicro\.venv\lib\site-packages\sqlalchemy\engine\base.py", line 1416, in execute
+    return meth(
+  File "c:\Users\a2450\Desktop\project\backend\trendsmicro\.venv\lib\site-packages\sqlalchemy\sql\elements.py", line 515, in _execute_on_connection
+    return connection._execute_clauseelement(
+  File "c:\Users\a2450\Desktop\project\backend\trendsmicro\.venv\lib\site-packages\sqlalchemy\engine\base.py", line 1638, in _execute_clauseelement
+    ret = self._execute_context(
+  File "c:\Users\a2450\Desktop\project\backend\trendsmicro\.venv\lib\site-packages\sqlalchemy\engine\base.py", line 1818, in _execute_context
+    self._handle_dbapi_exception(
+  File "c:\Users\a2450\Desktop\project\backend\trendsmicro\.venv\lib\site-packages\sqlalchemy\engine\base.py", line 2352, in _handle_dbapi_exception
+    raise sqlalchemy_exception.with_traceback(exc_info[2]) from e
+  File "c:\Users\a2450\Desktop\project\backend\trendsmicro\.venv\lib\site-packages\sqlalchemy\engine\base.py", line 1812, in _execute_context
+    context = constructor(
+  File "c:\Users\a2450\Desktop\project\backend\trendsmicro\.venv\lib\site-packages\sqlalchemy\engine\default.py", line 1475, in _init_compiled
+    l_param: List[Any] = [
+  File "c:\Users\a2450\Desktop\project\backend\trendsmicro\.venv\lib\site-packages\sqlalchemy\engine\default.py", line 1477, in <listcomp>
+    flattened_processors[key](compiled_params[key])
+  File "c:\Users\a2450\Desktop\project\backend\trendsmicro\.venv\lib\site-packages\sqlalchemy\dialects\sqlite\base.py", line 1192, in process
+    raise TypeError(
+sqlalchemy.exc.StatementError: (builtins.TypeError) SQLite Date type only accepts Python date objects as input.
+[SQL: SELECT request_history.id AS request_history_id, request_history.job_type AS request_history_job_type, request_history.keyword AS request_history_keyword, request_history.geo_code AS request_history_geo_code, request_history.timeframe_start AS request_history_timeframe_start, request_history.timeframe_end AS request_history_timeframe_end, request_history.created_at AS request_history_created_at, request_history.status AS request_history_status 
+FROM request_history 
+WHERE request_history.job_type = ? AND request_history.keyword = ? AND request_history.geo_code = ? AND request_history.timeframe_start = ? AND request_history.timeframe_end = ?
+ LIMIT ? OFFSET ?]
+[parameters: [{}]]
+2025-02-13 22:59:09 - apscheduler.scheduler - INFO - Added job "execute_historical_task" to job store "default"
+2025-02-13 22:59:09 - apscheduler.executors.default - INFO - Running job "execute_historical_task (trigger: date[2025-02-13 14:59:09 UTC], next run at: 2025-02-13 14:59:09 UTC)" (scheduled at 2025-02-13 14:59:09.682083+00:00)
+2025-02-13 22:59:09 - apscheduler.scheduler - INFO - Removed job historical_1
+2025-02-13 22:59:09 - fastapi - INFO - 开始采集数据
+2025-02-13 22:59:31 - apscheduler.scheduler - INFO - Scheduler started
+2025-02-13 22:59:31 - httpx - INFO - HTTP Request: POST http://localhost:8000/_internal/register "HTTP/1.1 502 Bad Gateway"
+2025-02-13 22:59:33 - apscheduler.scheduler - INFO - Added job "execute_historical_task" to job store "default"
+2025-02-13 22:59:33 - apscheduler.executors.default - INFO - Running job "execute_historical_task (trigger: date[2025-02-13 14:59:33 UTC], next run at: 2025-02-13 14:59:33 UTC)" (scheduled at 2025-02-13 14:59:33.842851+00:00)
+2025-02-13 22:59:33 - apscheduler.scheduler - INFO - Removed job historical_1
+2025-02-13 22:59:33 - fastapi - INFO - 开始采集数据
+2025-02-13 22:59:54 - fastapi - ERROR - Error: _call_trends_api_with_retry() got multiple values for argument 'max_retries'
+2025-02-13 22:59:54 - apscheduler.executors.default - ERROR - Job "execute_historical_task (trigger: date[2025-02-13 14:59:33 UTC], next run at: 2025-02-13 14:59:33 UTC)" raised an exception
+Traceback (most recent call last):
+  File "c:\Users\a2450\Desktop\project\backend\trendsmicro\.venv\lib\site-packages\apscheduler\executors\base.py", line 131, in run_job
+    retval = job.func(*job.args, **job.kwargs)
+  File "C:\Users\a2450\Desktop\project\backend\trendsmicro\microservices\collector\src\core\jobs.py", line 51, in execute_historical_task
+    raise e  # 重新抛出异常以便APScheduler记录日志
+  File "C:\Users\a2450\Desktop\project\backend\trendsmicro\microservices\collector\src\core\jobs.py", line 35, in execute_historical_task
+    execute_task(
+  File "C:\Users\a2450\Desktop\project\backend\trendsmicro\microservices\collector\src\core\jobs.py", line 16, in execute_task
+    get_interest_by_region(keyword, geo_code, interval, start_date, end_date)
+  File "C:\Users\a2450\Desktop\project\backend\trendsmicro\microservices\collector\src\core\trends.py", line 85, in get_interest_by_region
+    region_data = _call_trends_api_with_retry(
+TypeError: _call_trends_api_with_retry() got multiple values for argument 'max_retries'
+2025-02-13 23:00:40 - apscheduler.scheduler - INFO - Added job "execute_historical_task" to job store "default"
+2025-02-13 23:00:40 - apscheduler.executors.default - INFO - Running job "execute_historical_task (trigger: date[2025-02-13 15:00:40 UTC], next run at: 2025-02-13 15:00:40 UTC)" (scheduled at 2025-02-13 15:00:40.448624+00:00)
+2025-02-13 23:00:40 - apscheduler.scheduler - INFO - Removed job historical_1
+2025-02-13 23:00:40 - fastapi - INFO - 开始采集数据
+2025-02-13 23:00:40 - fastapi - ERROR - Error: _call_trends_api_with_retry() got multiple values for argument 'max_retries'
+2025-02-13 23:00:40 - apscheduler.executors.default - ERROR - Job "execute_historical_task (trigger: date[2025-02-13 15:00:40 UTC], next run at: 2025-02-13 15:00:40 UTC)" raised an exception
+Traceback (most recent call last):
+  File "c:\Users\a2450\Desktop\project\backend\trendsmicro\.venv\lib\site-packages\apscheduler\executors\base.py", line 131, in run_job
+    retval = job.func(*job.args, **job.kwargs)
+  File "C:\Users\a2450\Desktop\project\backend\trendsmicro\microservices\collector\src\core\jobs.py", line 51, in execute_historical_task
+    raise e  # 重新抛出异常以便APScheduler记录日志
+  File "C:\Users\a2450\Desktop\project\backend\trendsmicro\microservices\collector\src\core\jobs.py", line 35, in execute_historical_task
+    execute_task(
+  File "C:\Users\a2450\Desktop\project\backend\trendsmicro\microservices\collector\src\core\jobs.py", line 16, in execute_task
+    get_interest_by_region(keyword, geo_code, interval, start_date, end_date)
+  File "C:\Users\a2450\Desktop\project\backend\trendsmicro\microservices\collector\src\core\trends.py", line 85, in get_interest_by_region
+    region_data = _call_trends_api_with_retry(
+TypeError: _call_trends_api_with_retry() got multiple values for argument 'max_retries'
+2025-02-13 23:00:58 - apscheduler.scheduler - INFO - Scheduler started
+2025-02-13 23:00:58 - httpx - INFO - HTTP Request: POST http://localhost:8000/_internal/register "HTTP/1.1 502 Bad Gateway"
+2025-02-13 23:01:03 - apscheduler.scheduler - INFO - Added job "execute_historical_task" to job store "default"
+2025-02-13 23:01:03 - apscheduler.executors.default - INFO - Running job "execute_historical_task (trigger: date[2025-02-13 15:01:03 UTC], next run at: 2025-02-13 15:01:03 UTC)" (scheduled at 2025-02-13 15:01:03.415924+00:00)
+2025-02-13 23:01:03 - apscheduler.scheduler - INFO - Removed job historical_1
+2025-02-13 23:01:03 - fastapi - INFO - 开始采集数据
+2025-02-13 23:01:03 - fastapi - ERROR - Error: '<' not supported between instances of 'int' and 'str'
+2025-02-13 23:01:03 - apscheduler.executors.default - ERROR - Job "execute_historical_task (trigger: date[2025-02-13 15:01:03 UTC], next run at: 2025-02-13 15:01:03 UTC)" raised an exception
+Traceback (most recent call last):
+  File "c:\Users\a2450\Desktop\project\backend\trendsmicro\.venv\lib\site-packages\apscheduler\executors\base.py", line 131, in run_job
+    retval = job.func(*job.args, **job.kwargs)
+  File "C:\Users\a2450\Desktop\project\backend\trendsmicro\microservices\collector\src\core\jobs.py", line 51, in execute_historical_task
+    raise e  # 重新抛出异常以便APScheduler记录日志
+  File "C:\Users\a2450\Desktop\project\backend\trendsmicro\microservices\collector\src\core\jobs.py", line 35, in execute_historical_task
+    execute_task(
+  File "C:\Users\a2450\Desktop\project\backend\trendsmicro\microservices\collector\src\core\jobs.py", line 16, in execute_task
+    get_interest_by_region(keyword, geo_code, interval, start_date, end_date)
+  File "C:\Users\a2450\Desktop\project\backend\trendsmicro\microservices\collector\src\core\trends.py", line 85, in get_interest_by_region
+    region_data = _call_trends_api_with_retry(
+  File "C:\Users\a2450\Desktop\project\backend\trendsmicro\microservices\collector\src\core\trends.py", line 17, in _call_trends_api_with_retry
+    while retries < max_retries:
+TypeError: '<' not supported between instances of 'int' and 'str'
+2025-02-13 23:01:31 - apscheduler.scheduler - INFO - Scheduler started
+2025-02-13 23:01:31 - httpx - INFO - HTTP Request: POST http://localhost:8000/_internal/register "HTTP/1.1 502 Bad Gateway"
+2025-02-13 23:01:36 - apscheduler.scheduler - INFO - Added job "execute_historical_task" to job store "default"
+2025-02-13 23:01:36 - apscheduler.executors.default - INFO - Running job "execute_historical_task (trigger: date[2025-02-13 15:01:36 UTC], next run at: 2025-02-13 15:01:36 UTC)" (scheduled at 2025-02-13 15:01:36.029589+00:00)
+2025-02-13 23:01:36 - apscheduler.scheduler - INFO - Removed job historical_1
+2025-02-13 23:01:36 - fastapi - INFO - 开始采集数据
+2025-02-13 23:01:36 - fastapi - ERROR - Error: _call_trends_api_with_retry() got multiple values for argument 'max_retries'
+2025-02-13 23:01:36 - apscheduler.executors.default - ERROR - Job "execute_historical_task (trigger: date[2025-02-13 15:01:36 UTC], next run at: 2025-02-13 15:01:36 UTC)" raised an exception
+Traceback (most recent call last):
+  File "c:\Users\a2450\Desktop\project\backend\trendsmicro\.venv\lib\site-packages\apscheduler\executors\base.py", line 131, in run_job
+    retval = job.func(*job.args, **job.kwargs)
+  File "C:\Users\a2450\Desktop\project\backend\trendsmicro\microservices\collector\src\core\jobs.py", line 51, in execute_historical_task
+    raise e  # 重新抛出异常以便APScheduler记录日志
+  File "C:\Users\a2450\Desktop\project\backend\trendsmicro\microservices\collector\src\core\jobs.py", line 35, in execute_historical_task
+    execute_task(
+  File "C:\Users\a2450\Desktop\project\backend\trendsmicro\microservices\collector\src\core\jobs.py", line 16, in execute_task
+    get_interest_by_region(keyword, geo_code, interval, start_date, end_date)
+  File "C:\Users\a2450\Desktop\project\backend\trendsmicro\microservices\collector\src\core\trends.py", line 85, in get_interest_by_region
+    region_data = _call_trends_api_with_retry(
+TypeError: _call_trends_api_with_retry() got multiple values for argument 'max_retries'
+2025-02-13 23:02:07 - apscheduler.scheduler - INFO - Scheduler started
+2025-02-13 23:02:07 - httpx - INFO - HTTP Request: POST http://localhost:8000/_internal/register "HTTP/1.1 502 Bad Gateway"
+2025-02-13 23:02:10 - apscheduler.scheduler - INFO - Added job "execute_historical_task" to job store "default"
+2025-02-13 23:02:10 - apscheduler.executors.default - INFO - Running job "execute_historical_task (trigger: date[2025-02-13 15:02:10 UTC], next run at: 2025-02-13 15:02:10 UTC)" (scheduled at 2025-02-13 15:02:10.403972+00:00)
+2025-02-13 23:02:10 - apscheduler.scheduler - INFO - Removed job historical_1
+2025-02-13 23:02:10 - fastapi - INFO - 开始采集数据
+2025-02-13 23:02:10 - fastapi - ERROR - Error: _call_trends_api_with_retry() got multiple values for argument 'max_retries'
+2025-02-13 23:02:10 - apscheduler.executors.default - ERROR - Job "execute_historical_task (trigger: date[2025-02-13 15:02:10 UTC], next run at: 2025-02-13 15:02:10 UTC)" raised an exception
+Traceback (most recent call last):
+  File "c:\Users\a2450\Desktop\project\backend\trendsmicro\.venv\lib\site-packages\apscheduler\executors\base.py", line 131, in run_job
+    retval = job.func(*job.args, **job.kwargs)
+  File "C:\Users\a2450\Desktop\project\backend\trendsmicro\microservices\collector\src\core\jobs.py", line 51, in execute_historical_task
+    raise e  # 重新抛出异常以便APScheduler记录日志
+  File "C:\Users\a2450\Desktop\project\backend\trendsmicro\microservices\collector\src\core\jobs.py", line 35, in execute_historical_task
+    execute_task(
+  File "C:\Users\a2450\Desktop\project\backend\trendsmicro\microservices\collector\src\core\jobs.py", line 16, in execute_task
+    get_interest_by_region(keyword, geo_code, interval, start_date, end_date)
+  File "C:\Users\a2450\Desktop\project\backend\trendsmicro\microservices\collector\src\core\trends.py", line 85, in get_interest_by_region
+    region_data = _call_trends_api_with_retry(
+TypeError: _call_trends_api_with_retry() got multiple values for argument 'max_retries'
+2025-02-13 23:02:40 - apscheduler.scheduler - INFO - Scheduler started
+2025-02-13 23:02:40 - httpx - INFO - HTTP Request: POST http://localhost:8000/_internal/register "HTTP/1.1 502 Bad Gateway"
+2025-02-13 23:02:42 - apscheduler.scheduler - INFO - Added job "execute_historical_task" to job store "default"
+2025-02-13 23:02:42 - apscheduler.executors.default - INFO - Running job "execute_historical_task (trigger: date[2025-02-13 15:02:42 UTC], next run at: 2025-02-13 15:02:42 UTC)" (scheduled at 2025-02-13 15:02:42.604391+00:00)
+2025-02-13 23:02:42 - apscheduler.scheduler - INFO - Removed job historical_1
+2025-02-13 23:02:42 - fastapi - INFO - 开始采集数据
+2025-02-13 23:02:42 - fastapi - ERROR - Error: _call_trends_api_with_retry() takes from 1 to 2 positional arguments but 3 were given
+2025-02-13 23:02:42 - apscheduler.executors.default - ERROR - Job "execute_historical_task (trigger: date[2025-02-13 15:02:42 UTC], next run at: 2025-02-13 15:02:42 UTC)" raised an exception
+Traceback (most recent call last):
+  File "c:\Users\a2450\Desktop\project\backend\trendsmicro\.venv\lib\site-packages\apscheduler\executors\base.py", line 131, in run_job
+    retval = job.func(*job.args, **job.kwargs)
+  File "C:\Users\a2450\Desktop\project\backend\trendsmicro\microservices\collector\src\core\jobs.py", line 51, in execute_historical_task
+    raise e  # 重新抛出异常以便APScheduler记录日志
+  File "C:\Users\a2450\Desktop\project\backend\trendsmicro\microservices\collector\src\core\jobs.py", line 35, in execute_historical_task
+    execute_task(
+  File "C:\Users\a2450\Desktop\project\backend\trendsmicro\microservices\collector\src\core\jobs.py", line 16, in execute_task
+    get_interest_by_region(keyword, geo_code, interval, start_date, end_date)
+  File "C:\Users\a2450\Desktop\project\backend\trendsmicro\microservices\collector\src\core\trends.py", line 85, in get_interest_by_region
+    region_data = _call_trends_api_with_retry(
+TypeError: _call_trends_api_with_retry() takes from 1 to 2 positional arguments but 3 were given
+2025-02-13 23:03:18 - apscheduler.scheduler - INFO - Scheduler started
+2025-02-13 23:03:19 - httpx - INFO - HTTP Request: POST http://localhost:8000/_internal/register "HTTP/1.1 502 Bad Gateway"
+2025-02-13 23:03:21 - apscheduler.scheduler - INFO - Added job "execute_historical_task" to job store "default"
+2025-02-13 23:03:21 - apscheduler.executors.default - INFO - Running job "execute_historical_task (trigger: date[2025-02-13 15:03:21 UTC], next run at: 2025-02-13 15:03:21 UTC)" (scheduled at 2025-02-13 15:03:21.600327+00:00)
+2025-02-13 23:03:21 - apscheduler.scheduler - INFO - Removed job historical_1
+2025-02-13 23:03:21 - fastapi - INFO - 开始采集数据
+2025-02-13 23:03:21 - fastapi - ERROR - Error: _call_trends_api_with_retry() takes 2 positional arguments but 3 were given
+2025-02-13 23:03:21 - apscheduler.executors.default - ERROR - Job "execute_historical_task (trigger: date[2025-02-13 15:03:21 UTC], next run at: 2025-02-13 15:03:21 UTC)" raised an exception
+Traceback (most recent call last):
+  File "c:\Users\a2450\Desktop\project\backend\trendsmicro\.venv\lib\site-packages\apscheduler\executors\base.py", line 131, in run_job
+    retval = job.func(*job.args, **job.kwargs)
+  File "C:\Users\a2450\Desktop\project\backend\trendsmicro\microservices\collector\src\core\jobs.py", line 51, in execute_historical_task
+    raise e  # 重新抛出异常以便APScheduler记录日志
+  File "C:\Users\a2450\Desktop\project\backend\trendsmicro\microservices\collector\src\core\jobs.py", line 35, in execute_historical_task
+    execute_task(
+  File "C:\Users\a2450\Desktop\project\backend\trendsmicro\microservices\collector\src\core\jobs.py", line 16, in execute_task
+    get_interest_by_region(keyword, geo_code, interval, start_date, end_date)
+  File "C:\Users\a2450\Desktop\project\backend\trendsmicro\microservices\collector\src\core\trends.py", line 85, in get_interest_by_region
+    region_data = _call_trends_api_with_retry(
+TypeError: _call_trends_api_with_retry() takes 2 positional arguments but 3 were given
+2025-02-13 23:23:03 - apscheduler.scheduler - INFO - Scheduler started
+2025-02-13 23:23:03 - httpx - INFO - HTTP Request: POST http://localhost:8000/_internal/register "HTTP/1.1 502 Bad Gateway"
+2025-02-13 23:23:46 - apscheduler.scheduler - INFO - Scheduler started
+2025-02-13 23:23:46 - httpx - INFO - HTTP Request: POST http://localhost:8000/_internal/register "HTTP/1.1 502 Bad Gateway"
+2025-02-13 23:23:52 - apscheduler.scheduler - INFO - Added job "execute_historical_task" to job store "default"
+2025-02-13 23:23:52 - apscheduler.executors.default - INFO - Running job "execute_historical_task (trigger: date[2025-02-13 15:23:52 UTC], next run at: 2025-02-13 15:23:52 UTC)" (scheduled at 2025-02-13 15:23:52.885588+00:00)
+2025-02-13 23:23:52 - apscheduler.scheduler - INFO - Removed job historical_1
+2025-02-13 23:23:52 - fastapi - INFO - 开始采集数据
+2025-02-13 23:23:53 - fastapi - ERROR - Error: Trends.interest_by_region() missing 1 required positional argument: 'keywords'
+2025-02-13 23:23:53 - apscheduler.executors.default - ERROR - Job "execute_historical_task (trigger: date[2025-02-13 15:23:52 UTC], next run at: 2025-02-13 15:23:52 UTC)" raised an exception
+Traceback (most recent call last):
+  File "c:\Users\a2450\Desktop\project\backend\trendsmicro\.venv\lib\site-packages\apscheduler\executors\base.py", line 131, in run_job
+    retval = job.func(*job.args, **job.kwargs)
+  File "C:\Users\a2450\Desktop\project\backend\trendsmicro\microservices\collector\src\core\jobs.py", line 51, in execute_historical_task
+    raise e  # 重新抛出异常以便APScheduler记录日志
+  File "C:\Users\a2450\Desktop\project\backend\trendsmicro\microservices\collector\src\core\jobs.py", line 35, in execute_historical_task
+    execute_task(
+  File "C:\Users\a2450\Desktop\project\backend\trendsmicro\microservices\collector\src\core\jobs.py", line 16, in execute_task
+    get_interest_by_region(keyword, geo_code, interval, start_date, end_date)
+  File "C:\Users\a2450\Desktop\project\backend\trendsmicro\microservices\collector\src\core\trends.py", line 85, in get_interest_by_region
+    region_data = _call_trends_api_with_retry(
+  File "C:\Users\a2450\Desktop\project\backend\trendsmicro\microservices\collector\src\core\trends.py", line 19, in _call_trends_api_with_retry
+    response = api_call_func(**kwargs)
+TypeError: Trends.interest_by_region() missing 1 required positional argument: 'keywords'

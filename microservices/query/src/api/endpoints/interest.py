@@ -46,7 +46,10 @@ def query_region_interest(
                 query = query.order_by(asc(field))
 
     # 分页查询
-    results = query.offset(query_params.skip).limit(query_params.limit).all()
+    if query_params.limit==-1:
+        results = query.all()
+    else:
+        results = query.offset(query_params.skip).limit(query_params.limit).all()
     return results
 
 
