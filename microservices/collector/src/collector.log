@@ -349,3 +349,85 @@ Traceback (most recent call last):
   File "C:\Users\a2450\Desktop\project\backend\trendsmicro\microservices\collector\src\core\trends.py", line 19, in _call_trends_api_with_retry
     response = api_call_func(**kwargs)
 TypeError: Trends.interest_by_region() missing 1 required positional argument: 'keywords'
+2025-02-13 23:24:28 - apscheduler.scheduler - INFO - Scheduler started
+2025-02-13 23:24:28 - httpx - INFO - HTTP Request: POST http://localhost:8000/_internal/register "HTTP/1.1 502 Bad Gateway"
+2025-02-13 23:24:46 - apscheduler.scheduler - INFO - Added job "execute_historical_task" to job store "default"
+2025-02-13 23:24:46 - apscheduler.executors.default - INFO - Running job "execute_historical_task (trigger: date[2025-02-13 15:24:46 UTC], next run at: 2025-02-13 15:24:46 UTC)" (scheduled at 2025-02-13 15:24:46.736878+00:00)
+2025-02-13 23:24:46 - apscheduler.scheduler - INFO - Removed job historical_1
+2025-02-13 23:24:46 - fastapi - INFO - 开始采集数据
+2025-02-13 23:25:10 - fastapi - WARNING - Rate limited. Retrying after 60 seconds...
+2025-02-13 23:26:27 - fastapi - WARNING - Rate limited. Retrying after 60 seconds...
+2025-02-13 23:27:43 - fastapi - WARNING - Rate limited. Retrying after 60 seconds...
+2025-02-13 23:28:43 - fastapi - ERROR - Error: Max retries exceeded for API call
+2025-02-13 23:28:43 - apscheduler.executors.default - ERROR - Job "execute_historical_task (trigger: date[2025-02-13 15:24:46 UTC], next run at: 2025-02-13 15:24:46 UTC)" raised an exception
+Traceback (most recent call last):
+  File "c:\Users\a2450\Desktop\project\backend\trendsmicro\.venv\lib\site-packages\apscheduler\executors\base.py", line 131, in run_job
+    retval = job.func(*job.args, **job.kwargs)
+  File "C:\Users\a2450\Desktop\project\backend\trendsmicro\microservices\collector\src\core\jobs.py", line 51, in execute_historical_task
+    raise e  # 重新抛出异常以便APScheduler记录日志
+  File "C:\Users\a2450\Desktop\project\backend\trendsmicro\microservices\collector\src\core\jobs.py", line 35, in execute_historical_task
+    execute_task(
+  File "C:\Users\a2450\Desktop\project\backend\trendsmicro\microservices\collector\src\core\jobs.py", line 16, in execute_task
+    get_interest_by_region(keyword, geo_code, interval, start_date, end_date)
+  File "C:\Users\a2450\Desktop\project\backend\trendsmicro\microservices\collector\src\core\trends.py", line 85, in get_interest_by_region
+    region_data = _call_trends_api_with_retry(
+  File "C:\Users\a2450\Desktop\project\backend\trendsmicro\microservices\collector\src\core\trends.py", line 35, in _call_trends_api_with_retry
+    raise Exception("Max retries exceeded for API call")
+Exception: Max retries exceeded for API call
+2025-02-16 20:51:13 - apscheduler.scheduler - INFO - Scheduler started
+2025-02-16 20:52:16 - apscheduler.scheduler - INFO - Scheduler started
+2025-02-16 20:53:38 - apscheduler.scheduler - INFO - Scheduler started
+2025-02-16 20:58:48 - apscheduler.scheduler - INFO - Scheduler started
+2025-02-16 20:58:48 - httpx - INFO - HTTP Request: POST http://localhost:8000/_internal/register "HTTP/1.1 502 Bad Gateway"
+2025-02-16 20:59:38 - apscheduler.scheduler - INFO - Added job "execute_historical_task" to job store "default"
+2025-02-16 20:59:38 - apscheduler.executors.default - INFO - Running job "execute_historical_task (trigger: date[2025-02-16 12:59:38 UTC], next run at: 2025-02-16 12:59:38 UTC)" (scheduled at 2025-02-16 12:59:38.369560+00:00)
+2025-02-16 20:59:38 - apscheduler.scheduler - INFO - Removed job historical_1
+2025-02-16 20:59:38 - fastapi - INFO - 开始采集数据
+2025-02-16 20:59:49 - fastapi - INFO - Data fetch successful for API function: interest_by_region, with parameters - Keywords: None, Timeframe: None, Geo: None
+2025-02-16 21:00:12 - fastapi - WARNING - Rate limited. Retrying after 60 seconds...
+2025-02-16 21:01:15 - fastapi - INFO - Data fetch successful for API function: interest_by_region, with parameters - Keywords: None, Timeframe: None, Geo: None
+2025-02-16 21:01:25 - fastapi - INFO - Data fetch successful for API function: interest_by_region, with parameters - Keywords: None, Timeframe: None, Geo: None
+2025-02-16 21:01:35 - fastapi - INFO - Data fetch successful for API function: interest_by_region, with parameters - Keywords: None, Timeframe: None, Geo: None
+2025-02-16 21:01:59 - fastapi - WARNING - Rate limited. Retrying after 60 seconds...
+2025-02-16 21:03:02 - fastapi - INFO - Data fetch successful for API function: interest_by_region, with parameters - Keywords: None, Timeframe: None, Geo: None
+2025-02-16 21:03:12 - fastapi - INFO - Data fetch successful for API function: interest_by_region, with parameters - Keywords: None, Timeframe: None, Geo: None
+2025-02-16 21:03:22 - fastapi - INFO - Data fetch successful for API function: interest_by_region, with parameters - Keywords: None, Timeframe: None, Geo: None
+2025-02-16 21:03:32 - fastapi - INFO - Data fetch successful for API function: interest_by_region, with parameters - Keywords: None, Timeframe: None, Geo: None
+2025-02-16 21:03:42 - fastapi - INFO - Data fetch successful for API function: interest_by_region, with parameters - Keywords: None, Timeframe: None, Geo: None
+2025-02-16 21:04:05 - fastapi - WARNING - Rate limited. Retrying after 60 seconds...
+2025-02-16 21:05:17 - fastapi - INFO - Data fetch successful for API function: interest_by_region, with parameters - Keywords: None, Timeframe: None, Geo: None
+2025-02-16 21:05:27 - fastapi - INFO - Data fetch successful for API function: interest_by_region, with parameters - Keywords: None, Timeframe: None, Geo: None
+2025-02-16 21:05:37 - fastapi - INFO - Data fetch successful for API function: interest_by_region, with parameters - Keywords: None, Timeframe: None, Geo: None
+2025-02-16 21:05:47 - fastapi - INFO - Data fetch successful for API function: interest_by_region, with parameters - Keywords: None, Timeframe: None, Geo: None
+2025-02-16 21:05:57 - fastapi - INFO - Data fetch successful for API function: interest_by_region, with parameters - Keywords: None, Timeframe: None, Geo: None
+2025-02-16 21:06:07 - fastapi - INFO - Data fetch successful for API function: interest_by_region, with parameters - Keywords: None, Timeframe: None, Geo: None
+2025-02-16 21:06:17 - fastapi - INFO - Data fetch successful for API function: interest_by_region, with parameters - Keywords: None, Timeframe: None, Geo: None
+2025-02-16 21:06:27 - fastapi - INFO - Data fetch successful for API function: interest_by_region, with parameters - Keywords: None, Timeframe: None, Geo: None
+2025-02-16 21:06:37 - fastapi - INFO - Data fetch successful for API function: interest_by_region, with parameters - Keywords: None, Timeframe: None, Geo: None
+2025-02-16 21:06:47 - fastapi - INFO - Data fetch successful for API function: interest_by_region, with parameters - Keywords: None, Timeframe: None, Geo: None
+2025-02-16 21:06:57 - fastapi - INFO - Data fetch successful for API function: interest_by_region, with parameters - Keywords: None, Timeframe: None, Geo: None
+2025-02-16 21:07:07 - fastapi - INFO - Data fetch successful for API function: interest_by_region, with parameters - Keywords: None, Timeframe: None, Geo: None
+2025-02-16 21:07:30 - fastapi - WARNING - Rate limited. Retrying after 60 seconds...
+2025-02-16 21:08:32 - fastapi - INFO - Data fetch successful for API function: interest_by_region, with parameters - Keywords: None, Timeframe: None, Geo: None
+2025-02-16 21:08:42 - fastapi - INFO - Data fetch successful for API function: interest_by_region, with parameters - Keywords: None, Timeframe: None, Geo: None
+2025-02-16 21:08:52 - fastapi - INFO - Data fetch successful for API function: interest_by_region, with parameters - Keywords: None, Timeframe: None, Geo: None
+2025-02-16 21:09:02 - fastapi - INFO - Data fetch successful for API function: interest_by_region, with parameters - Keywords: None, Timeframe: None, Geo: None
+2025-02-16 21:09:27 - fastapi - WARNING - Rate limited. Retrying after 60 seconds...
+2025-02-16 21:10:41 - fastapi - WARNING - Rate limited. Retrying after 60 seconds...
+2025-02-16 21:11:58 - fastapi - WARNING - Rate limited. Retrying after 60 seconds...
+2025-02-16 21:12:58 - fastapi - ERROR - Error: Max retries exceeded for API call
+2025-02-16 21:12:58 - apscheduler.executors.default - ERROR - Job "execute_historical_task (trigger: date[2025-02-16 12:59:38 UTC], next run at: 2025-02-16 12:59:38 UTC)" raised an exception
+Traceback (most recent call last):
+  File "c:\Users\a2450\Desktop\project\backend\trendsmicro\.venv\lib\site-packages\apscheduler\executors\base.py", line 131, in run_job
+    retval = job.func(*job.args, **job.kwargs)
+  File "C:\Users\a2450\Desktop\project\backend\trendsmicro\microservices\collector\src\core\jobs.py", line 51, in execute_historical_task
+    raise e  # 重新抛出异常以便APScheduler记录日志
+  File "C:\Users\a2450\Desktop\project\backend\trendsmicro\microservices\collector\src\core\jobs.py", line 35, in execute_historical_task
+    execute_task(
+  File "C:\Users\a2450\Desktop\project\backend\trendsmicro\microservices\collector\src\core\jobs.py", line 16, in execute_task
+    get_interest_by_region(keyword, geo_code, interval, start_date, end_date)
+  File "C:\Users\a2450\Desktop\project\backend\trendsmicro\microservices\collector\src\core\trends.py", line 85, in get_interest_by_region
+    region_data = _call_trends_api_with_retry(
+  File "C:\Users\a2450\Desktop\project\backend\trendsmicro\microservices\collector\src\core\trends.py", line 35, in _call_trends_api_with_retry
+    raise Exception("Max retries exceeded for API call")
+Exception: Max retries exceeded for API call

@@ -19,9 +19,9 @@ def _call_trends_api_with_retry(api_call_func, max_retries=3,**kwargs):
             response = api_call_func(**kwargs)
             logger.info(
                 f"Data fetch successful for API function: {api_call_func.__name__}, "
-                f"with parameters - Keywords: {kwargs.get('_keywords_')}, "
-                f"Timeframe: {kwargs.get('_timeframe_')}, "
-                f"Geo: {kwargs.get('_geo_')}"
+                f"with parameters - Keywords: {kwargs.get('keywords')}, "
+                f"Timeframe: {kwargs.get('timeframe')}, "
+                f"Geo: {kwargs.get('geo')}"
             )
             return response
         except HTTPError as e:
@@ -32,6 +32,7 @@ def _call_trends_api_with_retry(api_call_func, max_retries=3,**kwargs):
                 retries += 1
             else:
                 raise
+    
     raise Exception("Max retries exceeded for API call")
 
 settings = get_settings()
@@ -113,7 +114,7 @@ def get_interest_by_region(keyword: str, geo_code: str, interval: str, start_dat
             logger.error(f"Error: {str(e)}")
             history.status="failed"
             db.commit()
-            raise
+            
             
 def get_interest_over_time(keyword: str, geo_code: str, interval: str, start_date: str, end_date: str):
     db=next(get_db())
@@ -137,7 +138,7 @@ def get_interest_over_time(keyword: str, geo_code: str, interval: str, start_dat
         try:
             # 封装API调用并添加速率控制
             time_data = _call_trends_api_with_retry(
-                lambda: trends.interest_over_time(keyword, geo=geo_code, timeframe=timeframe)
+                trends.interest_over_time,max_retries=3,keywords=keyword, geo=geo_code, timeframe=timeframe
             )
             # 存储到数据库
             for date, row in time_data.iterrows():
@@ -156,4 +157,3 @@ def get_interest_over_time(keyword: str, geo_code: str, interval: str, start_dat
         except Exception as e:
             print(f"Error fetching/saving data for {keyword} ({geo_code}): {str(e)}")
             db.rollback()
-            raise e

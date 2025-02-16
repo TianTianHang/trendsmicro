@@ -65,7 +65,7 @@ async def register_service():
             if response.status_code != 200:
                 logger.warning("⚠️ 服务注册失败")
         except Exception as e:
-            logger.error(f"🚨 无法连接网关: {str(e)}")
+            logger.error(f"🚨 无法连接网关: {e}")
             
 @retry(stop=stop_after_attempt(3))
 async def deregister_service():
@@ -85,13 +85,13 @@ async def lifespan_handler(app: FastAPI):
     scheduler_manager.sync_job_status()
     try:
         await register_service()
-    except Exception as e:
-        logger.error(e)
+    except Exception:
+       pass
     yield
     try:
         await deregister_service()
-    except Exception as e:
-        logger.error(e)
+    except Exception:
+        pass
     scheduler_manager.scheduler.shutdown()
 
     

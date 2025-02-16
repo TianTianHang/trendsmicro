@@ -9,7 +9,7 @@ from api.dependencies.database import Base,engine
 from api.endpoints import interest
 from api.services.sync import SyncService
 from api.models.permission import RoutePermission, ServicePermissionsResponse
-from api.endpoints import predict
+from api.endpoints import cfc
 
 setting= get_settings()
 service_info = {
@@ -85,7 +85,7 @@ Base.metadata.create_all(bind=engine)
 app = FastAPI(title="Query API",lifespan=lifespan_handler)
 
 app.include_router(interest.router)
-app.include_router(predict.router)
+app.include_router(cfc.router)
 
 
 @app.get("/health")
