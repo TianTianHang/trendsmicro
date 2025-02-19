@@ -3,6 +3,8 @@ import lightning as L
 from ncps.torch import CfC
 from ncps.wirings import AutoNCP
 
+from api.dependencies.cfc import TaskStore
+
 class CfcPredictor(L.LightningModule):
     def __init__(self, input_size, units, hidden_size=64):
         super().__init__()
@@ -45,3 +47,22 @@ class CfcFit(L.LightningModule):
 
     def configure_optimizers(self):
         return torch.optim.Adam(self.parameters(), lr=1e-3)
+    
+class TrainingProgressCallback(L.Callback):
+    """Lightning回调函数，用于捕捉训练进度"""
+    
+    def __init__(self, task_id: str, total_epochs: int,task_store:TaskStore):
+        self.task_id = task_id
+        self.total_epochs = total_epochs
+        self.progress = 0.0
+        self.task_store=task_store
+    def on_train_epoch_end(self, trainer, pl_module):
+        """每个epoch结束时触发更新"""
+        current_epoch = trainer.current_epoch + 1  # epochs从0开始计数
+        new_progress = min(100.0, (current_epoch / self.total_epochs) * 100)
+        
+        # 更新数据库中的任务状态
+        self.task_store.update_task(
+            task_id=self.task_id,
+            progress=round(new_progress, 1),
+        )
