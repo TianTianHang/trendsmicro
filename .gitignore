@@ -4,3 +4,4 @@
 microservices/query/src/lightning_logs/*
 microservices/query/src/models/*
 */*.log
+microservices/query/src/data

@@ -10,3 +10,5 @@ ncps
 lightning
 pandas
 numpy
+geopandas
+pysal

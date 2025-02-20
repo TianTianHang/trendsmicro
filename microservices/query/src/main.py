@@ -10,6 +10,7 @@ from api.endpoints import interest
 from api.services.sync import SyncService
 from api.models.permission import RoutePermission, ServicePermissionsResponse
 from api.endpoints import cfc
+from api.endpoints import moran
 
 setting= get_settings()
 service_info = {
@@ -20,9 +21,9 @@ service_info = {
         "health_check_url": f"http://localhost:{setting.port}/health"
     }
 service_permissions = ServicePermissionsResponse(
-    service_name="trends_collector_interest",
+    service_name="query",
     permissions=[
-        # 区域兴趣相关
+        # Interest endpoints
         RoutePermission(
             path="/interest/region-interests/timeframes",
             required_permission=["user","admin"],
@@ -31,9 +32,34 @@ service_permissions = ServicePermissionsResponse(
             path="/interest/region-interests/geo-time-slices",
             required_permission=["user","admin"],
         ),
-        # 时间兴趣相关
         RoutePermission(
             path="/interest/time-interests/",
+            required_permission=["user","admin"],
+        ),
+        # CFC endpoints
+        RoutePermission(
+            path="/cfc/train",
+            required_permission=["user","admin"],
+        ),
+        RoutePermission(
+            path="/cfc/predict",
+            required_permission=["user","admin"],
+        ),
+        RoutePermission(
+            path="/cfc/fit",
+            required_permission=["user","admin"],
+        ),
+        RoutePermission(
+            path="/cfc/fit/{task_id}",
+            required_permission=["user","admin"],
+        ),
+        # Moran's I endpoints
+        RoutePermission(
+            path="/moran/global",
+            required_permission=["user","admin"],
+        ),
+        RoutePermission(
+            path="/moran/local",
             required_permission=["user","admin"],
         )
     ]
@@ -86,7 +112,7 @@ app = FastAPI(title="Query API",lifespan=lifespan_handler)
 
 app.include_router(interest.router)
 app.include_router(cfc.router)
-
+app.include_router(moran.router)
 
 @app.get("/health")
 async def health_check():
