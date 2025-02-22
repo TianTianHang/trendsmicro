@@ -1,12 +1,10 @@
 # app/utils/middleware.py
-import re
 from typing import Dict, List
 from fastapi import Request
 from fastapi.responses import JSONResponse
 import httpx
 from pydantic import BaseModel
 from starlette.middleware.base import BaseHTTPMiddleware
-from async_lru import alru_cache
 from config import get_settings
 # 需要过滤的headers列表
 SENSITIVE_HEADERS = {
@@ -26,21 +24,6 @@ class ServicePermissions(BaseModel):
     service_name: str
     permissions: Dict[str, RoutePermission]
 
-# 缓存服务权限配置
-@alru_cache(maxsize=32)
-async def get_service_permissions(service_url: str):
-    try:
-        # 向服务请求权限配置
-        permissions_url = f"{service_url}/permissions"
-        async with httpx.AsyncClient() as client:
-            response = await client.get(permissions_url)
-            if response.status_code == 200:
-                return response.json()
-            else:
-                return {}
-    except httpx.RequestError:
-        return {}
-    
 class GatewayMiddleware(BaseHTTPMiddleware):
     def __init__(self, app, registry, balancer):
         super().__init__(app)
@@ -82,76 +65,40 @@ class GatewayMiddleware(BaseHTTPMiddleware):
                 content={"message": f"No available instances for {service_name}"}
             )
         
-        # 4. 获取服务的权限配置
-        permissions = await get_service_permissions(service_url)
-        
-        # 获取当前请求的权限要求
-        service_permissions:list = permissions.get("permissions", {})
+        # 4. 调用权限服务进行token和权限校验
         current_path = '/' + '/'.join(path_parts[2:])
-        def path_to_regex(pattern: str) -> str:
-            """将路径模式转换为正则表达式"""
-            return re.sub(r'\{([^}]+)\}', r'(?P<\1>[^/]+)', pattern) + '$'
-
-        route_permission = None
-        for perm in service_permissions:
-            # 将权限配置中的路径转换为正则表达式
-            pattern = re.compile(path_to_regex(perm['path']))
-            if pattern.match(current_path):
-                route_permission = perm
-                break
-
-
-        # 5. 如果路径不需要权限控制（即 route_permission 为 None 或者 required_permission 为public）
-        if route_permission is None or route_permission['required_permission']==['public']:
-            # 不需要权限认证，直接转发请求
-            return await self._forward_request(request, call_next)
-        
-        # 4. 如果路径需要权限，检查是否有有效的 JWT Token
         auth_header = request.headers.get("Authorization")
-        if not auth_header or "Bearer " not in auth_header:
-            return JSONResponse(
-                status_code=401,
-                content={"message": "Missing or invalid Authorization header"}
-            )
-        token = auth_header.split("Bearer ")[-1]
-
-        # 5. 调用用户管理服务验证令牌
-        management_url = self.get_service_url_from_registry("user_management")
-        if not management_url:
+      
+        headers = {"Content-Type": "application/json", "Authorization": auth_header if auth_header else ""}
+        permission_service_url = self.get_service_url_from_registry("permission")
+        if not permission_service_url:
             return JSONResponse(
                 status_code=503,
-                content={"message": f"No available instances for {service_name}"}
+                content={"message": "Permission service unavailable"}
             )
         
-        verify_url = f"{management_url}/verify-token"
+        verify_permission_url = f"{permission_service_url}/verify-permission"
         try:
             async with httpx.AsyncClient() as client:
                 response = await client.post(
-                    verify_url,
-                    json={"token": token},
-                    headers={"Content-Type": "application/json"}
+                    verify_permission_url,
+                    json={"service_name": service_name, "path": current_path},
+                    headers=headers
                 )
+                user_info = response.json().get("user_info")
                 if response.status_code != 200:
                     return JSONResponse(
-                        status_code=401,
-                        content={"message": "Invalid or expired token"}
+                        status_code=response.status_code,
+                        content={"message": response.json().get("detail", "Permission denied")}
                     )
-                user_info = response.json()  # 包含用户ID、角色等信息
         except httpx.RequestError:
             return JSONResponse(
                 status_code=503,
-                content={"message": "User management service unavailable"}
+                content={"message": "Permission service unavailable"}
             )
-
-        # 8. 校验用户角色是否符合权限要求
-        if route_permission and user_info["role"] not in route_permission['required_permission']:
-            return JSONResponse(
-                status_code=403,
-                content={"message": f"Access to {request.url.path} requires one of the following roles: {', '.join(route_permission['required_permission'])}"}
-            )
-
+        
         #转发请求
-        return await self._forward_request(request, call_next, user_info)
+        return await self._forward_request(request, call_next,user_info)
             
     async def _forward_request(self, request: Request, call_next, user_info=None):
         """

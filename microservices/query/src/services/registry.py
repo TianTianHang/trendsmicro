@@ -1,5 +1,5 @@
 import consul
-from typing import Dict, List, Optional
+from typing import Dict, List
 from pydantic import BaseModel
 from datetime import datetime
 
@@ -8,7 +8,7 @@ class ServiceInstance(BaseModel):
     instance_id: str
     host: str
     port: int
-    health_check_url: str= None
+    health_check_url: str
     last_health_check: datetime = None
     is_healthy: bool = False
     heartbeat_interval: int = 30  # 服务主动上报间隔
@@ -25,7 +25,7 @@ class ConsulRegistry:
             address=instance.host,
             port=instance.port,
             check=consul.Check.http(
-                instance.health_check_url if instance.health_check_url else f"http://{instance.host}:{instance.port}/health",
+                f"http://{instance.host}:{instance.port}/health",
                 interval="10s"
             )
         )

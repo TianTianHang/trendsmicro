@@ -7,7 +7,8 @@ from apscheduler.schedulers.asyncio import AsyncIOScheduler
 from config import get_settings
 from api.dependencies.database import Base,engine
 from api.endpoints import interest
-from api.services.sync import SyncService
+from services.sync import SyncService
+from services.registry import ConsulRegistry
 from api.models.permission import RoutePermission, ServicePermissionsResponse
 from api.endpoints import cfc
 from api.endpoints import moran
@@ -20,6 +21,7 @@ service_info = {
         "port": setting.port,
         "health_check_url": f"http://localhost:{setting.port}/health"
     }
+ConsulRegistry=ConsulRegistry()
 service_permissions = ServicePermissionsResponse(
     service_name="query",
     permissions=[

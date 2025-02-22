@@ -5,7 +5,7 @@ from typing import List
 import uuid
 from fastapi import APIRouter, BackgroundTasks, HTTPException, Depends
 import torch
-from core.models.cfc import CfcFit, CfcPredictor, TrainingProgressCallback
+from core.fit.cfc import CfcFit, CfcPredictor, TrainingProgressCallback
 from api.utils.create_dataset import create_sliding_window
 from torch.utils.data import DataLoader,TensorDataset
 import lightning as L

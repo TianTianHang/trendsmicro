@@ -1,10 +1,110 @@
-services:
+version: '3.8'
 
-  microservice-dataacquisition:
-    build:
-      context: ../microservices/dataacquisition
-    container_name: trendsmicro-microservice-dataacquisition
+services:
+  # 原有服务保持不变
+  api-gateway:
+    build: ../microservices/api-gateway
     ports:
-      - "8000:8000"
+      - "8080:8000"
+    networks:
+      - microservices-net
     environment:
-      - DATABASE_URL=sqlite:///./test.db
+      - CONSUL_HOST=consul
+    depends_on:
+      - consul
+  
+  query:
+    build: ../microservices/query
+    ports:
+      - "8001:8000"
+    networks:
+      - microservices-net
+    environment:
+      - CONSUL_HOST=consul
+    depends_on:
+      - consul
+  
+  collector:
+    build: ../microservices/collector 
+    ports:
+      - "8002:8000"
+    networks:
+      - microservices-net
+    environment:
+      - CONSUL_HOST=consul
+      - PORT=8000
+    depends_on:
+      - consul
+  
+  user-management:
+    build: ../microservices/user_management
+    ports:
+      - "8003:8000"
+    networks:
+      - microservices-net
+    environment:
+      - CONSUL_HOST=consul
+      - PORT=8000
+    depends_on:
+      - consul
+
+  permission:
+    build: ../microservices/permission
+    ports:
+      - "8004:8000"
+    networks:
+      - microservices-net
+    environment:
+      - CONSUL_HOST=consul
+      - PORT=8000
+    depends_on:
+      - consul
+
+  # 新增基础设施服务
+  consul:
+    image: consul:1.15
+    ports:
+      - "8500:8500"
+    networks:
+      - microservices-net
+    command: agent -server -ui -node=consul-server -bootstrap-expect=1 -client=0.0.0.0
+
+  rabbitmq:
+    image: rabbitmq:3-management
+    ports:
+      - "5672:5672"
+      - "15672:15672"
+    networks:
+      - microservices-net
+    environment:
+      RABBITMQ_DEFAULT_USER: admin
+      RABBITMQ_DEFAULT_PASS: admin
+
+  prometheus:
+    image: prom/prometheus:latest
+    ports:
+      - "9090:9090"
+    volumes:
+      - ./prometheus.yml:/etc/prometheus/prometheus.yml
+    networks:
+      - microservices-net
+
+  elasticsearch:
+    image: docker.elastic.co/elasticsearch/elasticsearch:7.17.7
+    environment:
+      - discovery.type=single-node
+    networks:
+      - microservices-net
+
+  kibana:
+    image: docker.elastic.co/kibana/kibana:7.17.7
+    ports:
+      - "5601:5601"
+    networks:
+      - microservices-net
+    depends_on:
+      - elasticsearch
+
+networks:
+  microservices-net:
+    driver: bridge

@@ -1,0 +1,26 @@
+
+{
+    "service_name": "user_management",
+    "permissions":[
+        {
+            "path": "/register",
+            "required_permission": ["public"]
+        },
+        {
+            "path": "/token",
+            "required_permission": ["public"]
+        },
+        {
+            "path": "/users/me",
+            "required_permission": ["user", "admin"]
+        },
+        {
+            "path": "/users",
+            "required_permission": ["admin"]
+        },
+        {
+            "path": "/verify-token",
+            "required_permission": ["public"]
+        }
+    ]
+}

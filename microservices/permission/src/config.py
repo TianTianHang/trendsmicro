@@ -4,14 +4,11 @@ from pydantic_settings import BaseSettings
 from pathlib import Path
 
 class Settings(BaseSettings):
-    health_check_interval: int
-    service_timeout: int
+    database_url: str
     port: int
     consul_host: str = "localhost"
     consul_port: int = 8500
-    service_check_interval: str = "10s"
-    service_check_timeout: str = "1s"
-    service_tags: List[str] = ["api-gateway"]
+    service_tags: List[str] = ["permission"]
 
     class Config:
         env_file = Path(__file__).parent.parent / ".env"

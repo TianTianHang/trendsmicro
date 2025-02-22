@@ -1,28 +1,39 @@
 # app/main.py
+import socket
 from fastapi import FastAPI
 from contextlib import asynccontextmanager
-import asyncio
 
 import uvicorn
-from services.healthcheck import HealthChecker
+from services.registry import ServiceInstance
 from utils.middleware import GatewayMiddleware
 from endpoints import api
 from config import get_settings
-from core import registry,balancer
+from core import registry, balancer
+
+
 setting = get_settings()
+hostname=socket.gethostname()
+# 注册服务到Consul
+instance = ServiceInstance(
+        service_name="api-gateway",
+        instance_id=f"api-gateway-{hostname}",
+        host=hostname,
+        port=setting.port,
+        health_check_url=f"http://{hostname}:{setting.port}/_internal/health"
+    )
 
 @asynccontextmanager
 async def lifespan(app: FastAPI):
+   
     
-    # 启动健康检查
-    checker = HealthChecker(registry)
-    asyncio.create_task(checker.start()) 
+    registry.register(instance)
     yield
+    # 注销服务
+    registry.deregister(instance.service_name, instance.instance_id)
     
 
 app = FastAPI(lifespan=lifespan)
 app.include_router(api.router)
-# 添加中间件（必须放在路由注册之后）
 app.add_middleware(
     GatewayMiddleware,
     registry=registry,

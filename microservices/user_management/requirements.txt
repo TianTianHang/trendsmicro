@@ -1,3 +1,5 @@
+fastapi
+uvicorn
 sqlalchemy
 python-dotenv
 PyYAML
@@ -9,3 +11,4 @@ bcrypt==4.0.1
 passlib[bcrypt]
 python-jose[cryptography]
 python-multipart
+python-consul
