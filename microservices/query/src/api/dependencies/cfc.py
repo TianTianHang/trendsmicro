@@ -1,7 +1,5 @@
 from sqlalchemy.orm import Session
-from fastapi import Depends
-from api.dependencies.database import get_db
-from api.models.task import Task
+from api.models.torch_task import Task
 import torch
 
 class TaskStore:
@@ -41,4 +39,6 @@ class TaskStore:
         return task
     def close(self):
         self.db.close()
+        
+        
 MODEL_STORE: dict[str, torch.nn.Module] = {}  # 暂时保留内存存储，后续可改为数据库存储

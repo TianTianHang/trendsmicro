@@ -1,4 +1,4 @@
-FROM python:3.9-slim
+FROM python:3.10-slim
 
 WORKDIR /app
 
@@ -6,11 +6,12 @@ WORKDIR /app
 RUN apt-get update && apt-get install -y gcc && rm -rf /var/lib/apt/lists/*
 
 # 安装Python依赖
-COPY query/requirements.txt .
+COPY ./requirements.txt .
 RUN pip install --no-cache-dir -r requirements.txt
 
 # 拷贝代码
-COPY query/src/ ./src/
-COPY config/ ./config/
-
-CMD ["python", "src/main.py"]
+COPY ./src/ ./src/
+COPY .env ./.env
+COPY ./src/query.db ./src/query.db
+WORKDIR /app/src
+CMD ["python", "main.py"]

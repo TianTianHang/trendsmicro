@@ -1,6 +1,6 @@
 from datetime import timedelta
 from typing import Annotated
-from fastapi import APIRouter, Depends, HTTPException,status
+from fastapi import APIRouter, Depends, HTTPException, status
 from fastapi.security import OAuth2PasswordRequestForm
 from pydantic import BaseModel
 from sqlalchemy.orm import Session
@@ -9,7 +9,6 @@ from api.dependencies.database import get_db
 from api.utils.auth import create_access_token, get_current_active_admin, get_current_user, get_password_hash, verify_password
 from config import get_settings
 from jose import JWTError, jwt
-
 
 router = APIRouter()
 setting = get_settings()
@@ -56,7 +55,7 @@ def login(form_data: Annotated[OAuth2PasswordRequestForm, Depends()], db: Sessio
     
     access_token_expires = timedelta(minutes=setting.access_token_expire_minutes)
     access_token = create_access_token(
-        data={"sub": user.username}, expires_delta=access_token_expires
+        data={"sub": user.username,"role":user.role.value}, expires_delta=access_token_expires
     )
     return {"access_token": access_token, "token_type": "bearer"}
 
@@ -95,3 +94,9 @@ async def verify_token(req: TokenValidationRequest, db: Session = Depends(get_db
         }
     except JWTError:
         raise HTTPException(status_code=401, detail="Token validation failed")
+
+@router.get("/public-key")
+async def get_public_key():
+    with open(setting.public_key_path, "r") as key_file:
+        public_key = key_file.read()
+    return {"public_key": public_key}

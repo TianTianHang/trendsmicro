@@ -1,36 +1,130 @@
-2025-02-13 22:41:51 - apscheduler.scheduler - INFO - Scheduler started
-2025-02-13 22:41:52 - httpx - INFO - HTTP Request: POST http://localhost:8000/_internal/register "HTTP/1.1 502 Bad Gateway"
-2025-02-13 22:46:54 - apscheduler.scheduler - INFO - Scheduler started
-2025-02-13 22:50:15 - apscheduler.scheduler - INFO - Scheduler started
-2025-02-13 22:50:20 - httpx - INFO - HTTP Request: POST http://localhost:8000/_internal/register "HTTP/1.1 502 Bad Gateway"
-2025-02-13 22:50:27 - apscheduler.scheduler - INFO - Added job "execute_historical_task" to job store "default"
-2025-02-13 22:50:27 - apscheduler.executors.default - INFO - Running job "execute_historical_task (trigger: date[2025-02-13 14:50:27 UTC], next run at: 2025-02-13 14:50:27 UTC)" (scheduled at 2025-02-13 14:50:27.065840+00:00)
-2025-02-13 22:50:27 - apscheduler.scheduler - INFO - Removed job historical_1
-2025-02-13 22:50:27 - fastapi - INFO - 开始采集数据
-2025-02-13 22:50:27 - fastapi - ERROR - 数据已存在或冲突: (sqlite3.IntegrityError) UNIQUE constraint failed: request_history.keyword, request_history.job_type, request_history.geo_code, request_history.timeframe_start, request_history.timeframe_end
-[SQL: INSERT INTO request_history (job_type, keyword, geo_code, timeframe_start, timeframe_end, created_at, status) VALUES (?, ?, ?, ?, ?, ?, ?)]
-[parameters: ('region', '/m/04h9h', '', '2004-01-01', '2004-02-01', '2025-02-13', 'created')]
+2025-02-23 14:59:49 - apscheduler.scheduler - INFO - Scheduler started
+2025-02-23 16:39:29 - apscheduler.scheduler - INFO - Scheduler started
+2025-02-23 16:57:38 - apscheduler.scheduler - INFO - Scheduler started
+2025-02-23 16:58:45 - apscheduler.scheduler - INFO - Scheduler started
+2025-02-23 16:59:20 - apscheduler.scheduler - INFO - Added job "execute_historical_task" to job store "default"
+2025-02-23 16:59:20 - apscheduler.executors.default - INFO - Running job "execute_historical_task (trigger: date[2025-02-23 08:59:20 UTC], next run at: 2025-02-23 08:59:20 UTC)" (scheduled at 2025-02-23 08:59:20.114674+00:00)
+2025-02-23 16:59:20 - apscheduler.scheduler - INFO - Removed job historical_1
+2025-02-23 16:59:20 - fastapi - INFO - 开始采集数据
+2025-02-23 16:59:20 - apscheduler.executors.default - ERROR - Job "execute_historical_task (trigger: date[2025-02-23 08:59:20 UTC], next run at: 2025-02-23 08:59:20 UTC)" raised an exception
+Traceback (most recent call last):
+  File "c:\Users\a2450\Desktop\project\backend\trendsmicro\.venv\lib\site-packages\apscheduler\executors\base.py", line 131, in run_job
+    retval = job.func(*job.args, **job.kwargs)
+  File "C:\Users\a2450\Desktop\project\backend\trendsmicro\microservices\collector\src\core\jobs.py", line 49, in execute_historical_task
+    raise e  # 重新抛出异常以便APScheduler记录日志
+  File "C:\Users\a2450\Desktop\project\backend\trendsmicro\microservices\collector\src\core\jobs.py", line 33, in execute_historical_task
+    execute_task(
+  File "C:\Users\a2450\Desktop\project\backend\trendsmicro\microservices\collector\src\core\jobs.py", line 16, in execute_task
+    get_interest_over_time(keywords, geo_code, interval, start_date, end_date)
+  File "C:\Users\a2450\Desktop\project\backend\trendsmicro\microservices\collector\src\core\trends.py", line 125, in get_interest_over_time
+    timeframe_start = datetime.strptime(start, "%Y-%m-%d %H:%M:%S")
+  File "C:\Users\a2450\scoop\apps\python310\3.10.11\lib\_strptime.py", line 568, in _strptime_datetime
+    tt, fraction, gmtoff_fraction = _strptime(data_string, format)
+  File "C:\Users\a2450\scoop\apps\python310\3.10.11\lib\_strptime.py", line 349, in _strptime
+    raise ValueError("time data %r does not match format %r" %
+ValueError: time data '2025-01-01' does not match format '%Y-%m-%d %H:%M:%S'
+2025-02-23 17:01:55 - apscheduler.scheduler - INFO - Scheduler started
+2025-02-23 17:02:07 - apscheduler.scheduler - INFO - Added job "execute_historical_task" to job store "default"
+2025-02-23 17:02:07 - apscheduler.executors.default - INFO - Running job "execute_historical_task (trigger: date[2025-02-23 09:02:07 UTC], next run at: 2025-02-23 09:02:07 UTC)" (scheduled at 2025-02-23 09:02:07.959934+00:00)
+2025-02-23 17:02:08 - apscheduler.scheduler - INFO - Removed job historical_1
+2025-02-23 17:02:08 - fastapi - INFO - 开始采集数据
+2025-02-23 17:02:08 - apscheduler.executors.default - ERROR - Job "execute_historical_task (trigger: date[2025-02-23 09:02:07 UTC], next run at: 2025-02-23 09:02:07 UTC)" raised an exception
+Traceback (most recent call last):
+  File "c:\Users\a2450\Desktop\project\backend\trendsmicro\.venv\lib\site-packages\apscheduler\executors\base.py", line 131, in run_job
+    retval = job.func(*job.args, **job.kwargs)
+  File "C:\Users\a2450\Desktop\project\backend\trendsmicro\microservices\collector\src\core\jobs.py", line 49, in execute_historical_task
+    raise e  # 重新抛出异常以便APScheduler记录日志
+  File "C:\Users\a2450\Desktop\project\backend\trendsmicro\microservices\collector\src\core\jobs.py", line 33, in execute_historical_task
+    execute_task(
+  File "C:\Users\a2450\Desktop\project\backend\trendsmicro\microservices\collector\src\core\jobs.py", line 16, in execute_task
+    get_interest_over_time(keywords, geo_code, interval, start_date, end_date)
+  File "C:\Users\a2450\Desktop\project\backend\trendsmicro\microservices\collector\src\core\trends.py", line 125, in get_interest_over_time
+    timeframe_start = datetime.strptime(start, "%Y-%m-%d %H:%M:%S")
+  File "C:\Users\a2450\scoop\apps\python310\3.10.11\lib\_strptime.py", line 568, in _strptime_datetime
+    tt, fraction, gmtoff_fraction = _strptime(data_string, format)
+  File "C:\Users\a2450\scoop\apps\python310\3.10.11\lib\_strptime.py", line 349, in _strptime
+    raise ValueError("time data %r does not match format %r" %
+ValueError: time data '2025-01-01' does not match format '%Y-%m-%d %H:%M:%S'
+2025-02-23 17:04:04 - apscheduler.scheduler - INFO - Scheduler started
+2025-02-23 17:04:12 - apscheduler.scheduler - INFO - Added job "execute_historical_task" to job store "default"
+2025-02-23 17:04:12 - apscheduler.executors.default - INFO - Running job "execute_historical_task (trigger: date[2025-02-23 09:04:12 UTC], next run at: 2025-02-23 09:04:12 UTC)" (scheduled at 2025-02-23 09:04:12.533295+00:00)
+2025-02-23 17:04:12 - apscheduler.scheduler - INFO - Removed job historical_2
+2025-02-23 17:04:12 - fastapi - INFO - 开始采集数据
+2025-02-23 17:04:23 - fastapi - INFO - Data fetch successful for API function: interest_over_time, with parameters - Keywords: ['Gulf of Mexico', 'Gulf of America'], Timeframe: 2025-01-01 2025-02-18, Geo: 
+2025-02-23 17:04:23 - fastapi - ERROR - Error: strptime() argument 1 must be str, not Timestamp
+2025-02-23 17:04:23 - fastapi - INFO - 采集数据结束
+2025-02-23 17:04:23 - apscheduler.executors.default - INFO - Job "execute_historical_task (trigger: date[2025-02-23 09:04:12 UTC], next run at: 2025-02-23 09:04:12 UTC)" executed successfully
+2025-02-23 17:05:51 - apscheduler.scheduler - INFO - Added job "execute_historical_task" to job store "default"
+2025-02-23 17:05:51 - apscheduler.executors.default - INFO - Running job "execute_historical_task (trigger: date[2025-02-23 09:05:51 UTC], next run at: 2025-02-23 09:05:51 UTC)" (scheduled at 2025-02-23 09:05:51.325064+00:00)
+2025-02-23 17:05:51 - apscheduler.scheduler - INFO - Removed job historical_1
+2025-02-23 17:05:51 - fastapi - INFO - 开始采集数据
+2025-02-23 17:05:53 - fastapi - INFO - Data fetch successful for API function: interest_over_time, with parameters - Keywords: ['Gulf of Mexico', 'Gulf of America'], Timeframe: 2025-01-01 2025-02-18, Geo: 
+2025-02-23 17:12:23 - apscheduler.scheduler - INFO - Scheduler started
+2025-02-23 17:12:59 - apscheduler.scheduler - INFO - Added job "execute_historical_task" to job store "default"
+2025-02-23 17:12:59 - apscheduler.executors.default - INFO - Running job "execute_historical_task (trigger: date[2025-02-23 09:12:59 UTC], next run at: 2025-02-23 09:12:59 UTC)" (scheduled at 2025-02-23 09:12:59.062125+00:00)
+2025-02-23 17:12:59 - apscheduler.scheduler - INFO - Removed job historical_1
+2025-02-23 17:12:59 - fastapi - INFO - 开始采集数据
+2025-02-23 17:13:23 - fastapi - WARNING - Rate limited. Retrying after 60 seconds...
+2025-02-23 17:14:25 - fastapi - INFO - Data fetch successful for API function: interest_over_time, with parameters - Keywords: ['Gulf of Mexico', 'Gulf of America'], Timeframe: 2025-01-01 2025-02-18, Geo: 
+2025-02-23 17:14:25 - fastapi - ERROR - Error: 'isPartial'
+2025-02-23 17:14:25 - fastapi - INFO - 采集数据结束
+2025-02-23 17:14:25 - apscheduler.executors.default - INFO - Job "execute_historical_task (trigger: date[2025-02-23 09:12:59 UTC], next run at: 2025-02-23 09:12:59 UTC)" executed successfully
+2025-02-23 17:15:21 - apscheduler.scheduler - INFO - Added job "execute_historical_task" to job store "default"
+2025-02-23 17:15:21 - apscheduler.executors.default - INFO - Running job "execute_historical_task (trigger: date[2025-02-23 09:15:21 UTC], next run at: 2025-02-23 09:15:21 UTC)" (scheduled at 2025-02-23 09:15:21.270976+00:00)
+2025-02-23 17:15:21 - apscheduler.scheduler - INFO - Removed job historical_1
+2025-02-23 17:15:21 - fastapi - INFO - 开始采集数据
+2025-02-23 17:15:22 - fastapi - INFO - Data fetch successful for API function: interest_over_time, with parameters - Keywords: ['Gulf of Mexico', 'Gulf of America'], Timeframe: 2025-01-01 2025-02-18, Geo: 
+2025-02-23 17:17:24 - fastapi - ERROR - Error: 'isPartial'
+2025-02-23 17:17:24 - fastapi - INFO - 采集数据结束
+2025-02-23 17:17:24 - apscheduler.executors.default - INFO - Job "execute_historical_task (trigger: date[2025-02-23 09:15:21 UTC], next run at: 2025-02-23 09:15:21 UTC)" executed successfully
+2025-02-23 17:17:48 - apscheduler.scheduler - INFO - Added job "execute_historical_task" to job store "default"
+2025-02-23 17:17:48 - apscheduler.executors.default - INFO - Running job "execute_historical_task (trigger: date[2025-02-23 09:17:48 UTC], next run at: 2025-02-23 09:17:48 UTC)" (scheduled at 2025-02-23 09:17:48.749147+00:00)
+2025-02-23 17:17:48 - apscheduler.scheduler - INFO - Removed job historical_1
+2025-02-23 17:17:48 - fastapi - INFO - 开始采集数据
+2025-02-23 17:17:50 - fastapi - INFO - Data fetch successful for API function: interest_over_time, with parameters - Keywords: ['Gulf of Mexico', 'Gulf of America'], Timeframe: 2025-01-01 2025-02-18, Geo: 
+2025-02-23 17:17:53 - fastapi - ERROR - Error: 'isPartial'
+2025-02-23 17:17:53 - fastapi - INFO - 采集数据结束
+2025-02-23 17:17:53 - apscheduler.executors.default - INFO - Job "execute_historical_task (trigger: date[2025-02-23 09:17:48 UTC], next run at: 2025-02-23 09:17:48 UTC)" executed successfully
+2025-02-23 17:18:16 - apscheduler.scheduler - INFO - Scheduler started
+2025-02-23 17:18:32 - apscheduler.scheduler - INFO - Added job "execute_historical_task" to job store "default"
+2025-02-23 17:18:32 - apscheduler.executors.default - INFO - Running job "execute_historical_task (trigger: date[2025-02-23 09:18:32 UTC], next run at: 2025-02-23 09:18:32 UTC)" (scheduled at 2025-02-23 09:18:32.520298+00:00)
+2025-02-23 17:18:32 - apscheduler.scheduler - INFO - Removed job historical_1
+2025-02-23 17:18:32 - fastapi - INFO - 开始采集数据
+2025-02-23 17:18:43 - fastapi - INFO - Data fetch successful for API function: interest_over_time, with parameters - Keywords: ['Gulf of Mexico', 'Gulf of America'], Timeframe: 2025-01-01 2025-02-18, Geo: 
+2025-02-23 17:18:43 - fastapi - ERROR - Error: (builtins.TypeError) SQLite DateTime type only accepts Python datetime and date objects as input.
+[SQL: INSERT INTO time_interest (keywords, geo_code, time, "values", is_partial) VALUES (?, ?, ?, ?, ?) RETURNING id]
+[parameters: [{'geo_code': '', 'values': [np.int64(1), np.int64(0)], 'time': '2025-01-01 00:00:00', 'is_partial': False, 'keywords': ['Gulf of Mexico', 'Gulf of America']}, {'geo_code': '', 'values': [np.int64(1), np.int64(0)], 'time': '2025-01-02 00:00:00', 'is_partial': False, 'keywords': ['Gulf of Mexico', 'Gulf of America']}, {'geo_code': '', 'values': [np.int64(1), np.int64(0)], 'time': '2025-01-03 00:00:00', 'is_partial': False, 'keywords': ['Gulf of Mexico', 'Gulf of America']}, {'geo_code': '', 'values': [np.int64(1), np.int64(0)], 'time': '2025-01-04 00:00:00', 'is_partial': False, 'keywords': ['Gulf of Mexico', 'Gulf of America']}, {'geo_code': '', 'values': [np.int64(1), np.int64(0)], 'time': '2025-01-05 00:00:00', 'is_partial': False, 'keywords': ['Gulf of Mexico', 'Gulf of America']}, {'geo_code': '', 'values': [np.int64(1), np.int64(0)], 'time': '2025-01-06 00:00:00', 'is_partial': False, 'keywords': ['Gulf of Mexico', 'Gulf of America']}, {'geo_code': '', 'values': [np.int64(26), np.int64(14)], 'time': '2025-01-07 00:00:00', 'is_partial': False, 'keywords': ['Gulf of Mexico', 'Gulf of America']}, {'geo_code': '', 'values': [np.int64(32), np.int64(14)], 'time': '2025-01-08 00:00:00', 'is_partial': False, 'keywords': ['Gulf of Mexico', 'Gulf of America']}, {'geo_code': '', 'values': [np.int64(12), np.int64(6)], 'time': '2025-01-09 00:00:00', 'is_partial': False, 'keywords': ['Gulf of Mexico', 'Gulf of America']}, {'geo_code': '', 'values': [np.int64(6), np.int64(2)], 'time': '2025-01-10 00:00:00', 'is_partial': False, 'keywords': ['Gulf of Mexico', 'Gulf of America']}, {'geo_code': '', 'values': [np.int64(4), np.int64(1)], 'time': '2025-01-11 00:00:00', 'is_partial': False, 'keywords': ['Gulf of Mexico', 'Gulf of America']}, {'geo_code': '', 'values': [np.int64(3), np.int64(1)], 'time': '2025-01-12 00:00:00', 'is_partial': False, 'keywords': ['Gulf of Mexico', 'Gulf of America']}, {'geo_code': '', 'values': [np.int64(2), np.int64(1)], 'time': '2025-01-13 00:00:00', 'is_partial': False, 'keywords': ['Gulf of Mexico', 'Gulf of America']}, {'geo_code': '', 'values': [np.int64(2), np.int64(1)], 'time': '2025-01-14 00:00:00', 'is_partial': False, 'keywords': ['Gulf of Mexico', 'Gulf of America']}, {'geo_code': '', 'values': [np.int64(2), np.int64(1)], 'time': '2025-01-15 00:00:00', 'is_partial': False, 'keywords': ['Gulf of Mexico', 'Gulf of America']}, {'geo_code': '', 'values': [np.int64(1), np.int64(0)], 'time': '2025-01-16 00:00:00', 'is_partial': False, 'keywords': ['Gulf of Mexico', 'Gulf of America']}, {'geo_code': '', 'values': [np.int64(2), np.int64(0)], 'time': '2025-01-17 00:00:00', 'is_partial': False, 'keywords': ['Gulf of Mexico', 'Gulf of America']}, {'geo_code': '', 'values': [np.int64(2), np.int64(0)], 'time': '2025-01-18 00:00:00', 'is_partial': False, 'keywords': ['Gulf of Mexico', 'Gulf of America']}, {'geo_code': '', 'values': [np.int64(2), np.int64(0)], 'time': '2025-01-19 00:00:00', 'is_partial': False, 'keywords': ['Gulf of Mexico', 'Gulf of America']}, {'geo_code': '', 'values': [np.int64(33), np.int64(16)], 'time': '2025-01-20 00:00:00', 'is_partial': False, 'keywords': ['Gulf of Mexico', 'Gulf of America']}, {'geo_code': '', 'values': [np.int64(46), np.int64(36)], 'time': '2025-01-21 00:00:00', 'is_partial': False, 'keywords': ['Gulf of Mexico', 'Gulf of America']}, {'geo_code': '', 'values': [np.int64(23), np.int64(19)], 'time': '2025-01-22 00:00:00', 'is_partial': False, 'keywords': ['Gulf of Mexico', 'Gulf of America']}, {'geo_code': '', 'values': [np.int64(13), np.int64(11)], 'time': '2025-01-23 00:00:00', 'is_partial': False, 'keywords': ['Gulf of Mexico', 'Gulf of America']}, {'geo_code': '', 'values': [np.int64(10), np.int64(8)], 'time': '2025-01-24 00:00:00', 'is_partial': False, 'keywords': ['Gulf of Mexico', 'Gulf of America']}, {'geo_code': '', 'values': [np.int64(15), np.int64(15)], 'time': '2025-01-25 00:00:00', 'is_partial': False, 'keywords': ['Gulf of Mexico', 'Gulf of America']}, {'geo_code': '', 'values': [np.int64(12), np.int64(10)], 'time': '2025-01-26 00:00:00', 'is_partial': False, 'keywords': ['Gulf of Mexico', 'Gulf of America']}, {'geo_code': '', 'values': [np.int64(8), np.int64(7)], 'time': '2025-01-27 00:00:00', 'is_partial': False, 'keywords': ['Gulf of Mexico', 'Gulf of America']}, {'geo_code': '', 'values': [np.int64(28), np.int64(24)], 'time': '2025-01-28 00:00:00', 'is_partial': False, 'keywords': ['Gulf of Mexico', 'Gulf of America']}, {'geo_code': '', 'values': [np.int64(17), np.int64(15)], 'time': '2025-01-29 00:00:00', 'is_partial': False, 'keywords': ['Gulf of Mexico', 'Gulf of America']}, {'geo_code': '', 'values': [np.int64(10), np.int64(8)], 'time': '2025-01-30 00:00:00', 'is_partial': False, 'keywords': ['Gulf of Mexico', 'Gulf of America']}, {'geo_code': '', 'values': [np.int64(8), np.int64(7)], 'time': '2025-01-31 00:00:00', 'is_partial': False, 'keywords': ['Gulf of Mexico', 'Gulf of America']}, {'geo_code': '', 'values': [np.int64(6), np.int64(6)], 'time': '2025-02-01 00:00:00', 'is_partial': False, 'keywords': ['Gulf of Mexico', 'Gulf of America']}, {'geo_code': '', 'values': [np.int64(6), np.int64(6)], 'time': '2025-02-02 00:00:00', 'is_partial': False, 'keywords': ['Gulf of Mexico', 'Gulf of America']}, {'geo_code': '', 'values': [np.int64(5), np.int64(5)], 'time': '2025-02-03 00:00:00', 'is_partial': False, 'keywords': ['Gulf of Mexico', 'Gulf of America']}, {'geo_code': '', 'values': [np.int64(4), np.int64(4)], 'time': '2025-02-04 00:00:00', 'is_partial': False, 'keywords': ['Gulf of Mexico', 'Gulf of America']}, {'geo_code': '', 'values': [np.int64(4), np.int64(3)], 'time': '2025-02-05 00:00:00', 'is_partial': False, 'keywords': ['Gulf of Mexico', 'Gulf of America']}, {'geo_code': '', 'values': [np.int64(3), np.int64(3)], 'time': '2025-02-06 00:00:00', 'is_partial': False, 'keywords': ['Gulf of Mexico', 'Gulf of America']}, {'geo_code': '', 'values': [np.int64(3), np.int64(3)], 'time': '2025-02-07 00:00:00', 'is_partial': False, 'keywords': ['Gulf of Mexico', 'Gulf of America']}, {'geo_code': '', 'values': [np.int64(3), np.int64(3)], 'time': '2025-02-08 00:00:00', 'is_partial': False, 'keywords': ['Gulf of Mexico', 'Gulf of America']}, {'geo_code': '', 'values': [np.int64(5), np.int64(8)], 'time': '2025-02-09 00:00:00', 'is_partial': False, 'keywords': ['Gulf of Mexico', 'Gulf of America']}, {'geo_code': '', 'values': [np.int64(18), np.int64(35)], 'time': '2025-02-10 00:00:00', 'is_partial': False, 'keywords': ['Gulf of Mexico', 'Gulf of America']}, {'geo_code': '', 'values': [np.int64(75), np.int64(69)], 'time': '2025-02-11 00:00:00', 'is_partial': False, 'keywords': ['Gulf of Mexico', 'Gulf of America']}, {'geo_code': '', 'values': [np.int64(100), np.int64(43)], 'time': '2025-02-12 00:00:00', 'is_partial': False, 'keywords': ['Gulf of Mexico', 'Gulf of America']}, {'geo_code': '', 'values': [np.int64(82), np.int64(29)], 'time': '2025-02-13 00:00:00', 'is_partial': False, 'keywords': ['Gulf of Mexico', 'Gulf of America']}, {'geo_code': '', 'values': [np.int64(46), np.int64(16)], 'time': '2025-02-14 00:00:00', 'is_partial': False, 'keywords': ['Gulf of Mexico', 'Gulf of America']}, {'geo_code': '', 'values': [np.int64(30), np.int64(12)], 'time': '2025-02-15 00:00:00', 'is_partial': False, 'keywords': ['Gulf of Mexico', 'Gulf of America']}, {'geo_code': '', 'values': [np.int64(23), np.int64(9)], 'time': '2025-02-16 00:00:00', 'is_partial': False, 'keywords': ['Gulf of Mexico', 'Gulf of America']}, {'geo_code': '', 'values': [np.int64(16), np.int64(7)], 'time': '2025-02-17 00:00:00', 'is_partial': False, 'keywords': ['Gulf of Mexico', 'Gulf of America']}, {'geo_code': '', 'values': [np.int64(16), np.int64(7)], 'time': '2025-02-18 00:00:00', 'is_partial': False, 'keywords': ['Gulf of Mexico', 'Gulf of America']}]]
+2025-02-23 17:18:43 - fastapi - INFO - 采集数据结束
+2025-02-23 17:18:43 - apscheduler.executors.default - INFO - Job "execute_historical_task (trigger: date[2025-02-23 09:18:32 UTC], next run at: 2025-02-23 09:18:32 UTC)" executed successfully
+2025-02-23 17:21:58 - apscheduler.scheduler - INFO - Scheduler started
+2025-02-23 17:22:06 - apscheduler.scheduler - INFO - Added job "execute_historical_task" to job store "default"
+2025-02-23 17:22:06 - apscheduler.executors.default - INFO - Running job "execute_historical_task (trigger: date[2025-02-23 09:22:06 UTC], next run at: 2025-02-23 09:22:06 UTC)" (scheduled at 2025-02-23 09:22:06.355900+00:00)
+2025-02-23 17:22:06 - apscheduler.scheduler - INFO - Removed job historical_2
+2025-02-23 17:22:06 - fastapi - INFO - 开始采集数据
+2025-02-23 17:22:06 - fastapi - ERROR - 数据已存在或冲突: (sqlite3.IntegrityError) UNIQUE constraint failed: request_history.keywords, request_history.job_type, request_history.geo_code, request_history.timeframe_start, request_history.timeframe_end
+[SQL: INSERT INTO request_history (job_type, keywords, geo_code, timeframe_start, timeframe_end, created_at, status) VALUES (?, ?, ?, ?, ?, ?, ?)]
+[parameters: ('time', '["Gulf of Mexico", "Gulf of America"]', '', '2025-01-01', '2025-02-18', '2025-02-23', 'created')]
 (Background on this error at: https://sqlalche.me/e/20/gkpj)
-2025-02-13 22:50:27 - apscheduler.executors.default - ERROR - Job "execute_historical_task (trigger: date[2025-02-13 14:50:27 UTC], next run at: 2025-02-13 14:50:27 UTC)" raised an exception
+2025-02-23 17:22:06 - apscheduler.executors.default - ERROR - Job "execute_historical_task (trigger: date[2025-02-23 09:22:06 UTC], next run at: 2025-02-23 09:22:06 UTC)" raised an exception
 Traceback (most recent call last):
   File "c:\Users\a2450\Desktop\project\backend\trendsmicro\.venv\lib\site-packages\sqlalchemy\engine\base.py", line 1964, in _exec_single_context
     self.dialect.do_execute(
   File "c:\Users\a2450\Desktop\project\backend\trendsmicro\.venv\lib\site-packages\sqlalchemy\engine\default.py", line 942, in do_execute
     cursor.execute(statement, parameters)
-sqlite3.IntegrityError: UNIQUE constraint failed: request_history.keyword, request_history.job_type, request_history.geo_code, request_history.timeframe_start, request_history.timeframe_end
+sqlite3.IntegrityError: UNIQUE constraint failed: request_history.keywords, request_history.job_type, request_history.geo_code, request_history.timeframe_start, request_history.timeframe_end
 
 The above exception was the direct cause of the following exception:
 
 Traceback (most recent call last):
   File "c:\Users\a2450\Desktop\project\backend\trendsmicro\.venv\lib\site-packages\apscheduler\executors\base.py", line 131, in run_job
     retval = job.func(*job.args, **job.kwargs)
-  File "C:\Users\a2450\Desktop\project\backend\trendsmicro\microservices\collector\src\core\jobs.py", line 51, in execute_historical_task
+  File "C:\Users\a2450\Desktop\project\backend\trendsmicro\microservices\collector\src\core\jobs.py", line 49, in execute_historical_task
     raise e  # 重新抛出异常以便APScheduler记录日志
-  File "C:\Users\a2450\Desktop\project\backend\trendsmicro\microservices\collector\src\core\jobs.py", line 35, in execute_historical_task
+  File "C:\Users\a2450\Desktop\project\backend\trendsmicro\microservices\collector\src\core\jobs.py", line 33, in execute_historical_task
     execute_task(
   File "C:\Users\a2450\Desktop\project\backend\trendsmicro\microservices\collector\src\core\jobs.py", line 16, in execute_task
-    get_interest_by_region(keyword, geo_code, interval, start_date, end_date)
-  File "C:\Users\a2450\Desktop\project\backend\trendsmicro\microservices\collector\src\core\trends.py", line 77, in get_interest_by_region
+    get_interest_over_time(keywords, geo_code, interval, start_date, end_date)
+  File "C:\Users\a2450\Desktop\project\backend\trendsmicro\microservices\collector\src\core\trends.py", line 150, in get_interest_over_time
     db.commit()
   File "c:\Users\a2450\Desktop\project\backend\trendsmicro\.venv\lib\site-packages\sqlalchemy\orm\session.py", line 2032, in commit
     trans.commit(_to_root=True)
@@ -76,411 +170,78 @@ Traceback (most recent call last):
     self.dialect.do_execute(
   File "c:\Users\a2450\Desktop\project\backend\trendsmicro\.venv\lib\site-packages\sqlalchemy\engine\default.py", line 942, in do_execute
     cursor.execute(statement, parameters)
-sqlalchemy.exc.IntegrityError: (sqlite3.IntegrityError) UNIQUE constraint failed: request_history.keyword, request_history.job_type, request_history.geo_code, request_history.timeframe_start, request_history.timeframe_end
-[SQL: INSERT INTO request_history (job_type, keyword, geo_code, timeframe_start, timeframe_end, created_at, status) VALUES (?, ?, ?, ?, ?, ?, ?)]
-[parameters: ('region', '/m/04h9h', '', '2004-01-01', '2004-02-01', '2025-02-13', 'created')]
+sqlalchemy.exc.IntegrityError: (sqlite3.IntegrityError) UNIQUE constraint failed: request_history.keywords, request_history.job_type, request_history.geo_code, request_history.timeframe_start, request_history.timeframe_end
+[SQL: INSERT INTO request_history (job_type, keywords, geo_code, timeframe_start, timeframe_end, created_at, status) VALUES (?, ?, ?, ?, ?, ?, ?)]
+[parameters: ('time', '["Gulf of Mexico", "Gulf of America"]', '', '2025-01-01', '2025-02-18', '2025-02-23', 'created')]
 (Background on this error at: https://sqlalche.me/e/20/gkpj)
-2025-02-13 22:53:02 - apscheduler.scheduler - INFO - Added job "execute_historical_task" to job store "default"
-2025-02-13 22:53:02 - apscheduler.executors.default - INFO - Running job "execute_historical_task (trigger: date[2025-02-13 14:53:02 UTC], next run at: 2025-02-13 14:53:02 UTC)" (scheduled at 2025-02-13 14:53:02.643870+00:00)
-2025-02-13 22:53:02 - apscheduler.scheduler - INFO - Removed job historical_1
-2025-02-13 22:53:02 - fastapi - INFO - 开始采集数据
-2025-02-13 22:56:33 - apscheduler.executors.default - ERROR - Job "execute_historical_task (trigger: date[2025-02-13 14:53:02 UTC], next run at: 2025-02-13 14:53:02 UTC)" raised an exception
+2025-02-23 17:22:42 - apscheduler.scheduler - INFO - Added job "execute_historical_task" to job store "default"
+2025-02-23 17:22:42 - apscheduler.executors.default - INFO - Running job "execute_historical_task (trigger: date[2025-02-23 09:22:42 UTC], next run at: 2025-02-23 09:22:42 UTC)" (scheduled at 2025-02-23 09:22:42.053996+00:00)
+2025-02-23 17:22:42 - apscheduler.scheduler - INFO - Removed job historical_1
+2025-02-23 17:22:42 - fastapi - INFO - 开始采集数据
+2025-02-23 17:22:45 - fastapi - INFO - Data fetch successful for API function: interest_over_time, with parameters - Keywords: ['Gulf of Mexico', 'Gulf of America'], Timeframe: 2025-01-01 2025-02-18, Geo: 
+2025-02-23 17:24:20 - apscheduler.scheduler - INFO - Scheduler started
+2025-02-23 17:24:24 - apscheduler.scheduler - INFO - Added job "execute_historical_task" to job store "default"
+2025-02-23 17:24:24 - apscheduler.executors.default - INFO - Running job "execute_historical_task (trigger: date[2025-02-23 09:24:24 UTC], next run at: 2025-02-23 09:24:24 UTC)" (scheduled at 2025-02-23 09:24:24.615557+00:00)
+2025-02-23 17:24:24 - apscheduler.scheduler - INFO - Removed job historical_1
+2025-02-23 17:24:24 - fastapi - INFO - 开始采集数据
+2025-02-23 17:24:34 - fastapi - INFO - Data fetch successful for API function: interest_over_time, with parameters - Keywords: ['Gulf of Mexico', 'Gulf of America'], Timeframe: 2025-01-01 2025-02-18, Geo: 
+2025-02-23 17:24:34 - fastapi - INFO - 采集数据结束
+2025-02-23 17:24:34 - apscheduler.executors.default - INFO - Job "execute_historical_task (trigger: date[2025-02-23 09:24:24 UTC], next run at: 2025-02-23 09:24:24 UTC)" executed successfully
+2025-02-23 18:05:48 - apscheduler.scheduler - INFO - Added job "execute_historical_task" to job store "default"
+2025-02-23 18:05:48 - apscheduler.executors.default - INFO - Running job "execute_historical_task (trigger: date[2025-02-23 10:05:48 UTC], next run at: 2025-02-23 10:05:48 UTC)" (scheduled at 2025-02-23 10:05:48.284175+00:00)
+2025-02-23 18:05:48 - apscheduler.scheduler - INFO - Removed job historical_2
+2025-02-23 18:05:48 - fastapi - INFO - 开始采集数据
+2025-02-23 18:06:05 - fastapi - WARNING - Rate limited. Retrying after 60 seconds...
+2025-02-23 18:07:21 - fastapi - WARNING - Rate limited. Retrying after 60 seconds...
+2025-02-23 18:08:38 - fastapi - WARNING - Rate limited. Retrying after 60 seconds...
+2025-02-23 18:09:38 - fastapi - ERROR - Error: Max retries exceeded for API call
+2025-02-23 18:09:38 - apscheduler.executors.default - ERROR - Job "execute_historical_task (trigger: date[2025-02-23 10:05:48 UTC], next run at: 2025-02-23 10:05:48 UTC)" raised an exception
 Traceback (most recent call last):
   File "c:\Users\a2450\Desktop\project\backend\trendsmicro\.venv\lib\site-packages\apscheduler\executors\base.py", line 131, in run_job
     retval = job.func(*job.args, **job.kwargs)
-  File "C:\Users\a2450\Desktop\project\backend\trendsmicro\microservices\collector\src\core\jobs.py", line 51, in execute_historical_task
+  File "C:\Users\a2450\Desktop\project\backend\trendsmicro\microservices\collector\src\core\jobs.py", line 49, in execute_historical_task
     raise e  # 重新抛出异常以便APScheduler记录日志
-  File "C:\Users\a2450\Desktop\project\backend\trendsmicro\microservices\collector\src\core\jobs.py", line 35, in execute_historical_task
+  File "C:\Users\a2450\Desktop\project\backend\trendsmicro\microservices\collector\src\core\jobs.py", line 33, in execute_historical_task
     execute_task(
-  File "C:\Users\a2450\Desktop\project\backend\trendsmicro\microservices\collector\src\core\jobs.py", line 16, in execute_task
-    get_interest_by_region(keyword, geo_code, interval, start_date, end_date)
-  File "C:\Users\a2450\Desktop\project\backend\trendsmicro\microservices\collector\src\core\trends.py", line 65, in get_interest_by_region
-    if history and history.status=="success":
-AttributeError: 'Query' object has no attribute 'status'
-2025-02-13 22:56:46 - apscheduler.scheduler - INFO - Scheduler started
-2025-02-13 22:56:46 - httpx - INFO - HTTP Request: POST http://localhost:8000/_internal/register "HTTP/1.1 502 Bad Gateway"
-2025-02-13 22:56:50 - apscheduler.scheduler - INFO - Added job "execute_historical_task" to job store "default"
-2025-02-13 22:56:50 - apscheduler.executors.default - INFO - Running job "execute_historical_task (trigger: date[2025-02-13 14:56:50 UTC], next run at: 2025-02-13 14:56:50 UTC)" (scheduled at 2025-02-13 14:56:50.901380+00:00)
-2025-02-13 22:56:50 - apscheduler.scheduler - INFO - Removed job historical_1
-2025-02-13 22:56:50 - fastapi - INFO - 开始采集数据
-2025-02-13 22:56:51 - apscheduler.executors.default - ERROR - Job "execute_historical_task (trigger: date[2025-02-13 14:56:50 UTC], next run at: 2025-02-13 14:56:50 UTC)" raised an exception
-Traceback (most recent call last):
-  File "c:\Users\a2450\Desktop\project\backend\trendsmicro\.venv\lib\site-packages\apscheduler\executors\base.py", line 131, in run_job
-    retval = job.func(*job.args, **job.kwargs)
-  File "C:\Users\a2450\Desktop\project\backend\trendsmicro\microservices\collector\src\core\jobs.py", line 51, in execute_historical_task
-    raise e  # 重新抛出异常以便APScheduler记录日志
-  File "C:\Users\a2450\Desktop\project\backend\trendsmicro\microservices\collector\src\core\jobs.py", line 35, in execute_historical_task
-    execute_task(
-  File "C:\Users\a2450\Desktop\project\backend\trendsmicro\microservices\collector\src\core\jobs.py", line 16, in execute_task
-    get_interest_by_region(keyword, geo_code, interval, start_date, end_date)
-  File "C:\Users\a2450\Desktop\project\backend\trendsmicro\microservices\collector\src\core\trends.py", line 53, in get_interest_by_region
-    timeframe_start = date.strptime(start, "%Y-%m-%d")
-AttributeError: type object 'datetime.date' has no attribute 'strptime'. Did you mean: 'strftime'?
-2025-02-13 22:58:30 - apscheduler.scheduler - INFO - Scheduler started
-2025-02-13 22:58:30 - httpx - INFO - HTTP Request: POST http://localhost:8000/_internal/register "HTTP/1.1 502 Bad Gateway"
-2025-02-13 22:58:33 - apscheduler.scheduler - INFO - Added job "execute_historical_task" to job store "default"
-2025-02-13 22:58:33 - apscheduler.executors.default - INFO - Running job "execute_historical_task (trigger: date[2025-02-13 14:58:33 UTC], next run at: 2025-02-13 14:58:33 UTC)" (scheduled at 2025-02-13 14:58:33.023577+00:00)
-2025-02-13 22:58:33 - apscheduler.scheduler - INFO - Removed job historical_1
-2025-02-13 22:58:33 - fastapi - INFO - 开始采集数据
-2025-02-13 22:58:33 - apscheduler.executors.default - ERROR - Job "execute_historical_task (trigger: date[2025-02-13 14:58:33 UTC], next run at: 2025-02-13 14:58:33 UTC)" raised an exception
-Traceback (most recent call last):
-  File "c:\Users\a2450\Desktop\project\backend\trendsmicro\.venv\lib\site-packages\sqlalchemy\engine\base.py", line 1812, in _execute_context
-    context = constructor(
-  File "c:\Users\a2450\Desktop\project\backend\trendsmicro\.venv\lib\site-packages\sqlalchemy\engine\default.py", line 1475, in _init_compiled
-    l_param: List[Any] = [
-  File "c:\Users\a2450\Desktop\project\backend\trendsmicro\.venv\lib\site-packages\sqlalchemy\engine\default.py", line 1477, in <listcomp>
-    flattened_processors[key](compiled_params[key])
-  File "c:\Users\a2450\Desktop\project\backend\trendsmicro\.venv\lib\site-packages\sqlalchemy\dialects\sqlite\base.py", line 1192, in process
-    raise TypeError(
-TypeError: SQLite Date type only accepts Python date objects as input.
-
-The above exception was the direct cause of the following exception:
-
-Traceback (most recent call last):
-  File "c:\Users\a2450\Desktop\project\backend\trendsmicro\.venv\lib\site-packages\apscheduler\executors\base.py", line 131, in run_job
-    retval = job.func(*job.args, **job.kwargs)
-  File "C:\Users\a2450\Desktop\project\backend\trendsmicro\microservices\collector\src\core\jobs.py", line 51, in execute_historical_task
-    raise e  # 重新抛出异常以便APScheduler记录日志
-  File "C:\Users\a2450\Desktop\project\backend\trendsmicro\microservices\collector\src\core\jobs.py", line 35, in execute_historical_task
-    execute_task(
-  File "C:\Users\a2450\Desktop\project\backend\trendsmicro\microservices\collector\src\core\jobs.py", line 16, in execute_task
-    get_interest_by_region(keyword, geo_code, interval, start_date, end_date)
-  File "C:\Users\a2450\Desktop\project\backend\trendsmicro\microservices\collector\src\core\trends.py", line 63, in get_interest_by_region
-    ).first()
-  File "c:\Users\a2450\Desktop\project\backend\trendsmicro\.venv\lib\site-packages\sqlalchemy\orm\query.py", line 2754, in first
-    return self.limit(1)._iter().first()  # type: ignore
-  File "c:\Users\a2450\Desktop\project\backend\trendsmicro\.venv\lib\site-packages\sqlalchemy\orm\query.py", line 2853, in _iter
-    result: Union[ScalarResult[_T], Result[_T]] = self.session.execute(
-  File "c:\Users\a2450\Desktop\project\backend\trendsmicro\.venv\lib\site-packages\sqlalchemy\orm\session.py", line 2365, in execute
-    return self._execute_internal(
-  File "c:\Users\a2450\Desktop\project\backend\trendsmicro\.venv\lib\site-packages\sqlalchemy\orm\session.py", line 2251, in _execute_internal
-    result: Result[Any] = compile_state_cls.orm_execute_statement(
-  File "c:\Users\a2450\Desktop\project\backend\trendsmicro\.venv\lib\site-packages\sqlalchemy\orm\context.py", line 305, in orm_execute_statement
-    result = conn.execute(
-  File "c:\Users\a2450\Desktop\project\backend\trendsmicro\.venv\lib\site-packages\sqlalchemy\engine\base.py", line 1416, in execute
-    return meth(
-  File "c:\Users\a2450\Desktop\project\backend\trendsmicro\.venv\lib\site-packages\sqlalchemy\sql\elements.py", line 515, in _execute_on_connection
-    return connection._execute_clauseelement(
-  File "c:\Users\a2450\Desktop\project\backend\trendsmicro\.venv\lib\site-packages\sqlalchemy\engine\base.py", line 1638, in _execute_clauseelement
-    ret = self._execute_context(
-  File "c:\Users\a2450\Desktop\project\backend\trendsmicro\.venv\lib\site-packages\sqlalchemy\engine\base.py", line 1818, in _execute_context
-    self._handle_dbapi_exception(
-  File "c:\Users\a2450\Desktop\project\backend\trendsmicro\.venv\lib\site-packages\sqlalchemy\engine\base.py", line 2352, in _handle_dbapi_exception
-    raise sqlalchemy_exception.with_traceback(exc_info[2]) from e
-  File "c:\Users\a2450\Desktop\project\backend\trendsmicro\.venv\lib\site-packages\sqlalchemy\engine\base.py", line 1812, in _execute_context
-    context = constructor(
-  File "c:\Users\a2450\Desktop\project\backend\trendsmicro\.venv\lib\site-packages\sqlalchemy\engine\default.py", line 1475, in _init_compiled
-    l_param: List[Any] = [
-  File "c:\Users\a2450\Desktop\project\backend\trendsmicro\.venv\lib\site-packages\sqlalchemy\engine\default.py", line 1477, in <listcomp>
-    flattened_processors[key](compiled_params[key])
-  File "c:\Users\a2450\Desktop\project\backend\trendsmicro\.venv\lib\site-packages\sqlalchemy\dialects\sqlite\base.py", line 1192, in process
-    raise TypeError(
-sqlalchemy.exc.StatementError: (builtins.TypeError) SQLite Date type only accepts Python date objects as input.
-[SQL: SELECT request_history.id AS request_history_id, request_history.job_type AS request_history_job_type, request_history.keyword AS request_history_keyword, request_history.geo_code AS request_history_geo_code, request_history.timeframe_start AS request_history_timeframe_start, request_history.timeframe_end AS request_history_timeframe_end, request_history.created_at AS request_history_created_at, request_history.status AS request_history_status 
-FROM request_history 
-WHERE request_history.job_type = ? AND request_history.keyword = ? AND request_history.geo_code = ? AND request_history.timeframe_start = ? AND request_history.timeframe_end = ?
- LIMIT ? OFFSET ?]
-[parameters: [{}]]
-2025-02-13 22:59:09 - apscheduler.scheduler - INFO - Added job "execute_historical_task" to job store "default"
-2025-02-13 22:59:09 - apscheduler.executors.default - INFO - Running job "execute_historical_task (trigger: date[2025-02-13 14:59:09 UTC], next run at: 2025-02-13 14:59:09 UTC)" (scheduled at 2025-02-13 14:59:09.682083+00:00)
-2025-02-13 22:59:09 - apscheduler.scheduler - INFO - Removed job historical_1
-2025-02-13 22:59:09 - fastapi - INFO - 开始采集数据
-2025-02-13 22:59:31 - apscheduler.scheduler - INFO - Scheduler started
-2025-02-13 22:59:31 - httpx - INFO - HTTP Request: POST http://localhost:8000/_internal/register "HTTP/1.1 502 Bad Gateway"
-2025-02-13 22:59:33 - apscheduler.scheduler - INFO - Added job "execute_historical_task" to job store "default"
-2025-02-13 22:59:33 - apscheduler.executors.default - INFO - Running job "execute_historical_task (trigger: date[2025-02-13 14:59:33 UTC], next run at: 2025-02-13 14:59:33 UTC)" (scheduled at 2025-02-13 14:59:33.842851+00:00)
-2025-02-13 22:59:33 - apscheduler.scheduler - INFO - Removed job historical_1
-2025-02-13 22:59:33 - fastapi - INFO - 开始采集数据
-2025-02-13 22:59:54 - fastapi - ERROR - Error: _call_trends_api_with_retry() got multiple values for argument 'max_retries'
-2025-02-13 22:59:54 - apscheduler.executors.default - ERROR - Job "execute_historical_task (trigger: date[2025-02-13 14:59:33 UTC], next run at: 2025-02-13 14:59:33 UTC)" raised an exception
-Traceback (most recent call last):
-  File "c:\Users\a2450\Desktop\project\backend\trendsmicro\.venv\lib\site-packages\apscheduler\executors\base.py", line 131, in run_job
-    retval = job.func(*job.args, **job.kwargs)
-  File "C:\Users\a2450\Desktop\project\backend\trendsmicro\microservices\collector\src\core\jobs.py", line 51, in execute_historical_task
-    raise e  # 重新抛出异常以便APScheduler记录日志
-  File "C:\Users\a2450\Desktop\project\backend\trendsmicro\microservices\collector\src\core\jobs.py", line 35, in execute_historical_task
-    execute_task(
-  File "C:\Users\a2450\Desktop\project\backend\trendsmicro\microservices\collector\src\core\jobs.py", line 16, in execute_task
-    get_interest_by_region(keyword, geo_code, interval, start_date, end_date)
-  File "C:\Users\a2450\Desktop\project\backend\trendsmicro\microservices\collector\src\core\trends.py", line 85, in get_interest_by_region
+  File "C:\Users\a2450\Desktop\project\backend\trendsmicro\microservices\collector\src\core\jobs.py", line 14, in execute_task
+    get_interest_by_region(keywords, geo_code, interval, start_date, end_date)
+  File "C:\Users\a2450\Desktop\project\backend\trendsmicro\microservices\collector\src\core\trends.py", line 86, in get_interest_by_region
     region_data = _call_trends_api_with_retry(
-TypeError: _call_trends_api_with_retry() got multiple values for argument 'max_retries'
-2025-02-13 23:00:40 - apscheduler.scheduler - INFO - Added job "execute_historical_task" to job store "default"
-2025-02-13 23:00:40 - apscheduler.executors.default - INFO - Running job "execute_historical_task (trigger: date[2025-02-13 15:00:40 UTC], next run at: 2025-02-13 15:00:40 UTC)" (scheduled at 2025-02-13 15:00:40.448624+00:00)
-2025-02-13 23:00:40 - apscheduler.scheduler - INFO - Removed job historical_1
-2025-02-13 23:00:40 - fastapi - INFO - 开始采集数据
-2025-02-13 23:00:40 - fastapi - ERROR - Error: _call_trends_api_with_retry() got multiple values for argument 'max_retries'
-2025-02-13 23:00:40 - apscheduler.executors.default - ERROR - Job "execute_historical_task (trigger: date[2025-02-13 15:00:40 UTC], next run at: 2025-02-13 15:00:40 UTC)" raised an exception
-Traceback (most recent call last):
-  File "c:\Users\a2450\Desktop\project\backend\trendsmicro\.venv\lib\site-packages\apscheduler\executors\base.py", line 131, in run_job
-    retval = job.func(*job.args, **job.kwargs)
-  File "C:\Users\a2450\Desktop\project\backend\trendsmicro\microservices\collector\src\core\jobs.py", line 51, in execute_historical_task
-    raise e  # 重新抛出异常以便APScheduler记录日志
-  File "C:\Users\a2450\Desktop\project\backend\trendsmicro\microservices\collector\src\core\jobs.py", line 35, in execute_historical_task
-    execute_task(
-  File "C:\Users\a2450\Desktop\project\backend\trendsmicro\microservices\collector\src\core\jobs.py", line 16, in execute_task
-    get_interest_by_region(keyword, geo_code, interval, start_date, end_date)
-  File "C:\Users\a2450\Desktop\project\backend\trendsmicro\microservices\collector\src\core\trends.py", line 85, in get_interest_by_region
-    region_data = _call_trends_api_with_retry(
-TypeError: _call_trends_api_with_retry() got multiple values for argument 'max_retries'
-2025-02-13 23:00:58 - apscheduler.scheduler - INFO - Scheduler started
-2025-02-13 23:00:58 - httpx - INFO - HTTP Request: POST http://localhost:8000/_internal/register "HTTP/1.1 502 Bad Gateway"
-2025-02-13 23:01:03 - apscheduler.scheduler - INFO - Added job "execute_historical_task" to job store "default"
-2025-02-13 23:01:03 - apscheduler.executors.default - INFO - Running job "execute_historical_task (trigger: date[2025-02-13 15:01:03 UTC], next run at: 2025-02-13 15:01:03 UTC)" (scheduled at 2025-02-13 15:01:03.415924+00:00)
-2025-02-13 23:01:03 - apscheduler.scheduler - INFO - Removed job historical_1
-2025-02-13 23:01:03 - fastapi - INFO - 开始采集数据
-2025-02-13 23:01:03 - fastapi - ERROR - Error: '<' not supported between instances of 'int' and 'str'
-2025-02-13 23:01:03 - apscheduler.executors.default - ERROR - Job "execute_historical_task (trigger: date[2025-02-13 15:01:03 UTC], next run at: 2025-02-13 15:01:03 UTC)" raised an exception
-Traceback (most recent call last):
-  File "c:\Users\a2450\Desktop\project\backend\trendsmicro\.venv\lib\site-packages\apscheduler\executors\base.py", line 131, in run_job
-    retval = job.func(*job.args, **job.kwargs)
-  File "C:\Users\a2450\Desktop\project\backend\trendsmicro\microservices\collector\src\core\jobs.py", line 51, in execute_historical_task
-    raise e  # 重新抛出异常以便APScheduler记录日志
-  File "C:\Users\a2450\Desktop\project\backend\trendsmicro\microservices\collector\src\core\jobs.py", line 35, in execute_historical_task
-    execute_task(
-  File "C:\Users\a2450\Desktop\project\backend\trendsmicro\microservices\collector\src\core\jobs.py", line 16, in execute_task
-    get_interest_by_region(keyword, geo_code, interval, start_date, end_date)
-  File "C:\Users\a2450\Desktop\project\backend\trendsmicro\microservices\collector\src\core\trends.py", line 85, in get_interest_by_region
-    region_data = _call_trends_api_with_retry(
-  File "C:\Users\a2450\Desktop\project\backend\trendsmicro\microservices\collector\src\core\trends.py", line 17, in _call_trends_api_with_retry
-    while retries < max_retries:
-TypeError: '<' not supported between instances of 'int' and 'str'
-2025-02-13 23:01:31 - apscheduler.scheduler - INFO - Scheduler started
-2025-02-13 23:01:31 - httpx - INFO - HTTP Request: POST http://localhost:8000/_internal/register "HTTP/1.1 502 Bad Gateway"
-2025-02-13 23:01:36 - apscheduler.scheduler - INFO - Added job "execute_historical_task" to job store "default"
-2025-02-13 23:01:36 - apscheduler.executors.default - INFO - Running job "execute_historical_task (trigger: date[2025-02-13 15:01:36 UTC], next run at: 2025-02-13 15:01:36 UTC)" (scheduled at 2025-02-13 15:01:36.029589+00:00)
-2025-02-13 23:01:36 - apscheduler.scheduler - INFO - Removed job historical_1
-2025-02-13 23:01:36 - fastapi - INFO - 开始采集数据
-2025-02-13 23:01:36 - fastapi - ERROR - Error: _call_trends_api_with_retry() got multiple values for argument 'max_retries'
-2025-02-13 23:01:36 - apscheduler.executors.default - ERROR - Job "execute_historical_task (trigger: date[2025-02-13 15:01:36 UTC], next run at: 2025-02-13 15:01:36 UTC)" raised an exception
-Traceback (most recent call last):
-  File "c:\Users\a2450\Desktop\project\backend\trendsmicro\.venv\lib\site-packages\apscheduler\executors\base.py", line 131, in run_job
-    retval = job.func(*job.args, **job.kwargs)
-  File "C:\Users\a2450\Desktop\project\backend\trendsmicro\microservices\collector\src\core\jobs.py", line 51, in execute_historical_task
-    raise e  # 重新抛出异常以便APScheduler记录日志
-  File "C:\Users\a2450\Desktop\project\backend\trendsmicro\microservices\collector\src\core\jobs.py", line 35, in execute_historical_task
-    execute_task(
-  File "C:\Users\a2450\Desktop\project\backend\trendsmicro\microservices\collector\src\core\jobs.py", line 16, in execute_task
-    get_interest_by_region(keyword, geo_code, interval, start_date, end_date)
-  File "C:\Users\a2450\Desktop\project\backend\trendsmicro\microservices\collector\src\core\trends.py", line 85, in get_interest_by_region
-    region_data = _call_trends_api_with_retry(
-TypeError: _call_trends_api_with_retry() got multiple values for argument 'max_retries'
-2025-02-13 23:02:07 - apscheduler.scheduler - INFO - Scheduler started
-2025-02-13 23:02:07 - httpx - INFO - HTTP Request: POST http://localhost:8000/_internal/register "HTTP/1.1 502 Bad Gateway"
-2025-02-13 23:02:10 - apscheduler.scheduler - INFO - Added job "execute_historical_task" to job store "default"
-2025-02-13 23:02:10 - apscheduler.executors.default - INFO - Running job "execute_historical_task (trigger: date[2025-02-13 15:02:10 UTC], next run at: 2025-02-13 15:02:10 UTC)" (scheduled at 2025-02-13 15:02:10.403972+00:00)
-2025-02-13 23:02:10 - apscheduler.scheduler - INFO - Removed job historical_1
-2025-02-13 23:02:10 - fastapi - INFO - 开始采集数据
-2025-02-13 23:02:10 - fastapi - ERROR - Error: _call_trends_api_with_retry() got multiple values for argument 'max_retries'
-2025-02-13 23:02:10 - apscheduler.executors.default - ERROR - Job "execute_historical_task (trigger: date[2025-02-13 15:02:10 UTC], next run at: 2025-02-13 15:02:10 UTC)" raised an exception
-Traceback (most recent call last):
-  File "c:\Users\a2450\Desktop\project\backend\trendsmicro\.venv\lib\site-packages\apscheduler\executors\base.py", line 131, in run_job
-    retval = job.func(*job.args, **job.kwargs)
-  File "C:\Users\a2450\Desktop\project\backend\trendsmicro\microservices\collector\src\core\jobs.py", line 51, in execute_historical_task
-    raise e  # 重新抛出异常以便APScheduler记录日志
-  File "C:\Users\a2450\Desktop\project\backend\trendsmicro\microservices\collector\src\core\jobs.py", line 35, in execute_historical_task
-    execute_task(
-  File "C:\Users\a2450\Desktop\project\backend\trendsmicro\microservices\collector\src\core\jobs.py", line 16, in execute_task
-    get_interest_by_region(keyword, geo_code, interval, start_date, end_date)
-  File "C:\Users\a2450\Desktop\project\backend\trendsmicro\microservices\collector\src\core\trends.py", line 85, in get_interest_by_region
-    region_data = _call_trends_api_with_retry(
-TypeError: _call_trends_api_with_retry() got multiple values for argument 'max_retries'
-2025-02-13 23:02:40 - apscheduler.scheduler - INFO - Scheduler started
-2025-02-13 23:02:40 - httpx - INFO - HTTP Request: POST http://localhost:8000/_internal/register "HTTP/1.1 502 Bad Gateway"
-2025-02-13 23:02:42 - apscheduler.scheduler - INFO - Added job "execute_historical_task" to job store "default"
-2025-02-13 23:02:42 - apscheduler.executors.default - INFO - Running job "execute_historical_task (trigger: date[2025-02-13 15:02:42 UTC], next run at: 2025-02-13 15:02:42 UTC)" (scheduled at 2025-02-13 15:02:42.604391+00:00)
-2025-02-13 23:02:42 - apscheduler.scheduler - INFO - Removed job historical_1
-2025-02-13 23:02:42 - fastapi - INFO - 开始采集数据
-2025-02-13 23:02:42 - fastapi - ERROR - Error: _call_trends_api_with_retry() takes from 1 to 2 positional arguments but 3 were given
-2025-02-13 23:02:42 - apscheduler.executors.default - ERROR - Job "execute_historical_task (trigger: date[2025-02-13 15:02:42 UTC], next run at: 2025-02-13 15:02:42 UTC)" raised an exception
-Traceback (most recent call last):
-  File "c:\Users\a2450\Desktop\project\backend\trendsmicro\.venv\lib\site-packages\apscheduler\executors\base.py", line 131, in run_job
-    retval = job.func(*job.args, **job.kwargs)
-  File "C:\Users\a2450\Desktop\project\backend\trendsmicro\microservices\collector\src\core\jobs.py", line 51, in execute_historical_task
-    raise e  # 重新抛出异常以便APScheduler记录日志
-  File "C:\Users\a2450\Desktop\project\backend\trendsmicro\microservices\collector\src\core\jobs.py", line 35, in execute_historical_task
-    execute_task(
-  File "C:\Users\a2450\Desktop\project\backend\trendsmicro\microservices\collector\src\core\jobs.py", line 16, in execute_task
-    get_interest_by_region(keyword, geo_code, interval, start_date, end_date)
-  File "C:\Users\a2450\Desktop\project\backend\trendsmicro\microservices\collector\src\core\trends.py", line 85, in get_interest_by_region
-    region_data = _call_trends_api_with_retry(
-TypeError: _call_trends_api_with_retry() takes from 1 to 2 positional arguments but 3 were given
-2025-02-13 23:03:18 - apscheduler.scheduler - INFO - Scheduler started
-2025-02-13 23:03:19 - httpx - INFO - HTTP Request: POST http://localhost:8000/_internal/register "HTTP/1.1 502 Bad Gateway"
-2025-02-13 23:03:21 - apscheduler.scheduler - INFO - Added job "execute_historical_task" to job store "default"
-2025-02-13 23:03:21 - apscheduler.executors.default - INFO - Running job "execute_historical_task (trigger: date[2025-02-13 15:03:21 UTC], next run at: 2025-02-13 15:03:21 UTC)" (scheduled at 2025-02-13 15:03:21.600327+00:00)
-2025-02-13 23:03:21 - apscheduler.scheduler - INFO - Removed job historical_1
-2025-02-13 23:03:21 - fastapi - INFO - 开始采集数据
-2025-02-13 23:03:21 - fastapi - ERROR - Error: _call_trends_api_with_retry() takes 2 positional arguments but 3 were given
-2025-02-13 23:03:21 - apscheduler.executors.default - ERROR - Job "execute_historical_task (trigger: date[2025-02-13 15:03:21 UTC], next run at: 2025-02-13 15:03:21 UTC)" raised an exception
-Traceback (most recent call last):
-  File "c:\Users\a2450\Desktop\project\backend\trendsmicro\.venv\lib\site-packages\apscheduler\executors\base.py", line 131, in run_job
-    retval = job.func(*job.args, **job.kwargs)
-  File "C:\Users\a2450\Desktop\project\backend\trendsmicro\microservices\collector\src\core\jobs.py", line 51, in execute_historical_task
-    raise e  # 重新抛出异常以便APScheduler记录日志
-  File "C:\Users\a2450\Desktop\project\backend\trendsmicro\microservices\collector\src\core\jobs.py", line 35, in execute_historical_task
-    execute_task(
-  File "C:\Users\a2450\Desktop\project\backend\trendsmicro\microservices\collector\src\core\jobs.py", line 16, in execute_task
-    get_interest_by_region(keyword, geo_code, interval, start_date, end_date)
-  File "C:\Users\a2450\Desktop\project\backend\trendsmicro\microservices\collector\src\core\trends.py", line 85, in get_interest_by_region
-    region_data = _call_trends_api_with_retry(
-TypeError: _call_trends_api_with_retry() takes 2 positional arguments but 3 were given
-2025-02-13 23:23:03 - apscheduler.scheduler - INFO - Scheduler started
-2025-02-13 23:23:03 - httpx - INFO - HTTP Request: POST http://localhost:8000/_internal/register "HTTP/1.1 502 Bad Gateway"
-2025-02-13 23:23:46 - apscheduler.scheduler - INFO - Scheduler started
-2025-02-13 23:23:46 - httpx - INFO - HTTP Request: POST http://localhost:8000/_internal/register "HTTP/1.1 502 Bad Gateway"
-2025-02-13 23:23:52 - apscheduler.scheduler - INFO - Added job "execute_historical_task" to job store "default"
-2025-02-13 23:23:52 - apscheduler.executors.default - INFO - Running job "execute_historical_task (trigger: date[2025-02-13 15:23:52 UTC], next run at: 2025-02-13 15:23:52 UTC)" (scheduled at 2025-02-13 15:23:52.885588+00:00)
-2025-02-13 23:23:52 - apscheduler.scheduler - INFO - Removed job historical_1
-2025-02-13 23:23:52 - fastapi - INFO - 开始采集数据
-2025-02-13 23:23:53 - fastapi - ERROR - Error: Trends.interest_by_region() missing 1 required positional argument: 'keywords'
-2025-02-13 23:23:53 - apscheduler.executors.default - ERROR - Job "execute_historical_task (trigger: date[2025-02-13 15:23:52 UTC], next run at: 2025-02-13 15:23:52 UTC)" raised an exception
-Traceback (most recent call last):
-  File "c:\Users\a2450\Desktop\project\backend\trendsmicro\.venv\lib\site-packages\apscheduler\executors\base.py", line 131, in run_job
-    retval = job.func(*job.args, **job.kwargs)
-  File "C:\Users\a2450\Desktop\project\backend\trendsmicro\microservices\collector\src\core\jobs.py", line 51, in execute_historical_task
-    raise e  # 重新抛出异常以便APScheduler记录日志
-  File "C:\Users\a2450\Desktop\project\backend\trendsmicro\microservices\collector\src\core\jobs.py", line 35, in execute_historical_task
-    execute_task(
-  File "C:\Users\a2450\Desktop\project\backend\trendsmicro\microservices\collector\src\core\jobs.py", line 16, in execute_task
-    get_interest_by_region(keyword, geo_code, interval, start_date, end_date)
-  File "C:\Users\a2450\Desktop\project\backend\trendsmicro\microservices\collector\src\core\trends.py", line 85, in get_interest_by_region
-    region_data = _call_trends_api_with_retry(
-  File "C:\Users\a2450\Desktop\project\backend\trendsmicro\microservices\collector\src\core\trends.py", line 19, in _call_trends_api_with_retry
-    response = api_call_func(**kwargs)
-TypeError: Trends.interest_by_region() missing 1 required positional argument: 'keywords'
-2025-02-13 23:24:28 - apscheduler.scheduler - INFO - Scheduler started
-2025-02-13 23:24:28 - httpx - INFO - HTTP Request: POST http://localhost:8000/_internal/register "HTTP/1.1 502 Bad Gateway"
-2025-02-13 23:24:46 - apscheduler.scheduler - INFO - Added job "execute_historical_task" to job store "default"
-2025-02-13 23:24:46 - apscheduler.executors.default - INFO - Running job "execute_historical_task (trigger: date[2025-02-13 15:24:46 UTC], next run at: 2025-02-13 15:24:46 UTC)" (scheduled at 2025-02-13 15:24:46.736878+00:00)
-2025-02-13 23:24:46 - apscheduler.scheduler - INFO - Removed job historical_1
-2025-02-13 23:24:46 - fastapi - INFO - 开始采集数据
-2025-02-13 23:25:10 - fastapi - WARNING - Rate limited. Retrying after 60 seconds...
-2025-02-13 23:26:27 - fastapi - WARNING - Rate limited. Retrying after 60 seconds...
-2025-02-13 23:27:43 - fastapi - WARNING - Rate limited. Retrying after 60 seconds...
-2025-02-13 23:28:43 - fastapi - ERROR - Error: Max retries exceeded for API call
-2025-02-13 23:28:43 - apscheduler.executors.default - ERROR - Job "execute_historical_task (trigger: date[2025-02-13 15:24:46 UTC], next run at: 2025-02-13 15:24:46 UTC)" raised an exception
-Traceback (most recent call last):
-  File "c:\Users\a2450\Desktop\project\backend\trendsmicro\.venv\lib\site-packages\apscheduler\executors\base.py", line 131, in run_job
-    retval = job.func(*job.args, **job.kwargs)
-  File "C:\Users\a2450\Desktop\project\backend\trendsmicro\microservices\collector\src\core\jobs.py", line 51, in execute_historical_task
-    raise e  # 重新抛出异常以便APScheduler记录日志
-  File "C:\Users\a2450\Desktop\project\backend\trendsmicro\microservices\collector\src\core\jobs.py", line 35, in execute_historical_task
-    execute_task(
-  File "C:\Users\a2450\Desktop\project\backend\trendsmicro\microservices\collector\src\core\jobs.py", line 16, in execute_task
-    get_interest_by_region(keyword, geo_code, interval, start_date, end_date)
-  File "C:\Users\a2450\Desktop\project\backend\trendsmicro\microservices\collector\src\core\trends.py", line 85, in get_interest_by_region
-    region_data = _call_trends_api_with_retry(
-  File "C:\Users\a2450\Desktop\project\backend\trendsmicro\microservices\collector\src\core\trends.py", line 35, in _call_trends_api_with_retry
+  File "C:\Users\a2450\Desktop\project\backend\trendsmicro\microservices\collector\src\core\trends.py", line 36, in _call_trends_api_with_retry
     raise Exception("Max retries exceeded for API call")
 Exception: Max retries exceeded for API call
-2025-02-16 20:51:13 - apscheduler.scheduler - INFO - Scheduler started
-2025-02-16 20:52:16 - apscheduler.scheduler - INFO - Scheduler started
-2025-02-16 20:53:38 - apscheduler.scheduler - INFO - Scheduler started
-2025-02-16 20:58:48 - apscheduler.scheduler - INFO - Scheduler started
-2025-02-16 20:58:48 - httpx - INFO - HTTP Request: POST http://localhost:8000/_internal/register "HTTP/1.1 502 Bad Gateway"
-2025-02-16 20:59:38 - apscheduler.scheduler - INFO - Added job "execute_historical_task" to job store "default"
-2025-02-16 20:59:38 - apscheduler.executors.default - INFO - Running job "execute_historical_task (trigger: date[2025-02-16 12:59:38 UTC], next run at: 2025-02-16 12:59:38 UTC)" (scheduled at 2025-02-16 12:59:38.369560+00:00)
-2025-02-16 20:59:38 - apscheduler.scheduler - INFO - Removed job historical_1
-2025-02-16 20:59:38 - fastapi - INFO - 开始采集数据
-2025-02-16 20:59:49 - fastapi - INFO - Data fetch successful for API function: interest_by_region, with parameters - Keywords: None, Timeframe: None, Geo: None
-2025-02-16 21:00:12 - fastapi - WARNING - Rate limited. Retrying after 60 seconds...
-2025-02-16 21:01:15 - fastapi - INFO - Data fetch successful for API function: interest_by_region, with parameters - Keywords: None, Timeframe: None, Geo: None
-2025-02-16 21:01:25 - fastapi - INFO - Data fetch successful for API function: interest_by_region, with parameters - Keywords: None, Timeframe: None, Geo: None
-2025-02-16 21:01:35 - fastapi - INFO - Data fetch successful for API function: interest_by_region, with parameters - Keywords: None, Timeframe: None, Geo: None
-2025-02-16 21:01:59 - fastapi - WARNING - Rate limited. Retrying after 60 seconds...
-2025-02-16 21:03:02 - fastapi - INFO - Data fetch successful for API function: interest_by_region, with parameters - Keywords: None, Timeframe: None, Geo: None
-2025-02-16 21:03:12 - fastapi - INFO - Data fetch successful for API function: interest_by_region, with parameters - Keywords: None, Timeframe: None, Geo: None
-2025-02-16 21:03:22 - fastapi - INFO - Data fetch successful for API function: interest_by_region, with parameters - Keywords: None, Timeframe: None, Geo: None
-2025-02-16 21:03:32 - fastapi - INFO - Data fetch successful for API function: interest_by_region, with parameters - Keywords: None, Timeframe: None, Geo: None
-2025-02-16 21:03:42 - fastapi - INFO - Data fetch successful for API function: interest_by_region, with parameters - Keywords: None, Timeframe: None, Geo: None
-2025-02-16 21:04:05 - fastapi - WARNING - Rate limited. Retrying after 60 seconds...
-2025-02-16 21:05:17 - fastapi - INFO - Data fetch successful for API function: interest_by_region, with parameters - Keywords: None, Timeframe: None, Geo: None
-2025-02-16 21:05:27 - fastapi - INFO - Data fetch successful for API function: interest_by_region, with parameters - Keywords: None, Timeframe: None, Geo: None
-2025-02-16 21:05:37 - fastapi - INFO - Data fetch successful for API function: interest_by_region, with parameters - Keywords: None, Timeframe: None, Geo: None
-2025-02-16 21:05:47 - fastapi - INFO - Data fetch successful for API function: interest_by_region, with parameters - Keywords: None, Timeframe: None, Geo: None
-2025-02-16 21:05:57 - fastapi - INFO - Data fetch successful for API function: interest_by_region, with parameters - Keywords: None, Timeframe: None, Geo: None
-2025-02-16 21:06:07 - fastapi - INFO - Data fetch successful for API function: interest_by_region, with parameters - Keywords: None, Timeframe: None, Geo: None
-2025-02-16 21:06:17 - fastapi - INFO - Data fetch successful for API function: interest_by_region, with parameters - Keywords: None, Timeframe: None, Geo: None
-2025-02-16 21:06:27 - fastapi - INFO - Data fetch successful for API function: interest_by_region, with parameters - Keywords: None, Timeframe: None, Geo: None
-2025-02-16 21:06:37 - fastapi - INFO - Data fetch successful for API function: interest_by_region, with parameters - Keywords: None, Timeframe: None, Geo: None
-2025-02-16 21:06:47 - fastapi - INFO - Data fetch successful for API function: interest_by_region, with parameters - Keywords: None, Timeframe: None, Geo: None
-2025-02-16 21:06:57 - fastapi - INFO - Data fetch successful for API function: interest_by_region, with parameters - Keywords: None, Timeframe: None, Geo: None
-2025-02-16 21:07:07 - fastapi - INFO - Data fetch successful for API function: interest_by_region, with parameters - Keywords: None, Timeframe: None, Geo: None
-2025-02-16 21:07:30 - fastapi - WARNING - Rate limited. Retrying after 60 seconds...
-2025-02-16 21:08:32 - fastapi - INFO - Data fetch successful for API function: interest_by_region, with parameters - Keywords: None, Timeframe: None, Geo: None
-2025-02-16 21:08:42 - fastapi - INFO - Data fetch successful for API function: interest_by_region, with parameters - Keywords: None, Timeframe: None, Geo: None
-2025-02-16 21:08:52 - fastapi - INFO - Data fetch successful for API function: interest_by_region, with parameters - Keywords: None, Timeframe: None, Geo: None
-2025-02-16 21:09:02 - fastapi - INFO - Data fetch successful for API function: interest_by_region, with parameters - Keywords: None, Timeframe: None, Geo: None
-2025-02-16 21:09:27 - fastapi - WARNING - Rate limited. Retrying after 60 seconds...
-2025-02-16 21:10:41 - fastapi - WARNING - Rate limited. Retrying after 60 seconds...
-2025-02-16 21:11:58 - fastapi - WARNING - Rate limited. Retrying after 60 seconds...
-2025-02-16 21:12:58 - fastapi - ERROR - Error: Max retries exceeded for API call
-2025-02-16 21:12:58 - apscheduler.executors.default - ERROR - Job "execute_historical_task (trigger: date[2025-02-16 12:59:38 UTC], next run at: 2025-02-16 12:59:38 UTC)" raised an exception
+2025-02-23 18:13:06 - apscheduler.scheduler - INFO - Added job "execute_historical_task" to job store "default"
+2025-02-23 18:13:06 - apscheduler.executors.default - INFO - Running job "execute_historical_task (trigger: date[2025-02-23 10:13:06 UTC], next run at: 2025-02-23 10:13:06 UTC)" (scheduled at 2025-02-23 10:13:06.578731+00:00)
+2025-02-23 18:13:06 - apscheduler.scheduler - INFO - Removed job historical_2
+2025-02-23 18:13:06 - fastapi - INFO - 开始采集数据
+2025-02-23 18:13:25 - fastapi - WARNING - Rate limited. Retrying after 60 seconds...
+2025-02-23 18:14:43 - fastapi - WARNING - Rate limited. Retrying after 60 seconds...
+2025-02-23 18:16:00 - fastapi - WARNING - Rate limited. Retrying after 60 seconds...
+2025-02-23 18:17:00 - fastapi - ERROR - Error: Max retries exceeded for API call
+2025-02-23 18:17:00 - apscheduler.executors.default - ERROR - Job "execute_historical_task (trigger: date[2025-02-23 10:13:06 UTC], next run at: 2025-02-23 10:13:06 UTC)" raised an exception
 Traceback (most recent call last):
   File "c:\Users\a2450\Desktop\project\backend\trendsmicro\.venv\lib\site-packages\apscheduler\executors\base.py", line 131, in run_job
     retval = job.func(*job.args, **job.kwargs)
-  File "C:\Users\a2450\Desktop\project\backend\trendsmicro\microservices\collector\src\core\jobs.py", line 51, in execute_historical_task
+  File "C:\Users\a2450\Desktop\project\backend\trendsmicro\microservices\collector\src\core\jobs.py", line 49, in execute_historical_task
     raise e  # 重新抛出异常以便APScheduler记录日志
-  File "C:\Users\a2450\Desktop\project\backend\trendsmicro\microservices\collector\src\core\jobs.py", line 35, in execute_historical_task
+  File "C:\Users\a2450\Desktop\project\backend\trendsmicro\microservices\collector\src\core\jobs.py", line 33, in execute_historical_task
     execute_task(
-  File "C:\Users\a2450\Desktop\project\backend\trendsmicro\microservices\collector\src\core\jobs.py", line 16, in execute_task
-    get_interest_by_region(keyword, geo_code, interval, start_date, end_date)
-  File "C:\Users\a2450\Desktop\project\backend\trendsmicro\microservices\collector\src\core\trends.py", line 85, in get_interest_by_region
+  File "C:\Users\a2450\Desktop\project\backend\trendsmicro\microservices\collector\src\core\jobs.py", line 14, in execute_task
+    get_interest_by_region(keywords, geo_code, interval, start_date, end_date)
+  File "C:\Users\a2450\Desktop\project\backend\trendsmicro\microservices\collector\src\core\trends.py", line 86, in get_interest_by_region
     region_data = _call_trends_api_with_retry(
-  File "C:\Users\a2450\Desktop\project\backend\trendsmicro\microservices\collector\src\core\trends.py", line 35, in _call_trends_api_with_retry
+  File "C:\Users\a2450\Desktop\project\backend\trendsmicro\microservices\collector\src\core\trends.py", line 36, in _call_trends_api_with_retry
     raise Exception("Max retries exceeded for API call")
 Exception: Max retries exceeded for API call
-2025-02-16 21:24:57 - apscheduler.scheduler - INFO - Scheduler started
-2025-02-16 21:24:57 - httpx - INFO - HTTP Request: POST http://localhost:8000/_internal/register "HTTP/1.1 502 Bad Gateway"
-2025-02-16 21:25:44 - apscheduler.scheduler - INFO - Added job "execute_historical_task" to job store "default"
-2025-02-16 21:25:44 - apscheduler.executors.default - INFO - Running job "execute_historical_task (trigger: date[2025-02-16 13:25:44 UTC], next run at: 2025-02-16 13:25:44 UTC)" (scheduled at 2025-02-16 13:25:44.391308+00:00)
-2025-02-16 21:25:44 - apscheduler.scheduler - INFO - Removed job historical_1
-2025-02-16 21:25:44 - fastapi - INFO - 开始采集数据
-2025-02-16 21:25:55 - fastapi - INFO - Data fetch successful for API function: interest_by_region, with parameters - Keywords: /m/04h9h, Timeframe: 2006-09-01 2006-10-01, Geo: 
-2025-02-16 21:26:07 - fastapi - INFO - Data fetch successful for API function: interest_by_region, with parameters - Keywords: /m/04h9h, Timeframe: 2006-10-01 2006-11-01, Geo: 
-2025-02-16 21:26:17 - fastapi - INFO - Data fetch successful for API function: interest_by_region, with parameters - Keywords: /m/04h9h, Timeframe: 2006-11-01 2006-12-01, Geo: 
-2025-02-16 21:26:40 - fastapi - WARNING - Rate limited. Retrying after 60 seconds...
-2025-02-16 21:27:43 - fastapi - INFO - Data fetch successful for API function: interest_by_region, with parameters - Keywords: /m/04h9h, Timeframe: 2006-12-01 2007-01-01, Geo: 
-2025-02-16 21:28:07 - fastapi - WARNING - Rate limited. Retrying after 60 seconds...
-2025-02-16 21:29:18 - fastapi - INFO - Data fetch successful for API function: interest_by_region, with parameters - Keywords: /m/04h9h, Timeframe: 2007-01-01 2007-02-01, Geo: 
-2025-02-16 21:29:28 - fastapi - INFO - Data fetch successful for API function: interest_by_region, with parameters - Keywords: /m/04h9h, Timeframe: 2007-02-01 2007-03-01, Geo: 
-2025-02-16 21:29:40 - fastapi - INFO - Data fetch successful for API function: interest_by_region, with parameters - Keywords: /m/04h9h, Timeframe: 2007-03-01 2007-04-01, Geo: 
-2025-02-16 21:29:50 - fastapi - INFO - Data fetch successful for API function: interest_by_region, with parameters - Keywords: /m/04h9h, Timeframe: 2007-04-01 2007-05-01, Geo: 
-2025-02-16 21:30:13 - fastapi - WARNING - Rate limited. Retrying after 60 seconds...
-2025-02-16 21:31:29 - fastapi - WARNING - Rate limited. Retrying after 60 seconds...
-2025-02-16 21:32:43 - fastapi - INFO - Data fetch successful for API function: interest_by_region, with parameters - Keywords: /m/04h9h, Timeframe: 2007-05-01 2007-06-01, Geo: 
-2025-02-16 21:33:03 - fastapi - INFO - Data fetch successful for API function: interest_by_region, with parameters - Keywords: /m/04h9h, Timeframe: 2007-06-01 2007-07-01, Geo: 
-2025-02-16 21:33:13 - fastapi - INFO - Data fetch successful for API function: interest_by_region, with parameters - Keywords: /m/04h9h, Timeframe: 2007-07-01 2007-08-01, Geo: 
-2025-02-16 21:33:23 - fastapi - INFO - Data fetch successful for API function: interest_by_region, with parameters - Keywords: /m/04h9h, Timeframe: 2007-08-01 2007-09-01, Geo: 
-2025-02-16 21:33:33 - fastapi - INFO - Data fetch successful for API function: interest_by_region, with parameters - Keywords: /m/04h9h, Timeframe: 2007-09-01 2007-10-01, Geo: 
-2025-02-16 21:33:43 - fastapi - INFO - Data fetch successful for API function: interest_by_region, with parameters - Keywords: /m/04h9h, Timeframe: 2007-10-01 2007-11-01, Geo: 
-2025-02-16 21:34:01 - fastapi - INFO - Data fetch successful for API function: interest_by_region, with parameters - Keywords: /m/04h9h, Timeframe: 2007-11-01 2007-12-01, Geo: 
-2025-02-16 21:34:11 - fastapi - INFO - Data fetch successful for API function: interest_by_region, with parameters - Keywords: /m/04h9h, Timeframe: 2007-12-01 2008-01-01, Geo: 
-2025-02-16 21:34:21 - fastapi - INFO - Data fetch successful for API function: interest_by_region, with parameters - Keywords: /m/04h9h, Timeframe: 2008-01-01 2008-02-01, Geo: 
-2025-02-16 21:34:31 - fastapi - INFO - Data fetch successful for API function: interest_by_region, with parameters - Keywords: /m/04h9h, Timeframe: 2008-02-01 2008-03-01, Geo: 
-2025-02-16 21:34:41 - fastapi - INFO - Data fetch successful for API function: interest_by_region, with parameters - Keywords: /m/04h9h, Timeframe: 2008-03-01 2008-04-01, Geo: 
-2025-02-16 21:35:04 - fastapi - WARNING - Rate limited. Retrying after 60 seconds...
-2025-02-16 21:36:06 - fastapi - INFO - Data fetch successful for API function: interest_by_region, with parameters - Keywords: /m/04h9h, Timeframe: 2008-04-01 2008-05-01, Geo: 
-2025-02-16 21:36:16 - fastapi - INFO - Data fetch successful for API function: interest_by_region, with parameters - Keywords: /m/04h9h, Timeframe: 2008-05-01 2008-06-01, Geo: 
-2025-02-16 21:36:26 - fastapi - INFO - Data fetch successful for API function: interest_by_region, with parameters - Keywords: /m/04h9h, Timeframe: 2008-06-01 2008-07-01, Geo: 
-2025-02-16 21:36:50 - fastapi - WARNING - Rate limited. Retrying after 60 seconds...
-2025-02-16 21:38:07 - fastapi - WARNING - Rate limited. Retrying after 60 seconds...
-2025-02-16 21:39:09 - fastapi - INFO - Data fetch successful for API function: interest_by_region, with parameters - Keywords: /m/04h9h, Timeframe: 2008-07-01 2008-08-01, Geo: 
-2025-02-16 21:39:19 - fastapi - INFO - Data fetch successful for API function: interest_by_region, with parameters - Keywords: /m/04h9h, Timeframe: 2008-08-01 2008-09-01, Geo: 
-2025-02-16 21:39:29 - fastapi - INFO - Data fetch successful for API function: interest_by_region, with parameters - Keywords: /m/04h9h, Timeframe: 2008-09-01 2008-10-01, Geo: 
-2025-02-16 21:39:48 - fastapi - INFO - Data fetch successful for API function: interest_by_region, with parameters - Keywords: /m/04h9h, Timeframe: 2008-10-01 2008-11-01, Geo: 
-2025-02-16 21:39:58 - fastapi - INFO - Data fetch successful for API function: interest_by_region, with parameters - Keywords: /m/04h9h, Timeframe: 2008-11-01 2008-12-01, Geo: 
-2025-02-16 21:40:10 - fastapi - INFO - Data fetch successful for API function: interest_by_region, with parameters - Keywords: /m/04h9h, Timeframe: 2008-12-01 2009-01-01, Geo: 
-2025-02-16 21:40:28 - fastapi - INFO - Data fetch successful for API function: interest_by_region, with parameters - Keywords: /m/04h9h, Timeframe: 2009-01-01 2009-02-01, Geo: 
-2025-02-16 21:40:38 - fastapi - INFO - Data fetch successful for API function: interest_by_region, with parameters - Keywords: /m/04h9h, Timeframe: 2009-02-01 2009-03-01, Geo: 
-2025-02-16 21:40:48 - fastapi - INFO - Data fetch successful for API function: interest_by_region, with parameters - Keywords: /m/04h9h, Timeframe: 2009-03-01 2009-04-01, Geo: 
-2025-02-16 21:40:58 - fastapi - INFO - Data fetch successful for API function: interest_by_region, with parameters - Keywords: /m/04h9h, Timeframe: 2009-04-01 2009-05-01, Geo: 
-2025-02-16 21:41:08 - fastapi - INFO - Data fetch successful for API function: interest_by_region, with parameters - Keywords: /m/04h9h, Timeframe: 2009-05-01 2009-06-01, Geo: 
-2025-02-16 21:41:19 - fastapi - INFO - Data fetch successful for API function: interest_by_region, with parameters - Keywords: /m/04h9h, Timeframe: 2009-06-01 2009-07-01, Geo: 
-2025-02-16 21:41:41 - fastapi - WARNING - Rate limited. Retrying after 60 seconds...
-2025-02-16 21:42:02 - httpx - INFO - HTTP Request: DELETE http://localhost:8000/_internal/deregister/trends_collector/trends-tiantian-hv "HTTP/1.1 502 Bad Gateway"
-2025-02-16 21:42:02 - fastapi - INFO - 服务实例注销成功
-2025-02-16 21:42:43 - fastapi - INFO - Data fetch successful for API function: interest_by_region, with parameters - Keywords: /m/04h9h, Timeframe: 2009-07-01 2009-08-01, Geo: 
-2025-02-16 21:42:53 - fastapi - INFO - Data fetch successful for API function: interest_by_region, with parameters - Keywords: /m/04h9h, Timeframe: 2009-08-01 2009-09-01, Geo: 
-2025-02-16 21:43:03 - fastapi - INFO - Data fetch successful for API function: interest_by_region, with parameters - Keywords: /m/04h9h, Timeframe: 2009-09-01 2009-10-01, Geo: 
+2025-02-23 20:33:33 - apscheduler.scheduler - INFO - Scheduler started
+2025-02-23 21:47:25 - apscheduler.scheduler - INFO - Scheduler started
+2025-02-24 21:21:23 - apscheduler.scheduler - INFO - Scheduler started
+2025-02-24 21:44:20 - apscheduler.scheduler - INFO - Scheduler started
+2025-02-24 22:04:16 - apscheduler.scheduler - INFO - Scheduler started
+2025-02-24 22:04:52 - apscheduler.scheduler - INFO - Added job "execute_scheduled_task" to job store "default"
+2025-02-24 22:05:29 - apscheduler.scheduler - INFO - Scheduler started
+2025-02-24 22:06:31 - apscheduler.scheduler - INFO - Added job "execute_scheduled_task" to job store "default"
+2025-02-24 22:09:18 - apscheduler.scheduler - INFO - Scheduler started
+2025-02-24 22:09:46 - apscheduler.scheduler - INFO - Added job "execute_scheduled_task" to job store "default"
+2025-02-24 22:14:50 - apscheduler.scheduler - INFO - Added job "execute_scheduled_task" to job store "default"
+2025-02-24 22:15:02 - apscheduler.scheduler - INFO - Added job "execute_scheduled_task" to job store "default"

@@ -4,11 +4,13 @@ sqlalchemy
 python-dotenv
 pydantic
 pydantic-settings
-apscheduler
-fastapi-pagination[sqlalchemy]
+fastapi-events
 ncps
 lightning
 pandas
 numpy
 geopandas
 pysal
+python-multipart
+python-consul
+httpx

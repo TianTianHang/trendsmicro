@@ -1,9 +1,14 @@
+fastapi
+fastapi-pagination[sqlalchemy]
+uvicorn
 trendspy
 sqlalchemy
 apscheduler
 python-dotenv
 PyYAML
 pandas
+fastapi-events
 pydantic-settings 
 httpx
 Tenacity
+python-consul

@@ -8,7 +8,7 @@ class ServiceInstance(BaseModel):
     instance_id: str
     host: str
     port: int
-    health_check_url: str
+    health_check_url: str = None
     last_health_check: datetime = None
     is_healthy: bool = False
     heartbeat_interval: int = 30  # 服务主动上报间隔

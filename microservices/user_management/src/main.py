@@ -4,7 +4,6 @@ from api.endpoints import user
 from api.dependencies.database import engine, Base
 from config import get_settings
 
-from api.models.permission import RoutePermission, ServicePermissionsResponse
 from services.registry import ConsulRegistry, ServiceInstance
 
 # 配置信息
@@ -19,14 +18,6 @@ instance = ServiceInstance(
         port=setting.port,
     )
 
-# 路由权限信息
-permissions = [
-        RoutePermission(path="/register", required_permission=["public"]),
-        RoutePermission(path="/token", required_permission=["public"]),  # 公开接口
-        RoutePermission(path="/users/me", required_permission=["user","admin"]),
-        RoutePermission(path="/users", required_permission=["admin"]),
-        RoutePermission(path="/verify-token", required_permission=["public"]),
-    ]
 
 
 async def lifespan_handler(app: FastAPI):
@@ -43,14 +34,6 @@ app.include_router(user.router)
 @app.get("/health")
 async def health_check():
     return {"status": "healthy"}
-
-@app.get("/permissions", response_model=ServicePermissionsResponse)
-async def get_service_permissions():
-    """
-    返回当前服务的路由权限配置
-    """
-    # 返回服务权限配置
-    return ServicePermissionsResponse(service_name=instance.service_name, permissions=permissions)
 
 if __name__ == "__main__":
     import uvicorn

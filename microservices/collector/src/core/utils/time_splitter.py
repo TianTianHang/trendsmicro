@@ -1,7 +1,7 @@
 # src/core/utils/time_splitter.py
 import pandas as pd
 
-def split_time_ranges(start_date: str, end_date: str, interval: str) -> list:
+def split_time_ranges(start_date: str, end_date: str, interval: str,format="%Y-%m-%d") -> list:
     """
     根据时间间隔分割时间段
     Args:
@@ -16,8 +16,8 @@ def split_time_ranges(start_date: str, end_date: str, interval: str) -> list:
         ranges = []
         for i in range(len(dates)-1):
             ranges.append((
-                dates[i].strftime("%Y-%m-%d"), 
-                dates[i+1].strftime("%Y-%m-%d")
+                dates[i].strftime(format), 
+                dates[i+1].strftime(format)
             ))
         # 处理最后一个时间段
         if ranges and ranges[-1][1] < end_date:

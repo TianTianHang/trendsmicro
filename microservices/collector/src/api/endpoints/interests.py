@@ -35,5 +35,21 @@ async def get_time_interests(db: Session = Depends(get_db)):
     )
     return sqlalchemy_paginate(query)
 
-# 注册分页路由
+# 根据任务需求获取数据接口
+@router.get("/task-interests", response_model=CustomPage[RegionInterestSchema])
+async def get_task_interests(
+    db: Session = Depends(get_db),
+    start_time: str = Query(..., description="开始时间"),
+    end_time: str = Query(..., description="结束时间"),
+    keyword: str = Query(None, description="关键词")
+):
+    """根据任务需求获取数据"""
+    query = db.query(RegionInterest).filter(
+        RegionInterest.timestamp >= start_time,
+        RegionInterest.timestamp <= end_time
+    )
+    if keyword:
+        query = query.filter(RegionInterest.keyword.contains(keyword))
+    return sqlalchemy_paginate(query)
+
 add_pagination(router)

@@ -1,0 +1,21 @@
+{
+    "service_name": "trends_collector",
+    "permissions": [
+        {
+            "path": "/tasks/historical",
+            "required_permission": ["admin"]
+        },
+        {
+            "path": "/tasks/scheduled",
+            "required_permission": ["admin"]
+        },
+        {
+            "path": "/tasks/historical/{task_id}/terminate",
+            "required_permission": ["admin"]
+        },
+        {
+            "path": "/tasks/scheduled/{task_id}/toggle",
+            "required_permission": ["admin"]
+        }
+    ]
+}

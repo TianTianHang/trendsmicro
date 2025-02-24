@@ -6,6 +6,7 @@ from pathlib import Path
 class Settings(BaseSettings):
     database_url: str
     port: int
+    algorithm: str = "HS256"
     consul_host: str = "localhost"
     consul_port: int = 8500
     service_tags: List[str] = ["permission"]

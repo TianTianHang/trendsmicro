@@ -58,6 +58,7 @@ services:
       - CONSUL_HOST=consul
       - PORT=8000
     depends_on:
+      - user-management
       - consul
 
   # 新增基础设施服务

@@ -1,11 +1,12 @@
+import asyncio
 import socket
-from fastapi import Depends, FastAPI, HTTPException, Header, Request
+from fastapi import Depends, FastAPI, HTTPException, Header
 from fastapi.responses import JSONResponse
-import httpx
 from contextlib import asynccontextmanager
-
+from jose import JWTError, jwt
 from pydantic import BaseModel
 from config import get_settings
+from services.jwt_validator import JWTValidator
 from services.registry import ServiceInstance,ConsulRegistry
 from dependencies.database import engine, Base,get_db
 from sqlalchemy.orm import Session
@@ -13,6 +14,8 @@ from models.permission import Permission
 
 setting = get_settings()
 registry = ConsulRegistry(host=setting.consul_host, port=setting.consul_port)
+jwt_validatort = JWTValidator(registry)
+
 hostname=socket.gethostname()
 # 注册服务到Consul
 instance = ServiceInstance(
@@ -26,13 +29,14 @@ instance = ServiceInstance(
 @asynccontextmanager
 async def lifespan(app: FastAPI):
    
-    
+    asyncio.create_task(jwt_validatort.periodic_refresh())
     registry.register(instance)
     yield
     # 注销服务
     registry.deregister(instance.service_name, instance.instance_id)
 Base.metadata.create_all(bind=engine)    
 app = FastAPI(lifespan=lifespan)
+
 
 
 @app.get("/health")
@@ -47,6 +51,7 @@ class VerifyPermission(BaseModel):
 async def verify_permission(req: VerifyPermission, authorization: str = Header(None), db: Session = Depends(get_db)):
     # Check if the path is public
     permission = db.query(Permission).filter(Permission.path == req.path, Permission.service_name == req.service_name).first()
+   
     if permission and "public" in permission.required_permission.split(','):
         return {"message": "Permission granted"}
    
@@ -57,37 +62,24 @@ async def verify_permission(req: VerifyPermission, authorization: str = Header(N
             )
     token = authorization.split("Bearer ")[-1]
     
-    instances = registry.get_healthy_instances("user_management")
-    if not instances:
-        raise HTTPException(status_code=401, detail="User management service unavailable") # 返回 None 表示没有可用实例
-
-    # 获取第一个健康实例的 URL
-    target = instances[0]
-    verify_token_url=f"http://{target.host}:{target.port}/verify-token"
     try:
-        async with httpx.AsyncClient() as client:
-                response = await client.post(
-                    verify_token_url,
-                    json={"token": token},
-                    headers={"Content-Type": "application/json"}
-                )
-                user_info = response.json()
-                token_role =user_info.get("role")
-                if response.status_code != 200:
-                    return JSONResponse(
-                        status_code=response.status_code,
-                        content={"message": response.json().get("detail", "Token validation failed")}
-                    )
-    except httpx.RequestError:
-            return JSONResponse(
-                status_code=503,
-                content={"message": "User management service unavailable"}
-            )
-        
+        # 验证JWT令牌
+        payload =await jwt_validatort.verify_token(token)
+        if payload:
+            username: str = payload.get("sub")
+            if not username:
+                raise HTTPException(status_code=401, detail="Invalid token")
+            token_role = payload.get("role")
+        elif payload is False:
+            raise HTTPException(status_code=401, detail="No public key")
+        else:
+            raise HTTPException(status_code=401, detail="Invalid token")
+    except JWTError:
+        raise HTTPException(status_code=401, detail="Token validation failed")
     if permission:
         required_permission = permission.required_permission.split(',')
         if token_role in required_permission:
-            return {"message": "Permission granted", "user_info": user_info}
+            return {"message": "Permission granted"}
         else:
             raise HTTPException(status_code=403, detail="Permission denied")
     else:

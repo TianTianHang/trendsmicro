@@ -1,0 +1,41 @@
+{
+    "service_name": "query",
+    "permissions": [
+        {
+            "path": "/interest/region-interests/timeframes",
+            "required_permission": ["user", "admin"]
+        },
+        {
+            "path": "/interest/region-interests/geo-time-slices",
+            "required_permission": ["user", "admin"]
+        },
+        {
+            "path": "/interest/time-interests/",
+            "required_permission": ["user", "admin"]
+        },
+        {
+            "path": "/cfc/train",
+            "required_permission": ["user", "admin"]
+        },
+        {
+            "path": "/cfc/predict",
+            "required_permission": ["user", "admin"]
+        },
+        {
+            "path": "/cfc/fit",
+            "required_permission": ["user", "admin"]
+        },
+        {
+            "path": "/cfc/fit/{task_id}",
+            "required_permission": ["user", "admin"]
+        },
+        {
+            "path": "/moran/global",
+            "required_permission": ["user", "admin"]
+        },
+        {
+            "path": "/moran/local",
+            "required_permission": ["user", "admin"]
+        }
+    ]
+}

@@ -106,6 +106,8 @@ async def predict_time_interest_response(
     except Exception as e:
         raise HTTPException(status_code=500, detail=f"An unexpected error occurred: {str(e)}")
 
+
+###################fit######################
 async def async_train_task(data: FitRequest):
     """真实训练任务"""
     db = get_independent_db()

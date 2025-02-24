@@ -4,7 +4,8 @@ from pathlib import Path
 class Settings(BaseSettings):
     database_url: str  #"postgresql://user:pass@localhost/trends"
     port: int
-    secret_key: str
+    public_key_path: str
+    private_key_path: str
     algorithm: str
     access_token_expire_minutes: int
     consul_host: str = "localhost"

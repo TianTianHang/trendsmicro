@@ -12,5 +12,5 @@ RUN pip install --no-cache-dir -r requirements.txt
 # 拷贝代码
 COPY ./src/ ./src/
 COPY .env ./.env
-
-CMD ["python", "src/main.py"]
+WORKDIR /app/src
+CMD ["python", "main.py"]

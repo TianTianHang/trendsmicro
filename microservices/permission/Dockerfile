@@ -13,4 +13,5 @@ RUN pip install --no-cache-dir -r requirements.txt
 COPY ./src/ ./src/
 COPY .env ./.env
 COPY ./src/permission.db ./src/permission.db
-CMD ["python", "src/main.py"]
+WORKDIR /app/src
+CMD ["python", "main.py"]
