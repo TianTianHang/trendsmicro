@@ -20,7 +20,7 @@ class RegionInterest(Base):
         Index('idx_timeframe', 'timeframe_start')
     )
 
-class TimeInterest(Base):
+class InterestMeta(Base):
     """时间兴趣数据模型"""
     __tablename__ = "time_interest"
     id = Column(Integer, primary_key=True)

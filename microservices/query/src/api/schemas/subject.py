@@ -1,6 +1,8 @@
-from datetime import datetime
+from datetime import date, datetime
 from typing import List, Union
 from pydantic import BaseModel
+
+from api.schemas.interest import InterestMetaData
 
 
 
@@ -9,7 +11,7 @@ class RealtimeTask(BaseModel):
     data_type: str
     keywords: List[str]
     geo_code: str
-    start_date: datetime
+    start_date: date
     duration: int
     interval: str
    
@@ -19,9 +21,9 @@ class HistoricalTask(BaseModel):
     data_type: str
     keywords: List[str]
     geo_code: str
-    start_date: datetime
-    end_date: datetime
-    interval: str
+    start_date: date
+    end_date: date
+    interval: str =None
    
 class SubjectCreate(BaseModel):
     user_id: str
@@ -36,3 +38,9 @@ class SubjectDataResponse(BaseModel):
     timestamp: str
     data: dict
     
+class NotifyRequest(BaseModel):
+    task_id: int
+    type: str
+    interest_type: str
+    interests: list[str]
+    meta: list[InterestMetaData]

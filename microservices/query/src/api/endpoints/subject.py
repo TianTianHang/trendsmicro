@@ -3,8 +3,9 @@ from sqlalchemy.orm import Session
 from api.dependencies.database import get_db
 from api.models.subject import Subject,SubjectData
 from typing import List
-from api.schemas.subject import SubjectCreate, SubjectDataResponse, SubjectResponse
+from api.schemas.subject import NotifyRequest, SubjectCreate, SubjectDataResponse, SubjectResponse
 from fastapi_events.dispatcher import dispatch
+
 
 router = APIRouter(prefix="/subject")
 
@@ -30,3 +31,8 @@ def read_task_data(subject_id: int, db: Session = Depends(get_db)):
     if not db_subject_data:
         raise HTTPException(status_code=404, detail="Subject data not found")
     return db_subject_data
+
+@router.post("/notification")
+def notify(request: NotifyRequest):
+    dispatch(event_name="subject_notify", payload=request)
+    return {"status": "ok"}

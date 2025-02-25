@@ -1,11 +1,11 @@
-from fastapi import Depends
 from fastapi.logger import logger
 from api.dependencies.database import get_db
-from sqlalchemy.orm import Session
 from fastapi_events.typing import Event
-from api.models.tasks import HistoricalTask
 from fastapi_events.handlers.local import local_handler
 from core import scheduler_manager
+from api.models.interest import RegionInterest, TimeInterest
+from api.schema.interest import InterestMetaData
+from services import query
 
 @local_handler.register(event_name="historical_task_create")
 def handle_pending_tasks(event: Event):
@@ -28,5 +28,22 @@ def handle_pending_tasks(event: Event):
 @local_handler.register(event_name="historical_task_finsh")
 def handle_finish_tasks(event: Event):
     _,task=event
-    query.task_finish(task)
+    db=next(get_db())
+    if task.get("job_type") == "time":
+        result=db.query(TimeInterest).filter(TimeInterest.id in task.get("interest_id"))
+    elif task.get("job_type") == "region":
+        result=db.query(RegionInterest).filter(RegionInterest.id in task.get("interest_id"))
+    req=query.NotifyRequest(
+        task_id=task.get("task_id"),
+        type=task.get("type"),
+        job_type=task.get("job_type"),
+        interests=[r.data for r in result.all()],
+        meta =[InterestMetaData(
+                    geo_code=r.geo_code,
+                    keywords=r.keywords,
+                    timeframe_start=r.timeframe_start,
+                    timeframe_end=r.timeframe_end
+            ) for r in result.all()]
+    )
+    query.task_finish(req)
     pass

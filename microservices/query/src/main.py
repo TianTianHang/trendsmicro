@@ -2,7 +2,7 @@ import socket
 from fastapi import FastAPI
 from config import get_settings
 from api.dependencies.database import Base,engine
-from api.endpoints import interest
+
 from fastapi_events.middleware import EventHandlerASGIMiddleware
 from fastapi_events.handlers.local import local_handler
 from services import registry
@@ -38,7 +38,6 @@ app = FastAPI(title="Query API",lifespan=lifespan_handler)
 app.add_middleware(EventHandlerASGIMiddleware, 
                    handlers=[local_handler])
 
-app.include_router(interest.router)
 app.include_router(cfc.router)
 app.include_router(moran.router)
 app.include_router(subject.router)

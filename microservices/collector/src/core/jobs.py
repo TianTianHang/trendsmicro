@@ -29,7 +29,7 @@ def execute_historical_task(task:HistoricalTask):
             db.commit()
         
         # 执行任务
-        last_id=execute_task(
+        interest_id=execute_task(
             task.job_type, task.keywords, task.geo_code, 
             task.interval, task.start_date, task.end_date,
             task.id
@@ -42,8 +42,10 @@ def execute_historical_task(task:HistoricalTask):
             db.commit()
             dispatch(event_name="historical_task_finish",
                      payload={
-                         "task_id":db_task.schedule_id if db_task.schedule_id else db_task.id,
-                          "interest_id":last_id
+                            "task_id": db_task.schedule_id if db_task.schedule_id else db_task.id,
+                            "interest_type": db_task.job_type,
+                            "type": "realtime" if db_task.schedule_id else "historical",
+                            "interest_id":interest_id
                          },middleware_id=1)
     except Exception as e:
         # 更新状态为failed

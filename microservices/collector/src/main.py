@@ -6,7 +6,7 @@ from api.dependencies.database import engine,Base
 from core import scheduler_manager
 from fastapi_events.middleware import EventHandlerASGIMiddleware
 from fastapi_events.handlers.local import local_handler
-from api.endpoints import tasks,interests
+from api.endpoints import tasks
 from config import get_settings
 import handlers
 from services.registry import ConsulRegistry, ServiceInstance
@@ -56,7 +56,7 @@ app = FastAPI(title="Trends Collector API",lifespan=lifespan_handler)
 app.add_middleware(EventHandlerASGIMiddleware, 
                    handlers=[local_handler],middleware_id=1)
 app.include_router(tasks.router)
-app.include_router(interests.router)
+
 
 @app.get("/health")
 async def health_check():

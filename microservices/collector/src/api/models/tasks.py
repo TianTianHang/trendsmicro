@@ -38,7 +38,7 @@ class RequestHistory(Base):
     geo_code = Column(String, nullable=False)      # 地区代码
     timeframe_start = Column(Date, nullable=False) # 时间范围起点
     timeframe_end = Column(Date, nullable=False)   # 时间范围终点
-    created_at = Column(Date, default=date.today())# 记录创建时间
+    created_at = Column(DateTime, default=datetime.now())# 记录创建时间
     status = Column(String(20), default="created") #created/success/failed 
     # 唯一约束：确保同一请求参数不会重复记录
     __table_args__ = (

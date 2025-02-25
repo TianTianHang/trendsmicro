@@ -34,3 +34,8 @@ class TimeInterestResponse(TimeInterestResponseBase):
     
     class Config:
         from_attribute = True
+class InterestMetaData(BaseModel):
+    keywords: list[str]
+    geo_code: str
+    timeframe_start: date
+    timeframe_end: date

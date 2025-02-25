@@ -11,13 +11,13 @@ class HistoricalTaskRequest(BaseModel):
     geo_code: str = ""
     start_date: str
     end_date: str
-    interval: str = None
+    interval: Optional[str] = None
 
 class ScheduledTaskRequest(BaseModel):
     job_type:str
     keywords: List[str]
     geo_code: str = ""
-    start_date: datetime
+    start_date: str
     duration: int
     interval: str = None
     

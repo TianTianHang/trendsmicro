@@ -33,7 +33,7 @@ class TimeInterest(Base):
     timeframe_start = Column(Date)             # 时间范围起点
     timeframe_end = Column(Date)               # 时间范围终点
     data = Column(JSON)                        # 数据
-    task_id = Column(String)                   # 关联任务ID historical-1 scheduled-1
+    task_id = Column(String)                   # 关联任务ID 
    
     
     class Config:

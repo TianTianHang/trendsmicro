@@ -48,7 +48,7 @@ def get_interest_by_region(keywords: list[str], geo_code: str, interval: str, st
     db=next(get_db())
     time_ranges = split_time_ranges(start_date, end_date, interval,'%Y-%m-%dT%H:%M')
     
-
+    interest_id=[]
     for start, end in time_ranges:
         # 检查请求历史表判断是否已处理
         timeframe_start = datetime.strptime(start, "%Y-%m-%d").date()
@@ -101,7 +101,7 @@ def get_interest_by_region(keywords: list[str], geo_code: str, interval: str, st
             history.status="success"
             db.commit()
             db.refresh(record)
-            return record.id
+            interest_id.append(record.id)
         except IntegrityError as e:
             db.rollback()
             logger.error(f"数据已存在或冲突: {str(e)}")
@@ -114,15 +114,15 @@ def get_interest_by_region(keywords: list[str], geo_code: str, interval: str, st
             history.status="failed"
             db.commit()
             raise
-            
+    return interest_id
 def get_interest_over_time(keywords: list[str], geo_code: str, interval: str, start_date: str, end_date: str,task_id: int):
     db = next(get_db())
     time_ranges = split_time_ranges(start_date, end_date, interval)
-
+    interest_id=[]
     for start, end in time_ranges:
         # 检查请求历史表判断是否已处理
-        timeframe_start = datetime.strptime(start, "%Y-%m-%d")
-        timeframe_end = datetime.strptime(end, "%Y-%m-%d")
+        timeframe_start = datetime.strptime(start, "%Y-%m-%d").date()
+        timeframe_end = datetime.strptime(end, "%Y-%m-%d").date()
 
         # 查询请求历史表
         history = db.query(RequestHistory).filter(
@@ -172,7 +172,7 @@ def get_interest_over_time(keywords: list[str], geo_code: str, interval: str, st
             history.status = "success"
             db.commit()
             db.refresh(record)
-            return record.id
+            interest_id.append(record.id)
         except IntegrityError as e:
             db.rollback()
             logger.error(f"数据已存在或冲突: {str(e)}")
@@ -185,3 +185,4 @@ def get_interest_over_time(keywords: list[str], geo_code: str, interval: str, st
             history.status = "failed"
             db.commit()
             raise
+    return interest_id

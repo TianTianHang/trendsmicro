@@ -1,6 +1,6 @@
 #src/api/endpoints/tasks.py
 from datetime import datetime
-from typing import List
+from typing import List, Optional
 from fastapi import APIRouter, Depends, HTTPException
 from pydantic import BaseModel
 from sqlalchemy.orm import Session
@@ -20,7 +20,7 @@ class HistoricalTaskRequest(BaseModel):
     geo_code: str = ""
     start_date: str
     end_date: str
-    interval: str = None
+    interval: Optional[str] = None
 
 class ScheduledTaskRequest(BaseModel):
     job_type:str
