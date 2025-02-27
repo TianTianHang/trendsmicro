@@ -7,11 +7,7 @@ router = APIRouter(prefix="/_internal")
 
 
 @router.get("/services")
-def list_services():
+def list_services(service_name: str):
     return {
-        "services": {
-            name: [inst.model_dump() for inst in instances]
-            for name, instances in registry.services.items()
-        }
+        "services": registry.get_healthy_instances(service_name)
     }
-    

@@ -12,7 +12,7 @@ RUN pip install --no-cache-dir -r requirements.txt
 # 拷贝代码
 COPY ./src/ ./src/
 COPY .env ./.env
-COPY ./src/trends.db ./src/trends.db
+# COPY ./src/trends.db ./src/trends.db
 
 WORKDIR /app/src
 CMD ["python", "main.py"]

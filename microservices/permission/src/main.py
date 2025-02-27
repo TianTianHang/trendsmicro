@@ -21,7 +21,7 @@ hostname=socket.gethostname()
 instance = ServiceInstance(
         service_name="permission",
         instance_id=f"permission-{hostname}",
-        host=hostname,
+        host=socket.gethostbyname(hostname),
         port=setting.port,
        
     )
@@ -50,7 +50,26 @@ class VerifyPermission(BaseModel):
 @app.post("/verify-permission")
 async def verify_permission(req: VerifyPermission, authorization: str = Header(None), db: Session = Depends(get_db)):
     # Check if the path is public
-    permission = db.query(Permission).filter(Permission.path == req.path, Permission.service_name == req.service_name).first()
+    permissions = db.query(Permission).filter(
+        Permission.service_name == req.service_name
+    ).all()
+
+    permission = None
+   
+    for perm in permissions:
+        perm_path_parts = perm.path.split('/')
+        req_path_parts = req.path.split('/')
+        if len(perm_path_parts) == len(req_path_parts):
+            match = True
+            for perm_part, req_part in zip(perm_path_parts, req_path_parts):
+                if perm_part.startswith('{') and perm_part.endswith('}'):
+                    continue
+                if perm_part != req_part:
+                    match = False
+                    break
+            if match:
+                permission = perm
+                break
    
     if permission and "public" in permission.required_permission.split(','):
         return {"message": "Permission granted"}

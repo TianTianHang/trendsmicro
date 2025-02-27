@@ -12,6 +12,6 @@ RUN pip install --no-cache-dir -r requirements.txt
 # 拷贝代码
 COPY ./src/ ./src/
 COPY .env ./.env
-COPY ./src/query.db ./src/query.db
+# COPY ./src/query.db ./src/query.db
 WORKDIR /app/src
 CMD ["python", "main.py"]

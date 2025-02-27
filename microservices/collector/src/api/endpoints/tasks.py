@@ -103,7 +103,7 @@ def terminate_historical_task(
     return {"message": "任务已终止"}
 
 @router.post("/historical/{task_id}/retry")
-def retry_historical_task(
+async def retry_historical_task(
     task_id: int, 
     db: Session = Depends(get_db)
 ):
@@ -113,7 +113,7 @@ def retry_historical_task(
     
     # 如果任务失败
     if task.status == "failed":
-        scheduler_manager.add_historical_job(task)
+       dispatch(event_name="historical_task_create",payload=task)
     else:
         raise HTTPException(403, "操作不合法")
     return {"message": "任务已重新开始"}

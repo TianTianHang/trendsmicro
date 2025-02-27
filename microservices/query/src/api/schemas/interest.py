@@ -1,6 +1,6 @@
-from pydantic import BaseModel
+from pydantic import BaseModel, Field
 from datetime import date
-from typing import Optional
+from typing import Optional, Union
 
 class RegionInterestBase(BaseModel):
     keyword: str
@@ -34,6 +34,21 @@ class TimeInterestResponse(TimeInterestResponseBase):
     
     class Config:
         from_attribute = True
+class TimeInterest(BaseModel):
+    time_utc: str =Field(alias='time [UTC]')
+    isPartial: Optional[bool] = False
+
+    class Config:
+        extra = "allow"
+        
+class RegionInterest(BaseModel):
+    geoName: str
+    geoCode: str
+
+    class Config:
+        
+        extra = "allow"
+        
 class InterestMetaData(BaseModel):
     keywords: list[str]
     geo_code: str

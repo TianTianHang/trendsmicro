@@ -48,6 +48,7 @@ async def process_subject(event: Event):
                 db=next(get_db())
                 if result:
                     subjectData=SubjectData(
+                        data_type=task.get("data_type"),
                         subject_id=subject.subject_id,
                         task_id=result.get("task_id"),
                     )

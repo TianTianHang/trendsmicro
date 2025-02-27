@@ -6,9 +6,9 @@ from core import scheduler_manager
 from api.models.interest import RegionInterest, TimeInterest
 from api.schema.interest import InterestMetaData
 from services import query
-
+from services.query import NotifyRequest
 @local_handler.register(event_name="historical_task_create")
-def handle_pending_tasks(event: Event):
+async def handle_pending_tasks(event: Event):
         """调度未执行的历史任务"""
         db=next(get_db())
         _,task=event
@@ -25,25 +25,30 @@ def handle_pending_tasks(event: Event):
             db.rollback()
             logger.error(f"任务 {task.id} 加入队列失败: {str(e)}")
 
-@local_handler.register(event_name="historical_task_finsh")
-def handle_finish_tasks(event: Event):
+@local_handler.register(event_name="historical_task_finish")
+async def handle_finish_tasks(event: Event):
     _,task=event
     db=next(get_db())
-    if task.get("job_type") == "time":
-        result=db.query(TimeInterest).filter(TimeInterest.id in task.get("interest_id"))
-    elif task.get("job_type") == "region":
-        result=db.query(RegionInterest).filter(RegionInterest.id in task.get("interest_id"))
-    req=query.NotifyRequest(
+    interest_type = task.get("interest_type")
+    interest_id = task.get("interest_id")
+    
+    if interest_type == "time":
+        interest = db.query(TimeInterest).filter(TimeInterest.id.in_(interest_id))
+    elif interest_type == "region":
+        interest = db.query(RegionInterest).filter(RegionInterest.id.in_(interest_id))
+    
+    interests = interest.all()
+    
+    req = NotifyRequest(
         task_id=task.get("task_id"),
         type=task.get("type"),
-        job_type=task.get("job_type"),
-        interests=[r.data for r in result.all()],
-        meta =[InterestMetaData(
-                    geo_code=r.geo_code,
-                    keywords=r.keywords,
-                    timeframe_start=r.timeframe_start,
-                    timeframe_end=r.timeframe_end
-            ) for r in result.all()]
+        interest_type=interest_type,
+        interests=[r.data for r in interests],
+        meta=[InterestMetaData(
+                geo_code=r.geo_code,
+                keywords=r.keywords,
+                timeframe_start=r.timeframe_start,
+                timeframe_end=r.timeframe_end
+            ) for r in interests]
     )
-    query.task_finish(req)
-    pass
+    await query.task_finish(req)

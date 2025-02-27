@@ -36,7 +36,7 @@ class ConsulRegistry:
 
     def get_healthy_instances(self, service_name: str) -> List[ServiceInstance]:
         _, services = self.client.health.service(service_name)
-        return [
+        serviceInstances=[
             ServiceInstance(
                 service_name=service['Service']['Service'],
                 instance_id=service['Service']['ID'],
@@ -46,3 +46,4 @@ class ConsulRegistry:
             )
             for service in services
         ]
+        return [instance for instance in serviceInstances if instance.is_healthy]

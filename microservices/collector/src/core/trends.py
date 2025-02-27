@@ -64,6 +64,7 @@ def get_interest_by_region(keywords: list[str], geo_code: str, interval: str, st
         ).first()
         
         if history and history.status=="success":
+            interest_id.append(history.interest_id)
             continue  # 跳过已处理的请求
         elif not history:
             try:
@@ -92,13 +93,14 @@ def get_interest_by_region(keywords: list[str], geo_code: str, interval: str, st
                         geo_code=geo_code,
                         timeframe_start=timeframe_start,
                         timeframe_end=timeframe_end,
-                        data=region_data.to_json(orient="records"),
+                        data=region_data.reset_index().to_json(orient="records"),
                         task_id=task_id
                     )   
             db.add(record)
                 
             # 记录请求历史
             history.status="success"
+            history.interest_id=record.id
             db.commit()
             db.refresh(record)
             interest_id.append(record.id)
@@ -134,6 +136,7 @@ def get_interest_over_time(keywords: list[str], geo_code: str, interval: str, st
         ).first()
 
         if history and history.status == "success":
+            interest_id.append(history.interest_id)
             continue  # 跳过已处理的请求
         elif not history:
             try:
@@ -163,15 +166,16 @@ def get_interest_over_time(keywords: list[str], geo_code: str, interval: str, st
                         geo_code=geo_code,
                         timeframe_start=timeframe_start,
                         timeframe_end=timeframe_end,
-                        data=time_data.to_json(orient="records"),
+                        data=time_data.reset_index().to_json(orient="records"),
                         task_id=task_id
                     )
             db.add(record)
-
-            # 记录请求历史
-            history.status = "success"
             db.commit()
             db.refresh(record)
+             # 记录请求历史
+            history.status = "success"
+            history.interest_id = record.id
+            db.commit()
             interest_id.append(record.id)
         except IntegrityError as e:
             db.rollback()

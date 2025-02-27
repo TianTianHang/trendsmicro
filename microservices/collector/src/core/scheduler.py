@@ -1,6 +1,7 @@
 #src/core/scheduler.py
+import asyncio
 from datetime import datetime, timedelta
-from apscheduler.schedulers.background import BackgroundScheduler
+from apscheduler.schedulers.asyncio import AsyncIOScheduler
 from apscheduler.jobstores.sqlalchemy import SQLAlchemyJobStore
 from fastapi.logger import logger
 from sqlalchemy import create_engine
@@ -8,16 +9,23 @@ from api.dependencies.database import get_db
 from api.models.tasks import HistoricalTask, ScheduledTask
 from config import get_settings
 from core.jobs import execute_historical_task, execute_scheduled_task
-
+from api.dependencies.database import engine
 settings = get_settings()
 
 class SchedulerManager:
     def __init__(self):
-        self.scheduler = BackgroundScheduler(
+        self.scheduler = AsyncIOScheduler(
             jobstores={
-                'default': SQLAlchemyJobStore(engine=create_engine(settings.database_url))
+            'default': SQLAlchemyJobStore(engine=engine)
             },
-            timezone="UTC"
+            timezone="UTC",
+            job_defaults={
+            'coalesce': False,
+            'max_instances': 1
+            },
+            executors={
+            'default': {'type': 'asyncio'}
+            }
         )
     
     def start(self):

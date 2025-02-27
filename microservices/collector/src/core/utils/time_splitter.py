@@ -9,7 +9,7 @@ def split_time_ranges(start_date: str, end_date: str, interval: str,format="%Y-%
             "YS" - 按年分割 (2004-01-01 到 2005-01-01)
             "MS" - 按月分割 (2004-01-01 到 2004-02-01)
     """
-    if interval == None:
+    if interval == None or interval=="":
         return [(start_date,end_date)]
     try:
         dates = pd.date_range(start=start_date, end=end_date, freq=interval)

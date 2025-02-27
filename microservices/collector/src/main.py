@@ -29,7 +29,7 @@ hostname=socket.gethostname()
 instance = ServiceInstance(
         service_name="trends_collector",
         instance_id=f"trends_collector-{hostname}",
-        host=hostname,
+        host=socket.gethostbyname(hostname),
         port=setting.port,
        
     )
@@ -52,9 +52,8 @@ Base.metadata.create_all(bind=engine)
 # 新增状态同步
 scheduler_manager.sync_job_status()
 app = FastAPI(title="Trends Collector API",lifespan=lifespan_handler)
-
 app.add_middleware(EventHandlerASGIMiddleware, 
-                   handlers=[local_handler],middleware_id=1)
+                   handlers=[local_handler],middleware_id=8888)
 app.include_router(tasks.router)
 
 

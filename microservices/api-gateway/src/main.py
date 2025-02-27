@@ -17,9 +17,9 @@ hostname=socket.gethostname()
 instance = ServiceInstance(
         service_name="api-gateway",
         instance_id=f"api-gateway-{hostname}",
-        host=hostname,
+        host=socket.gethostbyname(hostname),
         port=setting.port,
-        health_check_url=f"http://{hostname}:{setting.port}/_internal/health"
+        health_check_url=f"http://{socket.gethostbyname(hostname)}:{setting.port}/_internal/health"
     )
 
 @asynccontextmanager

@@ -20,7 +20,7 @@ hostname=socket.gethostname()
 instance = ServiceInstance(
         service_name="query",
         instance_id=f"query-{hostname}",
-        host=hostname,
+        host=socket.gethostbyname(hostname),
         port=setting.port
     )        
             

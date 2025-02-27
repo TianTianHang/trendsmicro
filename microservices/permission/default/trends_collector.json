@@ -16,6 +16,11 @@
         {
             "path": "/tasks/scheduled/{task_id}/toggle",
             "required_permission": ["admin"]
+        },
+        {
+            "path": "/tasks/scheduled/{task_id}/retry",
+            "required_permission": ["admin"]
         }
+        
     ]
 }

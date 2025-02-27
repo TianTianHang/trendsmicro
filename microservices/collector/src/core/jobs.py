@@ -18,7 +18,7 @@ def execute_task(job_type, keywords, geo_code, interval, start_date, end_date,ta
     logger.info("采集数据结束")
     return last_id
     
-def execute_historical_task(task:HistoricalTask):
+async def execute_historical_task(task:HistoricalTask):
     """执行历史数据采集任务"""
     db = next(get_db())
     try:
@@ -27,7 +27,8 @@ def execute_historical_task(task:HistoricalTask):
         if db_task:
             db_task.status = "running"
             db.commit()
-        
+        if task.geo_code=="World":
+            task.geo_code=""
         # 执行任务
         interest_id=execute_task(
             task.job_type, task.keywords, task.geo_code, 
@@ -46,7 +47,7 @@ def execute_historical_task(task:HistoricalTask):
                             "interest_type": db_task.job_type,
                             "type": "realtime" if db_task.schedule_id else "historical",
                             "interest_id":interest_id
-                         },middleware_id=1)
+                         },middleware_id=8888)
     except Exception as e:
         # 更新状态为failed
         db_task = db.query(HistoricalTask).get(task.id)
@@ -56,7 +57,7 @@ def execute_historical_task(task:HistoricalTask):
         raise e  # 重新抛出异常以便APScheduler记录日志
 
 
-def execute_scheduled_task(task:ScheduledTask):
+async def execute_scheduled_task(task:ScheduledTask):
     """执行定时数据采集任务并生成历史任务记录"""
     db = next(get_db())
     try:
@@ -74,7 +75,7 @@ def execute_scheduled_task(task:ScheduledTask):
         db.add(historical_task)
         db.commit()
         db.refresh(historical_task)
-        dispatch(event_name="historical_task_create",payload=historical_task,middleware_id=1)
+        dispatch(event_name="historical_task_create",payload=historical_task,middleware_id=8888)
     except Exception as e:
         db.rollback()
         raise e

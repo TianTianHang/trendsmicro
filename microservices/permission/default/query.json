@@ -2,15 +2,15 @@
     "service_name": "query",
     "permissions": [
         {
-            "path": "/interest/region-interests/timeframes",
+            "path": "/subject/create",
             "required_permission": ["user", "admin"]
         },
         {
-            "path": "/interest/region-interests/geo-time-slices",
+            "path": "/{subject_id}",
             "required_permission": ["user", "admin"]
         },
         {
-            "path": "/interest/time-interests/",
+            "path": "/{subject_id}/data",
             "required_permission": ["user", "admin"]
         },
         {

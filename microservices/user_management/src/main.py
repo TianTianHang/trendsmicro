@@ -14,7 +14,7 @@ hostname=socket.gethostname()
 instance = ServiceInstance(
         service_name="user_management",
         instance_id=f"user_management-{hostname}",
-        host=hostname,
+        host=socket.gethostbyname(hostname),
         port=setting.port,
     )
 

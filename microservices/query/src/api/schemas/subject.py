@@ -1,8 +1,8 @@
 from datetime import date, datetime
-from typing import List, Union
-from pydantic import BaseModel
+from typing import List, Optional, Union
+from pydantic import BaseModel, field_validator
 
-from api.schemas.interest import InterestMetaData
+from api.schemas.interest import InterestMetaData, RegionInterest, TimeInterest
 
 
 
@@ -26,17 +26,31 @@ class HistoricalTask(BaseModel):
     interval: str =None
    
 class SubjectCreate(BaseModel):
-    user_id: str
+    user_id: int
+    name: str
+    description:str
     parameters: List[Union[RealtimeTask,HistoricalTask]]
 class SubjectResponse(BaseModel):
     subject_id: int
-
-
+    name: str
+    description:Optional[str]
+class SubjectListResponse(BaseModel):
+    subject_id: int
+    name: str
+    description:Optional[str]
+    status: str
+    data_num: int
 
 class SubjectDataResponse(BaseModel):
     subject_id: int
     timestamp: str
-    data: dict
+    meta: List[InterestMetaData]
+
+class SubjectDataTimeResponse(SubjectDataResponse):
+    data: List[List[TimeInterest]]
+
+class SubjectDataRegionResponse(SubjectDataResponse):
+    data: List[List[RegionInterest]]
     
 class NotifyRequest(BaseModel):
     task_id: int

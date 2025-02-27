@@ -245,3 +245,814 @@ Exception: Max retries exceeded for API call
 2025-02-24 22:09:46 - apscheduler.scheduler - INFO - Added job "execute_scheduled_task" to job store "default"
 2025-02-24 22:14:50 - apscheduler.scheduler - INFO - Added job "execute_scheduled_task" to job store "default"
 2025-02-24 22:15:02 - apscheduler.scheduler - INFO - Added job "execute_scheduled_task" to job store "default"
+2025-02-25 11:38:51 - apscheduler.scheduler - INFO - Scheduler started
+2025-02-25 11:51:03 - apscheduler.scheduler - INFO - Scheduler started
+2025-02-25 11:58:26 - apscheduler.scheduler - INFO - Added job "execute_historical_task" to job store "default"
+2025-02-25 11:58:26 - fastapi - INFO - 任务 1 已加入队列等待执行
+2025-02-25 11:58:26 - apscheduler.executors.default - INFO - Running job "execute_historical_task (trigger: date[2025-02-25 03:58:26 UTC], next run at: 2025-02-25 03:58:26 UTC)" (scheduled at 2025-02-25 03:58:26.193921+00:00)
+2025-02-25 11:58:26 - apscheduler.scheduler - INFO - Removed job historical_1
+2025-02-25 11:58:26 - fastapi - INFO - 开始采集数据
+2025-02-25 11:58:26 - apscheduler.executors.default - ERROR - Job "execute_historical_task (trigger: date[2025-02-25 03:58:26 UTC], next run at: 2025-02-25 03:58:26 UTC)" raised an exception
+Traceback (most recent call last):
+  File "c:\Users\a2450\Desktop\project\backend\trendsmicro\.venv\lib\site-packages\apscheduler\executors\base.py", line 131, in run_job
+    retval = job.func(*job.args, **job.kwargs)
+  File "C:\Users\a2450\Desktop\project\backend\trendsmicro\microservices\collector\src\core\jobs.py", line 56, in execute_historical_task
+    raise e  # 重新抛出异常以便APScheduler记录日志
+  File "C:\Users\a2450\Desktop\project\backend\trendsmicro\microservices\collector\src\core\jobs.py", line 32, in execute_historical_task
+    interest_id=execute_task(
+  File "C:\Users\a2450\Desktop\project\backend\trendsmicro\microservices\collector\src\core\jobs.py", line 15, in execute_task
+    last_id= get_interest_over_time(keywords, geo_code, interval, start_date, end_date,task_id)
+  File "C:\Users\a2450\Desktop\project\backend\trendsmicro\microservices\collector\src\core\trends.py", line 124, in get_interest_over_time
+    timeframe_start = datetime.strptime(start, "%Y-%m-%d")
+  File "C:\Users\a2450\scoop\apps\python310\3.10.11\lib\_strptime.py", line 568, in _strptime_datetime
+    tt, fraction, gmtoff_fraction = _strptime(data_string, format)
+  File "C:\Users\a2450\scoop\apps\python310\3.10.11\lib\_strptime.py", line 352, in _strptime
+    raise ValueError("unconverted data remains: %s" %
+ValueError: unconverted data remains: T00:00:00
+2025-02-25 12:04:18 - apscheduler.scheduler - INFO - Scheduler started
+2025-02-25 12:04:33 - apscheduler.scheduler - INFO - Added job "execute_historical_task" to job store "default"
+2025-02-25 12:04:33 - fastapi - INFO - 任务 1 已加入队列等待执行
+2025-02-25 12:04:33 - apscheduler.executors.default - INFO - Running job "execute_historical_task (trigger: date[2025-02-25 04:04:33 UTC], next run at: 2025-02-25 04:04:33 UTC)" (scheduled at 2025-02-25 04:04:33.976693+00:00)
+2025-02-25 12:04:34 - apscheduler.scheduler - INFO - Removed job historical_1
+2025-02-25 12:04:34 - fastapi - INFO - 开始采集数据
+2025-02-25 12:04:34 - apscheduler.executors.default - ERROR - Job "execute_historical_task (trigger: date[2025-02-25 04:04:33 UTC], next run at: 2025-02-25 04:04:33 UTC)" raised an exception
+Traceback (most recent call last):
+  File "c:\Users\a2450\Desktop\project\backend\trendsmicro\.venv\lib\site-packages\apscheduler\executors\base.py", line 131, in run_job
+    retval = job.func(*job.args, **job.kwargs)
+  File "C:\Users\a2450\Desktop\project\backend\trendsmicro\microservices\collector\src\core\jobs.py", line 56, in execute_historical_task
+    raise e  # 重新抛出异常以便APScheduler记录日志
+  File "C:\Users\a2450\Desktop\project\backend\trendsmicro\microservices\collector\src\core\jobs.py", line 32, in execute_historical_task
+    interest_id=execute_task(
+  File "C:\Users\a2450\Desktop\project\backend\trendsmicro\microservices\collector\src\core\jobs.py", line 15, in execute_task
+    last_id= get_interest_over_time(keywords, geo_code, interval, start_date, end_date,task_id)
+  File "C:\Users\a2450\Desktop\project\backend\trendsmicro\microservices\collector\src\core\trends.py", line 124, in get_interest_over_time
+    timeframe_start = datetime.strptime(start, "%Y-%m-%d")
+  File "C:\Users\a2450\scoop\apps\python310\3.10.11\lib\_strptime.py", line 568, in _strptime_datetime
+    tt, fraction, gmtoff_fraction = _strptime(data_string, format)
+  File "C:\Users\a2450\scoop\apps\python310\3.10.11\lib\_strptime.py", line 352, in _strptime
+    raise ValueError("unconverted data remains: %s" %
+ValueError: unconverted data remains: T00:00:00
+2025-02-25 12:07:11 - apscheduler.scheduler - INFO - Added job "execute_historical_task" to job store "default"
+2025-02-25 12:07:11 - fastapi - INFO - 任务 2 已加入队列等待执行
+2025-02-25 12:07:11 - apscheduler.executors.default - INFO - Running job "execute_historical_task (trigger: date[2025-02-25 04:07:10 UTC], next run at: 2025-02-25 04:07:10 UTC)" (scheduled at 2025-02-25 04:07:10.989839+00:00)
+2025-02-25 12:07:11 - apscheduler.scheduler - INFO - Removed job historical_2
+2025-02-25 12:07:11 - fastapi - INFO - 开始采集数据
+2025-02-25 12:08:26 - apscheduler.scheduler - INFO - Scheduler started
+2025-02-25 12:09:23 - apscheduler.scheduler - INFO - Added job "execute_historical_task" to job store "default"
+2025-02-25 12:09:23 - fastapi - INFO - 任务 1 已加入队列等待执行
+2025-02-25 12:09:23 - apscheduler.executors.default - INFO - Running job "execute_historical_task (trigger: date[2025-02-25 04:09:23 UTC], next run at: 2025-02-25 04:09:23 UTC)" (scheduled at 2025-02-25 04:09:23.807003+00:00)
+2025-02-25 12:09:23 - apscheduler.scheduler - INFO - Removed job historical_1
+2025-02-25 12:09:23 - fastapi - INFO - 开始采集数据
+2025-02-25 12:11:12 - apscheduler.scheduler - INFO - Scheduler started
+2025-02-25 12:11:27 - apscheduler.scheduler - INFO - Added job "execute_historical_task" to job store "default"
+2025-02-25 12:11:27 - fastapi - INFO - 任务 1 已加入队列等待执行
+2025-02-25 12:11:27 - apscheduler.executors.default - INFO - Running job "execute_historical_task (trigger: date[2025-02-25 04:11:27 UTC], next run at: 2025-02-25 04:11:27 UTC)" (scheduled at 2025-02-25 04:11:27.852877+00:00)
+2025-02-25 12:11:27 - apscheduler.scheduler - INFO - Removed job historical_1
+2025-02-25 12:11:28 - fastapi - INFO - 开始采集数据
+2025-02-25 12:12:52 - apscheduler.scheduler - INFO - Scheduler started
+2025-02-25 12:13:12 - apscheduler.scheduler - INFO - Added job "execute_historical_task" to job store "default"
+2025-02-25 12:13:12 - fastapi - INFO - 任务 1 已加入队列等待执行
+2025-02-25 12:13:12 - apscheduler.executors.default - INFO - Running job "execute_historical_task (trigger: date[2025-02-25 04:13:12 UTC], next run at: 2025-02-25 04:13:12 UTC)" (scheduled at 2025-02-25 04:13:12.108050+00:00)
+2025-02-25 12:13:12 - apscheduler.scheduler - INFO - Removed job historical_1
+2025-02-25 12:13:12 - fastapi - INFO - 开始采集数据
+2025-02-25 12:13:57 - fastapi - WARNING - Rate limited. Retrying after 60 seconds...
+2025-02-25 12:15:14 - fastapi - WARNING - Rate limited. Retrying after 60 seconds...
+2025-02-25 12:16:31 - fastapi - WARNING - Rate limited. Retrying after 60 seconds...
+2025-02-25 12:17:31 - fastapi - ERROR - Error: Max retries exceeded for API call
+2025-02-25 12:17:31 - apscheduler.executors.default - ERROR - Job "execute_historical_task (trigger: date[2025-02-25 04:13:12 UTC], next run at: 2025-02-25 04:13:12 UTC)" raised an exception
+Traceback (most recent call last):
+  File "c:\Users\a2450\Desktop\project\backend\trendsmicro\.venv\lib\site-packages\apscheduler\executors\base.py", line 131, in run_job
+    retval = job.func(*job.args, **job.kwargs)
+  File "C:\Users\a2450\Desktop\project\backend\trendsmicro\microservices\collector\src\core\jobs.py", line 56, in execute_historical_task
+    raise e  # 重新抛出异常以便APScheduler记录日志
+  File "C:\Users\a2450\Desktop\project\backend\trendsmicro\microservices\collector\src\core\jobs.py", line 32, in execute_historical_task
+    interest_id=execute_task(
+  File "C:\Users\a2450\Desktop\project\backend\trendsmicro\microservices\collector\src\core\jobs.py", line 15, in execute_task
+    last_id= get_interest_over_time(keywords, geo_code, interval, start_date, end_date,task_id)
+  File "C:\Users\a2450\Desktop\project\backend\trendsmicro\microservices\collector\src\core\trends.py", line 157, in get_interest_over_time
+    time_data = _call_trends_api_with_retry(
+  File "C:\Users\a2450\Desktop\project\backend\trendsmicro\microservices\collector\src\core\trends.py", line 36, in _call_trends_api_with_retry
+    raise Exception("Max retries exceeded for API call")
+Exception: Max retries exceeded for API call
+2025-02-25 12:44:07 - apscheduler.scheduler - INFO - Scheduler started
+2025-02-25 13:36:34 - apscheduler.scheduler - INFO - Scheduler started
+2025-02-25 13:37:50 - apscheduler.scheduler - INFO - Scheduler started
+2025-02-25 13:40:21 - apscheduler.scheduler - INFO - Added job "execute_historical_task" to job store "default"
+2025-02-25 13:40:21 - fastapi - INFO - 任务 1 已加入队列等待执行
+2025-02-25 13:40:21 - apscheduler.executors.default - INFO - Running job "execute_historical_task (trigger: date[2025-02-25 05:40:21 UTC], next run at: 2025-02-25 05:40:21 UTC)" (scheduled at 2025-02-25 05:40:21.048638+00:00)
+2025-02-25 13:40:21 - apscheduler.scheduler - INFO - Removed job historical_1
+2025-02-25 13:40:21 - fastapi - INFO - 开始采集数据
+2025-02-25 13:40:45 - fastapi - WARNING - Rate limited. Retrying after 60 seconds...
+2025-02-25 13:42:01 - fastapi - WARNING - Rate limited. Retrying after 60 seconds...
+2025-02-25 13:43:18 - fastapi - WARNING - Rate limited. Retrying after 60 seconds...
+2025-02-25 13:44:18 - fastapi - ERROR - Error: Max retries exceeded for API call
+2025-02-25 13:44:19 - apscheduler.executors.default - ERROR - Job "execute_historical_task (trigger: date[2025-02-25 05:40:21 UTC], next run at: 2025-02-25 05:40:21 UTC)" raised an exception
+Traceback (most recent call last):
+  File "c:\Users\a2450\Desktop\project\backend\trendsmicro\.venv\lib\site-packages\apscheduler\executors\base.py", line 131, in run_job
+    retval = job.func(*job.args, **job.kwargs)
+  File "C:\Users\a2450\Desktop\project\backend\trendsmicro\microservices\collector\src\core\jobs.py", line 56, in execute_historical_task
+    raise e  # 重新抛出异常以便APScheduler记录日志
+  File "C:\Users\a2450\Desktop\project\backend\trendsmicro\microservices\collector\src\core\jobs.py", line 32, in execute_historical_task
+    interest_id=execute_task(
+  File "C:\Users\a2450\Desktop\project\backend\trendsmicro\microservices\collector\src\core\jobs.py", line 15, in execute_task
+    last_id= get_interest_over_time(keywords, geo_code, interval, start_date, end_date,task_id)
+  File "C:\Users\a2450\Desktop\project\backend\trendsmicro\microservices\collector\src\core\trends.py", line 157, in get_interest_over_time
+    time_data = _call_trends_api_with_retry(
+  File "C:\Users\a2450\Desktop\project\backend\trendsmicro\microservices\collector\src\core\trends.py", line 36, in _call_trends_api_with_retry
+    raise Exception("Max retries exceeded for API call")
+Exception: Max retries exceeded for API call
+2025-02-25 14:18:17 - apscheduler.scheduler - INFO - Scheduler started
+2025-02-25 14:19:10 - apscheduler.scheduler - INFO - Added job "execute_historical_task" to job store "default"
+2025-02-25 14:19:10 - apscheduler.executors.default - INFO - Running job "execute_historical_task (trigger: date[2025-02-25 06:19:10 UTC], next run at: 2025-02-25 06:19:10 UTC)" (scheduled at 2025-02-25 06:19:10.187440+00:00)
+2025-02-25 14:19:10 - apscheduler.scheduler - INFO - Removed job historical_1
+2025-02-25 14:19:10 - fastapi - INFO - 开始采集数据
+2025-02-25 14:19:10 - fastapi - ERROR - 数据已存在或冲突: (sqlite3.IntegrityError) UNIQUE constraint failed: request_history.keywords, request_history.job_type, request_history.geo_code, request_history.timeframe_start, request_history.timeframe_end
+[SQL: INSERT INTO request_history (job_type, keywords, geo_code, timeframe_start, timeframe_end, created_at, status) VALUES (?, ?, ?, ?, ?, ?, ?)]
+[parameters: ('time', '["Gulf of Mexico", "Gulf of America"]', '', '2025-01-01', '2025-02-25', '2025-02-25', 'created')]
+(Background on this error at: https://sqlalche.me/e/20/gkpj)
+2025-02-25 14:19:11 - apscheduler.executors.default - ERROR - Job "execute_historical_task (trigger: date[2025-02-25 06:19:10 UTC], next run at: 2025-02-25 06:19:10 UTC)" raised an exception
+Traceback (most recent call last):
+  File "c:\Users\a2450\Desktop\project\backend\trendsmicro\.venv\lib\site-packages\sqlalchemy\engine\base.py", line 1964, in _exec_single_context
+    self.dialect.do_execute(
+  File "c:\Users\a2450\Desktop\project\backend\trendsmicro\.venv\lib\site-packages\sqlalchemy\engine\default.py", line 942, in do_execute
+    cursor.execute(statement, parameters)
+sqlite3.IntegrityError: UNIQUE constraint failed: request_history.keywords, request_history.job_type, request_history.geo_code, request_history.timeframe_start, request_history.timeframe_end
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "c:\Users\a2450\Desktop\project\backend\trendsmicro\.venv\lib\site-packages\apscheduler\executors\base.py", line 131, in run_job
+    retval = job.func(*job.args, **job.kwargs)
+  File "C:\Users\a2450\Desktop\project\backend\trendsmicro\microservices\collector\src\core\jobs.py", line 56, in execute_historical_task
+    raise e  # 重新抛出异常以便APScheduler记录日志
+  File "C:\Users\a2450\Desktop\project\backend\trendsmicro\microservices\collector\src\core\jobs.py", line 32, in execute_historical_task
+    interest_id=execute_task(
+  File "C:\Users\a2450\Desktop\project\backend\trendsmicro\microservices\collector\src\core\jobs.py", line 15, in execute_task
+    last_id= get_interest_over_time(keywords, geo_code, interval, start_date, end_date,task_id)
+  File "C:\Users\a2450\Desktop\project\backend\trendsmicro\microservices\collector\src\core\trends.py", line 148, in get_interest_over_time
+    db.commit()
+  File "c:\Users\a2450\Desktop\project\backend\trendsmicro\.venv\lib\site-packages\sqlalchemy\orm\session.py", line 2032, in commit
+    trans.commit(_to_root=True)
+  File "<string>", line 2, in commit
+  File "c:\Users\a2450\Desktop\project\backend\trendsmicro\.venv\lib\site-packages\sqlalchemy\orm\state_changes.py", line 139, in _go
+    ret_value = fn(self, *arg, **kw)
+  File "c:\Users\a2450\Desktop\project\backend\trendsmicro\.venv\lib\site-packages\sqlalchemy\orm\session.py", line 1313, in commit
+    self._prepare_impl()
+  File "<string>", line 2, in _prepare_impl
+  File "c:\Users\a2450\Desktop\project\backend\trendsmicro\.venv\lib\site-packages\sqlalchemy\orm\state_changes.py", line 139, in _go
+    ret_value = fn(self, *arg, **kw)
+  File "c:\Users\a2450\Desktop\project\backend\trendsmicro\.venv\lib\site-packages\sqlalchemy\orm\session.py", line 1288, in _prepare_impl
+    self.session.flush()
+  File "c:\Users\a2450\Desktop\project\backend\trendsmicro\.venv\lib\site-packages\sqlalchemy\orm\session.py", line 4353, in flush
+    self._flush(objects)
+  File "c:\Users\a2450\Desktop\project\backend\trendsmicro\.venv\lib\site-packages\sqlalchemy\orm\session.py", line 4488, in _flush
+    with util.safe_reraise():
+  File "c:\Users\a2450\Desktop\project\backend\trendsmicro\.venv\lib\site-packages\sqlalchemy\util\langhelpers.py", line 146, in __exit__
+    raise exc_value.with_traceback(exc_tb)
+  File "c:\Users\a2450\Desktop\project\backend\trendsmicro\.venv\lib\site-packages\sqlalchemy\orm\session.py", line 4449, in _flush
+    flush_context.execute()
+  File "c:\Users\a2450\Desktop\project\backend\trendsmicro\.venv\lib\site-packages\sqlalchemy\orm\unitofwork.py", line 466, in execute
+    rec.execute(self)
+  File "c:\Users\a2450\Desktop\project\backend\trendsmicro\.venv\lib\site-packages\sqlalchemy\orm\unitofwork.py", line 642, in execute
+    util.preloaded.orm_persistence.save_obj(
+  File "c:\Users\a2450\Desktop\project\backend\trendsmicro\.venv\lib\site-packages\sqlalchemy\orm\persistence.py", line 93, in save_obj
+    _emit_insert_statements(
+  File "c:\Users\a2450\Desktop\project\backend\trendsmicro\.venv\lib\site-packages\sqlalchemy\orm\persistence.py", line 1233, in _emit_insert_statements
+    result = connection.execute(
+  File "c:\Users\a2450\Desktop\project\backend\trendsmicro\.venv\lib\site-packages\sqlalchemy\engine\base.py", line 1416, in execute
+    return meth(
+  File "c:\Users\a2450\Desktop\project\backend\trendsmicro\.venv\lib\site-packages\sqlalchemy\sql\elements.py", line 515, in _execute_on_connection
+    return connection._execute_clauseelement(
+  File "c:\Users\a2450\Desktop\project\backend\trendsmicro\.venv\lib\site-packages\sqlalchemy\engine\base.py", line 1638, in _execute_clauseelement
+    ret = self._execute_context(
+  File "c:\Users\a2450\Desktop\project\backend\trendsmicro\.venv\lib\site-packages\sqlalchemy\engine\base.py", line 1843, in _execute_context
+    return self._exec_single_context(
+  File "c:\Users\a2450\Desktop\project\backend\trendsmicro\.venv\lib\site-packages\sqlalchemy\engine\base.py", line 1983, in _exec_single_context
+    self._handle_dbapi_exception(
+  File "c:\Users\a2450\Desktop\project\backend\trendsmicro\.venv\lib\site-packages\sqlalchemy\engine\base.py", line 2352, in _handle_dbapi_exception
+    raise sqlalchemy_exception.with_traceback(exc_info[2]) from e
+  File "c:\Users\a2450\Desktop\project\backend\trendsmicro\.venv\lib\site-packages\sqlalchemy\engine\base.py", line 1964, in _exec_single_context
+    self.dialect.do_execute(
+  File "c:\Users\a2450\Desktop\project\backend\trendsmicro\.venv\lib\site-packages\sqlalchemy\engine\default.py", line 942, in do_execute
+    cursor.execute(statement, parameters)
+sqlalchemy.exc.IntegrityError: (sqlite3.IntegrityError) UNIQUE constraint failed: request_history.keywords, request_history.job_type, request_history.geo_code, request_history.timeframe_start, request_history.timeframe_end
+[SQL: INSERT INTO request_history (job_type, keywords, geo_code, timeframe_start, timeframe_end, created_at, status) VALUES (?, ?, ?, ?, ?, ?, ?)]
+[parameters: ('time', '["Gulf of Mexico", "Gulf of America"]', '', '2025-01-01', '2025-02-25', '2025-02-25', 'created')]
+(Background on this error at: https://sqlalche.me/e/20/gkpj)
+2025-02-25 14:20:19 - apscheduler.scheduler - INFO - Added job "execute_historical_task" to job store "default"
+2025-02-25 14:20:19 - apscheduler.executors.default - INFO - Running job "execute_historical_task (trigger: date[2025-02-25 06:20:19 UTC], next run at: 2025-02-25 06:20:19 UTC)" (scheduled at 2025-02-25 06:20:19.307250+00:00)
+2025-02-25 14:20:19 - apscheduler.scheduler - INFO - Removed job historical_1
+2025-02-25 14:20:19 - fastapi - INFO - 开始采集数据
+2025-02-25 14:22:20 - apscheduler.scheduler - INFO - Scheduler started
+2025-02-25 14:22:39 - apscheduler.scheduler - INFO - Added job "execute_historical_task" to job store "default"
+2025-02-25 14:22:39 - apscheduler.executors.default - INFO - Running job "execute_historical_task (trigger: date[2025-02-25 06:22:39 UTC], next run at: 2025-02-25 06:22:39 UTC)" (scheduled at 2025-02-25 06:22:39.584579+00:00)
+2025-02-25 14:22:39 - apscheduler.scheduler - INFO - Removed job historical_1
+2025-02-25 14:22:39 - fastapi - INFO - 开始采集数据
+2025-02-25 14:23:06 - fastapi - WARNING - Rate limited. Retrying after 60 seconds...
+2025-02-25 14:24:22 - fastapi - WARNING - Rate limited. Retrying after 60 seconds...
+2025-02-25 14:25:38 - fastapi - WARNING - Rate limited. Retrying after 60 seconds...
+2025-02-25 14:26:38 - fastapi - ERROR - Error: Max retries exceeded for API call
+2025-02-25 14:26:38 - apscheduler.executors.default - ERROR - Job "execute_historical_task (trigger: date[2025-02-25 06:22:39 UTC], next run at: 2025-02-25 06:22:39 UTC)" raised an exception
+Traceback (most recent call last):
+  File "c:\Users\a2450\Desktop\project\backend\trendsmicro\.venv\lib\site-packages\apscheduler\executors\base.py", line 131, in run_job
+    retval = job.func(*job.args, **job.kwargs)
+  File "C:\Users\a2450\Desktop\project\backend\trendsmicro\microservices\collector\src\core\jobs.py", line 56, in execute_historical_task
+    raise e  # 重新抛出异常以便APScheduler记录日志
+  File "C:\Users\a2450\Desktop\project\backend\trendsmicro\microservices\collector\src\core\jobs.py", line 32, in execute_historical_task
+    interest_id=execute_task(
+  File "C:\Users\a2450\Desktop\project\backend\trendsmicro\microservices\collector\src\core\jobs.py", line 15, in execute_task
+    last_id= get_interest_over_time(keywords, geo_code, interval, start_date, end_date,task_id)
+  File "C:\Users\a2450\Desktop\project\backend\trendsmicro\microservices\collector\src\core\trends.py", line 157, in get_interest_over_time
+    time_data = _call_trends_api_with_retry(
+  File "C:\Users\a2450\Desktop\project\backend\trendsmicro\microservices\collector\src\core\trends.py", line 36, in _call_trends_api_with_retry
+    raise Exception("Max retries exceeded for API call")
+Exception: Max retries exceeded for API call
+2025-02-25 14:27:49 - apscheduler.scheduler - INFO - Scheduler started
+2025-02-25 14:28:30 - apscheduler.scheduler - INFO - Added job "execute_historical_task" to job store "default"
+2025-02-25 14:28:30 - apscheduler.executors.default - INFO - Running job "execute_historical_task (trigger: date[2025-02-25 06:28:30 UTC], next run at: 2025-02-25 06:28:30 UTC)" (scheduled at 2025-02-25 06:28:30.202177+00:00)
+2025-02-25 14:28:30 - apscheduler.scheduler - INFO - Removed job historical_1
+2025-02-25 14:28:30 - fastapi - INFO - 开始采集数据
+2025-02-25 14:28:57 - fastapi - WARNING - Rate limited. Retrying after 60 seconds...
+2025-02-25 14:30:13 - fastapi - WARNING - Rate limited. Retrying after 60 seconds...
+2025-02-25 14:31:30 - fastapi - WARNING - Rate limited. Retrying after 60 seconds...
+2025-02-25 14:32:30 - fastapi - ERROR - Error: Max retries exceeded for API call
+2025-02-25 14:32:30 - apscheduler.executors.default - ERROR - Job "execute_historical_task (trigger: date[2025-02-25 06:28:30 UTC], next run at: 2025-02-25 06:28:30 UTC)" raised an exception
+Traceback (most recent call last):
+  File "c:\Users\a2450\Desktop\project\backend\trendsmicro\.venv\lib\site-packages\apscheduler\executors\base.py", line 131, in run_job
+    retval = job.func(*job.args, **job.kwargs)
+  File "C:\Users\a2450\Desktop\project\backend\trendsmicro\microservices\collector\src\core\jobs.py", line 56, in execute_historical_task
+    raise e  # 重新抛出异常以便APScheduler记录日志
+  File "C:\Users\a2450\Desktop\project\backend\trendsmicro\microservices\collector\src\core\jobs.py", line 32, in execute_historical_task
+    interest_id=execute_task(
+  File "C:\Users\a2450\Desktop\project\backend\trendsmicro\microservices\collector\src\core\jobs.py", line 15, in execute_task
+    last_id= get_interest_over_time(keywords, geo_code, interval, start_date, end_date,task_id)
+  File "C:\Users\a2450\Desktop\project\backend\trendsmicro\microservices\collector\src\core\trends.py", line 157, in get_interest_over_time
+    time_data = _call_trends_api_with_retry(
+  File "C:\Users\a2450\Desktop\project\backend\trendsmicro\microservices\collector\src\core\trends.py", line 36, in _call_trends_api_with_retry
+    raise Exception("Max retries exceeded for API call")
+Exception: Max retries exceeded for API call
+2025-02-25 14:32:30 - apscheduler.scheduler - INFO - Scheduler has been shut down
+2025-02-25 14:32:44 - apscheduler.scheduler - INFO - Scheduler started
+2025-02-25 14:33:22 - apscheduler.scheduler - INFO - Added job "execute_historical_task" to job store "default"
+2025-02-25 14:33:22 - apscheduler.executors.default - INFO - Running job "execute_historical_task (trigger: date[2025-02-25 06:33:22 UTC], next run at: 2025-02-25 06:33:22 UTC)" (scheduled at 2025-02-25 06:33:22.145180+00:00)
+2025-02-25 14:33:22 - apscheduler.scheduler - INFO - Removed job historical_1
+2025-02-25 14:33:22 - fastapi - INFO - 开始采集数据
+2025-02-25 14:33:46 - fastapi - WARNING - Rate limited. Retrying after 60 seconds...
+2025-02-25 14:35:03 - fastapi - WARNING - Rate limited. Retrying after 60 seconds...
+2025-02-25 14:36:39 - fastapi - WARNING - Rate limited. Retrying after 60 seconds...
+2025-02-25 14:36:53 - apscheduler.scheduler - INFO - Scheduler started
+2025-02-25 14:37:32 - apscheduler.scheduler - INFO - Added job "execute_historical_task" to job store "default"
+2025-02-25 14:37:32 - apscheduler.executors.default - INFO - Running job "execute_historical_task (trigger: date[2025-02-25 06:37:31 UTC], next run at: 2025-02-25 06:37:31 UTC)" (scheduled at 2025-02-25 06:37:31.979049+00:00)
+2025-02-25 14:37:32 - apscheduler.scheduler - INFO - Removed job historical_1
+2025-02-25 14:37:32 - fastapi - INFO - 开始采集数据
+2025-02-25 14:37:56 - fastapi - WARNING - Rate limited. Retrying after 60 seconds...
+2025-02-25 14:39:14 - apscheduler.scheduler - INFO - Scheduler started
+2025-02-25 14:39:31 - apscheduler.scheduler - INFO - Added job "execute_historical_task" to job store "default"
+2025-02-25 14:39:31 - apscheduler.executors.default - INFO - Running job "execute_historical_task (trigger: date[2025-02-25 06:39:31 UTC], next run at: 2025-02-25 06:39:31 UTC)" (scheduled at 2025-02-25 06:39:31.136760+00:00)
+2025-02-25 14:39:31 - apscheduler.scheduler - INFO - Removed job historical_1
+2025-02-25 14:39:31 - fastapi - INFO - 开始采集数据
+2025-02-25 14:39:55 - fastapi - WARNING - Rate limited. Retrying after 60 seconds...
+2025-02-25 14:41:12 - fastapi - WARNING - Rate limited. Retrying after 60 seconds...
+2025-02-25 14:42:48 - fastapi - ERROR - Error: 'NoneType' object has no attribute 'raise_for_status'
+2025-02-25 14:42:48 - apscheduler.executors.default - ERROR - Job "execute_historical_task (trigger: date[2025-02-25 06:39:31 UTC], next run at: 2025-02-25 06:39:31 UTC)" raised an exception
+Traceback (most recent call last):
+  File "c:\Users\a2450\Desktop\project\backend\trendsmicro\.venv\lib\site-packages\apscheduler\executors\base.py", line 131, in run_job
+    retval = job.func(*job.args, **job.kwargs)
+  File "C:\Users\a2450\Desktop\project\backend\trendsmicro\microservices\collector\src\core\jobs.py", line 56, in execute_historical_task
+    raise e  # 重新抛出异常以便APScheduler记录日志
+  File "C:\Users\a2450\Desktop\project\backend\trendsmicro\microservices\collector\src\core\jobs.py", line 32, in execute_historical_task
+    interest_id=execute_task(
+  File "C:\Users\a2450\Desktop\project\backend\trendsmicro\microservices\collector\src\core\jobs.py", line 15, in execute_task
+    last_id= get_interest_over_time(keywords, geo_code, interval, start_date, end_date,task_id)
+  File "C:\Users\a2450\Desktop\project\backend\trendsmicro\microservices\collector\src\core\trends.py", line 157, in get_interest_over_time
+    time_data = _call_trends_api_with_retry(
+  File "C:\Users\a2450\Desktop\project\backend\trendsmicro\microservices\collector\src\core\trends.py", line 19, in _call_trends_api_with_retry
+    response = api_call_func(**kwargs)
+  File "c:\Users\a2450\Desktop\project\backend\trendsmicro\.venv\lib\site-packages\trendspy\client.py", line 372, in interest_over_time
+    token, data = self._get_token_data(EMBED_TIMESERIES_URL, locals(), headers=headers)
+  File "c:\Users\a2450\Desktop\project\backend\trendsmicro\.venv\lib\site-packages\trendspy\client.py", line 300, in _get_token_data
+    req 	= self._get(url, params=params, headers=headers)
+  File "c:\Users\a2450\Desktop\project\backend\trendsmicro\.venv\lib\site-packages\trendspy\client.py", line 264, in _get
+    last_response.raise_for_status()
+AttributeError: 'NoneType' object has no attribute 'raise_for_status'
+2025-02-25 14:42:48 - apscheduler.scheduler - INFO - Scheduler has been shut down
+2025-02-25 16:11:35 - apscheduler.scheduler - INFO - Scheduler started
+2025-02-25 16:12:54 - apscheduler.scheduler - INFO - Scheduler started
+2025-02-25 16:14:32 - apscheduler.scheduler - INFO - Added job "execute_historical_task" to job store "default"
+2025-02-25 16:14:32 - apscheduler.executors.default - INFO - Running job "execute_historical_task (trigger: date[2025-02-25 08:14:32 UTC], next run at: 2025-02-25 08:14:32 UTC)" (scheduled at 2025-02-25 08:14:32.541139+00:00)
+2025-02-25 16:14:32 - apscheduler.scheduler - INFO - Removed job historical_1
+2025-02-25 16:14:32 - fastapi - INFO - 开始采集数据
+2025-02-25 16:14:57 - fastapi - WARNING - Rate limited. Retrying after 60 seconds...
+2025-02-25 16:16:14 - fastapi - WARNING - Rate limited. Retrying after 60 seconds...
+2025-02-25 16:17:30 - fastapi - WARNING - Rate limited. Retrying after 60 seconds...
+2025-02-25 16:18:30 - fastapi - ERROR - Error: Max retries exceeded for API call
+2025-02-25 16:18:31 - apscheduler.executors.default - ERROR - Job "execute_historical_task (trigger: date[2025-02-25 08:14:32 UTC], next run at: 2025-02-25 08:14:32 UTC)" raised an exception
+Traceback (most recent call last):
+  File "c:\Users\a2450\Desktop\project\backend\trendsmicro\.venv\lib\site-packages\apscheduler\executors\base.py", line 131, in run_job
+    retval = job.func(*job.args, **job.kwargs)
+  File "C:\Users\a2450\Desktop\project\backend\trendsmicro\microservices\collector\src\core\jobs.py", line 56, in execute_historical_task
+    raise e  # 重新抛出异常以便APScheduler记录日志
+  File "C:\Users\a2450\Desktop\project\backend\trendsmicro\microservices\collector\src\core\jobs.py", line 32, in execute_historical_task
+    interest_id=execute_task(
+  File "C:\Users\a2450\Desktop\project\backend\trendsmicro\microservices\collector\src\core\jobs.py", line 15, in execute_task
+    last_id= get_interest_over_time(keywords, geo_code, interval, start_date, end_date,task_id)
+  File "C:\Users\a2450\Desktop\project\backend\trendsmicro\microservices\collector\src\core\trends.py", line 157, in get_interest_over_time
+    time_data = _call_trends_api_with_retry(
+  File "C:\Users\a2450\Desktop\project\backend\trendsmicro\microservices\collector\src\core\trends.py", line 36, in _call_trends_api_with_retry
+    raise Exception("Max retries exceeded for API call")
+Exception: Max retries exceeded for API call
+2025-02-25 16:18:49 - apscheduler.scheduler - INFO - Scheduler started
+2025-02-25 16:19:27 - apscheduler.scheduler - INFO - Added job "execute_historical_task" to job store "default"
+2025-02-25 16:19:27 - apscheduler.executors.default - INFO - Running job "execute_historical_task (trigger: date[2025-02-25 08:19:27 UTC], next run at: 2025-02-25 08:19:27 UTC)" (scheduled at 2025-02-25 08:19:27.264990+00:00)
+2025-02-25 16:19:27 - apscheduler.scheduler - INFO - Removed job historical_1
+2025-02-25 16:19:27 - fastapi - INFO - 开始采集数据
+2025-02-25 16:20:12 - fastapi - ERROR - Error: 'NoneType' object has no attribute 'raise_for_status'
+2025-02-25 16:20:12 - apscheduler.executors.default - ERROR - Job "execute_historical_task (trigger: date[2025-02-25 08:19:27 UTC], next run at: 2025-02-25 08:19:27 UTC)" raised an exception
+Traceback (most recent call last):
+  File "c:\Users\a2450\Desktop\project\backend\trendsmicro\.venv\lib\site-packages\apscheduler\executors\base.py", line 131, in run_job
+    retval = job.func(*job.args, **job.kwargs)
+  File "C:\Users\a2450\Desktop\project\backend\trendsmicro\microservices\collector\src\core\jobs.py", line 56, in execute_historical_task
+    raise e  # 重新抛出异常以便APScheduler记录日志
+  File "C:\Users\a2450\Desktop\project\backend\trendsmicro\microservices\collector\src\core\jobs.py", line 32, in execute_historical_task
+    interest_id=execute_task(
+  File "C:\Users\a2450\Desktop\project\backend\trendsmicro\microservices\collector\src\core\jobs.py", line 15, in execute_task
+    last_id= get_interest_over_time(keywords, geo_code, interval, start_date, end_date,task_id)
+  File "C:\Users\a2450\Desktop\project\backend\trendsmicro\microservices\collector\src\core\trends.py", line 157, in get_interest_over_time
+    time_data = _call_trends_api_with_retry(
+  File "C:\Users\a2450\Desktop\project\backend\trendsmicro\microservices\collector\src\core\trends.py", line 19, in _call_trends_api_with_retry
+    response = api_call_func(**kwargs)
+  File "c:\Users\a2450\Desktop\project\backend\trendsmicro\.venv\lib\site-packages\trendspy\client.py", line 372, in interest_over_time
+    token, data = self._get_token_data(EMBED_TIMESERIES_URL, locals(), headers=headers)
+  File "c:\Users\a2450\Desktop\project\backend\trendsmicro\.venv\lib\site-packages\trendspy\client.py", line 300, in _get_token_data
+    req 	= self._get(url, params=params, headers=headers)
+  File "c:\Users\a2450\Desktop\project\backend\trendsmicro\.venv\lib\site-packages\trendspy\client.py", line 264, in _get
+    last_response.raise_for_status()
+AttributeError: 'NoneType' object has no attribute 'raise_for_status'
+2025-02-25 16:20:55 - apscheduler.scheduler - INFO - Added job "execute_historical_task" to job store "default"
+2025-02-25 16:20:55 - apscheduler.executors.default - INFO - Running job "execute_historical_task (trigger: date[2025-02-25 08:20:55 UTC], next run at: 2025-02-25 08:20:55 UTC)" (scheduled at 2025-02-25 08:20:55.666501+00:00)
+2025-02-25 16:20:55 - apscheduler.scheduler - INFO - Removed job historical_1
+2025-02-25 16:20:55 - fastapi - INFO - 开始采集数据
+2025-02-25 16:25:18 - apscheduler.scheduler - INFO - Scheduler started
+2025-02-25 16:25:27 - apscheduler.scheduler - INFO - Added job "execute_historical_task" to job store "default"
+2025-02-25 16:25:27 - apscheduler.executors.default - INFO - Running job "execute_historical_task (trigger: date[2025-02-25 08:25:27 UTC], next run at: 2025-02-25 08:25:27 UTC)" (scheduled at 2025-02-25 08:25:27.770672+00:00)
+2025-02-25 16:25:27 - apscheduler.scheduler - INFO - Removed job historical_1
+2025-02-25 16:25:27 - fastapi - INFO - 开始采集数据
+2025-02-25 16:25:54 - fastapi - ERROR - Error: 'NoneType' object has no attribute 'raise_for_status'
+2025-02-25 16:25:54 - apscheduler.executors.default - ERROR - Job "execute_historical_task (trigger: date[2025-02-25 08:25:27 UTC], next run at: 2025-02-25 08:25:27 UTC)" raised an exception
+Traceback (most recent call last):
+  File "c:\Users\a2450\Desktop\project\backend\trendsmicro\.venv\lib\site-packages\apscheduler\executors\base.py", line 131, in run_job
+    retval = job.func(*job.args, **job.kwargs)
+  File "C:\Users\a2450\Desktop\project\backend\trendsmicro\microservices\collector\src\core\jobs.py", line 56, in execute_historical_task
+    raise e  # 重新抛出异常以便APScheduler记录日志
+  File "C:\Users\a2450\Desktop\project\backend\trendsmicro\microservices\collector\src\core\jobs.py", line 32, in execute_historical_task
+    interest_id=execute_task(
+  File "C:\Users\a2450\Desktop\project\backend\trendsmicro\microservices\collector\src\core\jobs.py", line 15, in execute_task
+    last_id= get_interest_over_time(keywords, geo_code, interval, start_date, end_date,task_id)
+  File "C:\Users\a2450\Desktop\project\backend\trendsmicro\microservices\collector\src\core\trends.py", line 157, in get_interest_over_time
+    time_data = _call_trends_api_with_retry(
+  File "C:\Users\a2450\Desktop\project\backend\trendsmicro\microservices\collector\src\core\trends.py", line 19, in _call_trends_api_with_retry
+    response = api_call_func(**kwargs)
+  File "c:\Users\a2450\Desktop\project\backend\trendsmicro\.venv\lib\site-packages\trendspy\client.py", line 372, in interest_over_time
+    token, data = self._get_token_data(EMBED_TIMESERIES_URL, locals(), headers=headers)
+  File "c:\Users\a2450\Desktop\project\backend\trendsmicro\.venv\lib\site-packages\trendspy\client.py", line 300, in _get_token_data
+    req 	= self._get(url, params=params, headers=headers)
+  File "c:\Users\a2450\Desktop\project\backend\trendsmicro\.venv\lib\site-packages\trendspy\client.py", line 264, in _get
+    last_response.raise_for_status()
+AttributeError: 'NoneType' object has no attribute 'raise_for_status'
+2025-02-25 16:27:07 - apscheduler.scheduler - INFO - Added job "execute_historical_task" to job store "default"
+2025-02-25 16:27:07 - apscheduler.executors.default - INFO - Running job "execute_historical_task (trigger: date[2025-02-25 08:27:07 UTC], next run at: 2025-02-25 08:27:07 UTC)" (scheduled at 2025-02-25 08:27:07.837897+00:00)
+2025-02-25 16:27:07 - apscheduler.scheduler - INFO - Removed job historical_1
+2025-02-25 16:27:07 - fastapi - INFO - 开始采集数据
+2025-02-25 16:28:11 - fastapi - ERROR - Error: 'NoneType' object has no attribute 'raise_for_status'
+2025-02-25 16:28:11 - apscheduler.executors.default - ERROR - Job "execute_historical_task (trigger: date[2025-02-25 08:27:07 UTC], next run at: 2025-02-25 08:27:07 UTC)" raised an exception
+Traceback (most recent call last):
+  File "c:\Users\a2450\Desktop\project\backend\trendsmicro\.venv\lib\site-packages\apscheduler\executors\base.py", line 131, in run_job
+    retval = job.func(*job.args, **job.kwargs)
+  File "C:\Users\a2450\Desktop\project\backend\trendsmicro\microservices\collector\src\core\jobs.py", line 56, in execute_historical_task
+    raise e  # 重新抛出异常以便APScheduler记录日志
+  File "C:\Users\a2450\Desktop\project\backend\trendsmicro\microservices\collector\src\core\jobs.py", line 32, in execute_historical_task
+    interest_id=execute_task(
+  File "C:\Users\a2450\Desktop\project\backend\trendsmicro\microservices\collector\src\core\jobs.py", line 15, in execute_task
+    last_id= get_interest_over_time(keywords, geo_code, interval, start_date, end_date,task_id)
+  File "C:\Users\a2450\Desktop\project\backend\trendsmicro\microservices\collector\src\core\trends.py", line 157, in get_interest_over_time
+    time_data = _call_trends_api_with_retry(
+  File "C:\Users\a2450\Desktop\project\backend\trendsmicro\microservices\collector\src\core\trends.py", line 19, in _call_trends_api_with_retry
+    response = api_call_func(**kwargs)
+  File "c:\Users\a2450\Desktop\project\backend\trendsmicro\.venv\lib\site-packages\trendspy\client.py", line 372, in interest_over_time
+    token, data = self._get_token_data(EMBED_TIMESERIES_URL, locals(), headers=headers)
+  File "c:\Users\a2450\Desktop\project\backend\trendsmicro\.venv\lib\site-packages\trendspy\client.py", line 300, in _get_token_data
+    req 	= self._get(url, params=params, headers=headers)
+  File "c:\Users\a2450\Desktop\project\backend\trendsmicro\.venv\lib\site-packages\trendspy\client.py", line 264, in _get
+    last_response.raise_for_status()
+AttributeError: 'NoneType' object has no attribute 'raise_for_status'
+2025-02-25 16:28:41 - apscheduler.scheduler - INFO - Added job "execute_historical_task" to job store "default"
+2025-02-25 16:28:41 - apscheduler.executors.default - INFO - Running job "execute_historical_task (trigger: date[2025-02-25 08:28:41 UTC], next run at: 2025-02-25 08:28:41 UTC)" (scheduled at 2025-02-25 08:28:41.614230+00:00)
+2025-02-25 16:28:41 - apscheduler.scheduler - INFO - Removed job historical_1
+2025-02-25 16:28:41 - fastapi - INFO - 开始采集数据
+2025-02-25 16:29:45 - fastapi - ERROR - Error: 'NoneType' object has no attribute 'raise_for_status'
+2025-02-25 16:29:45 - apscheduler.executors.default - ERROR - Job "execute_historical_task (trigger: date[2025-02-25 08:28:41 UTC], next run at: 2025-02-25 08:28:41 UTC)" raised an exception
+Traceback (most recent call last):
+  File "c:\Users\a2450\Desktop\project\backend\trendsmicro\.venv\lib\site-packages\apscheduler\executors\base.py", line 131, in run_job
+    retval = job.func(*job.args, **job.kwargs)
+  File "C:\Users\a2450\Desktop\project\backend\trendsmicro\microservices\collector\src\core\jobs.py", line 56, in execute_historical_task
+    raise e  # 重新抛出异常以便APScheduler记录日志
+  File "C:\Users\a2450\Desktop\project\backend\trendsmicro\microservices\collector\src\core\jobs.py", line 32, in execute_historical_task
+    interest_id=execute_task(
+  File "C:\Users\a2450\Desktop\project\backend\trendsmicro\microservices\collector\src\core\jobs.py", line 15, in execute_task
+    last_id= get_interest_over_time(keywords, geo_code, interval, start_date, end_date,task_id)
+  File "C:\Users\a2450\Desktop\project\backend\trendsmicro\microservices\collector\src\core\trends.py", line 157, in get_interest_over_time
+    time_data = _call_trends_api_with_retry(
+  File "C:\Users\a2450\Desktop\project\backend\trendsmicro\microservices\collector\src\core\trends.py", line 19, in _call_trends_api_with_retry
+    response = api_call_func(**kwargs)
+  File "c:\Users\a2450\Desktop\project\backend\trendsmicro\.venv\lib\site-packages\trendspy\client.py", line 372, in interest_over_time
+    token, data = self._get_token_data(EMBED_TIMESERIES_URL, locals(), headers=headers)
+  File "c:\Users\a2450\Desktop\project\backend\trendsmicro\.venv\lib\site-packages\trendspy\client.py", line 300, in _get_token_data
+    req 	= self._get(url, params=params, headers=headers)
+  File "c:\Users\a2450\Desktop\project\backend\trendsmicro\.venv\lib\site-packages\trendspy\client.py", line 264, in _get
+    last_response.raise_for_status()
+AttributeError: 'NoneType' object has no attribute 'raise_for_status'
+2025-02-25 18:55:56 - apscheduler.scheduler - INFO - Scheduler started
+2025-02-25 19:00:03 - apscheduler.scheduler - INFO - Added job "execute_historical_task" to job store "default"
+2025-02-25 19:00:03 - apscheduler.scheduler - INFO - Removed job historical_1
+2025-02-25 19:00:03 - apscheduler.executors.default - INFO - Running job "execute_historical_task (trigger: date[2025-02-25 11:00:03 UTC], next run at: 2025-02-25 11:00:03 UTC)" (scheduled at 2025-02-25 11:00:03.136073+00:00)
+2025-02-25 19:00:03 - fastapi - INFO - 开始采集数据
+2025-02-25 19:00:17 - fastapi - INFO - Data fetch successful for API function: interest_over_time, with parameters - Keywords: ['Gulf of Mexico', 'Gulf of America'], Timeframe: 2025-01-01 2025-02-25, Geo: 
+2025-02-25 19:00:17 - fastapi - INFO - 采集数据结束
+2025-02-25 19:00:17 - apscheduler.executors.default - INFO - Job "execute_historical_task (trigger: date[2025-02-25 11:00:03 UTC], next run at: 2025-02-25 11:00:03 UTC)" executed successfully
+2025-02-25 19:03:05 - apscheduler.scheduler - INFO - Added job "execute_historical_task" to job store "default"
+2025-02-25 19:03:05 - apscheduler.scheduler - INFO - Removed job historical_1
+2025-02-25 19:03:05 - apscheduler.executors.default - INFO - Running job "execute_historical_task (trigger: date[2025-02-25 11:03:05 UTC], next run at: 2025-02-25 11:03:05 UTC)" (scheduled at 2025-02-25 11:03:05.781713+00:00)
+2025-02-25 19:03:05 - fastapi - INFO - 开始采集数据
+2025-02-25 19:03:17 - fastapi - INFO - Data fetch successful for API function: interest_over_time, with parameters - Keywords: ['Gulf of Mexico', 'Gulf of America'], Timeframe: 2025-01-01 2025-02-25, Geo: 
+2025-02-25 19:08:11 - fastapi - INFO - 采集数据结束
+2025-02-25 19:08:17 - apscheduler.executors.default - INFO - Job "execute_historical_task (trigger: date[2025-02-25 11:03:05 UTC], next run at: 2025-02-25 11:03:05 UTC)" executed successfully
+2025-02-25 19:10:07 - apscheduler.scheduler - INFO - Scheduler started
+2025-02-25 19:10:43 - apscheduler.scheduler - INFO - Added job "execute_historical_task" to job store "default"
+2025-02-25 19:11:22 - apscheduler.scheduler - INFO - Scheduler started
+2025-02-25 19:11:30 - apscheduler.scheduler - INFO - Added job "execute_historical_task" to job store "default"
+2025-02-25 19:13:16 - apscheduler.scheduler - INFO - Scheduler started
+2025-02-25 19:13:33 - apscheduler.scheduler - INFO - Added job "execute_historical_task" to job store "default"
+2025-02-25 19:14:29 - apscheduler.scheduler - INFO - Scheduler started
+2025-02-25 19:14:34 - apscheduler.scheduler - INFO - Added job "execute_historical_task" to job store "default"
+2025-02-25 19:22:30 - apscheduler.scheduler - INFO - Scheduler started
+2025-02-25 19:24:02 - apscheduler.scheduler - INFO - Scheduler started
+2025-02-25 19:25:00 - apscheduler.scheduler - INFO - Scheduler started
+2025-02-25 19:25:07 - apscheduler.scheduler - INFO - Added job "execute_historical_task" to job store "default"
+2025-02-25 19:25:07 - apscheduler.scheduler - INFO - Removed job historical_1
+2025-02-25 19:25:07 - apscheduler.executors.default - INFO - Running job "execute_historical_task (trigger: date[2025-02-25 11:25:07 UTC], next run at: 2025-02-25 11:25:07 UTC)" (scheduled at 2025-02-25 11:25:07.791585+00:00)
+2025-02-25 19:25:11 - fastapi - INFO - 开始采集数据
+2025-02-25 19:25:11 - fastapi - INFO - 采集数据结束
+2025-02-25 19:25:11 - apscheduler.executors.default - INFO - Job "execute_historical_task (trigger: date[2025-02-25 11:25:07 UTC], next run at: 2025-02-25 11:25:07 UTC)" executed successfully
+2025-02-25 19:28:23 - apscheduler.scheduler - INFO - Scheduler started
+2025-02-25 19:28:50 - apscheduler.scheduler - INFO - Scheduler started
+2025-02-25 19:32:37 - apscheduler.scheduler - INFO - Scheduler started
+2025-02-25 19:32:44 - apscheduler.scheduler - INFO - Added job "execute_historical_task" to job store "default"
+2025-02-25 19:32:44 - apscheduler.scheduler - INFO - Removed job historical_1
+2025-02-25 19:32:44 - apscheduler.executors.default - INFO - Running job "execute_historical_task (trigger: date[2025-02-25 11:32:44 UTC], next run at: 2025-02-25 11:32:44 UTC)" (scheduled at 2025-02-25 11:32:44.603555+00:00)
+2025-02-25 19:32:48 - fastapi - INFO - 开始采集数据
+2025-02-25 19:32:48 - fastapi - INFO - 采集数据结束
+2025-02-25 19:32:48 - apscheduler.executors.default - INFO - Job "execute_historical_task (trigger: date[2025-02-25 11:32:44 UTC], next run at: 2025-02-25 11:32:44 UTC)" executed successfully
+2025-02-25 19:33:06 - apscheduler.scheduler - INFO - Added job "execute_historical_task" to job store "default"
+2025-02-25 19:33:06 - apscheduler.scheduler - INFO - Removed job historical_1
+2025-02-25 19:33:06 - apscheduler.executors.default - INFO - Running job "execute_historical_task (trigger: date[2025-02-25 11:33:06 UTC], next run at: 2025-02-25 11:33:06 UTC)" (scheduled at 2025-02-25 11:33:06.922556+00:00)
+2025-02-25 19:33:06 - fastapi - INFO - 开始采集数据
+2025-02-25 19:33:07 - fastapi - INFO - 采集数据结束
+2025-02-25 19:33:07 - apscheduler.executors.default - INFO - Job "execute_historical_task (trigger: date[2025-02-25 11:33:06 UTC], next run at: 2025-02-25 11:33:06 UTC)" executed successfully
+2025-02-25 19:33:27 - apscheduler.scheduler - INFO - Added job "execute_historical_task" to job store "default"
+2025-02-25 19:33:27 - apscheduler.scheduler - INFO - Removed job historical_1
+2025-02-25 19:33:27 - apscheduler.executors.default - INFO - Running job "execute_historical_task (trigger: date[2025-02-25 11:33:27 UTC], next run at: 2025-02-25 11:33:27 UTC)" (scheduled at 2025-02-25 11:33:27.561704+00:00)
+2025-02-25 19:33:27 - fastapi - INFO - 开始采集数据
+2025-02-25 19:33:27 - fastapi - INFO - 采集数据结束
+2025-02-25 19:33:27 - apscheduler.executors.default - INFO - Job "execute_historical_task (trigger: date[2025-02-25 11:33:27 UTC], next run at: 2025-02-25 11:33:27 UTC)" executed successfully
+2025-02-25 19:33:44 - apscheduler.scheduler - INFO - Added job "execute_historical_task" to job store "default"
+2025-02-25 19:33:44 - apscheduler.scheduler - INFO - Removed job historical_1
+2025-02-25 19:33:44 - apscheduler.executors.default - INFO - Running job "execute_historical_task (trigger: date[2025-02-25 11:33:44 UTC], next run at: 2025-02-25 11:33:44 UTC)" (scheduled at 2025-02-25 11:33:44.746498+00:00)
+2025-02-25 19:33:44 - fastapi - INFO - 开始采集数据
+2025-02-25 19:33:44 - fastapi - INFO - 采集数据结束
+2025-02-25 19:33:44 - apscheduler.executors.default - INFO - Job "execute_historical_task (trigger: date[2025-02-25 11:33:44 UTC], next run at: 2025-02-25 11:33:44 UTC)" executed successfully
+2025-02-25 19:38:19 - apscheduler.scheduler - INFO - Scheduler started
+2025-02-25 19:40:12 - apscheduler.scheduler - INFO - Added job "execute_historical_task" to job store "default"
+2025-02-25 19:40:12 - apscheduler.scheduler - INFO - Removed job historical_1
+2025-02-25 19:40:12 - apscheduler.executors.default - INFO - Running job "execute_historical_task (trigger: date[2025-02-25 11:40:12 UTC], next run at: 2025-02-25 11:40:12 UTC)" (scheduled at 2025-02-25 11:40:12.922371+00:00)
+2025-02-25 19:40:13 - fastapi - INFO - 开始采集数据
+2025-02-25 19:40:13 - fastapi - INFO - 采集数据结束
+2025-02-25 19:40:13 - apscheduler.executors.default - INFO - Job "execute_historical_task (trigger: date[2025-02-25 11:40:12 UTC], next run at: 2025-02-25 11:40:12 UTC)" executed successfully
+2025-02-25 19:40:53 - apscheduler.scheduler - INFO - Scheduler started
+2025-02-25 19:42:36 - apscheduler.scheduler - INFO - Scheduler started
+2025-02-25 19:42:47 - apscheduler.scheduler - INFO - Added job "execute_historical_task" to job store "default"
+2025-02-25 19:42:47 - fastapi - ERROR - 任务 1 加入队列失败: object NoneType can't be used in 'await' expression
+2025-02-25 19:42:47 - apscheduler.scheduler - INFO - Removed job historical_1
+2025-02-25 19:42:47 - apscheduler.executors.default - INFO - Running job "execute_historical_task (trigger: date[2025-02-25 11:42:47 UTC], next run at: 2025-02-25 11:42:47 UTC)" (scheduled at 2025-02-25 11:42:47.326301+00:00)
+2025-02-25 19:42:47 - fastapi - INFO - 开始采集数据
+2025-02-25 19:43:41 - fastapi - INFO - 采集数据结束
+2025-02-25 19:43:59 - apscheduler.executors.default - INFO - Job "execute_historical_task (trigger: date[2025-02-25 11:42:47 UTC], next run at: 2025-02-25 11:42:47 UTC)" executed successfully
+2025-02-25 19:43:59 - asyncio - ERROR - Task exception was never retrieved
+future: <Task finished name='Task-10' coro=<_dispatch_as_task.<locals>.task() done, defined at c:\Users\a2450\Desktop\project\backend\trendsmicro\.venv\lib\site-packages\fastapi_events\dispatcher.py:51> exception=TypeError('Boolean value of this clause is not defined')>
+Traceback (most recent call last):
+  File "c:\Users\a2450\Desktop\project\backend\trendsmicro\.venv\lib\site-packages\fastapi_events\dispatcher.py", line 52, in task
+    await asyncio.gather(*[handler.handle((event_name, payload)) for handler in handlers])
+  File "c:\Users\a2450\Desktop\project\backend\trendsmicro\.venv\lib\site-packages\fastapi_events\handlers\local.py", line 212, in handle
+    await loop.run_in_executor(None, functools.partial(handler, event))
+  File "C:\Users\a2450\scoop\apps\python310\3.10.11\lib\concurrent\futures\thread.py", line 58, in run
+    result = self.fn(*self.args, **self.kwargs)
+  File "C:\Users\a2450\Desktop\project\backend\trendsmicro\microservices\collector\src\handlers\historical_task_handler.py", line 33, in handle_finish_tasks
+    result=db.query(TimeInterest).filter(TimeInterest.id in task.get("interest_id"))
+  File "c:\Users\a2450\Desktop\project\backend\trendsmicro\.venv\lib\site-packages\sqlalchemy\sql\elements.py", line 3946, in __bool__
+    raise TypeError("Boolean value of this clause is not defined")
+TypeError: Boolean value of this clause is not defined
+2025-02-25 19:44:47 - apscheduler.scheduler - INFO - Added job "execute_historical_task" to job store "default"
+2025-02-25 19:44:47 - fastapi - ERROR - 任务 1 加入队列失败: object NoneType can't be used in 'await' expression
+2025-02-25 19:44:47 - apscheduler.scheduler - INFO - Removed job historical_1
+2025-02-25 19:44:47 - apscheduler.executors.default - INFO - Running job "execute_historical_task (trigger: date[2025-02-25 11:44:47 UTC], next run at: 2025-02-25 11:44:47 UTC)" (scheduled at 2025-02-25 11:44:47.281578+00:00)
+2025-02-25 19:44:47 - fastapi - INFO - 开始采集数据
+2025-02-25 19:45:00 - fastapi - INFO - Data fetch successful for API function: interest_over_time, with parameters - Keywords: ['Gulf of Mexico', 'Gulf of America'], Timeframe: 2025-01-01 2025-02-25, Geo: 
+2025-02-25 19:45:00 - fastapi - INFO - 采集数据结束
+2025-02-25 19:45:00 - apscheduler.executors.default - INFO - Job "execute_historical_task (trigger: date[2025-02-25 11:44:47 UTC], next run at: 2025-02-25 11:44:47 UTC)" executed successfully
+2025-02-25 19:45:52 - asyncio - ERROR - Task exception was never retrieved
+future: <Task finished name='Task-19' coro=<_dispatch_as_task.<locals>.task() done, defined at c:\Users\a2450\Desktop\project\backend\trendsmicro\.venv\lib\site-packages\fastapi_events\dispatcher.py:51> exception=1 validation error for NotifyRequest
+interest_type
+  Field required [type=missing, input_value={'task_id': 1, 'type': 'h...erests': [], 'meta': []}, input_type=dict]
+    For further information visit https://errors.pydantic.dev/2.10/v/missing>
+Traceback (most recent call last):
+  File "c:\Users\a2450\Desktop\project\backend\trendsmicro\.venv\lib\site-packages\fastapi_events\dispatcher.py", line 52, in task
+    await asyncio.gather(*[handler.handle((event_name, payload)) for handler in handlers])
+  File "c:\Users\a2450\Desktop\project\backend\trendsmicro\.venv\lib\site-packages\fastapi_events\handlers\local.py", line 212, in handle
+    await loop.run_in_executor(None, functools.partial(handler, event))
+  File "C:\Users\a2450\scoop\apps\python310\3.10.11\lib\concurrent\futures\thread.py", line 58, in run
+    result = self.fn(*self.args, **self.kwargs)
+  File "C:\Users\a2450\Desktop\project\backend\trendsmicro\microservices\collector\src\handlers\historical_task_handler.py", line 36, in handle_finish_tasks
+    req=NotifyRequest(
+  File "c:\Users\a2450\Desktop\project\backend\trendsmicro\.venv\lib\site-packages\pydantic\main.py", line 214, in __init__
+    validated_self = self.__pydantic_validator__.validate_python(data, self_instance=self)
+pydantic_core._pydantic_core.ValidationError: 1 validation error for NotifyRequest
+interest_type
+  Field required [type=missing, input_value={'task_id': 1, 'type': 'h...erests': [], 'meta': []}, input_type=dict]
+    For further information visit https://errors.pydantic.dev/2.10/v/missing
+2025-02-25 19:47:19 - apscheduler.scheduler - INFO - Added job "execute_historical_task" to job store "default"
+2025-02-25 19:47:19 - fastapi - ERROR - 任务 1 加入队列失败: object NoneType can't be used in 'await' expression
+2025-02-25 19:47:19 - apscheduler.scheduler - INFO - Removed job historical_1
+2025-02-25 19:47:19 - apscheduler.executors.default - INFO - Running job "execute_historical_task (trigger: date[2025-02-25 11:47:19 UTC], next run at: 2025-02-25 11:47:19 UTC)" (scheduled at 2025-02-25 11:47:19.828235+00:00)
+2025-02-25 19:47:19 - fastapi - INFO - 开始采集数据
+2025-02-25 19:47:25 - fastapi - INFO - 采集数据结束
+2025-02-25 19:47:25 - apscheduler.executors.default - INFO - Job "execute_historical_task (trigger: date[2025-02-25 11:47:19 UTC], next run at: 2025-02-25 11:47:19 UTC)" executed successfully
+2025-02-25 19:47:25 - asyncio - ERROR - Task exception was never retrieved
+future: <Task finished name='Task-26' coro=<_dispatch_as_task.<locals>.task() done, defined at c:\Users\a2450\Desktop\project\backend\trendsmicro\.venv\lib\site-packages\fastapi_events\dispatcher.py:51> exception=TypeError('Boolean value of this clause is not defined')>
+Traceback (most recent call last):
+  File "c:\Users\a2450\Desktop\project\backend\trendsmicro\.venv\lib\site-packages\fastapi_events\dispatcher.py", line 52, in task
+    await asyncio.gather(*[handler.handle((event_name, payload)) for handler in handlers])
+  File "c:\Users\a2450\Desktop\project\backend\trendsmicro\.venv\lib\site-packages\fastapi_events\handlers\local.py", line 212, in handle
+    await loop.run_in_executor(None, functools.partial(handler, event))
+  File "C:\Users\a2450\scoop\apps\python310\3.10.11\lib\concurrent\futures\thread.py", line 58, in run
+    result = self.fn(*self.args, **self.kwargs)
+  File "C:\Users\a2450\Desktop\project\backend\trendsmicro\microservices\collector\src\handlers\historical_task_handler.py", line 33, in handle_finish_tasks
+    result=db.query(TimeInterest).filter(TimeInterest.id in task.get("interest_id"))
+  File "c:\Users\a2450\Desktop\project\backend\trendsmicro\.venv\lib\site-packages\sqlalchemy\sql\elements.py", line 3946, in __bool__
+    raise TypeError("Boolean value of this clause is not defined")
+TypeError: Boolean value of this clause is not defined
+2025-02-25 19:47:50 - apscheduler.scheduler - INFO - Added job "execute_historical_task" to job store "default"
+2025-02-25 19:47:50 - fastapi - ERROR - 任务 1 加入队列失败: object NoneType can't be used in 'await' expression
+2025-02-25 19:47:50 - apscheduler.scheduler - INFO - Removed job historical_1
+2025-02-25 19:47:50 - apscheduler.executors.default - INFO - Running job "execute_historical_task (trigger: date[2025-02-25 11:47:50 UTC], next run at: 2025-02-25 11:47:50 UTC)" (scheduled at 2025-02-25 11:47:50.099848+00:00)
+2025-02-25 19:47:50 - fastapi - INFO - 开始采集数据
+2025-02-25 19:49:41 - apscheduler.scheduler - INFO - Scheduler started
+2025-02-25 19:50:10 - apscheduler.scheduler - INFO - Added job "execute_historical_task" to job store "default"
+2025-02-25 19:50:10 - fastapi - INFO - 任务 1 已加入队列等待执行
+2025-02-25 19:50:10 - apscheduler.scheduler - INFO - Removed job historical_1
+2025-02-25 19:50:10 - apscheduler.executors.default - INFO - Running job "execute_historical_task (trigger: date[2025-02-25 11:50:10 UTC], next run at: 2025-02-25 11:50:10 UTC)" (scheduled at 2025-02-25 11:50:10.477981+00:00)
+2025-02-25 19:50:10 - fastapi - INFO - 开始采集数据
+2025-02-25 19:50:29 - fastapi - INFO - Data fetch successful for API function: interest_over_time, with parameters - Keywords: ['Gulf of Mexico', 'Gulf of America'], Timeframe: 2025-01-01 2025-02-25, Geo: 
+2025-02-25 19:50:29 - fastapi - INFO - 采集数据结束
+2025-02-25 19:50:29 - apscheduler.executors.default - INFO - Job "execute_historical_task (trigger: date[2025-02-25 11:50:10 UTC], next run at: 2025-02-25 11:50:10 UTC)" executed successfully
+2025-02-25 19:51:59 - asyncio - ERROR - Task exception was never retrieved
+future: <Task finished name='Task-10' coro=<_dispatch_as_task.<locals>.task() done, defined at c:\Users\a2450\Desktop\project\backend\trendsmicro\.venv\lib\site-packages\fastapi_events\dispatcher.py:51> exception=1 validation error for NotifyRequest
+interest_type
+  Field required [type=missing, input_value={'task_id': 1, 'type': 'h...erests': [], 'meta': []}, input_type=dict]
+    For further information visit https://errors.pydantic.dev/2.10/v/missing>
+Traceback (most recent call last):
+  File "c:\Users\a2450\Desktop\project\backend\trendsmicro\.venv\lib\site-packages\fastapi_events\dispatcher.py", line 52, in task
+    await asyncio.gather(*[handler.handle((event_name, payload)) for handler in handlers])
+  File "c:\Users\a2450\Desktop\project\backend\trendsmicro\.venv\lib\site-packages\fastapi_events\handlers\local.py", line 212, in handle
+    await loop.run_in_executor(None, functools.partial(handler, event))
+  File "C:\Users\a2450\scoop\apps\python310\3.10.11\lib\concurrent\futures\thread.py", line 58, in run
+    result = self.fn(*self.args, **self.kwargs)
+  File "C:\Users\a2450\Desktop\project\backend\trendsmicro\microservices\collector\src\handlers\historical_task_handler.py", line 36, in handle_finish_tasks
+    req=NotifyRequest(
+  File "c:\Users\a2450\Desktop\project\backend\trendsmicro\.venv\lib\site-packages\pydantic\main.py", line 214, in __init__
+    validated_self = self.__pydantic_validator__.validate_python(data, self_instance=self)
+pydantic_core._pydantic_core.ValidationError: 1 validation error for NotifyRequest
+interest_type
+  Field required [type=missing, input_value={'task_id': 1, 'type': 'h...erests': [], 'meta': []}, input_type=dict]
+    For further information visit https://errors.pydantic.dev/2.10/v/missing
+2025-02-25 19:53:01 - apscheduler.scheduler - INFO - Added job "execute_historical_task" to job store "default"
+2025-02-25 19:53:01 - fastapi - INFO - 任务 1 已加入队列等待执行
+2025-02-25 19:53:01 - apscheduler.scheduler - INFO - Removed job historical_1
+2025-02-25 19:53:01 - apscheduler.executors.default - INFO - Running job "execute_historical_task (trigger: date[2025-02-25 11:53:01 UTC], next run at: 2025-02-25 11:53:01 UTC)" (scheduled at 2025-02-25 11:53:01.647625+00:00)
+2025-02-25 19:53:01 - fastapi - INFO - 开始采集数据
+2025-02-25 19:53:01 - fastapi - INFO - 采集数据结束
+2025-02-25 19:53:01 - apscheduler.executors.default - INFO - Job "execute_historical_task (trigger: date[2025-02-25 11:53:01 UTC], next run at: 2025-02-25 11:53:01 UTC)" executed successfully
+2025-02-25 19:55:36 - asyncio - ERROR - Task exception was never retrieved
+future: <Task finished name='Task-18' coro=<_dispatch_as_task.<locals>.task() done, defined at c:\Users\a2450\Desktop\project\backend\trendsmicro\.venv\lib\site-packages\fastapi_events\dispatcher.py:51> exception=1 validation error for NotifyRequest
+interest_type
+  Field required [type=missing, input_value={'task_id': 1, 'type': 'h...ime.date(2025, 2, 25))]}, input_type=dict]
+    For further information visit https://errors.pydantic.dev/2.10/v/missing>
+Traceback (most recent call last):
+  File "c:\Users\a2450\Desktop\project\backend\trendsmicro\.venv\lib\site-packages\fastapi_events\dispatcher.py", line 52, in task
+    await asyncio.gather(*[handler.handle((event_name, payload)) for handler in handlers])
+  File "c:\Users\a2450\Desktop\project\backend\trendsmicro\.venv\lib\site-packages\fastapi_events\handlers\local.py", line 212, in handle
+    await loop.run_in_executor(None, functools.partial(handler, event))
+  File "C:\Users\a2450\scoop\apps\python310\3.10.11\lib\concurrent\futures\thread.py", line 58, in run
+    result = self.fn(*self.args, **self.kwargs)
+  File "C:\Users\a2450\Desktop\project\backend\trendsmicro\microservices\collector\src\handlers\historical_task_handler.py", line 36, in handle_finish_tasks
+    req=NotifyRequest(
+  File "c:\Users\a2450\Desktop\project\backend\trendsmicro\.venv\lib\site-packages\pydantic\main.py", line 214, in __init__
+    validated_self = self.__pydantic_validator__.validate_python(data, self_instance=self)
+pydantic_core._pydantic_core.ValidationError: 1 validation error for NotifyRequest
+interest_type
+  Field required [type=missing, input_value={'task_id': 1, 'type': 'h...ime.date(2025, 2, 25))]}, input_type=dict]
+    For further information visit https://errors.pydantic.dev/2.10/v/missing
+2025-02-25 19:55:54 - apscheduler.scheduler - INFO - Added job "execute_historical_task" to job store "default"
+2025-02-25 19:55:54 - fastapi - INFO - 任务 1 已加入队列等待执行
+2025-02-25 19:55:54 - apscheduler.scheduler - INFO - Removed job historical_1
+2025-02-25 19:55:54 - apscheduler.executors.default - INFO - Running job "execute_historical_task (trigger: date[2025-02-25 11:55:54 UTC], next run at: 2025-02-25 11:55:54 UTC)" (scheduled at 2025-02-25 11:55:54.514206+00:00)
+2025-02-25 19:55:54 - fastapi - INFO - 开始采集数据
+2025-02-25 19:55:54 - fastapi - INFO - 采集数据结束
+2025-02-25 19:55:54 - apscheduler.executors.default - INFO - Job "execute_historical_task (trigger: date[2025-02-25 11:55:54 UTC], next run at: 2025-02-25 11:55:54 UTC)" executed successfully
+2025-02-25 19:58:34 - asyncio - ERROR - Task exception was never retrieved
+future: <Task finished name='Task-26' coro=<_dispatch_as_task.<locals>.task() done, defined at c:\Users\a2450\Desktop\project\backend\trendsmicro\.venv\lib\site-packages\fastapi_events\dispatcher.py:51> exception=1 validation error for NotifyRequest
+interest_type
+  Field required [type=missing, input_value={'task_id': 1, 'type': 'h...erests': [], 'meta': []}, input_type=dict]
+    For further information visit https://errors.pydantic.dev/2.10/v/missing>
+Traceback (most recent call last):
+  File "c:\Users\a2450\Desktop\project\backend\trendsmicro\.venv\lib\site-packages\fastapi_events\dispatcher.py", line 52, in task
+    await asyncio.gather(*[handler.handle((event_name, payload)) for handler in handlers])
+  File "c:\Users\a2450\Desktop\project\backend\trendsmicro\.venv\lib\site-packages\fastapi_events\handlers\local.py", line 212, in handle
+    await loop.run_in_executor(None, functools.partial(handler, event))
+  File "C:\Users\a2450\scoop\apps\python310\3.10.11\lib\concurrent\futures\thread.py", line 58, in run
+    result = self.fn(*self.args, **self.kwargs)
+  File "C:\Users\a2450\Desktop\project\backend\trendsmicro\microservices\collector\src\handlers\historical_task_handler.py", line 36, in handle_finish_tasks
+    req=NotifyRequest(
+  File "c:\Users\a2450\Desktop\project\backend\trendsmicro\.venv\lib\site-packages\pydantic\main.py", line 214, in __init__
+    validated_self = self.__pydantic_validator__.validate_python(data, self_instance=self)
+pydantic_core._pydantic_core.ValidationError: 1 validation error for NotifyRequest
+interest_type
+  Field required [type=missing, input_value={'task_id': 1, 'type': 'h...erests': [], 'meta': []}, input_type=dict]
+    For further information visit https://errors.pydantic.dev/2.10/v/missing
+2025-02-25 19:58:55 - apscheduler.scheduler - INFO - Scheduler started
+2025-02-25 19:59:28 - apscheduler.scheduler - INFO - Scheduler started
+2025-02-25 19:59:39 - apscheduler.scheduler - INFO - Added job "execute_historical_task" to job store "default"
+2025-02-25 19:59:39 - fastapi - INFO - 任务 1 已加入队列等待执行
+2025-02-25 19:59:39 - apscheduler.scheduler - INFO - Removed job historical_1
+2025-02-25 19:59:39 - apscheduler.executors.default - INFO - Running job "execute_historical_task (trigger: date[2025-02-25 11:59:39 UTC], next run at: 2025-02-25 11:59:39 UTC)" (scheduled at 2025-02-25 11:59:39.489615+00:00)
+2025-02-25 19:59:39 - fastapi - INFO - 开始采集数据
+2025-02-25 19:59:39 - fastapi - INFO - 采集数据结束
+2025-02-25 19:59:39 - apscheduler.executors.default - INFO - Job "execute_historical_task (trigger: date[2025-02-25 11:59:39 UTC], next run at: 2025-02-25 11:59:39 UTC)" executed successfully
+2025-02-25 20:00:00 - asyncio - ERROR - Task exception was never retrieved
+future: <Task finished name='Task-10' coro=<_dispatch_as_task.<locals>.task() done, defined at c:\Users\a2450\Desktop\project\backend\trendsmicro\.venv\lib\site-packages\fastapi_events\dispatcher.py:51> exception=1 validation error for NotifyRequest
+interest_type
+  Field required [type=missing, input_value={'task_id': 1, 'type': 'h...ime.date(2025, 2, 25))]}, input_type=dict]
+    For further information visit https://errors.pydantic.dev/2.10/v/missing>
+Traceback (most recent call last):
+  File "c:\Users\a2450\Desktop\project\backend\trendsmicro\.venv\lib\site-packages\fastapi_events\dispatcher.py", line 52, in task
+    await asyncio.gather(*[handler.handle((event_name, payload)) for handler in handlers])
+  File "c:\Users\a2450\Desktop\project\backend\trendsmicro\.venv\lib\site-packages\fastapi_events\handlers\local.py", line 212, in handle
+    await loop.run_in_executor(None, functools.partial(handler, event))
+  File "C:\Users\a2450\scoop\apps\python310\3.10.11\lib\concurrent\futures\thread.py", line 58, in run
+    result = self.fn(*self.args, **self.kwargs)
+  File "C:\Users\a2450\Desktop\project\backend\trendsmicro\microservices\collector\src\handlers\historical_task_handler.py", line 42, in handle_finish_tasks
+    req = NotifyRequest(
+  File "c:\Users\a2450\Desktop\project\backend\trendsmicro\.venv\lib\site-packages\pydantic\main.py", line 214, in __init__
+    validated_self = self.__pydantic_validator__.validate_python(data, self_instance=self)
+pydantic_core._pydantic_core.ValidationError: 1 validation error for NotifyRequest
+interest_type
+  Field required [type=missing, input_value={'task_id': 1, 'type': 'h...ime.date(2025, 2, 25))]}, input_type=dict]
+    For further information visit https://errors.pydantic.dev/2.10/v/missing
+2025-02-25 20:00:23 - apscheduler.scheduler - INFO - Added job "execute_historical_task" to job store "default"
+2025-02-25 20:00:23 - fastapi - INFO - 任务 1 已加入队列等待执行
+2025-02-25 20:00:23 - apscheduler.scheduler - INFO - Removed job historical_1
+2025-02-25 20:00:23 - apscheduler.executors.default - INFO - Running job "execute_historical_task (trigger: date[2025-02-25 12:00:23 UTC], next run at: 2025-02-25 12:00:23 UTC)" (scheduled at 2025-02-25 12:00:23.126217+00:00)
+2025-02-25 20:00:23 - fastapi - INFO - 开始采集数据
+2025-02-25 20:00:23 - fastapi - INFO - 采集数据结束
+2025-02-25 20:00:23 - apscheduler.executors.default - INFO - Job "execute_historical_task (trigger: date[2025-02-25 12:00:23 UTC], next run at: 2025-02-25 12:00:23 UTC)" executed successfully
+2025-02-25 20:01:10 - asyncio - ERROR - Task exception was never retrieved
+future: <Task finished name='Task-18' coro=<_dispatch_as_task.<locals>.task() done, defined at c:\Users\a2450\Desktop\project\backend\trendsmicro\.venv\lib\site-packages\fastapi_events\dispatcher.py:51> exception=1 validation error for NotifyRequest
+interest_type
+  Field required [type=missing, input_value={'task_id': 1, 'type': 'h...ime.date(2025, 2, 25))]}, input_type=dict]
+    For further information visit https://errors.pydantic.dev/2.10/v/missing>
+Traceback (most recent call last):
+  File "c:\Users\a2450\Desktop\project\backend\trendsmicro\.venv\lib\site-packages\fastapi_events\dispatcher.py", line 52, in task
+    await asyncio.gather(*[handler.handle((event_name, payload)) for handler in handlers])
+  File "c:\Users\a2450\Desktop\project\backend\trendsmicro\.venv\lib\site-packages\fastapi_events\handlers\local.py", line 212, in handle
+    await loop.run_in_executor(None, functools.partial(handler, event))
+  File "C:\Users\a2450\scoop\apps\python310\3.10.11\lib\concurrent\futures\thread.py", line 58, in run
+    result = self.fn(*self.args, **self.kwargs)
+  File "C:\Users\a2450\Desktop\project\backend\trendsmicro\microservices\collector\src\handlers\historical_task_handler.py", line 42, in handle_finish_tasks
+    req = NotifyRequest(
+  File "c:\Users\a2450\Desktop\project\backend\trendsmicro\.venv\lib\site-packages\pydantic\main.py", line 214, in __init__
+    validated_self = self.__pydantic_validator__.validate_python(data, self_instance=self)
+pydantic_core._pydantic_core.ValidationError: 1 validation error for NotifyRequest
+interest_type
+  Field required [type=missing, input_value={'task_id': 1, 'type': 'h...ime.date(2025, 2, 25))]}, input_type=dict]
+    For further information visit https://errors.pydantic.dev/2.10/v/missing
+2025-02-25 20:01:27 - apscheduler.scheduler - INFO - Added job "execute_historical_task" to job store "default"
+2025-02-25 20:01:27 - fastapi - INFO - 任务 1 已加入队列等待执行
+2025-02-25 20:01:27 - apscheduler.scheduler - INFO - Removed job historical_1
+2025-02-25 20:01:27 - apscheduler.executors.default - INFO - Running job "execute_historical_task (trigger: date[2025-02-25 12:01:27 UTC], next run at: 2025-02-25 12:01:27 UTC)" (scheduled at 2025-02-25 12:01:27.189653+00:00)
+2025-02-25 20:01:27 - fastapi - INFO - 开始采集数据
+2025-02-25 20:01:27 - fastapi - INFO - 采集数据结束
+2025-02-25 20:01:27 - apscheduler.executors.default - INFO - Job "execute_historical_task (trigger: date[2025-02-25 12:01:27 UTC], next run at: 2025-02-25 12:01:27 UTC)" executed successfully
+2025-02-25 20:01:27 - asyncio - ERROR - Task exception was never retrieved
+future: <Task finished name='Task-26' coro=<_dispatch_as_task.<locals>.task() done, defined at c:\Users\a2450\Desktop\project\backend\trendsmicro\.venv\lib\site-packages\fastapi_events\dispatcher.py:51> exception=1 validation error for NotifyRequest
+interest_type
+  Field required [type=missing, input_value={'task_id': 1, 'type': 'h...ime.date(2025, 2, 25))]}, input_type=dict]
+    For further information visit https://errors.pydantic.dev/2.10/v/missing>
+Traceback (most recent call last):
+  File "c:\Users\a2450\Desktop\project\backend\trendsmicro\.venv\lib\site-packages\fastapi_events\dispatcher.py", line 52, in task
+    await asyncio.gather(*[handler.handle((event_name, payload)) for handler in handlers])
+  File "c:\Users\a2450\Desktop\project\backend\trendsmicro\.venv\lib\site-packages\fastapi_events\handlers\local.py", line 212, in handle
+    await loop.run_in_executor(None, functools.partial(handler, event))
+  File "C:\Users\a2450\scoop\apps\python310\3.10.11\lib\concurrent\futures\thread.py", line 58, in run
+    result = self.fn(*self.args, **self.kwargs)
+  File "C:\Users\a2450\Desktop\project\backend\trendsmicro\microservices\collector\src\handlers\historical_task_handler.py", line 42, in handle_finish_tasks
+    req = NotifyRequest(
+  File "c:\Users\a2450\Desktop\project\backend\trendsmicro\.venv\lib\site-packages\pydantic\main.py", line 214, in __init__
+    validated_self = self.__pydantic_validator__.validate_python(data, self_instance=self)
+pydantic_core._pydantic_core.ValidationError: 1 validation error for NotifyRequest
+interest_type
+  Field required [type=missing, input_value={'task_id': 1, 'type': 'h...ime.date(2025, 2, 25))]}, input_type=dict]
+    For further information visit https://errors.pydantic.dev/2.10/v/missing
+2025-02-25 20:02:41 - apscheduler.scheduler - INFO - Scheduler started
+2025-02-25 20:02:57 - apscheduler.scheduler - INFO - Added job "execute_historical_task" to job store "default"
+2025-02-25 20:02:57 - fastapi - INFO - 任务 1 已加入队列等待执行
+2025-02-25 20:02:57 - apscheduler.scheduler - INFO - Removed job historical_1
+2025-02-25 20:02:57 - apscheduler.executors.default - INFO - Running job "execute_historical_task (trigger: date[2025-02-25 12:02:57 UTC], next run at: 2025-02-25 12:02:57 UTC)" (scheduled at 2025-02-25 12:02:57.615497+00:00)
+2025-02-25 20:02:57 - fastapi - INFO - 开始采集数据
+2025-02-25 20:02:57 - fastapi - INFO - 采集数据结束
+2025-02-25 20:02:57 - apscheduler.executors.default - INFO - Job "execute_historical_task (trigger: date[2025-02-25 12:02:57 UTC], next run at: 2025-02-25 12:02:57 UTC)" executed successfully
+2025-02-25 20:03:49 - apscheduler.scheduler - INFO - Scheduler started
+2025-02-25 20:03:53 - apscheduler.scheduler - INFO - Added job "execute_historical_task" to job store "default"
+2025-02-25 20:03:53 - fastapi - INFO - 任务 1 已加入队列等待执行
+2025-02-25 20:03:53 - apscheduler.scheduler - INFO - Removed job historical_1
+2025-02-25 20:03:53 - apscheduler.executors.default - INFO - Running job "execute_historical_task (trigger: date[2025-02-25 12:03:53 UTC], next run at: 2025-02-25 12:03:53 UTC)" (scheduled at 2025-02-25 12:03:53.644380+00:00)
+2025-02-25 20:03:53 - fastapi - INFO - 开始采集数据
+2025-02-25 20:03:53 - fastapi - INFO - 采集数据结束
+2025-02-25 20:03:53 - apscheduler.executors.default - INFO - Job "execute_historical_task (trigger: date[2025-02-25 12:03:53 UTC], next run at: 2025-02-25 12:03:53 UTC)" executed successfully
+2025-02-25 20:04:36 - apscheduler.scheduler - INFO - Added job "execute_historical_task" to job store "default"
+2025-02-25 20:04:36 - fastapi - INFO - 任务 1 已加入队列等待执行
+2025-02-25 20:04:36 - apscheduler.scheduler - INFO - Removed job historical_1
+2025-02-25 20:04:36 - apscheduler.executors.default - INFO - Running job "execute_historical_task (trigger: date[2025-02-25 12:04:36 UTC], next run at: 2025-02-25 12:04:36 UTC)" (scheduled at 2025-02-25 12:04:36.770763+00:00)
+2025-02-25 20:04:36 - fastapi - INFO - 开始采集数据
+2025-02-25 20:04:36 - fastapi - INFO - 采集数据结束
+2025-02-25 20:04:36 - apscheduler.executors.default - INFO - Job "execute_historical_task (trigger: date[2025-02-25 12:04:36 UTC], next run at: 2025-02-25 12:04:36 UTC)" executed successfully
+2025-02-25 20:04:58 - apscheduler.scheduler - INFO - Scheduler started
+2025-02-25 20:05:10 - apscheduler.scheduler - INFO - Added job "execute_historical_task" to job store "default"
+2025-02-25 20:05:10 - fastapi - INFO - 任务 1 已加入队列等待执行
+2025-02-25 20:05:10 - apscheduler.scheduler - INFO - Removed job historical_1
+2025-02-25 20:05:10 - apscheduler.executors.default - INFO - Running job "execute_historical_task (trigger: date[2025-02-25 12:05:10 UTC], next run at: 2025-02-25 12:05:10 UTC)" (scheduled at 2025-02-25 12:05:10.463573+00:00)
+2025-02-25 20:05:10 - fastapi - INFO - 开始采集数据
+2025-02-25 20:05:10 - fastapi - INFO - 采集数据结束
+2025-02-25 20:05:10 - apscheduler.executors.default - INFO - Job "execute_historical_task (trigger: date[2025-02-25 12:05:10 UTC], next run at: 2025-02-25 12:05:10 UTC)" executed successfully
+2025-02-25 20:05:39 - apscheduler.scheduler - INFO - Added job "execute_historical_task" to job store "default"
+2025-02-25 20:05:39 - fastapi - INFO - 任务 1 已加入队列等待执行
+2025-02-25 20:05:39 - apscheduler.scheduler - INFO - Removed job historical_1
+2025-02-25 20:05:39 - apscheduler.executors.default - INFO - Running job "execute_historical_task (trigger: date[2025-02-25 12:05:39 UTC], next run at: 2025-02-25 12:05:39 UTC)" (scheduled at 2025-02-25 12:05:39.360352+00:00)
+2025-02-25 20:05:39 - fastapi - INFO - 开始采集数据
+2025-02-25 20:05:39 - fastapi - INFO - 采集数据结束
+2025-02-25 20:05:39 - apscheduler.executors.default - INFO - Job "execute_historical_task (trigger: date[2025-02-25 12:05:39 UTC], next run at: 2025-02-25 12:05:39 UTC)" executed successfully
+2025-02-26 14:44:14 - apscheduler.scheduler - INFO - Scheduler started
+2025-02-26 14:52:50 - apscheduler.scheduler - INFO - Scheduler started
+2025-02-26 14:57:55 - apscheduler.scheduler - INFO - Scheduler started
+2025-02-26 15:13:56 - apscheduler.scheduler - INFO - Scheduler started
+2025-02-26 15:40:50 - apscheduler.scheduler - INFO - Added job "execute_historical_task" to job store "default"
+2025-02-26 15:40:50 - fastapi - INFO - 任务 2 已加入队列等待执行
+2025-02-26 15:40:50 - apscheduler.scheduler - INFO - Removed job historical_2
+2025-02-26 15:40:50 - apscheduler.executors.default - INFO - Running job "execute_historical_task (trigger: date[2025-02-26 07:40:50 UTC], next run at: 2025-02-26 07:40:50 UTC)" (scheduled at 2025-02-26 07:40:50.691991+00:00)
+2025-02-26 15:40:50 - fastapi - INFO - 开始采集数据
+2025-02-26 15:41:15 - fastapi - WARNING - Rate limited. Retrying after 60 seconds...
+2025-02-26 15:42:31 - fastapi - WARNING - Rate limited. Retrying after 60 seconds...
+2025-02-26 15:43:47 - fastapi - WARNING - Rate limited. Retrying after 60 seconds...
+2025-02-26 15:44:47 - fastapi - ERROR - Error: Max retries exceeded for API call
+2025-02-26 15:44:47 - apscheduler.executors.default - ERROR - Job "execute_historical_task (trigger: date[2025-02-26 07:40:50 UTC], next run at: 2025-02-26 07:40:50 UTC)" raised an exception
+Traceback (most recent call last):
+  File "c:\Users\a2450\Desktop\project\backend\trendsmicro\.venv\lib\site-packages\apscheduler\executors\base.py", line 181, in run_coroutine_job
+    retval = await job.func(*job.args, **job.kwargs)
+  File "C:\Users\a2450\Desktop\project\backend\trendsmicro\microservices\collector\src\core\jobs.py", line 57, in execute_historical_task
+    raise e  # 重新抛出异常以便APScheduler记录日志
+  File "C:\Users\a2450\Desktop\project\backend\trendsmicro\microservices\collector\src\core\jobs.py", line 33, in execute_historical_task
+    interest_id=execute_task(
+  File "C:\Users\a2450\Desktop\project\backend\trendsmicro\microservices\collector\src\core\jobs.py", line 15, in execute_task
+    last_id= get_interest_over_time(keywords, geo_code, interval, start_date, end_date,task_id)
+  File "C:\Users\a2450\Desktop\project\backend\trendsmicro\microservices\collector\src\core\trends.py", line 160, in get_interest_over_time
+    time_data = _call_trends_api_with_retry(
+  File "C:\Users\a2450\Desktop\project\backend\trendsmicro\microservices\collector\src\core\trends.py", line 36, in _call_trends_api_with_retry
+    raise Exception("Max retries exceeded for API call")
+Exception: Max retries exceeded for API call
+2025-02-26 15:44:47 - asyncio - ERROR - Exception in callback _ProactorBasePipeTransport._call_connection_lost(None)
+handle: <Handle _ProactorBasePipeTransport._call_connection_lost(None)>
+Traceback (most recent call last):
+  File "C:\Users\a2450\scoop\apps\python310\3.10.11\lib\asyncio\events.py", line 80, in _run
+    self._context.run(self._callback, *self._args)
+  File "C:\Users\a2450\scoop\apps\python310\3.10.11\lib\asyncio\proactor_events.py", line 165, in _call_connection_lost
+    self._sock.shutdown(socket.SHUT_RDWR)
+ConnectionResetError: [WinError 10054] 远程主机强迫关闭了一个现有的连接。
+2025-02-27 10:09:23 - apscheduler.scheduler - INFO - Scheduler started
+2025-02-27 10:10:09 - apscheduler.scheduler - INFO - Scheduler started
