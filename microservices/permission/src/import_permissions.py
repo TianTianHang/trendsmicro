@@ -9,12 +9,17 @@ def import_permissions(file_path: str, db: Session):
         service_name = data['service_name']
         permissions = data['permissions']
         for permission in permissions:
-            route_permission = Permission(
+            existing_permission = db.query(Permission).filter_by(
                 service_name=service_name,
-                path=permission['path'],
-                required_permission=','.join(permission['required_permission'])
-            )
-            db.add(route_permission)
+                path=permission['path']
+            ).first()
+            if not existing_permission:
+                route_permission = Permission(
+                    service_name=service_name,
+                    path=permission['path'],
+                    required_permission=','.join(permission['required_permission'])
+                )
+                db.add(route_permission)
         db.commit()
 
 if __name__ == "__main__":

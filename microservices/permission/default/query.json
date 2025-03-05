@@ -6,11 +6,11 @@
             "required_permission": ["user", "admin"]
         },
         {
-            "path": "/{subject_id}",
+            "path": "/subject/{subject_id}",
             "required_permission": ["user", "admin"]
         },
         {
-            "path": "/{subject_id}/data",
+            "path": "/subject/{subject_id}/data",
             "required_permission": ["user", "admin"]
         },
         {
@@ -36,6 +36,75 @@
         {
             "path": "/moran/local",
             "required_permission": ["user", "admin"]
+        },
+        {
+            "path": "/keywords/words/create",
+            "required_permission": ["user", "admin"]
+        },
+        {
+            "path": "/keywords/words/{keyword_id}/delete",
+            "required_permission": ["user", "admin"]
+        },
+        {
+            "path": "/keywords/words/{keyword_id}/update",
+            "required_permission": ["user", "admin"]
+        },
+        {
+            "path": "/keywords/words/{keyword_id}",
+            "required_permission": ["user", "admin"]
+        },
+        {
+            "path": "/keywords/words/list",
+            "required_permission": ["user", "admin"]
+        },
+        {
+            "path": "/keywords/definitions/create",
+            "required_permission": ["user", "admin"]
+        },
+        {
+            "path": "/keywords/definitions/{definition_id}/update",
+            "required_permission": ["user", "admin"]
+        },
+        {
+            "path": "/keywords/definitions/{definition_id}/delete",
+            "required_permission": ["user", "admin"]
+        },
+        {
+            "path": "/keywords/definitions/{definition_id}",
+            "required_permission": ["user", "admin"]
+        },
+        {
+            "path": "/keywords/categories/create",
+            "required_permission": ["user", "admin"]
+        },
+        {
+            "path": "/keywords/categories/{category_id}",
+            "required_permission": ["user", "admin"]
+        },
+        {
+            "path": "/keywords/categories/{category_id}/update",
+            "required_permission": ["user", "admin"]
+        },
+        {
+            "path": "/keywords/categories/{category_id}/delete",
+            "required_permission": ["user", "admin"]
+        },
+        {
+            "path": "/keywords/categories/list",
+            "required_permission": ["user", "admin"]
+        },
+        {
+            "path": "/subjectData/create",
+            "required_permission": ["user", "admin"]
+        },
+        {
+            "path": "/subjectData/{subject_data_id}/update",
+            "required_permission": ["user", "admin"]
+        },
+        {
+            "path": "/subjectData/{subject_data_id}/delete",
+            "required_permission": ["user", "admin"]
         }
+
     ]
 }

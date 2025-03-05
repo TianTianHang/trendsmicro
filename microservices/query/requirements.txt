@@ -14,3 +14,4 @@ pysal
 python-multipart
 python-consul
 httpx
+aio-pika

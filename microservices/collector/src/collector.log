@@ -1056,3 +1056,725 @@ Traceback (most recent call last):
 ConnectionResetError: [WinError 10054] 远程主机强迫关闭了一个现有的连接。
 2025-02-27 10:09:23 - apscheduler.scheduler - INFO - Scheduler started
 2025-02-27 10:10:09 - apscheduler.scheduler - INFO - Scheduler started
+2025-02-28 15:06:44 - apscheduler.scheduler - INFO - Scheduler started
+2025-02-28 19:06:57 - apscheduler.scheduler - INFO - Scheduler started
+2025-02-28 19:42:43 - apscheduler.scheduler - INFO - Added job "execute_scheduled_task" to job store "default"
+2025-02-28 19:46:25 - apscheduler.scheduler - INFO - Scheduler started
+2025-02-28 19:48:38 - apscheduler.scheduler - INFO - Scheduler started
+2025-02-28 19:55:07 - apscheduler.scheduler - INFO - Scheduler started
+2025-02-28 19:57:47 - apscheduler.scheduler - INFO - Removed job scheduled_1
+2025-02-28 19:59:15 - apscheduler.scheduler - INFO - Added job "execute_scheduled_task" to job store "default"
+2025-02-28 20:02:04 - apscheduler.scheduler - INFO - Scheduler started
+2025-02-28 20:02:29 - apscheduler.scheduler - INFO - Added job "execute_scheduled_task" to job store "default"
+2025-02-28 20:07:29 - apscheduler.scheduler - INFO - Added job "execute_scheduled_task" to job store "default"
+2025-02-28 20:17:59 - apscheduler.scheduler - INFO - Scheduler started
+2025-02-28 20:18:27 - apscheduler.scheduler - INFO - Added job "execute_scheduled_task" to job store "default"
+2025-02-28 20:18:27 - fastapi - INFO - interval_config: {'minutes': 1}
+2025-02-28 20:19:27 - apscheduler.executors.default - INFO - Running job "execute_scheduled_task (trigger: interval[0:01:00], next run at: 2025-02-28 20:20:27 CST)" (scheduled at 2025-02-28 20:19:27.471814+08:00)
+2025-02-28 20:19:44 - apscheduler.executors.default - ERROR - Job "execute_scheduled_task (trigger: interval[0:01:00], next run at: 2025-02-28 20:20:27 CST)" raised an exception
+Traceback (most recent call last):
+  File "c:\Users\a2450\Desktop\project\backend\trendsmicro\.venv\lib\site-packages\apscheduler\executors\base.py", line 181, in run_coroutine_job
+    retval = await job.func(*job.args, **job.kwargs)
+  File "C:\Users\a2450\Desktop\project\backend\trendsmicro\microservices\collector\src\core\jobs.py", line 81, in execute_scheduled_task
+    raise e
+  File "C:\Users\a2450\Desktop\project\backend\trendsmicro\microservices\collector\src\core\jobs.py", line 70, in execute_scheduled_task
+    end_date=datetime().strftime("%Y-%m-%d"),
+TypeError: function missing required argument 'year' (pos 1)
+2025-02-28 20:20:18 - apscheduler.scheduler - INFO - Scheduler started
+2025-02-28 20:20:31 - apscheduler.scheduler - INFO - Added job "execute_scheduled_task" to job store "default"
+2025-02-28 20:20:31 - fastapi - INFO - interval_config: {'minutes': 1}
+2025-02-28 20:21:31 - apscheduler.executors.default - INFO - Running job "execute_scheduled_task (trigger: interval[0:01:00], next run at: 2025-02-28 20:22:31 CST)" (scheduled at 2025-02-28 20:21:31.716268+08:00)
+2025-02-28 20:22:07 - apscheduler.scheduler - INFO - Scheduler started
+2025-02-28 20:22:31 - apscheduler.executors.default - INFO - Running job "execute_scheduled_task (trigger: interval[0:01:00], next run at: 2025-02-28 20:23:31 CST)" (scheduled at 2025-02-28 20:22:31.716268+08:00)
+2025-02-28 20:22:42 - apscheduler.executors.default - INFO - Job "execute_scheduled_task (trigger: interval[0:01:00], next run at: 2025-02-28 20:23:31 CST)" executed successfully
+2025-02-28 20:22:42 - apscheduler.scheduler - INFO - Added job "execute_historical_task" to job store "default"
+2025-02-28 20:22:42 - fastapi - INFO - 任务 1 已加入队列等待执行
+2025-02-28 20:22:42 - apscheduler.scheduler - INFO - Removed job historical_1
+2025-02-28 20:22:42 - apscheduler.executors.default - INFO - Running job "execute_historical_task (trigger: date[2025-02-28 12:22:42 UTC], next run at: 2025-02-28 12:22:42 UTC)" (scheduled at 2025-02-28 12:22:42.745013+00:00)
+2025-02-28 20:22:42 - fastapi - INFO - 开始采集数据
+2025-02-28 20:22:42 - apscheduler.executors.default - ERROR - Job "execute_historical_task (trigger: date[2025-02-28 12:22:42 UTC], next run at: 2025-02-28 12:22:42 UTC)" raised an exception
+Traceback (most recent call last):
+  File "c:\Users\a2450\Desktop\project\backend\trendsmicro\.venv\lib\site-packages\apscheduler\executors\base.py", line 181, in run_coroutine_job
+    retval = await job.func(*job.args, **job.kwargs)
+  File "C:\Users\a2450\Desktop\project\backend\trendsmicro\microservices\collector\src\core\jobs.py", line 57, in execute_historical_task
+    raise e  # 重新抛出异常以便APScheduler记录日志
+  File "C:\Users\a2450\Desktop\project\backend\trendsmicro\microservices\collector\src\core\jobs.py", line 33, in execute_historical_task
+    interest_id=execute_task(
+  File "C:\Users\a2450\Desktop\project\backend\trendsmicro\microservices\collector\src\core\jobs.py", line 17, in execute_task
+    raise ValueError(f"无效的任务类型: {job_type}")
+ValueError: 无效的任务类型: string
+2025-02-28 20:23:31 - apscheduler.executors.default - INFO - Running job "execute_scheduled_task (trigger: interval[0:01:00], next run at: 2025-02-28 20:24:31 CST)" (scheduled at 2025-02-28 20:23:31.716268+08:00)
+2025-02-28 20:23:40 - apscheduler.executors.default - INFO - Job "execute_scheduled_task (trigger: interval[0:01:00], next run at: 2025-02-28 20:24:31 CST)" executed successfully
+2025-02-28 20:23:40 - apscheduler.scheduler - INFO - Added job "execute_historical_task" to job store "default"
+2025-02-28 20:23:40 - fastapi - INFO - 任务 1 已加入队列等待执行
+2025-02-28 20:23:40 - apscheduler.scheduler - INFO - Removed job historical_1
+2025-02-28 20:23:40 - apscheduler.executors.default - INFO - Running job "execute_historical_task (trigger: date[2025-02-28 12:23:40 UTC], next run at: 2025-02-28 12:23:40 UTC)" (scheduled at 2025-02-28 12:23:40.607862+00:00)
+2025-02-28 20:23:40 - fastapi - INFO - 开始采集数据
+2025-02-28 20:23:40 - apscheduler.executors.default - ERROR - Job "execute_historical_task (trigger: date[2025-02-28 12:23:40 UTC], next run at: 2025-02-28 12:23:40 UTC)" raised an exception
+Traceback (most recent call last):
+  File "c:\Users\a2450\Desktop\project\backend\trendsmicro\.venv\lib\site-packages\apscheduler\executors\base.py", line 181, in run_coroutine_job
+    retval = await job.func(*job.args, **job.kwargs)
+  File "C:\Users\a2450\Desktop\project\backend\trendsmicro\microservices\collector\src\core\jobs.py", line 57, in execute_historical_task
+    raise e  # 重新抛出异常以便APScheduler记录日志
+  File "C:\Users\a2450\Desktop\project\backend\trendsmicro\microservices\collector\src\core\jobs.py", line 33, in execute_historical_task
+    interest_id=execute_task(
+  File "C:\Users\a2450\Desktop\project\backend\trendsmicro\microservices\collector\src\core\jobs.py", line 17, in execute_task
+    raise ValueError(f"无效的任务类型: {job_type}")
+ValueError: 无效的任务类型: string
+2025-02-28 20:24:38 - apscheduler.scheduler - INFO - Scheduler started
+2025-02-28 20:24:41 - apscheduler.scheduler - INFO - Added job "execute_scheduled_task" to job store "default"
+2025-02-28 20:24:41 - fastapi - INFO - interval_config: {'minutes': 1}
+2025-02-28 20:25:41 - apscheduler.executors.default - INFO - Running job "execute_scheduled_task (trigger: interval[0:01:00], next run at: 2025-02-28 20:26:41 CST)" (scheduled at 2025-02-28 20:25:41.738788+08:00)
+2025-02-28 20:25:41 - apscheduler.executors.default - INFO - Job "execute_scheduled_task (trigger: interval[0:01:00], next run at: 2025-02-28 20:26:41 CST)" executed successfully
+2025-02-28 20:26:45 - apscheduler.scheduler - INFO - Scheduler started
+2025-02-28 20:26:49 - apscheduler.scheduler - INFO - Added job "execute_scheduled_task" to job store "default"
+2025-02-28 20:26:49 - fastapi - INFO - interval_config: {'minutes': 1}
+2025-02-28 20:27:49 - apscheduler.executors.default - INFO - Running job "execute_scheduled_task (trigger: interval[0:01:00], next run at: 2025-02-28 20:28:49 CST)" (scheduled at 2025-02-28 20:27:49.396668+08:00)
+2025-02-28 20:27:49 - apscheduler.executors.default - INFO - Job "execute_scheduled_task (trigger: interval[0:01:00], next run at: 2025-02-28 20:28:49 CST)" executed successfully
+2025-02-28 20:28:49 - apscheduler.executors.default - INFO - Running job "execute_scheduled_task (trigger: interval[0:01:00], next run at: 2025-02-28 20:29:49 CST)" (scheduled at 2025-02-28 20:28:49.396668+08:00)
+2025-02-28 20:28:49 - apscheduler.executors.default - INFO - Job "execute_scheduled_task (trigger: interval[0:01:00], next run at: 2025-02-28 20:29:49 CST)" executed successfully
+2025-02-28 20:29:49 - apscheduler.executors.default - INFO - Running job "execute_scheduled_task (trigger: interval[0:01:00], next run at: 2025-02-28 20:30:49 CST)" (scheduled at 2025-02-28 20:29:49.396668+08:00)
+2025-02-28 20:29:54 - apscheduler.executors.default - INFO - Job "execute_scheduled_task (trigger: interval[0:01:00], next run at: 2025-02-28 20:30:49 CST)" executed successfully
+2025-02-28 20:30:49 - apscheduler.executors.default - INFO - Running job "execute_scheduled_task (trigger: interval[0:01:00], next run at: 2025-02-28 20:31:49 CST)" (scheduled at 2025-02-28 20:30:49.396668+08:00)
+2025-02-28 20:30:49 - apscheduler.executors.default - INFO - Job "execute_scheduled_task (trigger: interval[0:01:00], next run at: 2025-02-28 20:31:49 CST)" executed successfully
+2025-02-28 20:31:49 - apscheduler.executors.default - INFO - Running job "execute_scheduled_task (trigger: interval[0:01:00], next run at: 2025-02-28 20:32:49 CST)" (scheduled at 2025-02-28 20:31:49.396668+08:00)
+2025-02-28 20:31:49 - apscheduler.executors.default - INFO - Job "execute_scheduled_task (trigger: interval[0:01:00], next run at: 2025-02-28 20:32:49 CST)" executed successfully
+2025-02-28 20:32:32 - apscheduler.scheduler - INFO - Scheduler started
+2025-02-28 20:32:49 - apscheduler.executors.default - INFO - Running job "execute_scheduled_task (trigger: interval[0:01:00], next run at: 2025-02-28 20:33:49 CST)" (scheduled at 2025-02-28 20:32:49.396668+08:00)
+2025-02-28 20:32:49 - apscheduler.executors.default - INFO - Job "execute_scheduled_task (trigger: interval[0:01:00], next run at: 2025-02-28 20:33:49 CST)" executed successfully
+2025-02-28 20:35:59 - apscheduler.scheduler - INFO - Added job "execute_historical_task" to job store "default"
+2025-02-28 20:35:59 - fastapi - INFO - 任务 6 已加入队列等待执行
+2025-02-28 20:35:59 - apscheduler.scheduler - INFO - Removed job historical_6
+2025-02-28 20:35:59 - apscheduler.executors.default - WARNING - Run time of job "execute_scheduled_task (trigger: interval[0:01:00], next run at: 2025-02-28 20:36:49 CST)" was missed by 0:02:10.085026
+2025-02-28 20:35:59 - apscheduler.executors.default - WARNING - Run time of job "execute_scheduled_task (trigger: interval[0:01:00], next run at: 2025-02-28 20:36:49 CST)" was missed by 0:01:10.086529
+2025-02-28 20:35:59 - apscheduler.executors.default - WARNING - Run time of job "execute_scheduled_task (trigger: interval[0:01:00], next run at: 2025-02-28 20:36:49 CST)" was missed by 0:00:10.087188
+2025-02-28 20:35:59 - apscheduler.executors.default - INFO - Running job "execute_historical_task (trigger: date[2025-02-28 12:35:59 UTC], next run at: 2025-02-28 12:35:59 UTC)" (scheduled at 2025-02-28 12:35:59.435542+00:00)
+2025-02-28 20:35:59 - fastapi - INFO - 开始采集数据
+2025-02-28 20:36:09 - fastapi - INFO - Data fetch successful for API function: interest_over_time, with parameters - Keywords: ['deepseek', 'deepsek'], Timeframe: 2025-01-01 2025-02-28, Geo: 
+2025-02-28 20:36:09 - fastapi - INFO - 采集数据结束
+2025-02-28 20:36:09 - apscheduler.executors.default - INFO - Job "execute_historical_task (trigger: date[2025-02-28 12:35:59 UTC], next run at: 2025-02-28 12:35:59 UTC)" executed successfully
+2025-02-28 20:36:49 - apscheduler.executors.default - INFO - Running job "execute_scheduled_task (trigger: interval[0:01:00], next run at: 2025-02-28 20:37:49 CST)" (scheduled at 2025-02-28 20:36:49.396668+08:00)
+2025-02-28 20:36:49 - apscheduler.executors.default - INFO - Job "execute_scheduled_task (trigger: interval[0:01:00], next run at: 2025-02-28 20:37:49 CST)" executed successfully
+2025-02-28 20:36:49 - apscheduler.scheduler - INFO - Added job "execute_historical_task" to job store "default"
+2025-02-28 20:36:49 - fastapi - INFO - 任务 7 已加入队列等待执行
+2025-02-28 20:36:49 - apscheduler.scheduler - INFO - Removed job historical_7
+2025-02-28 20:36:49 - apscheduler.executors.default - INFO - Running job "execute_historical_task (trigger: date[2025-02-28 12:36:49 UTC], next run at: 2025-02-28 12:36:49 UTC)" (scheduled at 2025-02-28 12:36:49.432057+00:00)
+2025-02-28 20:36:49 - fastapi - INFO - 开始采集数据
+2025-02-28 20:36:49 - fastapi - INFO - 采集数据结束
+2025-02-28 20:36:49 - apscheduler.executors.default - INFO - Job "execute_historical_task (trigger: date[2025-02-28 12:36:49 UTC], next run at: 2025-02-28 12:36:49 UTC)" executed successfully
+2025-02-28 20:37:49 - apscheduler.executors.default - INFO - Running job "execute_scheduled_task (trigger: interval[0:01:00], next run at: 2025-02-28 20:38:49 CST)" (scheduled at 2025-02-28 20:37:49.396668+08:00)
+2025-02-28 20:37:49 - apscheduler.executors.default - INFO - Job "execute_scheduled_task (trigger: interval[0:01:00], next run at: 2025-02-28 20:38:49 CST)" executed successfully
+2025-02-28 20:37:49 - apscheduler.scheduler - INFO - Added job "execute_historical_task" to job store "default"
+2025-02-28 20:37:49 - fastapi - INFO - 任务 8 已加入队列等待执行
+2025-02-28 20:37:49 - apscheduler.scheduler - INFO - Removed job historical_8
+2025-02-28 20:37:49 - apscheduler.executors.default - INFO - Running job "execute_historical_task (trigger: date[2025-02-28 12:37:49 UTC], next run at: 2025-02-28 12:37:49 UTC)" (scheduled at 2025-02-28 12:37:49.424909+00:00)
+2025-02-28 20:37:49 - fastapi - INFO - 开始采集数据
+2025-02-28 20:37:49 - fastapi - INFO - 采集数据结束
+2025-02-28 20:37:49 - apscheduler.executors.default - INFO - Job "execute_historical_task (trigger: date[2025-02-28 12:37:49 UTC], next run at: 2025-02-28 12:37:49 UTC)" executed successfully
+2025-03-02 10:29:34 - apscheduler.scheduler - INFO - Scheduler started
+2025-03-02 19:35:03 - apscheduler.scheduler - INFO - Scheduler started
+2025-03-02 20:20:24 - apscheduler.scheduler - INFO - Scheduler started
+2025-03-02 20:22:14 - apscheduler.scheduler - INFO - Added job "execute_historical_task" to job store "default"
+2025-03-02 20:22:14 - fastapi - INFO - 任务 1 已加入队列等待执行
+2025-03-02 20:22:14 - apscheduler.scheduler - INFO - Removed job historical_1
+2025-03-02 20:22:14 - apscheduler.executors.default - INFO - Running job "execute_historical_task (trigger: date[2025-03-02 12:22:14 UTC], next run at: 2025-03-02 12:22:14 UTC)" (scheduled at 2025-03-02 12:22:14.186707+00:00)
+2025-03-02 20:22:14 - fastapi - INFO - 开始采集数据
+2025-03-02 20:22:45 - fastapi - INFO - Data fetch successful for API function: interest_over_time, with parameters - Keywords: ['new', 'novel'], Timeframe: 2025-01-01 2025-02-28, Geo: 
+2025-03-02 20:22:45 - fastapi - INFO - 采集数据结束
+2025-03-02 20:22:45 - apscheduler.executors.default - INFO - Job "execute_historical_task (trigger: date[2025-03-02 12:22:14 UTC], next run at: 2025-03-02 12:22:14 UTC)" executed successfully
+2025-03-02 20:22:45 - pika.adapters.utils.connection_workflow - INFO - Pika version 1.3.2 connecting to ('::1', 5672, 0, 0)
+2025-03-02 20:22:45 - pika.adapters.utils.io_services_utils - INFO - Socket connected: <socket.socket fd=2300, family=AddressFamily.AF_INET6, type=SocketKind.SOCK_STREAM, proto=6, laddr=('::1', 51735, 0, 0), raddr=('::1', 5672, 0, 0)>
+2025-03-02 20:22:45 - pika.adapters.utils.connection_workflow - INFO - Streaming transport linked up: (<pika.adapters.utils.io_services_utils._AsyncPlaintextTransport object at 0x0000028B0EABDCC0>, _StreamingProtocolShim: <SelectConnection PROTOCOL transport=<pika.adapters.utils.io_services_utils._AsyncPlaintextTransport object at 0x0000028B0EABDCC0> params=<ConnectionParameters host=localhost port=5672 virtual_host=/ ssl=False>>).
+2025-03-02 20:22:45 - pika.adapters.utils.io_services_utils - INFO - Aborting transport connection: state=1; <socket.socket fd=2300, family=AddressFamily.AF_INET6, type=SocketKind.SOCK_STREAM, proto=6, laddr=('::1', 51735, 0, 0), raddr=('::1', 5672, 0, 0)>
+2025-03-02 20:22:45 - pika.adapters.utils.io_services_utils - INFO - _AsyncTransportBase._initate_abort(): Initiating abrupt asynchronous transport shutdown: state=1; error=None; <socket.socket fd=2300, family=AddressFamily.AF_INET6, type=SocketKind.SOCK_STREAM, proto=6, laddr=('::1', 51735, 0, 0), raddr=('::1', 5672, 0, 0)>
+2025-03-02 20:22:45 - pika.adapters.utils.io_services_utils - INFO - Deactivating transport: state=1; <socket.socket fd=2300, family=AddressFamily.AF_INET6, type=SocketKind.SOCK_STREAM, proto=6, laddr=('::1', 51735, 0, 0), raddr=('::1', 5672, 0, 0)>
+2025-03-02 20:22:45 - pika.connection - INFO - AMQP stack terminated, failed to connect, or aborted: opened=False, error-arg=None; pending-error=ConnectionClosedByBroker: (403) 'ACCESS_REFUSED - Login was refused using authentication mechanism PLAIN. For details see the broker logfile.'
+2025-03-02 20:22:45 - pika.connection - ERROR - Connection closed while authenticating indicating a probable authentication error
+2025-03-02 20:22:45 - pika.connection - INFO - Connection setup terminated due to ProbableAuthenticationError: Client was disconnected at a connection stage indicating a probable authentication error: ("ConnectionClosedByBroker: (403) 'ACCESS_REFUSED - Login was refused using authentication mechanism PLAIN. For details see the broker logfile.'",)
+2025-03-02 20:22:45 - pika.adapters.utils.connection_workflow - ERROR - AMQPConnector - reporting failure: AMQPConnectorAMQPHandshakeError: ProbableAuthenticationError: Client was disconnected at a connection stage indicating a probable authentication error: ("ConnectionClosedByBroker: (403) 'ACCESS_REFUSED - Login was refused using authentication mechanism PLAIN. For details see the broker logfile.'",)
+2025-03-02 20:22:45 - pika.adapters.utils.connection_workflow - INFO - Pika version 1.3.2 connecting to ('127.0.0.1', 5672)
+2025-03-02 20:22:45 - pika.adapters.utils.io_services_utils - INFO - Closing transport socket and unlinking: state=3; <socket.socket fd=2300, family=AddressFamily.AF_INET6, type=SocketKind.SOCK_STREAM, proto=6, laddr=('::1', 51735, 0, 0), raddr=('::1', 5672, 0, 0)>
+2025-03-02 20:22:45 - pika.adapters.utils.io_services_utils - INFO - Socket connected: <socket.socket fd=2056, family=AddressFamily.AF_INET, type=SocketKind.SOCK_STREAM, proto=6, laddr=('127.0.0.1', 51736), raddr=('127.0.0.1', 5672)>
+2025-03-02 20:22:45 - pika.adapters.utils.connection_workflow - INFO - Streaming transport linked up: (<pika.adapters.utils.io_services_utils._AsyncPlaintextTransport object at 0x0000028B0EABDAB0>, _StreamingProtocolShim: <SelectConnection PROTOCOL transport=<pika.adapters.utils.io_services_utils._AsyncPlaintextTransport object at 0x0000028B0EABDAB0> params=<ConnectionParameters host=localhost port=5672 virtual_host=/ ssl=False>>).
+2025-03-02 20:22:45 - pika.adapters.utils.io_services_utils - INFO - Aborting transport connection: state=1; <socket.socket fd=2056, family=AddressFamily.AF_INET, type=SocketKind.SOCK_STREAM, proto=6, laddr=('127.0.0.1', 51736), raddr=('127.0.0.1', 5672)>
+2025-03-02 20:22:45 - pika.adapters.utils.io_services_utils - INFO - _AsyncTransportBase._initate_abort(): Initiating abrupt asynchronous transport shutdown: state=1; error=None; <socket.socket fd=2056, family=AddressFamily.AF_INET, type=SocketKind.SOCK_STREAM, proto=6, laddr=('127.0.0.1', 51736), raddr=('127.0.0.1', 5672)>
+2025-03-02 20:22:45 - pika.adapters.utils.io_services_utils - INFO - Deactivating transport: state=1; <socket.socket fd=2056, family=AddressFamily.AF_INET, type=SocketKind.SOCK_STREAM, proto=6, laddr=('127.0.0.1', 51736), raddr=('127.0.0.1', 5672)>
+2025-03-02 20:22:45 - pika.connection - INFO - AMQP stack terminated, failed to connect, or aborted: opened=False, error-arg=None; pending-error=ConnectionClosedByBroker: (403) 'ACCESS_REFUSED - Login was refused using authentication mechanism PLAIN. For details see the broker logfile.'
+2025-03-02 20:22:45 - pika.connection - ERROR - Connection closed while authenticating indicating a probable authentication error
+2025-03-02 20:22:45 - pika.connection - INFO - Connection setup terminated due to ProbableAuthenticationError: Client was disconnected at a connection stage indicating a probable authentication error: ("ConnectionClosedByBroker: (403) 'ACCESS_REFUSED - Login was refused using authentication mechanism PLAIN. For details see the broker logfile.'",)
+2025-03-02 20:22:45 - pika.adapters.utils.connection_workflow - ERROR - AMQPConnector - reporting failure: AMQPConnectorAMQPHandshakeError: ProbableAuthenticationError: Client was disconnected at a connection stage indicating a probable authentication error: ("ConnectionClosedByBroker: (403) 'ACCESS_REFUSED - Login was refused using authentication mechanism PLAIN. For details see the broker logfile.'",)
+2025-03-02 20:22:45 - pika.adapters.utils.connection_workflow - ERROR - AMQP connection workflow failed: AMQPConnectionWorkflowFailed: 2 exceptions in all; last exception - AMQPConnectorAMQPHandshakeError: ProbableAuthenticationError: Client was disconnected at a connection stage indicating a probable authentication error: ("ConnectionClosedByBroker: (403) 'ACCESS_REFUSED - Login was refused using authentication mechanism PLAIN. For details see the broker logfile.'",); first exception - AMQPConnectorAMQPHandshakeError: ProbableAuthenticationError: Client was disconnected at a connection stage indicating a probable authentication error: ("ConnectionClosedByBroker: (403) 'ACCESS_REFUSED - Login was refused using authentication mechanism PLAIN. For details see the broker logfile.'",).
+2025-03-02 20:22:45 - pika.adapters.utils.connection_workflow - ERROR - AMQPConnectionWorkflow - reporting failure: AMQPConnectionWorkflowFailed: 2 exceptions in all; last exception - AMQPConnectorAMQPHandshakeError: ProbableAuthenticationError: Client was disconnected at a connection stage indicating a probable authentication error: ("ConnectionClosedByBroker: (403) 'ACCESS_REFUSED - Login was refused using authentication mechanism PLAIN. For details see the broker logfile.'",); first exception - AMQPConnectorAMQPHandshakeError: ProbableAuthenticationError: Client was disconnected at a connection stage indicating a probable authentication error: ("ConnectionClosedByBroker: (403) 'ACCESS_REFUSED - Login was refused using authentication mechanism PLAIN. For details see the broker logfile.'",)
+2025-03-02 20:22:45 - pika.adapters.utils.io_services_utils - INFO - Closing transport socket and unlinking: state=3; <socket.socket fd=2056, family=AddressFamily.AF_INET, type=SocketKind.SOCK_STREAM, proto=6, laddr=('127.0.0.1', 51736), raddr=('127.0.0.1', 5672)>
+2025-03-02 20:22:45 - pika.adapters.blocking_connection - ERROR - Connection workflow failed: AMQPConnectionWorkflowFailed: 2 exceptions in all; last exception - AMQPConnectorAMQPHandshakeError: ProbableAuthenticationError: Client was disconnected at a connection stage indicating a probable authentication error: ("ConnectionClosedByBroker: (403) 'ACCESS_REFUSED - Login was refused using authentication mechanism PLAIN. For details see the broker logfile.'",); first exception - AMQPConnectorAMQPHandshakeError: ProbableAuthenticationError: Client was disconnected at a connection stage indicating a probable authentication error: ("ConnectionClosedByBroker: (403) 'ACCESS_REFUSED - Login was refused using authentication mechanism PLAIN. For details see the broker logfile.'",)
+2025-03-02 20:22:45 - pika.adapters.blocking_connection - ERROR - Error in _create_connection().
+Traceback (most recent call last):
+  File "c:\Users\a2450\Desktop\project\backend\trendsmicro\.venv\lib\site-packages\pika\adapters\blocking_connection.py", line 451, in _create_connection
+    raise self._reap_last_connection_workflow_error(error)
+pika.exceptions.ProbableAuthenticationError: ConnectionClosedByBroker: (403) 'ACCESS_REFUSED - Login was refused using authentication mechanism PLAIN. For details see the broker logfile.'
+2025-03-02 20:22:45 - asyncio - ERROR - Task exception was never retrieved
+future: <Task finished name='Task-54' coro=<_dispatch_as_task.<locals>.task() done, defined at c:\Users\a2450\Desktop\project\backend\trendsmicro\.venv\lib\site-packages\fastapi_events\dispatcher.py:51> exception=ProbableAuthenticationError: Client was disconnected at a connection stage indicating a probable authentication error: ("ConnectionClosedByBroker: (403) 'ACCESS_REFUSED - Login was refused using authentication mechanism PLAIN. For details see the broker logfile.'",)>
+Traceback (most recent call last):
+  File "c:\Users\a2450\Desktop\project\backend\trendsmicro\.venv\lib\site-packages\fastapi_events\dispatcher.py", line 52, in task
+    await asyncio.gather(*[handler.handle((event_name, payload)) for handler in handlers])
+  File "c:\Users\a2450\Desktop\project\backend\trendsmicro\.venv\lib\site-packages\fastapi_events\handlers\local.py", line 208, in handle
+    await handler(event, **values)
+  File "C:\Users\a2450\Desktop\project\backend\trendsmicro\microservices\collector\src\handlers\historical_task_handler.py", line 55, in handle_finish_tasks
+    with RabbitMQClient("interest_data") as client:
+  File "C:\Users\a2450\Desktop\project\backend\trendsmicro\microservices\collector\src\services\rabbitmq.py", line 55, in __enter__
+    self.connect()
+  File "C:\Users\a2450\Desktop\project\backend\trendsmicro\microservices\collector\src\services\rabbitmq.py", line 26, in connect
+    self.connection = pika.BlockingConnection(parameters)
+  File "c:\Users\a2450\Desktop\project\backend\trendsmicro\.venv\lib\site-packages\pika\adapters\blocking_connection.py", line 360, in __init__
+    self._impl = self._create_connection(parameters, _impl_class)
+  File "c:\Users\a2450\Desktop\project\backend\trendsmicro\.venv\lib\site-packages\pika\adapters\blocking_connection.py", line 451, in _create_connection
+    raise self._reap_last_connection_workflow_error(error)
+pika.exceptions.ProbableAuthenticationError: ConnectionClosedByBroker: (403) 'ACCESS_REFUSED - Login was refused using authentication mechanism PLAIN. For details see the broker logfile.'
+2025-03-02 20:24:33 - apscheduler.scheduler - INFO - Added job "execute_historical_task" to job store "default"
+2025-03-02 20:24:33 - fastapi - INFO - 任务 1 已加入队列等待执行
+2025-03-02 20:24:33 - apscheduler.scheduler - INFO - Removed job historical_1
+2025-03-02 20:24:33 - apscheduler.executors.default - INFO - Running job "execute_historical_task (trigger: date[2025-03-02 12:24:33 UTC], next run at: 2025-03-02 12:24:33 UTC)" (scheduled at 2025-03-02 12:24:33.067837+00:00)
+2025-03-02 20:24:33 - fastapi - INFO - 开始采集数据
+2025-03-02 20:24:33 - fastapi - INFO - 采集数据结束
+2025-03-02 20:24:33 - apscheduler.executors.default - INFO - Job "execute_historical_task (trigger: date[2025-03-02 12:24:33 UTC], next run at: 2025-03-02 12:24:33 UTC)" executed successfully
+2025-03-02 20:24:33 - pika.adapters.utils.connection_workflow - INFO - Pika version 1.3.2 connecting to ('::1', 5672, 0, 0)
+2025-03-02 20:24:33 - pika.adapters.utils.io_services_utils - INFO - Socket connected: <socket.socket fd=2420, family=AddressFamily.AF_INET6, type=SocketKind.SOCK_STREAM, proto=6, laddr=('::1', 64087, 0, 0), raddr=('::1', 5672, 0, 0)>
+2025-03-02 20:24:33 - pika.adapters.utils.connection_workflow - INFO - Streaming transport linked up: (<pika.adapters.utils.io_services_utils._AsyncPlaintextTransport object at 0x0000028B0EB67F40>, _StreamingProtocolShim: <SelectConnection PROTOCOL transport=<pika.adapters.utils.io_services_utils._AsyncPlaintextTransport object at 0x0000028B0EB67F40> params=<ConnectionParameters host=localhost port=5672 virtual_host=/ ssl=False>>).
+2025-03-02 20:24:33 - pika.adapters.utils.io_services_utils - INFO - Aborting transport connection: state=1; <socket.socket fd=2420, family=AddressFamily.AF_INET6, type=SocketKind.SOCK_STREAM, proto=6, laddr=('::1', 64087, 0, 0), raddr=('::1', 5672, 0, 0)>
+2025-03-02 20:24:33 - pika.adapters.utils.io_services_utils - INFO - _AsyncTransportBase._initate_abort(): Initiating abrupt asynchronous transport shutdown: state=1; error=None; <socket.socket fd=2420, family=AddressFamily.AF_INET6, type=SocketKind.SOCK_STREAM, proto=6, laddr=('::1', 64087, 0, 0), raddr=('::1', 5672, 0, 0)>
+2025-03-02 20:24:33 - pika.adapters.utils.io_services_utils - INFO - Deactivating transport: state=1; <socket.socket fd=2420, family=AddressFamily.AF_INET6, type=SocketKind.SOCK_STREAM, proto=6, laddr=('::1', 64087, 0, 0), raddr=('::1', 5672, 0, 0)>
+2025-03-02 20:24:33 - pika.connection - INFO - AMQP stack terminated, failed to connect, or aborted: opened=False, error-arg=None; pending-error=ConnectionClosedByBroker: (403) 'ACCESS_REFUSED - Login was refused using authentication mechanism PLAIN. For details see the broker logfile.'
+2025-03-02 20:24:33 - pika.connection - ERROR - Connection closed while authenticating indicating a probable authentication error
+2025-03-02 20:24:33 - pika.connection - INFO - Connection setup terminated due to ProbableAuthenticationError: Client was disconnected at a connection stage indicating a probable authentication error: ("ConnectionClosedByBroker: (403) 'ACCESS_REFUSED - Login was refused using authentication mechanism PLAIN. For details see the broker logfile.'",)
+2025-03-02 20:24:33 - pika.adapters.utils.connection_workflow - ERROR - AMQPConnector - reporting failure: AMQPConnectorAMQPHandshakeError: ProbableAuthenticationError: Client was disconnected at a connection stage indicating a probable authentication error: ("ConnectionClosedByBroker: (403) 'ACCESS_REFUSED - Login was refused using authentication mechanism PLAIN. For details see the broker logfile.'",)
+2025-03-02 20:24:33 - pika.adapters.utils.connection_workflow - INFO - Pika version 1.3.2 connecting to ('127.0.0.1', 5672)
+2025-03-02 20:24:33 - pika.adapters.utils.io_services_utils - INFO - Closing transport socket and unlinking: state=3; <socket.socket fd=2420, family=AddressFamily.AF_INET6, type=SocketKind.SOCK_STREAM, proto=6, laddr=('::1', 64087, 0, 0), raddr=('::1', 5672, 0, 0)>
+2025-03-02 20:24:33 - pika.adapters.utils.io_services_utils - INFO - Socket connected: <socket.socket fd=2412, family=AddressFamily.AF_INET, type=SocketKind.SOCK_STREAM, proto=6, laddr=('127.0.0.1', 64088), raddr=('127.0.0.1', 5672)>
+2025-03-02 20:24:33 - pika.adapters.utils.connection_workflow - INFO - Streaming transport linked up: (<pika.adapters.utils.io_services_utils._AsyncPlaintextTransport object at 0x0000028B0EB67D90>, _StreamingProtocolShim: <SelectConnection PROTOCOL transport=<pika.adapters.utils.io_services_utils._AsyncPlaintextTransport object at 0x0000028B0EB67D90> params=<ConnectionParameters host=localhost port=5672 virtual_host=/ ssl=False>>).
+2025-03-02 20:24:33 - pika.adapters.utils.io_services_utils - INFO - Aborting transport connection: state=1; <socket.socket fd=2412, family=AddressFamily.AF_INET, type=SocketKind.SOCK_STREAM, proto=6, laddr=('127.0.0.1', 64088), raddr=('127.0.0.1', 5672)>
+2025-03-02 20:24:33 - pika.adapters.utils.io_services_utils - INFO - _AsyncTransportBase._initate_abort(): Initiating abrupt asynchronous transport shutdown: state=1; error=None; <socket.socket fd=2412, family=AddressFamily.AF_INET, type=SocketKind.SOCK_STREAM, proto=6, laddr=('127.0.0.1', 64088), raddr=('127.0.0.1', 5672)>
+2025-03-02 20:24:33 - pika.adapters.utils.io_services_utils - INFO - Deactivating transport: state=1; <socket.socket fd=2412, family=AddressFamily.AF_INET, type=SocketKind.SOCK_STREAM, proto=6, laddr=('127.0.0.1', 64088), raddr=('127.0.0.1', 5672)>
+2025-03-02 20:24:33 - pika.connection - INFO - AMQP stack terminated, failed to connect, or aborted: opened=False, error-arg=None; pending-error=ConnectionClosedByBroker: (403) 'ACCESS_REFUSED - Login was refused using authentication mechanism PLAIN. For details see the broker logfile.'
+2025-03-02 20:24:33 - pika.connection - ERROR - Connection closed while authenticating indicating a probable authentication error
+2025-03-02 20:24:33 - pika.connection - INFO - Connection setup terminated due to ProbableAuthenticationError: Client was disconnected at a connection stage indicating a probable authentication error: ("ConnectionClosedByBroker: (403) 'ACCESS_REFUSED - Login was refused using authentication mechanism PLAIN. For details see the broker logfile.'",)
+2025-03-02 20:24:33 - pika.adapters.utils.connection_workflow - ERROR - AMQPConnector - reporting failure: AMQPConnectorAMQPHandshakeError: ProbableAuthenticationError: Client was disconnected at a connection stage indicating a probable authentication error: ("ConnectionClosedByBroker: (403) 'ACCESS_REFUSED - Login was refused using authentication mechanism PLAIN. For details see the broker logfile.'",)
+2025-03-02 20:24:33 - pika.adapters.utils.connection_workflow - ERROR - AMQP connection workflow failed: AMQPConnectionWorkflowFailed: 2 exceptions in all; last exception - AMQPConnectorAMQPHandshakeError: ProbableAuthenticationError: Client was disconnected at a connection stage indicating a probable authentication error: ("ConnectionClosedByBroker: (403) 'ACCESS_REFUSED - Login was refused using authentication mechanism PLAIN. For details see the broker logfile.'",); first exception - AMQPConnectorAMQPHandshakeError: ProbableAuthenticationError: Client was disconnected at a connection stage indicating a probable authentication error: ("ConnectionClosedByBroker: (403) 'ACCESS_REFUSED - Login was refused using authentication mechanism PLAIN. For details see the broker logfile.'",).
+2025-03-02 20:24:33 - pika.adapters.utils.connection_workflow - ERROR - AMQPConnectionWorkflow - reporting failure: AMQPConnectionWorkflowFailed: 2 exceptions in all; last exception - AMQPConnectorAMQPHandshakeError: ProbableAuthenticationError: Client was disconnected at a connection stage indicating a probable authentication error: ("ConnectionClosedByBroker: (403) 'ACCESS_REFUSED - Login was refused using authentication mechanism PLAIN. For details see the broker logfile.'",); first exception - AMQPConnectorAMQPHandshakeError: ProbableAuthenticationError: Client was disconnected at a connection stage indicating a probable authentication error: ("ConnectionClosedByBroker: (403) 'ACCESS_REFUSED - Login was refused using authentication mechanism PLAIN. For details see the broker logfile.'",)
+2025-03-02 20:24:33 - pika.adapters.utils.io_services_utils - INFO - Closing transport socket and unlinking: state=3; <socket.socket fd=2412, family=AddressFamily.AF_INET, type=SocketKind.SOCK_STREAM, proto=6, laddr=('127.0.0.1', 64088), raddr=('127.0.0.1', 5672)>
+2025-03-02 20:24:33 - pika.adapters.blocking_connection - ERROR - Connection workflow failed: AMQPConnectionWorkflowFailed: 2 exceptions in all; last exception - AMQPConnectorAMQPHandshakeError: ProbableAuthenticationError: Client was disconnected at a connection stage indicating a probable authentication error: ("ConnectionClosedByBroker: (403) 'ACCESS_REFUSED - Login was refused using authentication mechanism PLAIN. For details see the broker logfile.'",); first exception - AMQPConnectorAMQPHandshakeError: ProbableAuthenticationError: Client was disconnected at a connection stage indicating a probable authentication error: ("ConnectionClosedByBroker: (403) 'ACCESS_REFUSED - Login was refused using authentication mechanism PLAIN. For details see the broker logfile.'",)
+2025-03-02 20:24:33 - pika.adapters.blocking_connection - ERROR - Error in _create_connection().
+Traceback (most recent call last):
+  File "c:\Users\a2450\Desktop\project\backend\trendsmicro\.venv\lib\site-packages\pika\adapters\blocking_connection.py", line 451, in _create_connection
+    raise self._reap_last_connection_workflow_error(error)
+pika.exceptions.ProbableAuthenticationError: ConnectionClosedByBroker: (403) 'ACCESS_REFUSED - Login was refused using authentication mechanism PLAIN. For details see the broker logfile.'
+2025-03-02 20:24:33 - asyncio - ERROR - Task exception was never retrieved
+future: <Task finished name='Task-98' coro=<_dispatch_as_task.<locals>.task() done, defined at c:\Users\a2450\Desktop\project\backend\trendsmicro\.venv\lib\site-packages\fastapi_events\dispatcher.py:51> exception=ProbableAuthenticationError: Client was disconnected at a connection stage indicating a probable authentication error: ("ConnectionClosedByBroker: (403) 'ACCESS_REFUSED - Login was refused using authentication mechanism PLAIN. For details see the broker logfile.'",)>
+Traceback (most recent call last):
+  File "c:\Users\a2450\Desktop\project\backend\trendsmicro\.venv\lib\site-packages\fastapi_events\dispatcher.py", line 52, in task
+    await asyncio.gather(*[handler.handle((event_name, payload)) for handler in handlers])
+  File "c:\Users\a2450\Desktop\project\backend\trendsmicro\.venv\lib\site-packages\fastapi_events\handlers\local.py", line 208, in handle
+    await handler(event, **values)
+  File "C:\Users\a2450\Desktop\project\backend\trendsmicro\microservices\collector\src\handlers\historical_task_handler.py", line 55, in handle_finish_tasks
+    with RabbitMQClient("interest_data") as client:
+  File "C:\Users\a2450\Desktop\project\backend\trendsmicro\microservices\collector\src\services\rabbitmq.py", line 55, in __enter__
+    self.connect()
+  File "C:\Users\a2450\Desktop\project\backend\trendsmicro\microservices\collector\src\services\rabbitmq.py", line 26, in connect
+    self.connection = pika.BlockingConnection(parameters)
+  File "c:\Users\a2450\Desktop\project\backend\trendsmicro\.venv\lib\site-packages\pika\adapters\blocking_connection.py", line 360, in __init__
+    self._impl = self._create_connection(parameters, _impl_class)
+  File "c:\Users\a2450\Desktop\project\backend\trendsmicro\.venv\lib\site-packages\pika\adapters\blocking_connection.py", line 451, in _create_connection
+    raise self._reap_last_connection_workflow_error(error)
+pika.exceptions.ProbableAuthenticationError: ConnectionClosedByBroker: (403) 'ACCESS_REFUSED - Login was refused using authentication mechanism PLAIN. For details see the broker logfile.'
+2025-03-02 20:25:03 - apscheduler.scheduler - INFO - Added job "execute_historical_task" to job store "default"
+2025-03-02 20:25:03 - fastapi - INFO - 任务 1 已加入队列等待执行
+2025-03-02 20:25:04 - apscheduler.scheduler - INFO - Removed job historical_1
+2025-03-02 20:25:04 - apscheduler.executors.default - INFO - Running job "execute_historical_task (trigger: date[2025-03-02 12:25:03 UTC], next run at: 2025-03-02 12:25:03 UTC)" (scheduled at 2025-03-02 12:25:03.973283+00:00)
+2025-03-02 20:25:04 - fastapi - INFO - 开始采集数据
+2025-03-02 20:25:04 - fastapi - INFO - 采集数据结束
+2025-03-02 20:25:04 - apscheduler.executors.default - INFO - Job "execute_historical_task (trigger: date[2025-03-02 12:25:03 UTC], next run at: 2025-03-02 12:25:03 UTC)" executed successfully
+2025-03-02 20:25:33 - pika.adapters.utils.connection_workflow - INFO - Pika version 1.3.2 connecting to ('::1', 5672, 0, 0)
+2025-03-02 20:25:33 - pika.adapters.utils.io_services_utils - INFO - Socket connected: <socket.socket fd=2704, family=AddressFamily.AF_INET6, type=SocketKind.SOCK_STREAM, proto=6, laddr=('::1', 64222, 0, 0), raddr=('::1', 5672, 0, 0)>
+2025-03-02 20:25:33 - pika.adapters.utils.connection_workflow - INFO - Streaming transport linked up: (<pika.adapters.utils.io_services_utils._AsyncPlaintextTransport object at 0x0000028B0EABED70>, _StreamingProtocolShim: <SelectConnection PROTOCOL transport=<pika.adapters.utils.io_services_utils._AsyncPlaintextTransport object at 0x0000028B0EABED70> params=<ConnectionParameters host=localhost port=5672 virtual_host=/ ssl=False>>).
+2025-03-02 20:25:33 - pika.adapters.utils.io_services_utils - INFO - Aborting transport connection: state=1; <socket.socket fd=2704, family=AddressFamily.AF_INET6, type=SocketKind.SOCK_STREAM, proto=6, laddr=('::1', 64222, 0, 0), raddr=('::1', 5672, 0, 0)>
+2025-03-02 20:25:33 - pika.adapters.utils.io_services_utils - INFO - _AsyncTransportBase._initate_abort(): Initiating abrupt asynchronous transport shutdown: state=1; error=None; <socket.socket fd=2704, family=AddressFamily.AF_INET6, type=SocketKind.SOCK_STREAM, proto=6, laddr=('::1', 64222, 0, 0), raddr=('::1', 5672, 0, 0)>
+2025-03-02 20:25:33 - pika.adapters.utils.io_services_utils - INFO - Deactivating transport: state=1; <socket.socket fd=2704, family=AddressFamily.AF_INET6, type=SocketKind.SOCK_STREAM, proto=6, laddr=('::1', 64222, 0, 0), raddr=('::1', 5672, 0, 0)>
+2025-03-02 20:25:33 - pika.connection - INFO - AMQP stack terminated, failed to connect, or aborted: opened=False, error-arg=None; pending-error=ConnectionClosedByBroker: (403) 'ACCESS_REFUSED - Login was refused using authentication mechanism PLAIN. For details see the broker logfile.'
+2025-03-02 20:25:33 - pika.connection - ERROR - Connection closed while authenticating indicating a probable authentication error
+2025-03-02 20:25:33 - pika.connection - INFO - Connection setup terminated due to ProbableAuthenticationError: Client was disconnected at a connection stage indicating a probable authentication error: ("ConnectionClosedByBroker: (403) 'ACCESS_REFUSED - Login was refused using authentication mechanism PLAIN. For details see the broker logfile.'",)
+2025-03-02 20:25:33 - pika.adapters.utils.connection_workflow - ERROR - AMQPConnector - reporting failure: AMQPConnectorAMQPHandshakeError: ProbableAuthenticationError: Client was disconnected at a connection stage indicating a probable authentication error: ("ConnectionClosedByBroker: (403) 'ACCESS_REFUSED - Login was refused using authentication mechanism PLAIN. For details see the broker logfile.'",)
+2025-03-02 20:25:33 - pika.adapters.utils.connection_workflow - INFO - Pika version 1.3.2 connecting to ('127.0.0.1', 5672)
+2025-03-02 20:25:33 - pika.adapters.utils.io_services_utils - INFO - Closing transport socket and unlinking: state=3; <socket.socket fd=2704, family=AddressFamily.AF_INET6, type=SocketKind.SOCK_STREAM, proto=6, laddr=('::1', 64222, 0, 0), raddr=('::1', 5672, 0, 0)>
+2025-03-02 20:25:33 - pika.adapters.utils.io_services_utils - INFO - Socket connected: <socket.socket fd=2532, family=AddressFamily.AF_INET, type=SocketKind.SOCK_STREAM, proto=6, laddr=('127.0.0.1', 64223), raddr=('127.0.0.1', 5672)>
+2025-03-02 20:25:33 - pika.adapters.utils.connection_workflow - INFO - Streaming transport linked up: (<pika.adapters.utils.io_services_utils._AsyncPlaintextTransport object at 0x0000028B0EABEDA0>, _StreamingProtocolShim: <SelectConnection PROTOCOL transport=<pika.adapters.utils.io_services_utils._AsyncPlaintextTransport object at 0x0000028B0EABEDA0> params=<ConnectionParameters host=localhost port=5672 virtual_host=/ ssl=False>>).
+2025-03-02 20:25:33 - pika.adapters.utils.io_services_utils - INFO - Aborting transport connection: state=1; <socket.socket fd=2532, family=AddressFamily.AF_INET, type=SocketKind.SOCK_STREAM, proto=6, laddr=('127.0.0.1', 64223), raddr=('127.0.0.1', 5672)>
+2025-03-02 20:25:33 - pika.adapters.utils.io_services_utils - INFO - _AsyncTransportBase._initate_abort(): Initiating abrupt asynchronous transport shutdown: state=1; error=None; <socket.socket fd=2532, family=AddressFamily.AF_INET, type=SocketKind.SOCK_STREAM, proto=6, laddr=('127.0.0.1', 64223), raddr=('127.0.0.1', 5672)>
+2025-03-02 20:25:33 - pika.adapters.utils.io_services_utils - INFO - Deactivating transport: state=1; <socket.socket fd=2532, family=AddressFamily.AF_INET, type=SocketKind.SOCK_STREAM, proto=6, laddr=('127.0.0.1', 64223), raddr=('127.0.0.1', 5672)>
+2025-03-02 20:25:33 - pika.connection - INFO - AMQP stack terminated, failed to connect, or aborted: opened=False, error-arg=None; pending-error=ConnectionClosedByBroker: (403) 'ACCESS_REFUSED - Login was refused using authentication mechanism PLAIN. For details see the broker logfile.'
+2025-03-02 20:25:33 - pika.connection - ERROR - Connection closed while authenticating indicating a probable authentication error
+2025-03-02 20:25:33 - pika.connection - INFO - Connection setup terminated due to ProbableAuthenticationError: Client was disconnected at a connection stage indicating a probable authentication error: ("ConnectionClosedByBroker: (403) 'ACCESS_REFUSED - Login was refused using authentication mechanism PLAIN. For details see the broker logfile.'",)
+2025-03-02 20:25:33 - pika.adapters.utils.connection_workflow - ERROR - AMQPConnector - reporting failure: AMQPConnectorAMQPHandshakeError: ProbableAuthenticationError: Client was disconnected at a connection stage indicating a probable authentication error: ("ConnectionClosedByBroker: (403) 'ACCESS_REFUSED - Login was refused using authentication mechanism PLAIN. For details see the broker logfile.'",)
+2025-03-02 20:25:33 - pika.adapters.utils.connection_workflow - ERROR - AMQP connection workflow failed: AMQPConnectionWorkflowFailed: 2 exceptions in all; last exception - AMQPConnectorAMQPHandshakeError: ProbableAuthenticationError: Client was disconnected at a connection stage indicating a probable authentication error: ("ConnectionClosedByBroker: (403) 'ACCESS_REFUSED - Login was refused using authentication mechanism PLAIN. For details see the broker logfile.'",); first exception - AMQPConnectorAMQPHandshakeError: ProbableAuthenticationError: Client was disconnected at a connection stage indicating a probable authentication error: ("ConnectionClosedByBroker: (403) 'ACCESS_REFUSED - Login was refused using authentication mechanism PLAIN. For details see the broker logfile.'",).
+2025-03-02 20:25:33 - pika.adapters.utils.connection_workflow - ERROR - AMQPConnectionWorkflow - reporting failure: AMQPConnectionWorkflowFailed: 2 exceptions in all; last exception - AMQPConnectorAMQPHandshakeError: ProbableAuthenticationError: Client was disconnected at a connection stage indicating a probable authentication error: ("ConnectionClosedByBroker: (403) 'ACCESS_REFUSED - Login was refused using authentication mechanism PLAIN. For details see the broker logfile.'",); first exception - AMQPConnectorAMQPHandshakeError: ProbableAuthenticationError: Client was disconnected at a connection stage indicating a probable authentication error: ("ConnectionClosedByBroker: (403) 'ACCESS_REFUSED - Login was refused using authentication mechanism PLAIN. For details see the broker logfile.'",)
+2025-03-02 20:25:33 - pika.adapters.utils.io_services_utils - INFO - Closing transport socket and unlinking: state=3; <socket.socket fd=2532, family=AddressFamily.AF_INET, type=SocketKind.SOCK_STREAM, proto=6, laddr=('127.0.0.1', 64223), raddr=('127.0.0.1', 5672)>
+2025-03-02 20:25:33 - pika.adapters.blocking_connection - ERROR - Connection workflow failed: AMQPConnectionWorkflowFailed: 2 exceptions in all; last exception - AMQPConnectorAMQPHandshakeError: ProbableAuthenticationError: Client was disconnected at a connection stage indicating a probable authentication error: ("ConnectionClosedByBroker: (403) 'ACCESS_REFUSED - Login was refused using authentication mechanism PLAIN. For details see the broker logfile.'",); first exception - AMQPConnectorAMQPHandshakeError: ProbableAuthenticationError: Client was disconnected at a connection stage indicating a probable authentication error: ("ConnectionClosedByBroker: (403) 'ACCESS_REFUSED - Login was refused using authentication mechanism PLAIN. For details see the broker logfile.'",)
+2025-03-02 20:25:33 - pika.adapters.blocking_connection - ERROR - Error in _create_connection().
+Traceback (most recent call last):
+  File "c:\Users\a2450\Desktop\project\backend\trendsmicro\.venv\lib\site-packages\pika\adapters\blocking_connection.py", line 451, in _create_connection
+    raise self._reap_last_connection_workflow_error(error)
+pika.exceptions.ProbableAuthenticationError: ConnectionClosedByBroker: (403) 'ACCESS_REFUSED - Login was refused using authentication mechanism PLAIN. For details see the broker logfile.'
+2025-03-02 20:26:57 - apscheduler.scheduler - INFO - Scheduler started
+2025-03-02 20:28:21 - apscheduler.scheduler - INFO - Added job "execute_historical_task" to job store "default"
+2025-03-02 20:28:21 - fastapi - INFO - 任务 1 已加入队列等待执行
+2025-03-02 20:28:21 - apscheduler.scheduler - INFO - Removed job historical_1
+2025-03-02 20:28:21 - apscheduler.executors.default - INFO - Running job "execute_historical_task (trigger: date[2025-03-02 12:28:21 UTC], next run at: 2025-03-02 12:28:21 UTC)" (scheduled at 2025-03-02 12:28:21.864927+00:00)
+2025-03-02 20:28:22 - fastapi - INFO - 开始采集数据
+2025-03-02 20:28:22 - fastapi - INFO - 采集数据结束
+2025-03-02 20:28:22 - apscheduler.executors.default - INFO - Job "execute_historical_task (trigger: date[2025-03-02 12:28:21 UTC], next run at: 2025-03-02 12:28:21 UTC)" executed successfully
+2025-03-02 20:28:30 - pika.adapters.utils.connection_workflow - INFO - Pika version 1.3.2 connecting to ('::1', 5672, 0, 0)
+2025-03-02 20:28:30 - pika.adapters.utils.io_services_utils - INFO - Socket connected: <socket.socket fd=2144, family=AddressFamily.AF_INET6, type=SocketKind.SOCK_STREAM, proto=6, laddr=('::1', 55573, 0, 0), raddr=('::1', 5672, 0, 0)>
+2025-03-02 20:28:30 - pika.adapters.utils.connection_workflow - INFO - Streaming transport linked up: (<pika.adapters.utils.io_services_utils._AsyncPlaintextTransport object at 0x000001CAD8D1E290>, _StreamingProtocolShim: <SelectConnection PROTOCOL transport=<pika.adapters.utils.io_services_utils._AsyncPlaintextTransport object at 0x000001CAD8D1E290> params=<ConnectionParameters host=localhost port=5672 virtual_host=/ ssl=False>>).
+2025-03-02 20:28:30 - pika.adapters.utils.connection_workflow - INFO - AMQPConnector - reporting success: <SelectConnection OPEN transport=<pika.adapters.utils.io_services_utils._AsyncPlaintextTransport object at 0x000001CAD8D1E290> params=<ConnectionParameters host=localhost port=5672 virtual_host=/ ssl=False>>
+2025-03-02 20:28:30 - pika.adapters.utils.connection_workflow - INFO - AMQPConnectionWorkflow - reporting success: <SelectConnection OPEN transport=<pika.adapters.utils.io_services_utils._AsyncPlaintextTransport object at 0x000001CAD8D1E290> params=<ConnectionParameters host=localhost port=5672 virtual_host=/ ssl=False>>
+2025-03-02 20:28:30 - pika.adapters.blocking_connection - INFO - Connection workflow succeeded: <SelectConnection OPEN transport=<pika.adapters.utils.io_services_utils._AsyncPlaintextTransport object at 0x000001CAD8D1E290> params=<ConnectionParameters host=localhost port=5672 virtual_host=/ ssl=False>>
+2025-03-02 20:28:34 - pika.adapters.blocking_connection - INFO - Created channel=1
+2025-03-02 20:28:38 - pika.adapters.blocking_connection - INFO - Closing connection (200): Normal shutdown
+2025-03-02 20:28:38 - pika.channel - INFO - Closing channel (200): 'Normal shutdown' on <Channel number=1 OPEN conn=<SelectConnection OPEN transport=<pika.adapters.utils.io_services_utils._AsyncPlaintextTransport object at 0x000001CAD8D1E290> params=<ConnectionParameters host=localhost port=5672 virtual_host=/ ssl=False>>>
+2025-03-02 20:28:38 - pika.channel - INFO - Received <Channel.CloseOk> on <Channel number=1 CLOSING conn=<SelectConnection OPEN transport=<pika.adapters.utils.io_services_utils._AsyncPlaintextTransport object at 0x000001CAD8D1E290> params=<ConnectionParameters host=localhost port=5672 virtual_host=/ ssl=False>>>
+2025-03-02 20:28:38 - pika.connection - INFO - Closing connection (200): 'Normal shutdown'
+2025-03-02 20:28:38 - pika.adapters.utils.io_services_utils - INFO - Aborting transport connection: state=1; <socket.socket fd=2144, family=AddressFamily.AF_INET6, type=SocketKind.SOCK_STREAM, proto=6, laddr=('::1', 55573, 0, 0), raddr=('::1', 5672, 0, 0)>
+2025-03-02 20:28:38 - pika.adapters.utils.io_services_utils - INFO - _AsyncTransportBase._initate_abort(): Initiating abrupt asynchronous transport shutdown: state=1; error=None; <socket.socket fd=2144, family=AddressFamily.AF_INET6, type=SocketKind.SOCK_STREAM, proto=6, laddr=('::1', 55573, 0, 0), raddr=('::1', 5672, 0, 0)>
+2025-03-02 20:28:38 - pika.adapters.utils.io_services_utils - INFO - Deactivating transport: state=1; <socket.socket fd=2144, family=AddressFamily.AF_INET6, type=SocketKind.SOCK_STREAM, proto=6, laddr=('::1', 55573, 0, 0), raddr=('::1', 5672, 0, 0)>
+2025-03-02 20:28:38 - pika.connection - INFO - AMQP stack terminated, failed to connect, or aborted: opened=True, error-arg=None; pending-error=ConnectionClosedByClient: (200) 'Normal shutdown'
+2025-03-02 20:28:38 - pika.connection - INFO - Stack terminated due to ConnectionClosedByClient: (200) 'Normal shutdown'
+2025-03-02 20:28:38 - pika.adapters.utils.io_services_utils - INFO - Closing transport socket and unlinking: state=3; <socket.socket fd=2144, family=AddressFamily.AF_INET6, type=SocketKind.SOCK_STREAM, proto=6, laddr=('::1', 55573, 0, 0), raddr=('::1', 5672, 0, 0)>
+2025-03-02 20:28:38 - pika.adapters.blocking_connection - INFO - User-initiated close: result=BlockingConnection__OnClosedArgs(connection=<SelectConnection CLOSED transport=None params=<ConnectionParameters host=localhost port=5672 virtual_host=/ ssl=False>>, error=ConnectionClosedByClient: (200) 'Normal shutdown')
+2025-03-02 20:28:38 - asyncio - ERROR - Task exception was never retrieved
+future: <Task finished name='Task-41' coro=<_dispatch_as_task.<locals>.task() done, defined at c:\Users\a2450\Desktop\project\backend\trendsmicro\.venv\lib\site-packages\fastapi_events\dispatcher.py:51> exception=TypeError("unhashable type: 'slice'")>
+Traceback (most recent call last):
+  File "c:\Users\a2450\Desktop\project\backend\trendsmicro\.venv\lib\site-packages\fastapi_events\dispatcher.py", line 52, in task
+    await asyncio.gather(*[handler.handle((event_name, payload)) for handler in handlers])
+  File "c:\Users\a2450\Desktop\project\backend\trendsmicro\.venv\lib\site-packages\fastapi_events\handlers\local.py", line 208, in handle
+    await handler(event, **values)
+  File "C:\Users\a2450\Desktop\project\backend\trendsmicro\microservices\collector\src\handlers\historical_task_handler.py", line 56, in handle_finish_tasks
+    client.publish(req,properties=pika.BasicProperties(delivery_mode=2))
+  File "C:\Users\a2450\Desktop\project\backend\trendsmicro\microservices\collector\src\services\rabbitmq.py", line 34, in publish
+    self.channel.basic_publish(
+  File "c:\Users\a2450\Desktop\project\backend\trendsmicro\.venv\lib\site-packages\pika\adapters\blocking_connection.py", line 2259, in basic_publish
+    self._impl.basic_publish(
+  File "c:\Users\a2450\Desktop\project\backend\trendsmicro\.venv\lib\site-packages\pika\channel.py", line 427, in basic_publish
+    self._send_method(
+  File "c:\Users\a2450\Desktop\project\backend\trendsmicro\.venv\lib\site-packages\pika\channel.py", line 1415, in _send_method
+    self.connection._send_method(self.channel_number, method, content)
+  File "c:\Users\a2450\Desktop\project\backend\trendsmicro\.venv\lib\site-packages\pika\connection.py", line 2253, in _send_method
+    self._send_message(channel_number, method, content)
+  File "c:\Users\a2450\Desktop\project\backend\trendsmicro\.venv\lib\site-packages\pika\connection.py", line 2283, in _send_message
+    frame_body = frame.Body(channel_number, content[1][start:end])
+TypeError: unhashable type: 'slice'
+2025-03-02 20:29:34 - apscheduler.scheduler - INFO - Scheduler started
+2025-03-02 20:29:41 - apscheduler.scheduler - INFO - Added job "execute_historical_task" to job store "default"
+2025-03-02 20:29:41 - fastapi - INFO - 任务 1 已加入队列等待执行
+2025-03-02 20:29:41 - apscheduler.scheduler - INFO - Removed job historical_1
+2025-03-02 20:29:41 - apscheduler.executors.default - INFO - Running job "execute_historical_task (trigger: date[2025-03-02 12:29:41 UTC], next run at: 2025-03-02 12:29:41 UTC)" (scheduled at 2025-03-02 12:29:41.149294+00:00)
+2025-03-02 20:29:41 - fastapi - INFO - 开始采集数据
+2025-03-02 20:29:41 - fastapi - INFO - 采集数据结束
+2025-03-02 20:29:41 - apscheduler.executors.default - INFO - Job "execute_historical_task (trigger: date[2025-03-02 12:29:41 UTC], next run at: 2025-03-02 12:29:41 UTC)" executed successfully
+2025-03-02 20:29:41 - pika.adapters.utils.connection_workflow - INFO - Pika version 1.3.2 connecting to ('::1', 5672, 0, 0)
+2025-03-02 20:29:41 - pika.adapters.utils.io_services_utils - INFO - Socket connected: <socket.socket fd=2056, family=AddressFamily.AF_INET6, type=SocketKind.SOCK_STREAM, proto=6, laddr=('::1', 55694, 0, 0), raddr=('::1', 5672, 0, 0)>
+2025-03-02 20:29:41 - pika.adapters.utils.connection_workflow - INFO - Streaming transport linked up: (<pika.adapters.utils.io_services_utils._AsyncPlaintextTransport object at 0x000001B5E352D690>, _StreamingProtocolShim: <SelectConnection PROTOCOL transport=<pika.adapters.utils.io_services_utils._AsyncPlaintextTransport object at 0x000001B5E352D690> params=<ConnectionParameters host=localhost port=5672 virtual_host=/ ssl=False>>).
+2025-03-02 20:29:41 - pika.adapters.utils.connection_workflow - INFO - AMQPConnector - reporting success: <SelectConnection OPEN transport=<pika.adapters.utils.io_services_utils._AsyncPlaintextTransport object at 0x000001B5E352D690> params=<ConnectionParameters host=localhost port=5672 virtual_host=/ ssl=False>>
+2025-03-02 20:29:41 - pika.adapters.utils.connection_workflow - INFO - AMQPConnectionWorkflow - reporting success: <SelectConnection OPEN transport=<pika.adapters.utils.io_services_utils._AsyncPlaintextTransport object at 0x000001B5E352D690> params=<ConnectionParameters host=localhost port=5672 virtual_host=/ ssl=False>>
+2025-03-02 20:29:41 - pika.adapters.blocking_connection - INFO - Connection workflow succeeded: <SelectConnection OPEN transport=<pika.adapters.utils.io_services_utils._AsyncPlaintextTransport object at 0x000001B5E352D690> params=<ConnectionParameters host=localhost port=5672 virtual_host=/ ssl=False>>
+2025-03-02 20:29:41 - pika.adapters.blocking_connection - INFO - Created channel=1
+2025-03-02 20:29:41 - pika.adapters.blocking_connection - INFO - Closing connection (200): Normal shutdown
+2025-03-02 20:29:41 - pika.channel - INFO - Closing channel (200): 'Normal shutdown' on <Channel number=1 OPEN conn=<SelectConnection OPEN transport=<pika.adapters.utils.io_services_utils._AsyncPlaintextTransport object at 0x000001B5E352D690> params=<ConnectionParameters host=localhost port=5672 virtual_host=/ ssl=False>>>
+2025-03-02 20:29:41 - pika.channel - INFO - Received <Channel.CloseOk> on <Channel number=1 CLOSING conn=<SelectConnection OPEN transport=<pika.adapters.utils.io_services_utils._AsyncPlaintextTransport object at 0x000001B5E352D690> params=<ConnectionParameters host=localhost port=5672 virtual_host=/ ssl=False>>>
+2025-03-02 20:29:41 - pika.connection - INFO - Closing connection (200): 'Normal shutdown'
+2025-03-02 20:29:41 - pika.adapters.utils.io_services_utils - INFO - Aborting transport connection: state=1; <socket.socket fd=2056, family=AddressFamily.AF_INET6, type=SocketKind.SOCK_STREAM, proto=6, laddr=('::1', 55694, 0, 0), raddr=('::1', 5672, 0, 0)>
+2025-03-02 20:29:41 - pika.adapters.utils.io_services_utils - INFO - _AsyncTransportBase._initate_abort(): Initiating abrupt asynchronous transport shutdown: state=1; error=None; <socket.socket fd=2056, family=AddressFamily.AF_INET6, type=SocketKind.SOCK_STREAM, proto=6, laddr=('::1', 55694, 0, 0), raddr=('::1', 5672, 0, 0)>
+2025-03-02 20:29:41 - pika.adapters.utils.io_services_utils - INFO - Deactivating transport: state=1; <socket.socket fd=2056, family=AddressFamily.AF_INET6, type=SocketKind.SOCK_STREAM, proto=6, laddr=('::1', 55694, 0, 0), raddr=('::1', 5672, 0, 0)>
+2025-03-02 20:29:41 - pika.connection - INFO - AMQP stack terminated, failed to connect, or aborted: opened=True, error-arg=None; pending-error=ConnectionClosedByClient: (200) 'Normal shutdown'
+2025-03-02 20:29:41 - pika.connection - INFO - Stack terminated due to ConnectionClosedByClient: (200) 'Normal shutdown'
+2025-03-02 20:29:41 - pika.adapters.utils.io_services_utils - INFO - Closing transport socket and unlinking: state=3; <socket.socket fd=2056, family=AddressFamily.AF_INET6, type=SocketKind.SOCK_STREAM, proto=6, laddr=('::1', 55694, 0, 0), raddr=('::1', 5672, 0, 0)>
+2025-03-02 20:29:41 - pika.adapters.blocking_connection - INFO - User-initiated close: result=BlockingConnection__OnClosedArgs(connection=<SelectConnection CLOSED transport=None params=<ConnectionParameters host=localhost port=5672 virtual_host=/ ssl=False>>, error=ConnectionClosedByClient: (200) 'Normal shutdown')
+2025-03-02 20:29:41 - asyncio - ERROR - Task exception was never retrieved
+future: <Task finished name='Task-13' coro=<_dispatch_as_task.<locals>.task() done, defined at c:\Users\a2450\Desktop\project\backend\trendsmicro\.venv\lib\site-packages\fastapi_events\dispatcher.py:51> exception=TypeError('Object of type InterestMetaData is not JSON serializable')>
+Traceback (most recent call last):
+  File "c:\Users\a2450\Desktop\project\backend\trendsmicro\.venv\lib\site-packages\fastapi_events\dispatcher.py", line 52, in task
+    await asyncio.gather(*[handler.handle((event_name, payload)) for handler in handlers])
+  File "c:\Users\a2450\Desktop\project\backend\trendsmicro\.venv\lib\site-packages\fastapi_events\handlers\local.py", line 208, in handle
+    await handler(event, **values)
+  File "C:\Users\a2450\Desktop\project\backend\trendsmicro\microservices\collector\src\handlers\historical_task_handler.py", line 57, in handle_finish_tasks
+    client.publish(json.dumps(req),properties=pika.BasicProperties(delivery_mode=2))
+  File "C:\Users\a2450\scoop\apps\python310\3.10.11\lib\json\__init__.py", line 231, in dumps
+    return _default_encoder.encode(obj)
+  File "C:\Users\a2450\scoop\apps\python310\3.10.11\lib\json\encoder.py", line 199, in encode
+    chunks = self.iterencode(o, _one_shot=True)
+  File "C:\Users\a2450\scoop\apps\python310\3.10.11\lib\json\encoder.py", line 257, in iterencode
+    return _iterencode(o, 0)
+  File "C:\Users\a2450\scoop\apps\python310\3.10.11\lib\json\encoder.py", line 179, in default
+    raise TypeError(f'Object of type {o.__class__.__name__} '
+TypeError: Object of type InterestMetaData is not JSON serializable
+2025-03-02 20:30:41 - apscheduler.scheduler - INFO - Scheduler started
+2025-03-02 20:31:09 - apscheduler.scheduler - INFO - Added job "execute_historical_task" to job store "default"
+2025-03-02 20:31:09 - fastapi - INFO - 任务 1 已加入队列等待执行
+2025-03-02 20:31:09 - apscheduler.scheduler - INFO - Removed job historical_1
+2025-03-02 20:31:09 - apscheduler.executors.default - INFO - Running job "execute_historical_task (trigger: date[2025-03-02 12:31:09 UTC], next run at: 2025-03-02 12:31:09 UTC)" (scheduled at 2025-03-02 12:31:09.882342+00:00)
+2025-03-02 20:31:10 - fastapi - INFO - 开始采集数据
+2025-03-02 20:31:10 - fastapi - INFO - 采集数据结束
+2025-03-02 20:31:10 - apscheduler.executors.default - INFO - Job "execute_historical_task (trigger: date[2025-03-02 12:31:09 UTC], next run at: 2025-03-02 12:31:09 UTC)" executed successfully
+2025-03-02 20:31:10 - pika.adapters.utils.connection_workflow - INFO - Pika version 1.3.2 connecting to ('::1', 5672, 0, 0)
+2025-03-02 20:31:10 - pika.adapters.utils.io_services_utils - INFO - Socket connected: <socket.socket fd=2240, family=AddressFamily.AF_INET6, type=SocketKind.SOCK_STREAM, proto=6, laddr=('::1', 56274, 0, 0), raddr=('::1', 5672, 0, 0)>
+2025-03-02 20:31:10 - pika.adapters.utils.connection_workflow - INFO - Streaming transport linked up: (<pika.adapters.utils.io_services_utils._AsyncPlaintextTransport object at 0x0000017C311A5600>, _StreamingProtocolShim: <SelectConnection PROTOCOL transport=<pika.adapters.utils.io_services_utils._AsyncPlaintextTransport object at 0x0000017C311A5600> params=<ConnectionParameters host=localhost port=5672 virtual_host=/ ssl=False>>).
+2025-03-02 20:31:10 - pika.adapters.utils.connection_workflow - INFO - AMQPConnector - reporting success: <SelectConnection OPEN transport=<pika.adapters.utils.io_services_utils._AsyncPlaintextTransport object at 0x0000017C311A5600> params=<ConnectionParameters host=localhost port=5672 virtual_host=/ ssl=False>>
+2025-03-02 20:31:10 - pika.adapters.utils.connection_workflow - INFO - AMQPConnectionWorkflow - reporting success: <SelectConnection OPEN transport=<pika.adapters.utils.io_services_utils._AsyncPlaintextTransport object at 0x0000017C311A5600> params=<ConnectionParameters host=localhost port=5672 virtual_host=/ ssl=False>>
+2025-03-02 20:31:10 - pika.adapters.blocking_connection - INFO - Connection workflow succeeded: <SelectConnection OPEN transport=<pika.adapters.utils.io_services_utils._AsyncPlaintextTransport object at 0x0000017C311A5600> params=<ConnectionParameters host=localhost port=5672 virtual_host=/ ssl=False>>
+2025-03-02 20:31:10 - pika.adapters.blocking_connection - INFO - Created channel=1
+2025-03-02 20:31:10 - pika.adapters.blocking_connection - INFO - Closing connection (200): Normal shutdown
+2025-03-02 20:31:10 - pika.channel - INFO - Closing channel (200): 'Normal shutdown' on <Channel number=1 OPEN conn=<SelectConnection OPEN transport=<pika.adapters.utils.io_services_utils._AsyncPlaintextTransport object at 0x0000017C311A5600> params=<ConnectionParameters host=localhost port=5672 virtual_host=/ ssl=False>>>
+2025-03-02 20:31:10 - pika.channel - INFO - Received <Channel.CloseOk> on <Channel number=1 CLOSING conn=<SelectConnection OPEN transport=<pika.adapters.utils.io_services_utils._AsyncPlaintextTransport object at 0x0000017C311A5600> params=<ConnectionParameters host=localhost port=5672 virtual_host=/ ssl=False>>>
+2025-03-02 20:31:10 - pika.connection - INFO - Closing connection (200): 'Normal shutdown'
+2025-03-02 20:31:10 - pika.adapters.utils.io_services_utils - INFO - Aborting transport connection: state=1; <socket.socket fd=2240, family=AddressFamily.AF_INET6, type=SocketKind.SOCK_STREAM, proto=6, laddr=('::1', 56274, 0, 0), raddr=('::1', 5672, 0, 0)>
+2025-03-02 20:31:10 - pika.adapters.utils.io_services_utils - INFO - _AsyncTransportBase._initate_abort(): Initiating abrupt asynchronous transport shutdown: state=1; error=None; <socket.socket fd=2240, family=AddressFamily.AF_INET6, type=SocketKind.SOCK_STREAM, proto=6, laddr=('::1', 56274, 0, 0), raddr=('::1', 5672, 0, 0)>
+2025-03-02 20:31:10 - pika.adapters.utils.io_services_utils - INFO - Deactivating transport: state=1; <socket.socket fd=2240, family=AddressFamily.AF_INET6, type=SocketKind.SOCK_STREAM, proto=6, laddr=('::1', 56274, 0, 0), raddr=('::1', 5672, 0, 0)>
+2025-03-02 20:31:10 - pika.connection - INFO - AMQP stack terminated, failed to connect, or aborted: opened=True, error-arg=None; pending-error=ConnectionClosedByClient: (200) 'Normal shutdown'
+2025-03-02 20:31:10 - pika.connection - INFO - Stack terminated due to ConnectionClosedByClient: (200) 'Normal shutdown'
+2025-03-02 20:31:10 - pika.adapters.utils.io_services_utils - INFO - Closing transport socket and unlinking: state=3; <socket.socket fd=2240, family=AddressFamily.AF_INET6, type=SocketKind.SOCK_STREAM, proto=6, laddr=('::1', 56274, 0, 0), raddr=('::1', 5672, 0, 0)>
+2025-03-02 20:31:10 - pika.adapters.blocking_connection - INFO - User-initiated close: result=BlockingConnection__OnClosedArgs(connection=<SelectConnection CLOSED transport=None params=<ConnectionParameters host=localhost port=5672 virtual_host=/ ssl=False>>, error=ConnectionClosedByClient: (200) 'Normal shutdown')
+2025-03-02 20:31:10 - asyncio - ERROR - Task exception was never retrieved
+future: <Task finished name='Task-19' coro=<_dispatch_as_task.<locals>.task() done, defined at c:\Users\a2450\Desktop\project\backend\trendsmicro\.venv\lib\site-packages\fastapi_events\dispatcher.py:51> exception=TypeError("unhashable type: 'slice'")>
+Traceback (most recent call last):
+  File "c:\Users\a2450\Desktop\project\backend\trendsmicro\.venv\lib\site-packages\fastapi_events\dispatcher.py", line 52, in task
+    await asyncio.gather(*[handler.handle((event_name, payload)) for handler in handlers])
+  File "c:\Users\a2450\Desktop\project\backend\trendsmicro\.venv\lib\site-packages\fastapi_events\handlers\local.py", line 208, in handle
+    await handler(event, **values)
+  File "C:\Users\a2450\Desktop\project\backend\trendsmicro\microservices\collector\src\handlers\historical_task_handler.py", line 57, in handle_finish_tasks
+    client.publish(req,properties=pika.BasicProperties(delivery_mode=2))
+  File "C:\Users\a2450\Desktop\project\backend\trendsmicro\microservices\collector\src\services\rabbitmq.py", line 34, in publish
+    self.channel.basic_publish(
+  File "c:\Users\a2450\Desktop\project\backend\trendsmicro\.venv\lib\site-packages\pika\adapters\blocking_connection.py", line 2259, in basic_publish
+    self._impl.basic_publish(
+  File "c:\Users\a2450\Desktop\project\backend\trendsmicro\.venv\lib\site-packages\pika\channel.py", line 427, in basic_publish
+    self._send_method(
+  File "c:\Users\a2450\Desktop\project\backend\trendsmicro\.venv\lib\site-packages\pika\channel.py", line 1415, in _send_method
+    self.connection._send_method(self.channel_number, method, content)
+  File "c:\Users\a2450\Desktop\project\backend\trendsmicro\.venv\lib\site-packages\pika\connection.py", line 2253, in _send_method
+    self._send_message(channel_number, method, content)
+  File "c:\Users\a2450\Desktop\project\backend\trendsmicro\.venv\lib\site-packages\pika\connection.py", line 2283, in _send_message
+    frame_body = frame.Body(channel_number, content[1][start:end])
+TypeError: unhashable type: 'slice'
+2025-03-02 20:33:37 - apscheduler.scheduler - INFO - Added job "execute_historical_task" to job store "default"
+2025-03-02 20:33:37 - fastapi - INFO - 任务 1 已加入队列等待执行
+2025-03-02 20:33:37 - apscheduler.scheduler - INFO - Removed job historical_1
+2025-03-02 20:33:37 - apscheduler.executors.default - INFO - Running job "execute_historical_task (trigger: date[2025-03-02 12:33:37 UTC], next run at: 2025-03-02 12:33:37 UTC)" (scheduled at 2025-03-02 12:33:37.578239+00:00)
+2025-03-02 20:33:37 - fastapi - INFO - 开始采集数据
+2025-03-02 20:33:37 - fastapi - INFO - 采集数据结束
+2025-03-02 20:33:37 - apscheduler.executors.default - INFO - Job "execute_historical_task (trigger: date[2025-03-02 12:33:37 UTC], next run at: 2025-03-02 12:33:37 UTC)" executed successfully
+2025-03-02 20:33:37 - pika.adapters.utils.connection_workflow - INFO - Pika version 1.3.2 connecting to ('::1', 5672, 0, 0)
+2025-03-02 20:33:37 - pika.adapters.utils.io_services_utils - INFO - Socket connected: <socket.socket fd=2632, family=AddressFamily.AF_INET6, type=SocketKind.SOCK_STREAM, proto=6, laddr=('::1', 56548, 0, 0), raddr=('::1', 5672, 0, 0)>
+2025-03-02 20:33:37 - pika.adapters.utils.connection_workflow - INFO - Streaming transport linked up: (<pika.adapters.utils.io_services_utils._AsyncPlaintextTransport object at 0x0000017C311421D0>, _StreamingProtocolShim: <SelectConnection PROTOCOL transport=<pika.adapters.utils.io_services_utils._AsyncPlaintextTransport object at 0x0000017C311421D0> params=<ConnectionParameters host=localhost port=5672 virtual_host=/ ssl=False>>).
+2025-03-02 20:33:37 - pika.adapters.utils.connection_workflow - INFO - AMQPConnector - reporting success: <SelectConnection OPEN transport=<pika.adapters.utils.io_services_utils._AsyncPlaintextTransport object at 0x0000017C311421D0> params=<ConnectionParameters host=localhost port=5672 virtual_host=/ ssl=False>>
+2025-03-02 20:33:37 - pika.adapters.utils.connection_workflow - INFO - AMQPConnectionWorkflow - reporting success: <SelectConnection OPEN transport=<pika.adapters.utils.io_services_utils._AsyncPlaintextTransport object at 0x0000017C311421D0> params=<ConnectionParameters host=localhost port=5672 virtual_host=/ ssl=False>>
+2025-03-02 20:33:37 - pika.adapters.blocking_connection - INFO - Connection workflow succeeded: <SelectConnection OPEN transport=<pika.adapters.utils.io_services_utils._AsyncPlaintextTransport object at 0x0000017C311421D0> params=<ConnectionParameters host=localhost port=5672 virtual_host=/ ssl=False>>
+2025-03-02 20:33:37 - pika.adapters.blocking_connection - INFO - Created channel=1
+2025-03-02 20:34:50 - apscheduler.scheduler - INFO - Scheduler started
+2025-03-02 20:35:37 - apscheduler.scheduler - INFO - Added job "execute_historical_task" to job store "default"
+2025-03-02 20:35:37 - fastapi - INFO - 任务 1 已加入队列等待执行
+2025-03-02 20:35:37 - apscheduler.scheduler - INFO - Removed job historical_1
+2025-03-02 20:35:37 - apscheduler.executors.default - INFO - Running job "execute_historical_task (trigger: date[2025-03-02 12:35:37 UTC], next run at: 2025-03-02 12:35:37 UTC)" (scheduled at 2025-03-02 12:35:37.223814+00:00)
+2025-03-02 20:35:37 - fastapi - INFO - 开始采集数据
+2025-03-02 20:35:37 - fastapi - INFO - 采集数据结束
+2025-03-02 20:35:37 - apscheduler.executors.default - INFO - Job "execute_historical_task (trigger: date[2025-03-02 12:35:37 UTC], next run at: 2025-03-02 12:35:37 UTC)" executed successfully
+2025-03-02 20:35:37 - pika.adapters.utils.connection_workflow - INFO - Pika version 1.3.2 connecting to ('::1', 5672, 0, 0)
+2025-03-02 20:35:37 - pika.adapters.utils.io_services_utils - INFO - Socket connected: <socket.socket fd=2240, family=AddressFamily.AF_INET6, type=SocketKind.SOCK_STREAM, proto=6, laddr=('::1', 56771, 0, 0), raddr=('::1', 5672, 0, 0)>
+2025-03-02 20:35:37 - pika.adapters.utils.connection_workflow - INFO - Streaming transport linked up: (<pika.adapters.utils.io_services_utils._AsyncPlaintextTransport object at 0x000002582CD61270>, _StreamingProtocolShim: <SelectConnection PROTOCOL transport=<pika.adapters.utils.io_services_utils._AsyncPlaintextTransport object at 0x000002582CD61270> params=<ConnectionParameters host=localhost port=5672 virtual_host=/ ssl=False>>).
+2025-03-02 20:35:37 - pika.adapters.utils.connection_workflow - INFO - AMQPConnector - reporting success: <SelectConnection OPEN transport=<pika.adapters.utils.io_services_utils._AsyncPlaintextTransport object at 0x000002582CD61270> params=<ConnectionParameters host=localhost port=5672 virtual_host=/ ssl=False>>
+2025-03-02 20:35:37 - pika.adapters.utils.connection_workflow - INFO - AMQPConnectionWorkflow - reporting success: <SelectConnection OPEN transport=<pika.adapters.utils.io_services_utils._AsyncPlaintextTransport object at 0x000002582CD61270> params=<ConnectionParameters host=localhost port=5672 virtual_host=/ ssl=False>>
+2025-03-02 20:35:37 - pika.adapters.blocking_connection - INFO - Connection workflow succeeded: <SelectConnection OPEN transport=<pika.adapters.utils.io_services_utils._AsyncPlaintextTransport object at 0x000002582CD61270> params=<ConnectionParameters host=localhost port=5672 virtual_host=/ ssl=False>>
+2025-03-02 20:35:37 - pika.adapters.blocking_connection - INFO - Created channel=1
+2025-03-02 20:35:37 - pika.adapters.blocking_connection - INFO - Closing connection (200): Normal shutdown
+2025-03-02 20:35:37 - pika.channel - INFO - Closing channel (200): 'Normal shutdown' on <Channel number=1 OPEN conn=<SelectConnection OPEN transport=<pika.adapters.utils.io_services_utils._AsyncPlaintextTransport object at 0x000002582CD61270> params=<ConnectionParameters host=localhost port=5672 virtual_host=/ ssl=False>>>
+2025-03-02 20:35:37 - pika.channel - INFO - Received <Channel.CloseOk> on <Channel number=1 CLOSING conn=<SelectConnection OPEN transport=<pika.adapters.utils.io_services_utils._AsyncPlaintextTransport object at 0x000002582CD61270> params=<ConnectionParameters host=localhost port=5672 virtual_host=/ ssl=False>>>
+2025-03-02 20:35:37 - pika.connection - INFO - Closing connection (200): 'Normal shutdown'
+2025-03-02 20:35:37 - pika.adapters.utils.io_services_utils - INFO - Aborting transport connection: state=1; <socket.socket fd=2240, family=AddressFamily.AF_INET6, type=SocketKind.SOCK_STREAM, proto=6, laddr=('::1', 56771, 0, 0), raddr=('::1', 5672, 0, 0)>
+2025-03-02 20:35:37 - pika.adapters.utils.io_services_utils - INFO - _AsyncTransportBase._initate_abort(): Initiating abrupt asynchronous transport shutdown: state=1; error=None; <socket.socket fd=2240, family=AddressFamily.AF_INET6, type=SocketKind.SOCK_STREAM, proto=6, laddr=('::1', 56771, 0, 0), raddr=('::1', 5672, 0, 0)>
+2025-03-02 20:35:37 - pika.adapters.utils.io_services_utils - INFO - Deactivating transport: state=1; <socket.socket fd=2240, family=AddressFamily.AF_INET6, type=SocketKind.SOCK_STREAM, proto=6, laddr=('::1', 56771, 0, 0), raddr=('::1', 5672, 0, 0)>
+2025-03-02 20:35:37 - pika.connection - INFO - AMQP stack terminated, failed to connect, or aborted: opened=True, error-arg=None; pending-error=ConnectionClosedByClient: (200) 'Normal shutdown'
+2025-03-02 20:35:37 - pika.connection - INFO - Stack terminated due to ConnectionClosedByClient: (200) 'Normal shutdown'
+2025-03-02 20:35:37 - pika.adapters.utils.io_services_utils - INFO - Closing transport socket and unlinking: state=3; <socket.socket fd=2240, family=AddressFamily.AF_INET6, type=SocketKind.SOCK_STREAM, proto=6, laddr=('::1', 56771, 0, 0), raddr=('::1', 5672, 0, 0)>
+2025-03-02 20:35:37 - pika.adapters.blocking_connection - INFO - User-initiated close: result=BlockingConnection__OnClosedArgs(connection=<SelectConnection CLOSED transport=None params=<ConnectionParameters host=localhost port=5672 virtual_host=/ ssl=False>>, error=ConnectionClosedByClient: (200) 'Normal shutdown')
+2025-03-02 20:35:37 - asyncio - ERROR - Task exception was never retrieved
+future: <Task finished name='Task-25' coro=<_dispatch_as_task.<locals>.task() done, defined at c:\Users\a2450\Desktop\project\backend\trendsmicro\.venv\lib\site-packages\fastapi_events\dispatcher.py:51> exception=TypeError('Object of type date is not JSON serializable')>
+Traceback (most recent call last):
+  File "c:\Users\a2450\Desktop\project\backend\trendsmicro\.venv\lib\site-packages\fastapi_events\dispatcher.py", line 52, in task
+    await asyncio.gather(*[handler.handle((event_name, payload)) for handler in handlers])
+  File "c:\Users\a2450\Desktop\project\backend\trendsmicro\.venv\lib\site-packages\fastapi_events\handlers\local.py", line 208, in handle
+    await handler(event, **values)
+  File "C:\Users\a2450\Desktop\project\backend\trendsmicro\microservices\collector\src\handlers\historical_task_handler.py", line 57, in handle_finish_tasks
+    client.publish(json.dumps(req),properties=pika.BasicProperties(delivery_mode=2))
+  File "C:\Users\a2450\scoop\apps\python310\3.10.11\lib\json\__init__.py", line 231, in dumps
+    return _default_encoder.encode(obj)
+  File "C:\Users\a2450\scoop\apps\python310\3.10.11\lib\json\encoder.py", line 199, in encode
+    chunks = self.iterencode(o, _one_shot=True)
+  File "C:\Users\a2450\scoop\apps\python310\3.10.11\lib\json\encoder.py", line 257, in iterencode
+    return _iterencode(o, 0)
+  File "C:\Users\a2450\scoop\apps\python310\3.10.11\lib\json\encoder.py", line 179, in default
+    raise TypeError(f'Object of type {o.__class__.__name__} '
+TypeError: Object of type date is not JSON serializable
+2025-03-02 20:36:53 - apscheduler.scheduler - INFO - Scheduler started
+2025-03-02 20:37:11 - apscheduler.scheduler - INFO - Added job "execute_historical_task" to job store "default"
+2025-03-02 20:37:11 - fastapi - INFO - 任务 1 已加入队列等待执行
+2025-03-02 20:37:11 - apscheduler.scheduler - INFO - Removed job historical_1
+2025-03-02 20:37:11 - apscheduler.executors.default - INFO - Running job "execute_historical_task (trigger: date[2025-03-02 12:37:11 UTC], next run at: 2025-03-02 12:37:11 UTC)" (scheduled at 2025-03-02 12:37:11.406873+00:00)
+2025-03-02 20:37:11 - fastapi - INFO - 开始采集数据
+2025-03-02 20:37:11 - fastapi - INFO - 采集数据结束
+2025-03-02 20:37:11 - apscheduler.executors.default - INFO - Job "execute_historical_task (trigger: date[2025-03-02 12:37:11 UTC], next run at: 2025-03-02 12:37:11 UTC)" executed successfully
+2025-03-02 20:37:11 - pika.adapters.utils.connection_workflow - INFO - Pika version 1.3.2 connecting to ('::1', 5672, 0, 0)
+2025-03-02 20:37:11 - pika.adapters.utils.io_services_utils - INFO - Socket connected: <socket.socket fd=2160, family=AddressFamily.AF_INET6, type=SocketKind.SOCK_STREAM, proto=6, laddr=('::1', 56883, 0, 0), raddr=('::1', 5672, 0, 0)>
+2025-03-02 20:37:11 - pika.adapters.utils.connection_workflow - INFO - Streaming transport linked up: (<pika.adapters.utils.io_services_utils._AsyncPlaintextTransport object at 0x00000260DC535240>, _StreamingProtocolShim: <SelectConnection PROTOCOL transport=<pika.adapters.utils.io_services_utils._AsyncPlaintextTransport object at 0x00000260DC535240> params=<ConnectionParameters host=localhost port=5672 virtual_host=/ ssl=False>>).
+2025-03-02 20:37:11 - pika.adapters.utils.connection_workflow - INFO - AMQPConnector - reporting success: <SelectConnection OPEN transport=<pika.adapters.utils.io_services_utils._AsyncPlaintextTransport object at 0x00000260DC535240> params=<ConnectionParameters host=localhost port=5672 virtual_host=/ ssl=False>>
+2025-03-02 20:37:11 - pika.adapters.utils.connection_workflow - INFO - AMQPConnectionWorkflow - reporting success: <SelectConnection OPEN transport=<pika.adapters.utils.io_services_utils._AsyncPlaintextTransport object at 0x00000260DC535240> params=<ConnectionParameters host=localhost port=5672 virtual_host=/ ssl=False>>
+2025-03-02 20:37:11 - pika.adapters.blocking_connection - INFO - Connection workflow succeeded: <SelectConnection OPEN transport=<pika.adapters.utils.io_services_utils._AsyncPlaintextTransport object at 0x00000260DC535240> params=<ConnectionParameters host=localhost port=5672 virtual_host=/ ssl=False>>
+2025-03-02 20:37:11 - pika.adapters.blocking_connection - INFO - Created channel=1
+2025-03-02 20:37:11 - pika.adapters.blocking_connection - INFO - Closing connection (200): Normal shutdown
+2025-03-02 20:37:11 - pika.channel - INFO - Closing channel (200): 'Normal shutdown' on <Channel number=1 OPEN conn=<SelectConnection OPEN transport=<pika.adapters.utils.io_services_utils._AsyncPlaintextTransport object at 0x00000260DC535240> params=<ConnectionParameters host=localhost port=5672 virtual_host=/ ssl=False>>>
+2025-03-02 20:37:11 - pika.channel - INFO - Received <Channel.CloseOk> on <Channel number=1 CLOSING conn=<SelectConnection OPEN transport=<pika.adapters.utils.io_services_utils._AsyncPlaintextTransport object at 0x00000260DC535240> params=<ConnectionParameters host=localhost port=5672 virtual_host=/ ssl=False>>>
+2025-03-02 20:37:11 - pika.connection - INFO - Closing connection (200): 'Normal shutdown'
+2025-03-02 20:37:11 - pika.adapters.utils.io_services_utils - INFO - Aborting transport connection: state=1; <socket.socket fd=2160, family=AddressFamily.AF_INET6, type=SocketKind.SOCK_STREAM, proto=6, laddr=('::1', 56883, 0, 0), raddr=('::1', 5672, 0, 0)>
+2025-03-02 20:37:11 - pika.adapters.utils.io_services_utils - INFO - _AsyncTransportBase._initate_abort(): Initiating abrupt asynchronous transport shutdown: state=1; error=None; <socket.socket fd=2160, family=AddressFamily.AF_INET6, type=SocketKind.SOCK_STREAM, proto=6, laddr=('::1', 56883, 0, 0), raddr=('::1', 5672, 0, 0)>
+2025-03-02 20:37:11 - pika.adapters.utils.io_services_utils - INFO - Deactivating transport: state=1; <socket.socket fd=2160, family=AddressFamily.AF_INET6, type=SocketKind.SOCK_STREAM, proto=6, laddr=('::1', 56883, 0, 0), raddr=('::1', 5672, 0, 0)>
+2025-03-02 20:37:11 - pika.connection - INFO - AMQP stack terminated, failed to connect, or aborted: opened=True, error-arg=None; pending-error=ConnectionClosedByClient: (200) 'Normal shutdown'
+2025-03-02 20:37:11 - pika.connection - INFO - Stack terminated due to ConnectionClosedByClient: (200) 'Normal shutdown'
+2025-03-02 20:37:11 - pika.adapters.utils.io_services_utils - INFO - Closing transport socket and unlinking: state=3; <socket.socket fd=2160, family=AddressFamily.AF_INET6, type=SocketKind.SOCK_STREAM, proto=6, laddr=('::1', 56883, 0, 0), raddr=('::1', 5672, 0, 0)>
+2025-03-02 20:37:11 - pika.adapters.blocking_connection - INFO - User-initiated close: result=BlockingConnection__OnClosedArgs(connection=<SelectConnection CLOSED transport=None params=<ConnectionParameters host=localhost port=5672 virtual_host=/ ssl=False>>, error=ConnectionClosedByClient: (200) 'Normal shutdown')
+2025-03-03 14:12:03 - apscheduler.scheduler - INFO - Scheduler started
+2025-03-03 14:19:05 - apscheduler.scheduler - INFO - Scheduler started
+2025-03-03 14:26:10 - apscheduler.scheduler - INFO - Added job "execute_historical_task" to job store "default"
+2025-03-03 14:26:10 - fastapi - INFO - 任务 1 已加入队列等待执行
+2025-03-03 14:26:10 - apscheduler.scheduler - INFO - Removed job historical_1
+2025-03-03 14:26:10 - apscheduler.executors.default - INFO - Running job "execute_historical_task (trigger: date[2025-03-03 06:26:10 UTC], next run at: 2025-03-03 06:26:10 UTC)" (scheduled at 2025-03-03 06:26:10.834876+00:00)
+2025-03-03 14:26:10 - fastapi - INFO - 开始采集数据
+2025-03-03 14:26:10 - fastapi - INFO - 采集数据结束
+2025-03-03 14:26:10 - apscheduler.executors.default - INFO - Job "execute_historical_task (trigger: date[2025-03-03 06:26:10 UTC], next run at: 2025-03-03 06:26:10 UTC)" executed successfully
+2025-03-03 14:26:11 - asyncio - ERROR - Task exception was never retrieved
+future: <Task finished name='Task-157' coro=<_dispatch_as_task.<locals>.task() done, defined at c:\Users\a2450\Desktop\project\backend\trendsmicro\.venv\lib\site-packages\fastapi_events\dispatcher.py:51> exception=TypeError('aio_pika.message.Message() argument after ** must be a mapping, not BasicProperties')>
+Traceback (most recent call last):
+  File "c:\Users\a2450\Desktop\project\backend\trendsmicro\.venv\lib\site-packages\fastapi_events\dispatcher.py", line 52, in task
+    await asyncio.gather(*[handler.handle((event_name, payload)) for handler in handlers])
+  File "c:\Users\a2450\Desktop\project\backend\trendsmicro\.venv\lib\site-packages\fastapi_events\handlers\local.py", line 208, in handle
+    await handler(event, **values)
+  File "C:\Users\a2450\Desktop\project\backend\trendsmicro\microservices\collector\src\handlers\historical_task_handler.py", line 57, in handle_finish_tasks
+    await client.publish(json.dumps(req),properties=pika.BasicProperties(delivery_mode=2))
+  File "C:\Users\a2450\Desktop\project\backend\trendsmicro\microservices\collector\src\services\rabbitmq.py", line 31, in publish
+    Message(body=message.encode(), **(properties or {})),
+TypeError: aio_pika.message.Message() argument after ** must be a mapping, not BasicProperties
+2025-03-03 14:27:50 - apscheduler.scheduler - INFO - Scheduler started
+2025-03-03 14:28:01 - apscheduler.scheduler - INFO - Added job "execute_historical_task" to job store "default"
+2025-03-03 14:28:01 - fastapi - INFO - 任务 1 已加入队列等待执行
+2025-03-03 14:28:01 - apscheduler.scheduler - INFO - Removed job historical_1
+2025-03-03 14:28:01 - apscheduler.executors.default - INFO - Running job "execute_historical_task (trigger: date[2025-03-03 06:28:01 UTC], next run at: 2025-03-03 06:28:01 UTC)" (scheduled at 2025-03-03 06:28:01.030843+00:00)
+2025-03-03 14:28:01 - fastapi - INFO - 开始采集数据
+2025-03-03 14:28:01 - fastapi - INFO - 采集数据结束
+2025-03-03 14:28:01 - apscheduler.executors.default - INFO - Job "execute_historical_task (trigger: date[2025-03-03 06:28:01 UTC], next run at: 2025-03-03 06:28:01 UTC)" executed successfully
+2025-03-03 14:45:03 - apscheduler.scheduler - INFO - Scheduler started
+2025-03-03 14:58:13 - apscheduler.scheduler - INFO - Added job "execute_historical_task" to job store "default"
+2025-03-03 14:58:13 - fastapi - INFO - 任务 2 已加入队列等待执行
+2025-03-03 14:58:14 - apscheduler.scheduler - INFO - Removed job historical_2
+2025-03-03 14:58:14 - apscheduler.executors.default - INFO - Running job "execute_historical_task (trigger: date[2025-03-03 06:58:13 UTC], next run at: 2025-03-03 06:58:13 UTC)" (scheduled at 2025-03-03 06:58:13.969183+00:00)
+2025-03-03 14:58:14 - fastapi - INFO - 开始采集数据
+2025-03-03 14:58:24 - fastapi - INFO - Data fetch successful for API function: interest_by_region, with parameters - Keywords: ['deepseek', 'deepsook'], Timeframe: 2025-01-01 2025-02-28, Geo: 
+2025-03-03 14:58:25 - fastapi - INFO - 采集数据结束
+2025-03-03 14:58:25 - apscheduler.executors.default - INFO - Job "execute_historical_task (trigger: date[2025-03-03 06:58:13 UTC], next run at: 2025-03-03 06:58:13 UTC)" executed successfully
+2025-03-03 15:00:59 - apscheduler.scheduler - INFO - Added job "execute_historical_task" to job store "default"
+2025-03-03 15:00:59 - fastapi - INFO - 任务 3 已加入队列等待执行
+2025-03-03 15:00:59 - apscheduler.scheduler - INFO - Removed job historical_3
+2025-03-03 15:00:59 - apscheduler.executors.default - INFO - Running job "execute_historical_task (trigger: date[2025-03-03 07:00:59 UTC], next run at: 2025-03-03 07:00:59 UTC)" (scheduled at 2025-03-03 07:00:59.343203+00:00)
+2025-03-03 15:00:59 - fastapi - INFO - 开始采集数据
+2025-03-03 15:01:15 - fastapi - WARNING - Rate limited. Retrying after 60 seconds...
+2025-03-03 15:02:32 - fastapi - WARNING - Rate limited. Retrying after 60 seconds...
+2025-03-03 15:03:33 - fastapi - INFO - Data fetch successful for API function: interest_by_region, with parameters - Keywords: ['latin', 'english'], Timeframe: 2025-01-01 2025-02-28, Geo: 
+2025-03-03 15:04:01 - fastapi - INFO - 采集数据结束
+2025-03-03 15:04:01 - apscheduler.executors.default - INFO - Job "execute_historical_task (trigger: date[2025-03-03 07:00:59 UTC], next run at: 2025-03-03 07:00:59 UTC)" executed successfully
+2025-03-03 16:18:25 - aio_pika - INFO - dict_items([('collector_task_request', [<function subject_task_request at 0x000001B200B6FD90>])])
+2025-03-03 16:18:25 - apscheduler.scheduler - INFO - Scheduler started
+2025-03-03 16:29:42 - fastapi - ERROR - Failed to process message: (builtins.TypeError) SQLite DateTime type only accepts Python datetime and date objects as input.
+[SQL: INSERT INTO scheduled_tasks (job_type, keywords, geo_code, duration, start_date, interval, enabled) VALUES (?, ?, ?, ?, ?, ?, ?)]
+[parameters: [{'start_date': '2025-01-01', 'job_type': 'time', 'keywords': ['ok', 'Okay'], 'interval': '1d', 'duration': 2, 'geo_code': ''}]]
+2025-03-03 16:29:42 - fastapi - ERROR - Failed to process message: <ContextVar name='fastapi_middleware_identifier' at 0x000001B200B5B1A0>
+2025-03-03 16:34:07 - aio_pika - INFO - dict_items([('collector_task_request', [<function subject_task_request at 0x000001C8A0FEBE20>])])
+2025-03-03 16:34:07 - apscheduler.scheduler - INFO - Scheduler started
+2025-03-03 16:34:22 - apscheduler.scheduler - INFO - Added job "execute_scheduled_task" to job store "default"
+2025-03-03 16:34:22 - fastapi - INFO - interval_config: {'days': 1}
+2025-03-03 16:34:22 - fastapi - ERROR - Failed to process message: <ContextVar name='fastapi_middleware_identifier' at 0x000001C8A0FE29D0>
+2025-03-03 16:36:30 - aio_pika - INFO - dict_items([('collector_task_request', [<function subject_task_request at 0x000002564BA87E20>])])
+2025-03-03 16:36:30 - apscheduler.scheduler - INFO - Scheduler started
+2025-03-03 16:36:58 - apscheduler.scheduler - INFO - Added job "execute_scheduled_task" to job store "default"
+2025-03-03 16:36:58 - fastapi - INFO - interval_config: {'days': 1}
+2025-03-03 16:36:59 - fastapi - ERROR - Failed to process message: <ContextVar name='fastapi_middleware_identifier' at 0x000002564BA7E9D0>
+2025-03-03 16:39:15 - apscheduler.scheduler - INFO - Added job "execute_scheduled_task" to job store "default"
+2025-03-03 16:39:15 - fastapi - INFO - interval_config: {'days': 1}
+2025-03-03 16:40:31 - aio_pika - INFO - dict_items([('collector_task_request', [<function subject_task_request at 0x000001DA172E7E20>])])
+2025-03-03 16:40:31 - apscheduler.scheduler - INFO - Scheduler started
+2025-03-03 16:42:22 - aio_pika - INFO - dict_items([('collector_task_request', [<function subject_task_request at 0x000001FE448B5A20>])])
+2025-03-03 16:42:22 - apscheduler.scheduler - INFO - Scheduler started
+2025-03-03 16:42:38 - apscheduler.scheduler - INFO - Added job "execute_scheduled_task" to job store "default"
+2025-03-03 16:42:38 - fastapi - INFO - interval_config: {'days': 1}
+2025-03-03 16:42:38 - apscheduler.scheduler - INFO - Added job "execute_historical_task" to job store "default"
+2025-03-03 16:42:38 - fastapi - INFO - 任务 1 已加入队列等待执行
+2025-03-03 16:42:38 - apscheduler.scheduler - INFO - Removed job historical_1
+2025-03-03 16:42:38 - apscheduler.executors.default - INFO - Running job "execute_historical_task (trigger: date[2025-03-03 08:42:38 UTC], next run at: 2025-03-03 08:42:38 UTC)" (scheduled at 2025-03-03 08:42:38.156817+00:00)
+2025-03-03 16:42:38 - fastapi - INFO - 开始采集数据
+2025-03-03 16:42:38 - apscheduler.executors.default - ERROR - Job "execute_historical_task (trigger: date[2025-03-03 08:42:38 UTC], next run at: 2025-03-03 08:42:38 UTC)" raised an exception
+Traceback (most recent call last):
+  File "c:\Users\a2450\Desktop\project\backend\trendsmicro\.venv\lib\site-packages\apscheduler\executors\base.py", line 181, in run_coroutine_job
+    retval = await job.func(*job.args, **job.kwargs)
+  File "C:\Users\a2450\Desktop\project\backend\trendsmicro\microservices\collector\src\core\jobs.py", line 57, in execute_historical_task
+    raise e  # 重新抛出异常以便APScheduler记录日志
+  File "C:\Users\a2450\Desktop\project\backend\trendsmicro\microservices\collector\src\core\jobs.py", line 33, in execute_historical_task
+    interest_id=execute_task(
+  File "C:\Users\a2450\Desktop\project\backend\trendsmicro\microservices\collector\src\core\jobs.py", line 13, in execute_task
+    last_id= get_interest_by_region(keywords, geo_code, interval, start_date, end_date,task_id)
+  File "C:\Users\a2450\Desktop\project\backend\trendsmicro\microservices\collector\src\core\trends.py", line 54, in get_interest_by_region
+    timeframe_start = datetime.strptime(start, "%Y-%m-%d").date()
+  File "C:\Users\a2450\scoop\apps\python310\3.10.11\lib\_strptime.py", line 568, in _strptime_datetime
+    tt, fraction, gmtoff_fraction = _strptime(data_string, format)
+  File "C:\Users\a2450\scoop\apps\python310\3.10.11\lib\_strptime.py", line 352, in _strptime
+    raise ValueError("unconverted data remains: %s" %
+ValueError: unconverted data remains:  00:00:00
+2025-03-03 16:48:52 - aio_pika - INFO - dict_items([('collector_task_request', [<function subject_task_request at 0x00000299E9587E20>])])
+2025-03-03 16:48:52 - apscheduler.scheduler - INFO - Scheduler started
+2025-03-03 16:49:17 - aio_pika - INFO - dict_items([('collector_task_request', [<function subject_task_request at 0x000001CC70DD9B40>])])
+2025-03-03 16:49:17 - apscheduler.scheduler - INFO - Scheduler started
+2025-03-03 16:53:06 - aio_pika - INFO - dict_items([('collector_task_request', [<function subject_task_request at 0x0000023946231AB0>])])
+2025-03-03 16:53:06 - apscheduler.scheduler - INFO - Scheduler started
+2025-03-03 16:53:16 - apscheduler.scheduler - INFO - Added job "execute_historical_task" to job store "default"
+2025-03-03 16:53:16 - fastapi - INFO - 任务 1 已加入队列等待执行
+2025-03-03 16:53:16 - apscheduler.scheduler - INFO - Removed job historical_1
+2025-03-03 16:53:16 - apscheduler.executors.default - INFO - Running job "execute_historical_task (trigger: date[2025-03-03 08:53:16 UTC], next run at: 2025-03-03 08:53:16 UTC)" (scheduled at 2025-03-03 08:53:16.045430+00:00)
+2025-03-03 16:53:16 - fastapi - INFO - 开始采集数据
+2025-03-03 16:53:38 - apscheduler.executors.default - ERROR - Job "execute_historical_task (trigger: date[2025-03-03 08:53:16 UTC], next run at: 2025-03-03 08:53:16 UTC)" raised an exception
+Traceback (most recent call last):
+  File "c:\Users\a2450\Desktop\project\backend\trendsmicro\.venv\lib\site-packages\apscheduler\executors\base.py", line 181, in run_coroutine_job
+    retval = await job.func(*job.args, **job.kwargs)
+  File "C:\Users\a2450\Desktop\project\backend\trendsmicro\microservices\collector\src\core\jobs.py", line 57, in execute_historical_task
+    raise e  # 重新抛出异常以便APScheduler记录日志
+  File "C:\Users\a2450\Desktop\project\backend\trendsmicro\microservices\collector\src\core\jobs.py", line 33, in execute_historical_task
+    interest_id=execute_task(
+  File "C:\Users\a2450\Desktop\project\backend\trendsmicro\microservices\collector\src\core\jobs.py", line 13, in execute_task
+    last_id= get_interest_by_region(keywords, geo_code, interval, start_date, end_date,task_id)
+  File "C:\Users\a2450\Desktop\project\backend\trendsmicro\microservices\collector\src\core\trends.py", line 54, in get_interest_by_region
+    timeframe_start = datetime.strptime(start, "%Y-%m-%d").date()
+TypeError: strptime() argument 1 must be str, not datetime.date
+2025-03-03 16:54:13 - apscheduler.scheduler - INFO - Added job "execute_historical_task" to job store "default"
+2025-03-03 16:54:13 - fastapi - INFO - 任务 2 已加入队列等待执行
+2025-03-03 16:54:13 - apscheduler.scheduler - INFO - Removed job historical_2
+2025-03-03 16:54:13 - apscheduler.executors.default - INFO - Running job "execute_historical_task (trigger: date[2025-03-03 08:54:13 UTC], next run at: 2025-03-03 08:54:13 UTC)" (scheduled at 2025-03-03 08:54:13.492585+00:00)
+2025-03-03 16:54:13 - fastapi - INFO - 开始采集数据
+2025-03-03 16:54:54 - aio_pika - INFO - dict_items([('collector_task_request', [<function subject_task_request at 0x0000020B882F16C0>])])
+2025-03-03 16:54:54 - apscheduler.scheduler - INFO - Scheduler started
+2025-03-03 16:54:57 - apscheduler.scheduler - INFO - Added job "execute_historical_task" to job store "default"
+2025-03-03 16:54:57 - fastapi - INFO - 任务 3 已加入队列等待执行
+2025-03-03 16:54:57 - apscheduler.scheduler - INFO - Removed job historical_3
+2025-03-03 16:54:57 - apscheduler.executors.default - INFO - Running job "execute_historical_task (trigger: date[2025-03-03 08:54:57 UTC], next run at: 2025-03-03 08:54:57 UTC)" (scheduled at 2025-03-03 08:54:57.523336+00:00)
+2025-03-03 16:54:57 - fastapi - INFO - 开始采集数据
+2025-03-03 16:55:13 - fastapi - INFO - Data fetch successful for API function: interest_by_region, with parameters - Keywords: ['latin', 'english'], Timeframe: 2025-01-01 2025-02-28, Geo: 
+2025-03-03 16:55:13 - fastapi - INFO - 采集数据结束
+2025-03-03 16:55:13 - apscheduler.executors.default - INFO - Job "execute_historical_task (trigger: date[2025-03-03 08:54:57 UTC], next run at: 2025-03-03 08:54:57 UTC)" executed successfully
+2025-03-03 16:55:21 - apscheduler.scheduler - INFO - Added job "execute_historical_task" to job store "default"
+2025-03-03 16:55:21 - fastapi - INFO - 任务 4 已加入队列等待执行
+2025-03-03 16:55:21 - apscheduler.scheduler - INFO - Removed job historical_4
+2025-03-03 16:55:21 - apscheduler.executors.default - INFO - Running job "execute_historical_task (trigger: date[2025-03-03 08:55:21 UTC], next run at: 2025-03-03 08:55:21 UTC)" (scheduled at 2025-03-03 08:55:21.252663+00:00)
+2025-03-03 16:55:21 - fastapi - INFO - 开始采集数据
+2025-03-03 16:55:39 - apscheduler.executors.default - ERROR - Job "execute_historical_task (trigger: date[2025-03-03 08:55:21 UTC], next run at: 2025-03-03 08:55:21 UTC)" raised an exception
+Traceback (most recent call last):
+  File "c:\Users\a2450\Desktop\project\backend\trendsmicro\.venv\lib\site-packages\apscheduler\executors\base.py", line 181, in run_coroutine_job
+    retval = await job.func(*job.args, **job.kwargs)
+  File "C:\Users\a2450\Desktop\project\backend\trendsmicro\microservices\collector\src\core\jobs.py", line 57, in execute_historical_task
+    raise e  # 重新抛出异常以便APScheduler记录日志
+  File "C:\Users\a2450\Desktop\project\backend\trendsmicro\microservices\collector\src\core\jobs.py", line 33, in execute_historical_task
+    interest_id=execute_task(
+  File "C:\Users\a2450\Desktop\project\backend\trendsmicro\microservices\collector\src\core\jobs.py", line 15, in execute_task
+    last_id= get_interest_over_time(keywords, geo_code, interval, start_date, end_date,task_id)
+  File "C:\Users\a2450\Desktop\project\backend\trendsmicro\microservices\collector\src\core\trends.py", line 127, in get_interest_over_time
+    timeframe_start = datetime.strptime(start, "%Y-%m-%d").date()
+TypeError: strptime() argument 1 must be str, not datetime.date
+2025-03-03 16:56:21 - aio_pika - INFO - dict_items([('collector_task_request', [<function subject_task_request at 0x0000022AE6AE5AB0>])])
+2025-03-03 16:56:21 - apscheduler.scheduler - INFO - Scheduler started
+2025-03-03 16:58:40 - aio_pika - INFO - dict_items([('collector_task_request', [<function subject_task_request at 0x0000019F97A79870>])])
+2025-03-03 16:58:40 - apscheduler.scheduler - INFO - Scheduler started
+2025-03-03 16:59:07 - fastapi - ERROR - Failed to process message: api.models.tasks.ScheduledTask() argument after ** must be a mapping, not ScheduledTaskRequest
+2025-03-03 16:59:38 - aio_pika - INFO - dict_items([('collector_task_request', [<function subject_task_request at 0x000002337E7BD870>])])
+2025-03-03 16:59:38 - apscheduler.scheduler - INFO - Scheduler started
+2025-03-03 16:59:43 - apscheduler.scheduler - INFO - Added job "execute_scheduled_task" to job store "default"
+2025-03-03 16:59:43 - fastapi - INFO - interval_config: {'days': 1}
+2025-03-03 16:59:45 - apscheduler.scheduler - INFO - Added job "execute_historical_task" to job store "default"
+2025-03-03 16:59:45 - fastapi - INFO - 任务 1 已加入队列等待执行
+2025-03-03 16:59:45 - apscheduler.scheduler - INFO - Removed job historical_1
+2025-03-03 16:59:45 - apscheduler.executors.default - INFO - Running job "execute_historical_task (trigger: date[2025-03-03 08:59:45 UTC], next run at: 2025-03-03 08:59:45 UTC)" (scheduled at 2025-03-03 08:59:45.850219+00:00)
+2025-03-03 16:59:45 - fastapi - INFO - 开始采集数据
+2025-03-03 17:00:39 - aio_pika - INFO - dict_items([('collector_task_request', [<function subject_task_request at 0x00000224C7E19AB0>])])
+2025-03-03 17:00:40 - apscheduler.scheduler - INFO - Scheduler started
+2025-03-03 17:00:41 - apscheduler.scheduler - INFO - Added job "execute_scheduled_task" to job store "default"
+2025-03-03 17:00:41 - fastapi - INFO - interval_config: {'days': 1}
+2025-03-03 17:00:41 - apscheduler.scheduler - INFO - Added job "execute_historical_task" to job store "default"
+2025-03-03 17:00:41 - fastapi - INFO - 任务 1 已加入队列等待执行
+2025-03-03 17:00:41 - apscheduler.scheduler - INFO - Removed job historical_1
+2025-03-03 17:00:41 - apscheduler.executors.default - INFO - Running job "execute_historical_task (trigger: date[2025-03-03 09:00:41 UTC], next run at: 2025-03-03 09:00:41 UTC)" (scheduled at 2025-03-03 09:00:41.869638+00:00)
+2025-03-03 17:00:41 - fastapi - INFO - 开始采集数据
+2025-03-03 17:01:23 - aio_pika - INFO - dict_items([('collector_task_request', [<function subject_task_request at 0x00000177F2021AB0>])])
+2025-03-03 17:01:23 - apscheduler.scheduler - INFO - Scheduler started
+2025-03-03 17:01:30 - apscheduler.scheduler - INFO - Added job "execute_scheduled_task" to job store "default"
+2025-03-03 17:01:30 - fastapi - INFO - interval_config: {'days': 1}
+2025-03-03 17:01:30 - apscheduler.scheduler - INFO - Added job "execute_historical_task" to job store "default"
+2025-03-03 17:01:30 - fastapi - INFO - 任务 1 已加入队列等待执行
+2025-03-03 17:01:30 - apscheduler.scheduler - INFO - Removed job historical_1
+2025-03-03 17:01:30 - apscheduler.executors.default - INFO - Running job "execute_historical_task (trigger: date[2025-03-03 09:01:30 UTC], next run at: 2025-03-03 09:01:30 UTC)" (scheduled at 2025-03-03 09:01:30.785964+00:00)
+2025-03-03 17:01:30 - fastapi - INFO - 开始采集数据
+2025-03-03 17:01:43 - fastapi - INFO - Data fetch successful for API function: interest_by_region, with parameters - Keywords: ['ok', 'Okay'], Timeframe: 2025-01-01 2025-02-28, Geo: 
+2025-03-03 17:01:43 - fastapi - INFO - 采集数据结束
+2025-03-03 17:01:43 - apscheduler.executors.default - INFO - Job "execute_historical_task (trigger: date[2025-03-03 09:01:30 UTC], next run at: 2025-03-03 09:01:30 UTC)" executed successfully
+2025-03-03 18:45:32 - aio_pika - INFO - dict_items([('collector_task_request', [<function subject_task_request at 0x000002E5F9751AB0>])])
+2025-03-03 18:45:32 - apscheduler.scheduler - INFO - Scheduler started
+2025-03-03 18:47:02 - apscheduler.scheduler - INFO - Added job "execute_scheduled_task" to job store "default"
+2025-03-03 18:47:02 - fastapi - INFO - interval_config: {'days': 1}
+2025-03-03 18:47:02 - apscheduler.scheduler - INFO - Added job "execute_historical_task" to job store "default"
+2025-03-03 18:47:02 - fastapi - INFO - 任务 1 已加入队列等待执行
+2025-03-03 18:47:02 - apscheduler.scheduler - INFO - Removed job historical_1
+2025-03-03 18:47:02 - apscheduler.executors.default - INFO - Running job "execute_historical_task (trigger: date[2025-03-03 10:47:02 UTC], next run at: 2025-03-03 10:47:02 UTC)" (scheduled at 2025-03-03 10:47:02.410393+00:00)
+2025-03-03 18:47:02 - fastapi - INFO - 开始采集数据
+2025-03-03 18:47:13 - fastapi - INFO - Data fetch successful for API function: interest_by_region, with parameters - Keywords: ['ok', 'Okay'], Timeframe: 2025-01-01 2025-02-28, Geo: 
+2025-03-03 18:47:13 - fastapi - INFO - 采集数据结束
+2025-03-03 18:47:13 - apscheduler.executors.default - INFO - Job "execute_historical_task (trigger: date[2025-03-03 10:47:02 UTC], next run at: 2025-03-03 10:47:02 UTC)" executed successfully
+2025-03-03 18:54:12 - aio_pika - INFO - dict_items([('collector_task_request', [<function subject_task_request at 0x000001E3B13C5A20>])])
+2025-03-03 18:54:12 - apscheduler.scheduler - INFO - Scheduler started
+2025-03-03 18:54:35 - apscheduler.scheduler - INFO - Added job "execute_scheduled_task" to job store "default"
+2025-03-03 18:54:35 - fastapi - INFO - interval_config: {'days': 1}
+2025-03-03 18:54:35 - apscheduler.scheduler - INFO - Added job "execute_historical_task" to job store "default"
+2025-03-03 18:54:35 - fastapi - INFO - 任务 1 已加入队列等待执行
+2025-03-03 18:58:53 - aio_pika - INFO - dict_items([('collector_task_request', [<function subject_task_request at 0x0000029E68B6E050>])])
+2025-03-03 18:58:53 - apscheduler.scheduler - INFO - Scheduler started
+2025-03-03 19:00:24 - apscheduler.scheduler - INFO - Added job "execute_scheduled_task" to job store "default"
+2025-03-03 19:00:24 - fastapi - INFO - interval_config: {'days': 1}
+2025-03-03 19:00:24 - apscheduler.scheduler - INFO - Added job "execute_historical_task" to job store "default"
+2025-03-03 19:00:24 - fastapi - INFO - 任务 1 已加入队列等待执行
+2025-03-03 19:00:39 - apscheduler.scheduler - INFO - Removed job historical_1
+2025-03-03 19:00:39 - apscheduler.executors.default - INFO - Running job "execute_historical_task (trigger: date[2025-03-03 19:00:39 CST], next run at: 2025-03-03 19:00:39 CST)" (scheduled at 2025-03-03 19:00:39.855318+08:00)
+2025-03-03 19:00:39 - fastapi - INFO - 开始采集数据
+2025-03-03 19:00:50 - fastapi - INFO - Data fetch successful for API function: interest_by_region, with parameters - Keywords: ['ok', 'Okay'], Timeframe: 2025-01-01 2025-02-28, Geo: 
+2025-03-03 19:00:50 - fastapi - INFO - 采集数据结束
+2025-03-03 19:00:50 - apscheduler.executors.default - INFO - Job "execute_historical_task (trigger: date[2025-03-03 19:00:39 CST], next run at: 2025-03-03 19:00:39 CST)" executed successfully
+2025-03-03 19:03:06 - aio_pika - INFO - dict_items([('collector_task_request', [<function subject_task_request at 0x0000017A52A960E0>])])
+2025-03-03 19:03:07 - apscheduler.scheduler - INFO - Scheduler started
+2025-03-03 19:03:49 - apscheduler.scheduler - INFO - Added job "execute_scheduled_task" to job store "default"
+2025-03-03 19:03:49 - fastapi - INFO - interval_config: {'days': 1}
+2025-03-03 19:03:49 - apscheduler.scheduler - INFO - Added job "execute_historical_task" to job store "default"
+2025-03-03 19:03:49 - fastapi - INFO - 任务 1 已加入队列等待执行
+2025-03-03 19:04:04 - apscheduler.scheduler - INFO - Removed job historical_1
+2025-03-03 19:04:04 - apscheduler.executors.default - INFO - Running job "execute_historical_task (trigger: date[2025-03-03 19:04:04 CST], next run at: 2025-03-03 19:04:04 CST)" (scheduled at 2025-03-03 19:04:04.265266+08:00)
+2025-03-03 19:04:04 - fastapi - INFO - 开始采集数据
+2025-03-03 19:04:14 - fastapi - INFO - Data fetch successful for API function: interest_by_region, with parameters - Keywords: ['ok', 'Okay'], Timeframe: 2025-01-01 2025-02-28, Geo: 
+2025-03-03 19:04:14 - fastapi - INFO - 采集数据结束
+2025-03-03 19:04:14 - apscheduler.executors.default - INFO - Job "execute_historical_task (trigger: date[2025-03-03 19:04:04 CST], next run at: 2025-03-03 19:04:04 CST)" executed successfully
+2025-03-04 20:46:58 - aio_pika - INFO - dict_items([('collector_task_request', [<function subject_task_request at 0x00000237F6456050>])])
+2025-03-04 20:46:58 - apscheduler.scheduler - INFO - Scheduler started
+2025-03-04 20:47:04 - apscheduler.scheduler - INFO - Removed job scheduled_1
+2025-03-04 20:47:04 - apscheduler.executors.default - WARNING - Run time of job "execute_scheduled_task (trigger: interval[1 day, 0:00:00], next run at: 2025-03-04 19:03:49 CST)" was missed by 1:43:15.613814

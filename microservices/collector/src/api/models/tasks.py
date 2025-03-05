@@ -9,8 +9,8 @@ class HistoricalTask(Base):
     job_type = Column(String(10)) # time or region
     keywords = Column(JSON, nullable=False)
     geo_code = Column(String(10))
-    start_date = Column(String(10))  # 格式："YYYY-MM-DD"
-    end_date = Column(String(10))
+    start_date = Column(Date)  # 格式："YYYY-MM-DD"
+    end_date = Column(Date)
     interval = Column(String(2))     # "YS"（年）或 "MS"（月）
     status = Column(String(20), default="pending")  # pending/running/completed/failed
     created_at = Column(DateTime, default=datetime.utcnow)
@@ -23,7 +23,7 @@ class ScheduledTask(Base):
     keywords = Column(JSON, nullable=False)
     geo_code = Column(String(10))
     duration = Column(Integer)
-    start_date = Column(DateTime, nullable=False)  
+    start_date = Column(Date, nullable=False)  
     interval = Column(String(2), default="MS") #任务执行的间隔时间
     enabled = Column(Boolean, default=True)
    

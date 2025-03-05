@@ -7,7 +7,7 @@ class TaskStore:
         self.db = db
 
     def create_task(self, task_id: str) -> Task:
-        task = Task(id=task_id)
+        task = Task(id=task_id,status="processing")
         self.db.add(task)
         self.db.commit()
         self.db.refresh(task)

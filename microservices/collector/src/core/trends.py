@@ -21,7 +21,7 @@ def _call_trends_api_with_retry(api_call_func, max_retries=3,**kwargs):
                 f"Data fetch successful for API function: {api_call_func.__name__}, "
                 f"with parameters - Keywords: {kwargs.get('keywords')}, "
                 f"Timeframe: {kwargs.get('timeframe')}, "
-                f"Geo: {kwargs.get('geo')}"
+                f"Geo: {kwargs.get('geo','World')}"
             )
             return response
         except HTTPError as e:
@@ -51,8 +51,8 @@ def get_interest_by_region(keywords: list[str], geo_code: str, interval: str, st
     interest_id=[]
     for start, end in time_ranges:
         # 检查请求历史表判断是否已处理
-        timeframe_start = datetime.strptime(start, "%Y-%m-%d").date()
-        timeframe_end = datetime.strptime(end, "%Y-%m-%d").date()
+        timeframe_start = start
+        timeframe_end = end
         
         # 查询请求历史表
         history = db.query(RequestHistory).filter(
@@ -93,7 +93,7 @@ def get_interest_by_region(keywords: list[str], geo_code: str, interval: str, st
                         geo_code=geo_code,
                         timeframe_start=timeframe_start,
                         timeframe_end=timeframe_end,
-                        data=region_data.reset_index().to_json(orient="records"),
+                        data=region_data.to_json(orient="records"),
                         task_id=task_id
                     )   
             db.add(record)
@@ -117,14 +117,15 @@ def get_interest_by_region(keywords: list[str], geo_code: str, interval: str, st
             db.commit()
             raise
     return interest_id
+
 def get_interest_over_time(keywords: list[str], geo_code: str, interval: str, start_date: str, end_date: str,task_id: int):
     db = next(get_db())
     time_ranges = split_time_ranges(start_date, end_date, interval)
     interest_id=[]
     for start, end in time_ranges:
         # 检查请求历史表判断是否已处理
-        timeframe_start = datetime.strptime(start, "%Y-%m-%d").date()
-        timeframe_end = datetime.strptime(end, "%Y-%m-%d").date()
+        timeframe_start = start
+        timeframe_end = end
 
         # 查询请求历史表
         history = db.query(RequestHistory).filter(
@@ -159,7 +160,7 @@ def get_interest_over_time(keywords: list[str], geo_code: str, interval: str, st
             timeframe = f"{start} {end}"
             time_data = _call_trends_api_with_retry(
                 trends.interest_over_time, max_retries=3, keywords=keywords, geo=geo_code, timeframe=timeframe
-            )
+            )   
 
             record = TimeInterest(
                         keywords=keywords,

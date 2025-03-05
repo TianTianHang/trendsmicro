@@ -40,21 +40,40 @@ class SubjectListResponse(BaseModel):
     description:Optional[str]
     status: str
     data_num: int
-
-class SubjectDataResponse(BaseModel):
+    
+    
+    
+class SubjectDataBase(BaseModel):
     subject_id: int
     timestamp: str
-    meta: List[InterestMetaData]
+    data_type: str
+    class Config:
+        from_attributes = True
+class SubjectDataResponse(SubjectDataBase):
+    id:int
 
 class SubjectDataTimeResponse(SubjectDataResponse):
+    meta: List[InterestMetaData]
     data: List[List[TimeInterest]]
 
 class SubjectDataRegionResponse(SubjectDataResponse):
+    meta: List[InterestMetaData]
     data: List[List[RegionInterest]]
     
+class SubjectDataUpdate(SubjectDataBase):
+    add_collection_ids:Optional[list[int]]=[]
+    delete_collection_ids:Optional[list[int]]=[]
+    
+class SubjectDataCreate(BaseModel):
+    subject_id: int
+    data_type: str
+    collection_ids:Optional[list[int]]=[]
 class NotifyRequest(BaseModel):
     task_id: int
     type: str
     interest_type: str
-    interests: list[str]
     meta: list[InterestMetaData]
+class NotifyTimeRequest(NotifyRequest):
+    interests:List[List[TimeInterest]]
+class NotifyRegionRequest(NotifyRequest):
+    interests:List[List[RegionInterest]]

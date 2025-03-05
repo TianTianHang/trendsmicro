@@ -1,12 +1,17 @@
+from datetime import datetime
+import json
+from aio_pika import IncomingMessage
 from fastapi.logger import logger
 from api.dependencies.database import get_db
 from fastapi_events.typing import Event
 from fastapi_events.handlers.local import local_handler
 from core import scheduler_manager
 from api.models.interest import RegionInterest, TimeInterest
-from api.schema.interest import InterestMetaData
-from services import query
-from services.query import NotifyRequest
+from api.schemas.interest import InterestMetaData
+from api.schemas.tasks import HistoricalTaskRequest, ScheduledTaskRequest
+from api.models.tasks import HistoricalTask, ScheduledTask
+from services.rabbitmq import RabbitMQClient
+from fastapi_events.dispatcher import dispatch
 @local_handler.register(event_name="historical_task_create")
 async def handle_pending_tasks(event: Event):
         """调度未执行的历史任务"""
@@ -39,7 +44,7 @@ async def handle_finish_tasks(event: Event):
     
     interests = interest.all()
     
-    req = NotifyRequest(
+    req = dict(
         task_id=task.get("task_id"),
         type=task.get("type"),
         interest_type=interest_type,
@@ -49,6 +54,43 @@ async def handle_finish_tasks(event: Event):
                 keywords=r.keywords,
                 timeframe_start=r.timeframe_start,
                 timeframe_end=r.timeframe_end
-            ) for r in interests]
+            ).model_dump_json() for r in interests]
     )
-    await query.task_finish(req)
+    # 通过队列通知query 服务保存数据
+    async with RabbitMQClient("interest_data") as client:
+        await client.publish(json.dumps(req),properties=dict(delivery_mode=2))
+        
+        
+@RabbitMQClient.consumer("collector_task_request")
+async def subject_task_request(message: IncomingMessage):
+    async with message.process():
+        try:
+            task_req = json.loads(message.body)
+            db=next(get_db())
+            #ScheduledTaskRequest
+            if task_req.get("duration",None)!=None:
+                task_req=ScheduledTaskRequest.model_validate(task_req)
+                task = ScheduledTask(**task_req.model_dump())
+                db.add(task)
+                db.commit()
+                db.refresh(task)
+                # 添加到调度器
+                scheduler_manager.add_cron_job(task)
+            #HistoricalTaskRequest
+            elif task_req.get("end_date",None)!=None:
+                task_req=HistoricalTaskRequest.model_validate(task_req)
+                # 保存任务到数据库
+                task = HistoricalTask(**task_req.model_dump())
+                db.add(task)
+                db.commit()
+                db.refresh(task)
+                dispatch(event_name="historical_task_create",payload=task,middleware_id=8888)
+            async with RabbitMQClient("collector_task_respone") as client:
+                await client.publish(message=json.dumps({"task_id":task.id}),properties=dict(delivery_mode=2,
+                                                                                       headers=message.headers))
+        except Exception as e:
+            logger.error(f"Failed to process message: {str(e)}")
+            async with RabbitMQClient("collector_task_respone") as client:
+                await client.publish(message=json.dumps({"error":str(e)}),properties=dict(delivery_mode=2,
+                                                                                    headers=message.headers))
+    

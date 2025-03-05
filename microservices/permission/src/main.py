@@ -1,11 +1,13 @@
 import asyncio
 import socket
+import aio_pika
 from fastapi import Depends, FastAPI, HTTPException, Header
 from fastapi.responses import JSONResponse
 from contextlib import asynccontextmanager
 from jose import JWTError, jwt
 from pydantic import BaseModel
 from config import get_settings
+from services.rabbitmq import RabbitMQClient
 from services.jwt_validator import JWTValidator
 from services.registry import ServiceInstance,ConsulRegistry
 from dependencies.database import engine, Base,get_db
@@ -14,7 +16,7 @@ from models.permission import Permission
 
 setting = get_settings()
 registry = ConsulRegistry(host=setting.consul_host, port=setting.consul_port)
-jwt_validatort = JWTValidator(registry)
+jwt_validatort = JWTValidator()
 
 hostname=socket.gethostname()
 # 注册服务到Consul
@@ -25,15 +27,23 @@ instance = ServiceInstance(
         port=setting.port,
        
     )
-
+@RabbitMQClient.consumer(queue="public_key_queue")
+async def on_message(message: aio_pika.IncomingMessage):
+    async with message.process():
+        aio_pika.logger.info("已收到公钥")
+        public_key = message.body.decode()
+        jwt_validatort.public_key=public_key
+        
 @asynccontextmanager
 async def lifespan(app: FastAPI):
    
-    asyncio.create_task(jwt_validatort.periodic_refresh())
+    await RabbitMQClient.start_consumers(app)
     registry.register(instance)
     yield
     # 注销服务
     registry.deregister(instance.service_name, instance.instance_id)
+    await RabbitMQClient.close_consumers(app)
+    
 Base.metadata.create_all(bind=engine)    
 app = FastAPI(lifespan=lifespan)
 

@@ -2,6 +2,8 @@
 import logging
 import socket
 from fastapi import FastAPI
+from services.rabbitmq import RabbitMQClient
+from services import registry
 from api.dependencies.database import engine,Base
 from core import scheduler_manager
 from fastapi_events.middleware import EventHandlerASGIMiddleware
@@ -9,7 +11,7 @@ from fastapi_events.handlers.local import local_handler
 from api.endpoints import tasks
 from config import get_settings
 import handlers
-from services.registry import ConsulRegistry, ServiceInstance
+from services.registry import ServiceInstance
 # 配置日志
 logging.basicConfig(
     level=logging.INFO,
@@ -22,7 +24,6 @@ logging.basicConfig(
 )
 
 setting= get_settings()
-registry = ConsulRegistry(host=setting.consul_host, port=setting.consul_port)
 
 hostname=socket.gethostname()
 # 注册服务到Consul
@@ -38,12 +39,14 @@ instance = ServiceInstance(
             
           
 async def lifespan_handler(app: FastAPI):
+    await RabbitMQClient.start_consumers(app)
     scheduler_manager.start()
     registry.register(instance)
     yield
     # 注销服务
     registry.deregister(instance.service_name, instance.instance_id)
     scheduler_manager.scheduler.shutdown()
+    await RabbitMQClient.close_consumers(app)
 
     
     

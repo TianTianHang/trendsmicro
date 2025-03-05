@@ -10,7 +10,10 @@ class Settings(BaseSettings):
     consul_host: str = "localhost"
     consul_port: int = 8500
     service_tags: List[str] = ["permission"]
-
+    rabbitmq_host: str =  "localhost"
+    rabbitmq_port: int = 5672
+    rabbitmq_username: str = "admin"
+    rabbitmq_password: str = "admin"
     class Config:
         env_file = Path(__file__).parent.parent / ".env"
         env_file_encoding = 'utf-8'

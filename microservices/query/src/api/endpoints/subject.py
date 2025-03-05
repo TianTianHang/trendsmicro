@@ -7,8 +7,10 @@ from typing import List, Union
 from api.schemas.subject import NotifyRequest, SubjectCreate, SubjectDataRegionResponse, SubjectDataResponse, SubjectDataTimeResponse, SubjectListResponse, SubjectResponse
 from fastapi_events.dispatcher import dispatch
 
+from api.schemas.interest import TimeInterest,RegionInterest,InterestMetaData
 
-router = APIRouter(prefix="/subject")
+
+router = APIRouter(prefix="/subject",tags=['subject'])
 #创建 subject
 @router.post("/create", response_model=SubjectResponse)
 def create_subject(subject: SubjectCreate, db: Session = Depends(get_db)):
@@ -18,7 +20,7 @@ def create_subject(subject: SubjectCreate, db: Session = Depends(get_db)):
     db.refresh(db_subject)
     #触发事件 向collector发送通知，采集数据
     dispatch(event_name="subject_create", payload=db_subject)
-    return {"subject_id": db_subject.subject_id}
+    return {"subject_id": db_subject.subject_id,"name":db_subject.name,"description":db_subject.description}
 #获取所有subject
 @router.get("/list", response_model=List[SubjectListResponse])
 def list_subjects(db: Session = Depends(get_db)):
@@ -42,16 +44,20 @@ def read_subject_data(subject_id: int, db: Session = Depends(get_db)):
         raise HTTPException(status_code=404, detail="Subject data not found")
     return [
         SubjectDataTimeResponse(
+            id=data.id,
             subject_id=data.subject_id,
             timestamp=data.timestamp.strftime("%Y-%m-%d %H:%M:%S"),
-            data=json.loads(data.data),
-            meta=json.loads(data.meta)
+            data_type=data.data_type,
+            data=[[i.convert() for i in collection.time_interests]  for collection in data.interest_collections],
+            meta=[meta.convert() for meta in data.meta_data]
         ) if data.data_type == "time" else
         SubjectDataRegionResponse(
+            id=data.id,
             subject_id=data.subject_id,
             timestamp=data.timestamp.strftime("%Y-%m-%d %H:%M:%S"),
-            data=json.loads(data.data),
-            meta=json.loads(data.meta)
+            data_type=data.data_type,
+            data=[[i.convert() for i in collection.region_interests]  for collection in data.interest_collections],
+            meta=[meta.convert() for meta in data.meta_data]
         )
         for data in db_subject_data
     ]
@@ -65,9 +71,3 @@ def read_subjct(subject_id: int, db: Session = Depends(get_db)):
     return db_subject
 
 
-
-# 通知，collector 服务使用，采集完数据后将数据通知给subject服务（前端无用）
-@router.post("/notification")
-def notify(request: NotifyRequest):
-    dispatch(event_name="subject_notify", payload=request)
-    return {"status": "ok"}

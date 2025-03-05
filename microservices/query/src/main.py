@@ -5,13 +5,16 @@ from api.dependencies.database import Base,engine
 
 from fastapi_events.middleware import EventHandlerASGIMiddleware
 from fastapi_events.handlers.local import local_handler
+from services.rabbitmq import RabbitMQClient
 from services import registry
 from services.registry import ServiceInstance
 from api.endpoints import subject
-from services import collector
+from api.endpoints import subjectData
+from api.endpoints import keywords
 from api.endpoints import cfc
 from api.endpoints import moran
 import handlers
+
 
 setting= get_settings()
 
@@ -25,12 +28,12 @@ instance = ServiceInstance(
     )        
             
 async def lifespan_handler(app: FastAPI):
-   
+    await RabbitMQClient.start_consumers(app)
     registry.register(instance)
     yield
     # 注销服务
     registry.deregister(instance.service_name, instance.instance_id)
-   
+    await RabbitMQClient.close_consumers(app)
             
 Base.metadata.create_all(bind=engine)          
 app = FastAPI(title="Query API",lifespan=lifespan_handler)
@@ -41,6 +44,9 @@ app.add_middleware(EventHandlerASGIMiddleware,
 app.include_router(cfc.router)
 app.include_router(moran.router)
 app.include_router(subject.router)
+app.include_router(keywords.router)
+app.include_router(subjectData.router)
+
 
 @app.get("/health")
 async def health_check():

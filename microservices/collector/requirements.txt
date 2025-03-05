@@ -12,3 +12,4 @@ pydantic-settings
 httpx
 Tenacity
 python-consul
+aio-pika

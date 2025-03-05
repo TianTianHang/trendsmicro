@@ -10,6 +10,7 @@ from api.models.tasks import HistoricalTask, ScheduledTask
 from config import get_settings
 from core.jobs import execute_historical_task, execute_scheduled_task
 from api.dependencies.database import engine
+from apscheduler.triggers.interval import IntervalTrigger
 settings = get_settings()
 
 class SchedulerManager:
@@ -18,7 +19,7 @@ class SchedulerManager:
             jobstores={
             'default': SQLAlchemyJobStore(engine=engine)
             },
-            timezone="UTC",
+            timezone="Asia/Shanghai",
             job_defaults={
             'coalesce': False,
             'max_instances': 1
@@ -38,6 +39,7 @@ class SchedulerManager:
             func=execute_historical_task,
             args=[task],
             trigger="date",  # 立即执行一次
+            run_date=datetime.now() + timedelta(seconds=15),
             max_instances=1  # 只允许单个实例 
         )
         
@@ -45,21 +47,18 @@ class SchedulerManager:
     def add_cron_job(self, task: ScheduledTask):
         """添加定时任务到调度器并关联历史任务"""
         # 解析时间间隔配置
-        interval_config = self.parse_interval(task.interval)
+        interval_config = self._parse_interval(task.interval)
         
         self.scheduler.add_job(
             id=f"scheduled_{task.id}",
             func=execute_scheduled_task,
             args=[task],
-            trigger='interval',
-            **interval_config,
-            start_date=task.start_date,
-            end_date=task.start_date + timedelta(days=task.duration),
+            trigger=IntervalTrigger(**interval_config, end_date=datetime.now() + timedelta(days=task.duration)),
             max_instances=1,  # 允许最大并发实例数
-            misfire_grace_time=3600  # 任务错过执行时间后的宽容时间
+            misfire_grace_time=10  # 任务错过执行时间后的宽容时间
         )
-        
-    def parse_interval(self, interval):
+        logger.info(f"interval_config: {interval_config}")
+    def _parse_interval(self, interval):
         """解析时间间隔"""
         amount = int(interval[:-1])
         unit = interval[-1]

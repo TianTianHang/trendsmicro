@@ -1,4 +1,5 @@
 from config import get_settings
+from services.rabbitmq import RabbitMQClient
 from services.registry import ConsulRegistry
 from services.collector import CollectorService
 

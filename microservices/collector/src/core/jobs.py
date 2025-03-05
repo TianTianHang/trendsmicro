@@ -67,7 +67,7 @@ async def execute_scheduled_task(task:ScheduledTask):
             keywords=task.keywords,
             geo_code=task.geo_code,
             start_date=task.start_date.strftime("%Y-%m-%d"),
-            end_date=datetime().strftime("%Y-%m-%d"),
+            end_date=datetime.now().strftime("%Y-%m-%d"),
             interval=None,
             schedule_id=task.id,
             status='pending'

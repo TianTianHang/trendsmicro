@@ -1,7 +1,8 @@
-# src/api/dependencies/database.py
 import operator
+from functools import wraps
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
+from fastapi import HTTPException
 from config import get_settings
 from sqlalchemy.ext.declarative import declarative_base
 
@@ -24,6 +25,25 @@ def get_independent_db():
     engine = create_engine(settings.database_url)
     Session = sessionmaker(autocommit=False, autoflush=False, bind=engine)
     return Session()
+
+def transaction(func):
+    """事务处理装饰器，自动处理事务提交和回滚"""
+    @wraps(func)
+    async def wrapper(*args, **kwargs):
+        db = kwargs.get('db')
+        if not db:
+            raise HTTPException(status_code=500, detail="Database session not found")
+        
+        try:
+            if callable(func):
+               result = await func(*args, **kwargs)
+            else:
+                raise HTTPException(status_code=500, detail="Provided function is not callable")
+            return result
+        except Exception as e:
+            db.rollback()
+            raise HTTPException(status_code=500, detail=str(e))
+    return wrapper
 
 # 操作符映射
 OPERATOR_MAP = {

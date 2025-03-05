@@ -2,33 +2,22 @@
 from datetime import datetime
 from typing import List, Optional
 from fastapi import APIRouter, Depends, HTTPException
-from pydantic import BaseModel
 from sqlalchemy.orm import Session
 from core import scheduler_manager
 from api.dependencies.database import get_db
 from fastapi_events.dispatcher import dispatch
 from api.models.tasks import HistoricalTask, ScheduledTask
+from api.schemas.tasks import (
+    HistoricalTaskRequest,
+    ScheduledTaskRequest,
+    HistoricalTaskResponse,
+    ScheduledTaskResponse
+)
 
 
 router = APIRouter(prefix="/tasks")
 
 
-# 请求模型
-class HistoricalTaskRequest(BaseModel):
-    job_type:str
-    keywords: List[str]
-    geo_code: str = ""
-    start_date: str
-    end_date: str
-    interval: Optional[str] = None
-
-class ScheduledTaskRequest(BaseModel):
-    job_type:str
-    keywords: List[str]
-    geo_code: str = ""
-    start_date: datetime
-    duration: int
-    interval: str = None
 
 @router.post("/historical")
 async def create_historical_task(
@@ -55,25 +44,12 @@ async def create_scheduled_task(
     task = ScheduledTask(**request.model_dump())
     db.add(task)
     db.commit()
-    
+    db.refresh(task)
     # 添加到调度器
     scheduler_manager.add_cron_job(task)
     
     return {"task_id": task.id}
 
-class HistoricalTaskResponse(BaseModel):
-    id: int
-    job_type: str
-    keywords: List[str]
-    status: str
-    created_at: datetime
-
-class ScheduledTaskResponse(BaseModel):
-    id: int
-    duration: int
-    interval: str = None
-    keywords: List[str]
-    enabled: bool
 @router.get("/historical", response_model=List[HistoricalTaskResponse])
 def list_historical_tasks(db: Session = Depends(get_db)):
     """查询所有历史任务"""

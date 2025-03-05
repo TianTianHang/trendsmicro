@@ -1,7 +1,8 @@
+
 from sqlalchemy import Column, Date, Integer, String, DateTime, JSON, ForeignKey
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.sql import func
-
+from sqlalchemy.orm import relationship
 from api.dependencies.database import Base
 
 
@@ -17,12 +18,15 @@ class Subject(Base):
     updated_at = Column(DateTime(timezone=True), onupdate=func.now())
     parameters = Column(JSON) # Union[RealtimeTask,HistoricalTask] 的数组
     process = Column(Integer)
+    
 class SubjectData(Base):
     __tablename__ = 'subject_data'
     id = Column(Integer, primary_key=True, index=True)
     subject_id = Column(Integer, ForeignKey('subjects.subject_id'), index=True)
     timestamp = Column(DateTime(timezone=True), server_default=func.now())
-    data = Column(JSON)
-    data_type = Column(String, index=True)
+    data_type = Column(String, index=True) # time or region
     task_id =Column(Integer, index=True)
-    meta = Column(JSON)
+    
+    # Relationships
+    interest_collections=relationship("InterestCollection", back_populates="subject_data")
+    meta_data = relationship("InterestMetaData", back_populates="subject_data")
