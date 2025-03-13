@@ -44,9 +44,9 @@ class SubjectListResponse(BaseModel):
     
     
 class SubjectDataBase(BaseModel):
-    subject_id: int
-    timestamp: str
-    data_type: str
+    subject_id: Optional[int]=None
+    timestamp: Optional[datetime]=None
+    data_type: Optional[str]=None
     class Config:
         from_attributes = True
 class SubjectDataResponse(SubjectDataBase):

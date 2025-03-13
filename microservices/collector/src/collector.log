@@ -1778,3 +1778,15 @@ TypeError: strptime() argument 1 must be str, not datetime.date
 2025-03-04 20:46:58 - apscheduler.scheduler - INFO - Scheduler started
 2025-03-04 20:47:04 - apscheduler.scheduler - INFO - Removed job scheduled_1
 2025-03-04 20:47:04 - apscheduler.executors.default - WARNING - Run time of job "execute_scheduled_task (trigger: interval[1 day, 0:00:00], next run at: 2025-03-04 19:03:49 CST)" was missed by 1:43:15.613814
+2025-03-05 20:12:22 - aio_pika - INFO - dict_items([('collector_task_request', [<function subject_task_request at 0x000002759EE5A290>])])
+2025-03-05 20:12:23 - apscheduler.scheduler - INFO - Scheduler started
+2025-03-06 12:48:02 - aio_pika - INFO - dict_items([('collector_task_request', [<function subject_task_request at 0x0000015418716290>])])
+2025-03-06 12:48:03 - apscheduler.scheduler - INFO - Scheduler started
+2025-03-08 13:20:33 - aio_pika - INFO - dict_items([('collector_task_request', [<function subject_task_request at 0x0000029AA96CA290>])])
+2025-03-08 13:20:37 - aio_pika.robust_connection - INFO - Connection to amqp://admin:******@localhost:5672// closed. Reconnecting after 5 seconds.
+2025-03-09 14:33:28 - aio_pika - INFO - dict_items([('collector_task_request', [<function subject_task_request at 0x000001C6C8DFA290>])])
+2025-03-09 14:33:28 - apscheduler.scheduler - INFO - Scheduler started
+2025-03-10 15:35:59 - aio_pika - INFO - dict_items([('collector_task_request', [<function subject_task_request at 0x00000217B5646290>])])
+2025-03-10 15:35:59 - apscheduler.scheduler - INFO - Scheduler started
+2025-03-12 15:10:13 - aio_pika - INFO - dict_items([('collector_task_request', [<function subject_task_request at 0x000001DDC9CE3760>])])
+2025-03-12 15:10:13 - apscheduler.scheduler - INFO - Scheduler started

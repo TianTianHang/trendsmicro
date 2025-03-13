@@ -104,7 +104,10 @@
         {
             "path": "/subjectData/{subject_data_id}/delete",
             "required_permission": ["user", "admin"]
+        },
+        {
+            "path": "/interests/collections",
+            "required_permission": ["user", "admin"]
         }
-
     ]
 }

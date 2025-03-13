@@ -6,3 +6,4 @@ asyncio
 pydantic-settings
 async_lru
 python-consul
+loguru

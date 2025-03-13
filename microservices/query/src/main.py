@@ -1,5 +1,6 @@
 import socket
-from fastapi import FastAPI
+from fastapi import FastAPI, Request
+from fastapi.responses import JSONResponse
 from config import get_settings
 from api.dependencies.database import Base,engine
 
@@ -13,10 +14,11 @@ from api.endpoints import subjectData
 from api.endpoints import keywords
 from api.endpoints import cfc
 from api.endpoints import moran
+from api.endpoints import interests
 import handlers
 
 
-setting= get_settings()
+settings= get_settings()
 
 hostname=socket.gethostname()
 # 注册服务到Consul
@@ -24,7 +26,7 @@ instance = ServiceInstance(
         service_name="query",
         instance_id=f"query-{hostname}",
         host=socket.gethostbyname(hostname),
-        port=setting.port
+        port=settings.port
     )        
             
 async def lifespan_handler(app: FastAPI):
@@ -46,12 +48,21 @@ app.include_router(moran.router)
 app.include_router(subject.router)
 app.include_router(keywords.router)
 app.include_router(subjectData.router)
-
+app.include_router(interests.router)
 
 @app.get("/health")
 async def health_check():
     return {"status": "healthy"}
-
+@app.exception_handler(Exception)
+async def global_exception_handler(request: Request, exc: Exception):
+        # 全局异常处理
+        return JSONResponse(
+            status_code=500,
+            content={
+                "message": "Internal Server Error",
+                "detail": str(exc) if settings.DEBUG else "An error occurred"
+            }
+        )
 if __name__ == "__main__":
     import uvicorn
-    uvicorn.run(app, host="0.0.0.0", port=setting.port)
+    uvicorn.run(app, host="0.0.0.0", port=settings.port)

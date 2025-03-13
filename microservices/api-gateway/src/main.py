@@ -1,8 +1,9 @@
 # app/main.py
 import socket
-from fastapi import FastAPI
+from fastapi import FastAPI, Request
 from contextlib import asynccontextmanager
 
+from fastapi.responses import JSONResponse
 import uvicorn
 from services.registry import ServiceInstance
 from utils.middleware import GatewayMiddleware
@@ -11,15 +12,15 @@ from config import get_settings
 from core import registry, balancer
 
 
-setting = get_settings()
+settings= get_settings()
 hostname=socket.gethostname()
 # 注册服务到Consul
 instance = ServiceInstance(
         service_name="api-gateway",
         instance_id=f"api-gateway-{hostname}",
         host=socket.gethostbyname(hostname),
-        port=setting.port,
-        health_check_url=f"http://{socket.gethostbyname(hostname)}:{setting.port}/_internal/health"
+        port=settings.port,
+        health_check_url=f"http://{socket.gethostbyname(hostname)}:{settings.port}/_internal/health"
     )
 
 @asynccontextmanager
@@ -43,6 +44,15 @@ app.add_middleware(
 @app.get("/_internal/health")
 def gateway_health():
     return {"status": "healthy"}
-
+@app.exception_handler(Exception)
+async def global_exception_handler(request: Request, exc: Exception):
+        # 全局异常处理
+        return JSONResponse(
+            status_code=500,
+            content={
+                "message": "Internal Server Error",
+                "detail": str(exc) if settings.DEBUG else "An error occurred"
+            }
+        )
 if __name__ == "__main__":
-    uvicorn.run(app, host="0.0.0.0", port=setting.port)
+    uvicorn.run(app, host="0.0.0.0", port=settings.port)

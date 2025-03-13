@@ -42,3 +42,24 @@ class InterestMetaData(BaseModel):
             timeframe_start = self.timeframe_start,
             timeframe_end = self.timeframe_end,
             subject_data_id = subject_data_id)
+        
+class InterestCollectionBase(BaseModel):
+    id: Optional[int] = None
+    interest_type: str
+    subject_data_id: int
+    meta_data_id: int
+
+    class Config:
+        from_attributes = True
+class InterestCollectionResponse(BaseModel):
+    id: int
+    interest_type: str
+    subject_data_id: Optional[int]
+    meta_data: InterestMetaData
+    class Config:
+        from_attributes = True
+        
+# 查询参数or的关系
+class InterestCollectionRequest(BaseModel):
+    subject_data_ids:Optional[list[int]]
+    is_bind:bool

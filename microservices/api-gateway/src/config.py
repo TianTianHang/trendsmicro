@@ -4,6 +4,7 @@ from pydantic_settings import BaseSettings
 from pathlib import Path
 
 class Settings(BaseSettings):
+    debug:bool=True
     health_check_interval: int
     service_timeout: int
     port: int
