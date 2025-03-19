@@ -10,9 +10,10 @@ services:
       - microservices-net
     environment:
       - CONSUL_HOST=consul
+      - RABBITMQ_HOST=rabbitmq
     depends_on:
       - consul
-  
+      - rabbitmq
   query:
     build: ../microservices/query
     ports:
@@ -21,20 +22,27 @@ services:
       - microservices-net
     environment:
       - CONSUL_HOST=consul
+      - RABBITMQ_HOST=rabbitmq
+    volumes:
+      - ./query.db:/app/src/query.db
     depends_on:
       - consul
-  
+      - rabbitmq
   collector:
     build: ../microservices/collector 
     ports:
       - "8002:8000"
     networks:
       - microservices-net
+    volumes:
+      - ./trends.db:/app/src/trends.db
     environment:
       - CONSUL_HOST=consul
+      - RABBITMQ_HOST=rabbitmq
       - PORT=8000
     depends_on:
       - consul
+      - rabbitmq
   
   user-management:
     build: ../microservices/user_management
@@ -45,8 +53,10 @@ services:
     environment:
       - CONSUL_HOST=consul
       - PORT=8000
+      - RABBITMQ_HOST=rabbitmq
     depends_on:
       - consul
+      - rabbitmq
 
   permission:
     build: ../microservices/permission
@@ -57,9 +67,11 @@ services:
     environment:
       - CONSUL_HOST=consul
       - PORT=8000
+      - RABBITMQ_HOST=rabbitmq
     depends_on:
       - user-management
       - consul
+      - rabbitmq
 
   # 新增基础设施服务
   consul:
@@ -80,31 +92,6 @@ services:
     environment:
       RABBITMQ_DEFAULT_USER: admin
       RABBITMQ_DEFAULT_PASS: admin
-
-  prometheus:
-    image: prom/prometheus:latest
-    ports:
-      - "9090:9090"
-    volumes:
-      - ./prometheus.yml:/etc/prometheus/prometheus.yml
-    networks:
-      - microservices-net
-
-  elasticsearch:
-    image: docker.elastic.co/elasticsearch/elasticsearch:7.17.7
-    environment:
-      - discovery.type=single-node
-    networks:
-      - microservices-net
-
-  kibana:
-    image: docker.elastic.co/kibana/kibana:7.17.7
-    ports:
-      - "5601:5601"
-    networks:
-      - microservices-net
-    depends_on:
-      - elasticsearch
 
 networks:
   microservices-net:

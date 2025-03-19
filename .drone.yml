@@ -1,0 +1,20 @@
+kind: pipeline
+type: exec
+name: windows-deploy
+
+platform:
+  os: windows
+  arch: amd64
+
+steps:
+- name: deploy
+  commands:
+    - powershell -Command `
+        docker-compose -f deployment/docker-compose.yml down; `
+        docker-compose -f deployment/docker-compose.yml up -d --build
+
+trigger:
+  branch:
+    - main
+  event:
+    - push
