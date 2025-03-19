@@ -1,7 +1,7 @@
 #src/api/endpoints/tasks.py
 from datetime import datetime
 from typing import List, Optional
-from fastapi import APIRouter, Depends, HTTPException
+from fastapi import APIRouter, Body, Depends, HTTPException, Path
 from sqlalchemy.orm import Session
 from core import scheduler_manager
 from api.dependencies.database import get_db
@@ -96,8 +96,8 @@ async def retry_historical_task(
 
 @router.post("/scheduled/{task_id}/toggle")
 def toggle_scheduled_task(
-    task_id: int,
-    enabled: bool,
+    task_id: int = Path(...),
+    enabled: bool=Body(...),
     db: Session = Depends(get_db)
 ):
     task = db.query(ScheduledTask).get(task_id)

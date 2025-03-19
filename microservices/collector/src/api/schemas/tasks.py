@@ -27,6 +27,7 @@ class HistoricalTaskResponse(BaseModel):
 
 class ScheduledTaskResponse(BaseModel):
     id: int
+    job_type: str
     duration: int
     interval: str = None
     keywords: List[str]

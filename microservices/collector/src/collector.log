@@ -1790,3 +1790,19 @@ TypeError: strptime() argument 1 must be str, not datetime.date
 2025-03-10 15:35:59 - apscheduler.scheduler - INFO - Scheduler started
 2025-03-12 15:10:13 - aio_pika - INFO - dict_items([('collector_task_request', [<function subject_task_request at 0x000001DDC9CE3760>])])
 2025-03-12 15:10:13 - apscheduler.scheduler - INFO - Scheduler started
+2025-03-13 10:13:14 - aio_pika - INFO - dict_items([('collector_task_request', [<function subject_task_request at 0x0000016A4A91A290>])])
+2025-03-13 10:13:14 - apscheduler.scheduler - INFO - Scheduler started
+2025-03-13 15:12:50 - apscheduler.scheduler - INFO - Added job "execute_scheduled_task" to job store "default"
+2025-03-13 15:12:50 - fastapi - INFO - interval_config: {'days': 1}
+2025-03-13 18:00:29 - aio_pika - INFO - dict_items([('collector_task_request', [<function subject_task_request at 0x000002D612586290>])])
+2025-03-13 18:00:29 - apscheduler.scheduler - INFO - Scheduler started
+2025-03-13 18:08:04 - aio_pika - INFO - dict_items([('collector_task_request', [<function subject_task_request at 0x000001FDECBB5CF0>])])
+2025-03-13 18:08:04 - apscheduler.scheduler - INFO - Scheduler started
+2025-03-13 18:08:20 - aio_pika - INFO - dict_items([('collector_task_request', [<function subject_task_request at 0x0000025336AF6560>])])
+2025-03-13 18:08:20 - apscheduler.scheduler - INFO - Scheduler started
+2025-03-13 18:09:54 - aio_pika - INFO - dict_items([('collector_task_request', [<function subject_task_request at 0x0000024584C59CF0>])])
+2025-03-13 18:09:54 - apscheduler.scheduler - INFO - Scheduler started
+2025-03-13 18:12:31 - aio_pika - INFO - dict_items([('collector_task_request', [<function subject_task_request at 0x0000020FBBCBDCF0>])])
+2025-03-13 18:12:31 - apscheduler.scheduler - INFO - Scheduler started
+2025-03-13 18:14:49 - aio_pika - INFO - dict_items([('collector_task_request', [<function subject_task_request at 0x000002016B338550>])])
+2025-03-13 18:14:49 - apscheduler.scheduler - INFO - Scheduler started
