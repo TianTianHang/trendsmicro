@@ -13,6 +13,7 @@ class Word(Base):
 
     category = relationship("Category", back_populates="words")
     definitions = relationship("Definition", back_populates="word")
+    
 class Definition(Base):
     __tablename__ = 'definitions'
 

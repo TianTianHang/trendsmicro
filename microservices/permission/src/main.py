@@ -1,7 +1,7 @@
 import asyncio
 import socket
 import aio_pika
-from fastapi import Depends, FastAPI, HTTPException, Header
+from fastapi import Body, Depends, FastAPI, HTTPException, Header, Path, Query
 from fastapi.responses import JSONResponse
 from contextlib import asynccontextmanager
 from jose import JWTError, jwt
@@ -53,10 +53,85 @@ app = FastAPI(lifespan=lifespan)
 async def health_check():
     return {"status": "healthy"}
 
+class PermissionCreate(BaseModel):
+    service_name: str
+    path: str
+    required_permission: str
+
+class PermissionUpdate(BaseModel):
+    path:str
+    required_permission: str
+
 class VerifyPermission(BaseModel):
     service_name:str
     path:str
     
+@app.get("/permissions/list")
+async def list_permissions(db: Session = Depends(get_db)):
+    permissions = db.query(Permission).order_by(Permission.service_name).all()
+    return [{
+        "service_name": p.service_name,
+        "path": p.path,
+        "required_permission": p.required_permission.split(',')
+    } for p in permissions]
+
+@app.post("/permissions/create")
+async def create_permission(
+    permission: PermissionCreate,
+    db: Session = Depends(get_db)
+):
+    # 检查权限是否已存在
+    existing = db.query(Permission).filter(
+        Permission.service_name == permission.service_name,
+        Permission.path == permission.path
+    ).first()
+    if existing:
+        raise HTTPException(status_code=400, detail="Permission already exists")
+
+    new_permission = Permission(
+        service_name=permission.service_name,
+        path=permission.path,
+        required_permission=permission.required_permission
+    )
+    db.add(new_permission)
+    db.commit()
+    return {"message": "Permission created successfully"}
+
+@app.delete("/permissions/{service_name}/delete")
+async def delete_permission(
+    path: str = Query(..., description="路径"),
+    service_name: str = Path(..., description="服务名称"),
+    db: Session = Depends(get_db)
+):
+    db_permission = db.query(Permission).filter(
+        Permission.service_name == service_name,
+        Permission.path == path
+    ).first()
+    if not db_permission:
+        raise HTTPException(status_code=404, detail="Permission not found")
+
+    db.delete(db_permission)
+    db.commit()
+    return {"message": "Permission deleted successfully"}
+
+@app.put("/permissions/{service_name}/update")
+async def update_permission(
+    permission: PermissionUpdate,
+    service_name: str = Path(..., description="服务名称"),
+    db: Session = Depends(get_db)
+):
+    db_permission = db.query(Permission).filter(
+        Permission.service_name == service_name,
+        Permission.path == permission.path
+    ).first()
+    if not db_permission:
+        raise HTTPException(status_code=404, detail="Permission not found")
+
+    db_permission.required_permission = permission.required_permission
+    db.commit()
+    return {"message": "Permission updated successfully"}
+
+
 @app.post("/verify-permission")
 async def verify_permission(req: VerifyPermission, authorization: str = Header(None), db: Session = Depends(get_db)):
     # Check if the path is public
@@ -119,3 +194,4 @@ async def verify_permission(req: VerifyPermission, authorization: str = Header(N
 if __name__ == "__main__":
     import uvicorn
     uvicorn.run(app, host="0.0.0.0", port=setting.port)
+

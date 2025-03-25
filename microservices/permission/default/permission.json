@@ -1,0 +1,21 @@
+{
+    "service_name": "permission",
+    "permissions": [
+        {
+            "path": "/permissions/list",
+            "required_permission": ["admin"]
+        },
+        {
+            "path": "/permissions/create",
+            "required_permission": ["admin"]
+        },
+        {
+            "path": "/permissions/{service_name}/update",
+            "required_permission": ["admin"]
+        },
+        {
+            "path": "/permissions/{service_name}/delete",
+            "required_permission": ["admin"]
+        }
+    ]
+}

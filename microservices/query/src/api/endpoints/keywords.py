@@ -1,4 +1,4 @@
-from fastapi import APIRouter, Depends, HTTPException
+from fastapi import APIRouter, Depends, HTTPException, Query
 from sqlalchemy.orm import Session
 from api.dependencies.database import get_db, transaction
 from api.models.keywords import Word, Definition, Category
@@ -15,6 +15,48 @@ async def create_keyword(keyword: KeywordCreate, db: Session = Depends(get_db)):
     db.refresh(db_keyword)
     return KeywordSchema.model_validate(db_keyword)
 
+@router.get("/words/list", response_model=dict)
+@transaction
+async def list_words(
+    name: str = Query(None),
+    category_id: int = Query(None),
+    page: int = Query(1, ge=1),
+    page_size: int = Query(20, ge=1, le=100),
+    db: Session = Depends(get_db)
+):
+    # 构建基础查询
+    query = db.query(Word)
+    
+    # 应用过滤条件
+    if name:
+        query = query.filter(Word.name.ilike(f"%{name}%"))
+    if category_id:
+        query = query.filter(Word.category_id == category_id)
+    
+    # 执行分页查询
+    total = query.count()
+    items = query.offset((page - 1) * page_size).limit(page_size).all()
+    
+    # 构建响应数据
+    result = []
+    for word in items:
+        definitions = db.query(Definition).filter(Definition.word_id == word.id).all()
+        category = db.query(Category).filter(Category.id == word.category_id).first() if word.category_id else None
+        
+        result.append(KeywordWithDetails(
+            **KeywordSchema.model_validate(word).model_dump(),
+            definitions=definitions,
+            category=category
+        ))
+    
+    return {
+        "items": result,
+        "total": total,
+        "page": page,
+        "page_size": page_size,
+        "total_pages": (total + page_size - 1) // page_size
+    }
+    
 @router.get("/words/{keyword_id}", response_model=KeywordWithDetails)
 @transaction
 async def read_keyword(keyword_id: int, db: Session = Depends(get_db)):
@@ -115,27 +157,6 @@ async def create_category(category: CategoryCreate, db: Session = Depends(get_db
     db.refresh(db_category)
     return CategorySchema.model_validate(db_category)
 
-@router.get("/words/list", response_model=list[KeywordWithDetails])
-@transaction
-async def list_words(db: Session = Depends(get_db)):
-    db_words = db.query(Word).all()
-    result = []
-    for word in db_words:
-        # 获取关联的定义
-        definitions = db.query(Definition).filter(Definition.word_id == word.id).all()
-        
-        # 获取关联的类别
-        category = None
-        if word.category_id:
-            category = db.query(Category).filter(Category.id == word.category_id).first()
-        
-        keyword_data = KeywordSchema.model_validate(word)
-        result.append(KeywordWithDetails(
-            **keyword_data.model_dump(),
-            definitions=definitions,
-            category=category
-        ))
-    return result
 
 def build_category_tree(categories, parent_id=None):
     tree = []
