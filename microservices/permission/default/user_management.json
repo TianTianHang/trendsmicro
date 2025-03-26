@@ -36,6 +36,11 @@
         {
             "path": "/users/{user_id}/roles/list",
             "required_permission": ["admin"]
+        },
+        {
+            "path":"/users/change_password",
+            "required_permission":["public"]
+
         }
     ]
 }

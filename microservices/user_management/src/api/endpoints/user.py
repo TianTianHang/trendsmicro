@@ -206,3 +206,26 @@ async def get_user_roles(
     if not user:
         raise HTTPException(status_code=404, detail="User not found")
     return user.roles
+
+class ChangePasswordRequest(BaseModel):
+    old_password: str
+    new_password: str
+
+@router.post("/users/change_password")
+async def change_password(
+    request: ChangePasswordRequest,
+    current_user: Annotated[User, Depends(get_current_user)],
+    db: Session = Depends(get_db)
+):
+    # 验证旧密码
+    if not verify_password(request.old_password, current_user.hashed_password):
+        raise HTTPException(
+            status_code=status.HTTP_401_UNAUTHORIZED,
+            detail="Old password is incorrect"
+        )
+    
+    # 更新为新密码
+    current_user.hashed_password = get_password_hash(request.new_password)
+    db.commit()
+    
+    return {"message": "Password updated successfully"}
