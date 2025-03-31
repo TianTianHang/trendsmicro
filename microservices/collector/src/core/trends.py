@@ -10,6 +10,7 @@ from api.models.interest import RegionInterest, TimeInterest
 from config import get_settings
 from core.utils.time_splitter import split_time_ranges
 from api.models.tasks import RequestHistory
+from core.TrendsDataConverter import TrendsDataConverter
 
 def _call_trends_api_with_retry(api_call_func, max_retries=3,**kwargs):
     """封装API调用，包含速率限制处理和重试机制"""
@@ -84,10 +85,12 @@ def get_interest_by_region(keywords: list[str], geo_code: str, interval: str, st
         try:
             # 调用API获取数据
             timeframe = f"{start} {end}"
-            region_data = _call_trends_api_with_retry(
-                trends.interest_by_region, max_retries=3,keywords=keywords,geo=geo_code, timeframe=timeframe,resolution='COUNTRY', inc_low_vol=True
+            token,region_data = _call_trends_api_with_retry(
+                trends.interest_by_region, max_retries=3,keywords=keywords,geo=geo_code, 
+                timeframe=timeframe,resolution='COUNTRY', inc_low_vol=True,return_raw=True
             )
-            
+            bullets=TrendsDataConverter.token_to_bullets(token)
+            region_data=TrendsDataConverter.geo_data(region_data,bullets=bullets)
             record = RegionInterest(
                         keywords=keywords,
                         geo_code=geo_code,
@@ -158,10 +161,11 @@ def get_interest_over_time(keywords: list[str], geo_code: str, interval: str, st
         try:
             # 调用API获取数据
             timeframe = f"{start} {end}"
-            time_data = _call_trends_api_with_retry(
-                trends.interest_over_time, max_retries=3, keywords=keywords, geo=geo_code, timeframe=timeframe
+            token,time_data = _call_trends_api_with_retry(
+                trends.interest_over_time, max_retries=3, keywords=keywords, geo=geo_code, timeframe=timeframe,return_raw=True
             )   
-
+            bullets=TrendsDataConverter.token_to_bullets(token)
+            time_data=TrendsDataConverter.geo_data(time_data,bullets=bullets)
             record = TimeInterest(
                         keywords=keywords,
                         geo_code=geo_code,

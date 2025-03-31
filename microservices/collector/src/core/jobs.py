@@ -1,5 +1,5 @@
 # src/core/jobs.py
-from datetime import datetime
+from datetime import datetime, timedelta
 from fastapi.logger import logger
 from api.dependencies.database import get_db
 from api.models.tasks import HistoricalTask, ScheduledTask
@@ -67,6 +67,26 @@ async def execute_scheduled_task(task:ScheduledTask):
             keywords=task.keywords,
             geo_code=task.geo_code,
             start_date=task.start_date.strftime("%Y-%m-%d"),
+            end_date=datetime.now().strftime("%Y-%m-%d"),
+            interval=None,
+            schedule_id=task.id,
+            status='pending'
+        )
+        if task.job_type=='region':
+            interval=task.interval
+            amount = int(interval[:-1])
+            unit = interval[-1]
+            if unit == 'h':
+                start_date=datetime.now()-timedelta(hours=amount)
+            elif unit == 'd':
+                start_date=datetime.now()-timedelta(days=amount)
+            elif unit == 'm':
+                start_date=datetime.now()-timedelta(minutes=amount)
+            historical_task = HistoricalTask(
+            job_type=task.job_type,
+            keywords=task.keywords,
+            geo_code=task.geo_code,
+            start_date=start_date.strftime("%Y-%m-%d"),
             end_date=datetime.now().strftime("%Y-%m-%d"),
             interval=None,
             schedule_id=task.id,
