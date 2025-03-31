@@ -1,0 +1,213 @@
+Phrase,Pronunciation,Part of Speech
+/m/04h9h,N/A,N/A
+a cappella,ah kah-PEL-lah,N/A
+a deucalione,ah day-oo-kah-lee-oh-neh,N/A
+a latere,ah lah-teh-reh,N/A
+a minore,ah mee-NOH-reh,N/A
+aurea mediocritas,ow-reh-ah meh-dee-oh-kree-tahs,N/A
+avarus animus nullo satiatur lucro,ah-VAH-roos AH-nee-moos NOOL-lo SAH-tee-ah-toor LOO-kro,N/A
+cave canem,kah-weh kah-nem,N/A
+coram populo,koh-ram poh-poo-loh,N/A
+crescat scientia vita excolatur,kres-kat ski-en-tia wee-ta eks-ko-la-tur,N/A
+cui prodest,kwee proh-dest,N/A
+cum grano salis,koom grah-no sah-lis,N/A
+cupio dissolvi,koo-pee-o dis-sol-vee,N/A
+cura ut valeas,KOO-rah oot WAH-leh-ahs,N/A
+de bello gallico,day bel-lo gal-li-ko,N/A
+de jure,day YOO-ray,N/A
+de rerum natura,day rare-oom nah-too-rah,N/A
+deo adiuvante,deh-oh ah-dyoo-vahn-teh,N/A
+domus aurea,ˈdo.mus ˈau̯.re.a,N/A
+editio princeps,e·di·ti·o prin·ceps,N/A
+ex lege,eks leh-geh,N/A
+extra moenia,eks-tra moe-nee-a,N/A
+faber est suae quisque fortunae,fah-ber est soo-eye kwee-skway for-too-nye,N/A
+fac simile,fahk SIM-ih-lay,N/A
+favete linguis,fah-WAY-tay LING-gwis,N/A
+habemus papam,hah-beh-moos pah-pahm,N/A
+hic manebimus optime,hick mah-neh-bee-mus op-tee-meh,N/A
+hic sunt leones,hɪk sʊnt leɪˈoʊneɪs,N/A
+hinc et inde,heen-k et een-deh,N/A
+hoc loco,hok loh-ko,N/A
+horror vacui,ˈhɔr.rɔr ˈwa.ku.i,N/A
+humilitas occidit superbiam,hoo-MEE-lee-tahs oh-KEE-deet soo-PEHR-bee-ahm,N/A
+id quod plerumque accidit,id kwod pleh-room-kweh ahk-kid-it,N/A
+in foro,in ˈfo.roː,N/A
+in medio stat virtus,in MEH-dee-oh stah(t) WEER-toos,N/A
+in principio,in prin-KI-pi-o,N/A
+in quarto,in KWAR-toh,N/A
+in rebus,in REH-boos,N/A
+in salvo,in SAL-vo,N/A
+incredibile dictu,in-kreh-DEE-bee-leh DIK-too,N/A
+lachryma christi,ˈlakrɪma ˈkrɪstiː,N/A
+miles gloriosus,mee-lays glo-ree-oh-sus,N/A
+modus procedendi,ˈmoː.dus proː.keːˈden.diː,N/A
+mos maiorum,mohs my-OR-um,N/A
+necessitas non habet legem,neh-kehss-ee-tahs nohn hah-beht leh-gehm,N/A
+non vi sed saepe cadendo,nohn vee sed sigh-peh kah-den-doh,N/A
+nuda veritas,noo-da ve-ree-tas,N/A
+obtorto collo,ob-TOR-toh KOL-lo,N/A
+odi et amo,oh-dee et ah-mo,N/A
+opus operantis,OH-pus oh-peh-RAN-tis,N/A
+pace tua,PAH-keh TOO-ah,N/A
+per angusta ad augusta,pair ahn-GOOS-tah ahd ow-GOOS-tah,N/A
+per mille,per mil-le,N/A
+per procura,pehr proh-KOO-rah,N/A
+pollice verso,pol-li-ke ver-so,N/A
+pro patria,proh PAH-tree-ah,N/A
+propria persona,proh-pree-ah pehr-soh-nah,N/A
+quid nunc,kwid nunk,N/A
+quis ut deus,kwis oot day-oos,N/A
+rari nantes in gurgite vasto,rah-ree nahn-tays in goor-gee-tay vahs-toh,N/A
+repetita iuvant,reh-peh-TEE-tah YOO-vahnt,N/A
+salvator mundi,sal-wa-tor mun-dee,N/A
+senatus consultum,seh-NAH-toos kohn-SOOL-toom,N/A
+senatus populusque romanus,seh-NAH-toos poh-POO-loos-kweh roh-MAH-noos,N/A
+sidereus nuncius,si-DEH-reh-oos NOON-kee-oos,N/A
+similia similibus curantur,si-MI-li-a si-MI-li-bus ku-RAN-tur,N/A
+stupor mundi,ˈstuː.pɔr ˈmun.diː,N/A
+tertium non datur,ter-ti-um non da-tur,N/A
+timeo danaos et dona ferentes,ti-me-o da-na-os et do-na fe-ren-tes,N/A
+ubi solitudinem faciunt pacem appellant,oo-bee so-li-too-dee-nem fa-kee-unt pa-kem ap-pee-lant,N/A
+vi veri universum vivus vici,wee WEH-ree oo-nee-VER-soom WEE-woos WEE-kee,N/A
+via appia,wee-ah ah-pee-ah,N/A
+video meliora proboque deteriora sequor,wee-deh-oh meh-lee-oh-rah proh-boh-kweh deh-teh-ree-oh-rah seh-kwor,N/A
+virtus in media stat,WEER-toos een MEH-dee-ah stah,N/A
+visio dei,wee-see-oh day-ee,N/A
+aegrum,ˈaɪ.ɡrʊm,N/A
+aequoris,eye-KWOR-is,N/A
+attuli,at-tu-li,N/A
+agmen,ahg-men,N/A
+aliquando,ah-lee-KWAHN-doh,N/A
+anima,ah-nee-mah,N/A
+antequam,an-teh-kwam,N/A
+appello,ah-pel-lo,N/A
+atque,ˈat.kʷe,N/A
+auxilium,owk-SIL-ee-um,N/A
+bellum,ˈbɛl.lum,N/A
+bene,ˈbɛ.nɛ,N/A
+bonus,ˈboː.nus,N/A
+cadere,ka-de-re,N/A
+cedere,keh-deh-reh,N/A
+celeriter,keh-leh-rih-ter,N/A
+certe,ˈkɛr.tɛ,N/A
+cohortis,ko-HOR-tis,N/A
+colui,koh-loo-ee,N/A
+condicio,kon-DIK-ee-oh,N/A
+convivium,kon-VEE-wee-um,N/A
+crescere,kres-keh-reh,N/A
+deduco,deh-DOO-koh,N/A
+desertum,deh-SER-toom,N/A
+desidero,deh-SEE-deh-roh,N/A
+distuli,dis-TOO-lee,N/A
+divitiae,di-WI-ti-ae,N/A
+ductum,ˈduk.tum,N/A
+edere,eh-deh-reh,N/A
+egressus,eh-GRESS-us,N/A
+facere,fa-ke-re,N/A
+feci,fe-ki,N/A
+fateor,fa-te-or,N/A
+fassus,ˈfas.sus,N/A
+factus,ˈfak.tus,N/A
+foedus,ˈfoe.dus,N/A
+fari,ˈfa.ri,N/A
+fortasse,for-TAHS-seh,N/A
+frangere,fran-ge-re,N/A
+fuga,fu-ga,N/A
+gigno,ˈɡɪɡ.noː,N/A
+habeo,ha-be-o,N/A
+hortor,hor-tor,N/A
+hortatus,hor-TAH-toos,N/A
+iacere,ya-KEH-reh,N/A
+iacui,yah-koo-ee,N/A
+iacere,yah-keh-reh,N/A
+illud,il-lud,N/A
+impero,im-PEH-ro,N/A
+incidere,in-KEE-deh-reh,N/A
+inferus,in-FEH-roos,N/A
+inimicus,in-IM-ee-koos,N/A
+inter,ˈin.ter,N/A
+invidia,in-WID-ee-ah,N/A
+istud,is-tood,N/A
+itaque,ee-tah-kweh,N/A
+iter,ˈi.tɛr,N/A
+iussi,yoo-see,N/A
+iussum,yoos-soom,N/A
+iugum,ˈju.ɡum,N/A
+laboro,la-BO-ro,N/A
+laedere,ˈlae̯.de.re,N/A
+liminis,li-mi-nis,N/A
+magnitudo,mag-ni-tu-do,N/A
+maiorum,mah-yor-um,N/A
+meminisse,meh-mee-NEES-seh,N/A
+miserum,mi-se-rum,N/A
+multitudo,mul-ti-tu-do,N/A
+nolui,no-loo-ee,N/A
+noscere,nos-keh-reh,N/A
+nostra,ˈnɔs.tra,N/A
+nullus,NOO-loos,N/A
+occupo,ok-koo-po,N/A
+obtuli,ob-TOO-lee,N/A
+ostendere,os-TEN-de-re,N/A
+ostentum,os-TEN-tum,N/A
+parco,par-ko,N/A
+paulum,pow-loom,N/A
+perdo,ˈpɛr.doː,N/A
+pervenio,per-WEH-nee-oh,N/A
+plebis,pleh-bis,N/A
+porta,ˈpɔr.ta,N/A
+potui,ˈpɔ.tu.iː,N/A
+praebeo,pry-BEH-o,N/A
+praeterea,pry-teh-reh-ah,N/A
+pressi,ˈprɛs.si,N/A
+procul,pro-cul,N/A
+proelium,proh-eh-lee-um,N/A
+proficiscor,pro-FI-skor,N/A
+pugno,ˈpuɡ.noː,N/A
+quam,kwam,N/A
+quamquam,kwam-kwam,N/A
+quamvis,kwam-wis,N/A
+quasi,kwah-see,N/A
+quae,kwie,N/A
+quod,kwod,N/A
+quicumque,kwi-KOOM-kwe,N/A
+quaedam,kway-dam,N/A
+quoddam,kwod-dam,N/A
+quidem,kwi-dem,N/A
+quaeque,kwee-kweh,N/A
+quondam,kwon-dam,N/A
+quotiens,kwo-tee-ens,N/A
+refero,reh-FEH-roh,N/A
+rettuli,ret-too-lee,N/A
+reliquus,reh-LEE-kwoos,N/A
+saepe,ˈsae̯.pe,N/A
+scribere,skree-beh-reh,N/A
+sedere,seh-deh-reh,N/A
+sedi,ˈsɛdiː,N/A
+sententia,sen-TEN-tee-ah,N/A
+sentire,sen-TEE-reh,N/A
+sensi,sen-see,N/A
+sono,so-no,N/A
+sparsi,spar-see,N/A
+statuo,ˈsta.tu.oː,N/A
+subito,soo-bee-toh,N/A
+sui,soo-ee,N/A
+sumere,soo-meh-reh,N/A
+supplicium,soop-PLEE-kee-um,N/A
+templum,tem-plum,N/A
+tendere,ten-de-re,N/A
+sustuli,soos-TOO-lee,N/A
+sublatum,soo-BLAH-toom,N/A
+tribunus,tri-BOO-noos,N/A
+ubi,oo-bee,N/A
+velut,weh-loot,N/A
+venire,we-ni-re,N/A
+vereor,we-re-or,N/A
+vertere,wer-te-re,N/A
+via,ˈwiːa,N/A
+vincere,win-keh-reh,N/A
+vita,ˈwiː.ta,N/A
+vito,ˈwi.to,N/A
+vivere,wiː.we.re,N/A
+volui,wo-loo-ee,N/A
+usque,ˈʊs.kwɛ,N/A
