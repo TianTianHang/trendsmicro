@@ -1806,3 +1806,27 @@ TypeError: strptime() argument 1 must be str, not datetime.date
 2025-03-13 18:12:31 - apscheduler.scheduler - INFO - Scheduler started
 2025-03-13 18:14:49 - aio_pika - INFO - dict_items([('collector_task_request', [<function subject_task_request at 0x000002016B338550>])])
 2025-03-13 18:14:49 - apscheduler.scheduler - INFO - Scheduler started
+2025-03-31 15:54:38 - aio_pika - INFO - dict_items([('collector_task_request', [<function subject_task_request at 0x000002918D6AAEF0>])])
+2025-03-31 15:54:38 - apscheduler.scheduler - INFO - Scheduler started
+2025-03-31 15:57:35 - apscheduler.scheduler - INFO - Added job "execute_scheduled_task" to job store "default"
+2025-03-31 15:57:35 - fastapi - INFO - interval_config: {'days': 7}
+2025-03-31 15:57:37 - apscheduler.scheduler - INFO - Added job "execute_scheduled_task" to job store "default"
+2025-03-31 15:57:37 - fastapi - INFO - interval_config: {'days': 1}
+2025-03-31 15:57:49 - apscheduler.scheduler - INFO - Added job "execute_scheduled_task" to job store "default"
+2025-03-31 15:57:49 - fastapi - INFO - interval_config: {'days': 7}
+2025-03-31 15:57:51 - apscheduler.scheduler - INFO - Added job "execute_scheduled_task" to job store "default"
+2025-03-31 15:57:51 - fastapi - INFO - interval_config: {'days': 1}
+2025-03-31 16:24:46 - aio_pika - INFO - dict_items([('collector_task_request', [<function subject_task_request at 0x0000020931B1EEF0>])])
+2025-03-31 16:24:47 - apscheduler.scheduler - INFO - Scheduler started
+2025-03-31 16:29:06 - apscheduler.scheduler - INFO - Added job "execute_scheduled_task" to job store "default"
+2025-03-31 16:29:06 - fastapi - INFO - interval_config: {'days': 7}
+2025-03-31 16:29:06 - apscheduler.scheduler - INFO - Added job "execute_scheduled_task" to job store "default"
+2025-03-31 16:29:06 - fastapi - INFO - interval_config: {'days': 1}
+2025-03-31 16:29:08 - apscheduler.scheduler - INFO - Added job "execute_scheduled_task" to job store "default"
+2025-03-31 16:29:08 - fastapi - INFO - interval_config: {'days': 7}
+2025-03-31 16:29:08 - apscheduler.scheduler - INFO - Added job "execute_scheduled_task" to job store "default"
+2025-03-31 16:29:08 - fastapi - INFO - interval_config: {'days': 1}
+2025-03-31 16:29:10 - apscheduler.scheduler - INFO - Added job "execute_scheduled_task" to job store "default"
+2025-03-31 16:29:10 - fastapi - INFO - interval_config: {'days': 7}
+2025-03-31 16:29:10 - apscheduler.scheduler - INFO - Added job "execute_scheduled_task" to job store "default"
+2025-03-31 16:29:10 - fastapi - INFO - interval_config: {'days': 1}

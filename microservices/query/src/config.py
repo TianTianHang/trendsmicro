@@ -3,7 +3,7 @@ from pydantic_settings import BaseSettings
 from pathlib import Path
 
 class Settings(BaseSettings):
-    database_url: str  #"postgresql://user:pass@localhost/trends"
+    database_url: str #"postgresql://trends_user:trends_pass@postgres/trends"
     port: int
     consul_host: str = "localhost"
     consul_port: int = 8500

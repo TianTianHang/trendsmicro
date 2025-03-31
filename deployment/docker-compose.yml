@@ -1,7 +1,6 @@
 version: '3.8'
 
-services:
-  # 原有服务保持不变
+services: 
   api-gateway:
     build: ../microservices/api-gateway
     ports:
@@ -23,27 +22,50 @@ services:
     environment:
       - CONSUL_HOST=consul
       - RABBITMQ_HOST=rabbitmq
-    volumes:
-      - ./query.db:/app/src/query.db
+      - DATABASE_URL=postgresql://admin:admin@postgres-query:5433/query
     depends_on:
       - consul
       - rabbitmq
+      - postgres-query
+  postgres-query:
+    image: postgres:15
+    environment:
+      POSTGRES_DB: query
+      POSTGRES_USER: admin
+      POSTGRES_PASSWORD: admin
+    ports:
+      - "5433:5432"
+    volumes:
+      - postgres_data_query:/var/lib/postgresql/data
+    networks:
+      - microservices-net
   collector:
     build: ../microservices/collector 
     ports:
       - "8002:8000"
     networks:
       - microservices-net
-    volumes:
-      - ./trends.db:/app/src/trends.db
     environment:
       - CONSUL_HOST=consul
       - RABBITMQ_HOST=rabbitmq
       - PORT=8000
+      - DATABASE_URL=postgresql://admin:admin@postgres-trends:5432/trends
     depends_on:
       - consul
       - rabbitmq
-  
+      - postgres-trends
+  postgres-trends:
+    image: postgres:15
+    environment:
+      POSTGRES_DB: trends
+      POSTGRES_USER: admin
+      POSTGRES_PASSWORD: admin
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data_trends:/var/lib/postgresql/data
+    networks:
+      - microservices-net
   user-management:
     build: ../microservices/user_management
     ports:
@@ -92,7 +114,11 @@ services:
     environment:
       RABBITMQ_DEFAULT_USER: admin
       RABBITMQ_DEFAULT_PASS: admin
+volumes:
+  postgres_data_query:
+  postgres_data_trends:
 
 networks:
   microservices-net:
     driver: bridge
+

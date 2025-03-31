@@ -4,7 +4,7 @@ from pydantic_settings import BaseSettings
 from pathlib import Path
 
 class Settings(BaseSettings):
-    database_url: str  #"postgresql://user:pass@localhost/trends"
+    database_url: str # "postgresql://trends_user:trends_pass@postgres/trends"
     proxy: str  # 代理配置（如"http://user:pass@proxy:8080"）
     request_delay: float  # Trends API请求间隔
     port: int 
