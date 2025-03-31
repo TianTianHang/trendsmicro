@@ -15,8 +15,9 @@ from fastapi_events.dispatcher import dispatch
 @local_handler.register(event_name="historical_task_create")
 async def handle_pending_tasks(event: Event):
         """调度未执行的历史任务"""
-        db=next(get_db())
+        db = next(get_db())
         _,task=event
+
         try:
             # 将任务加入调度队列
             scheduler_manager.add_historical_job(task)
@@ -29,12 +30,15 @@ async def handle_pending_tasks(event: Event):
         except Exception as e:
             db.rollback()
             logger.error(f"任务 {task.id} 加入队列失败: {str(e)}")
-
+        finally:
+            db.close()
 @local_handler.register(event_name="historical_task_finish")
 async def handle_finish_tasks(event: Event):
     _,task=event
-    db=next(get_db())
+    db = next(get_db())
+    
     interest_type = task.get("interest_type")
+    
     interest_id = task.get("interest_id")
     
     if interest_type == "time":
@@ -43,7 +47,7 @@ async def handle_finish_tasks(event: Event):
         interest = db.query(RegionInterest).filter(RegionInterest.id.in_(interest_id))
     
     interests = interest.all()
-    
+   
     req = dict(
         task_id=task.get("task_id"),
         type=task.get("type"),
@@ -59,15 +63,15 @@ async def handle_finish_tasks(event: Event):
     # 通过队列通知query 服务保存数据
     async with RabbitMQClient("interest_data") as client:
         await client.publish(json.dumps(req),properties=dict(delivery_mode=2))
-        
+    db.close()      
         
 @RabbitMQClient.consumer("collector_task_request")
 async def subject_task_request(message: IncomingMessage):
     async with message.process():
         try:
             task_req = json.loads(message.body)
-            db=next(get_db())
-            #ScheduledTaskRequest
+            db = next(get_db())
+            
             if task_req.get("duration",None)!=None:
                 task_req=ScheduledTaskRequest.model_validate(task_req)
                 task = ScheduledTask(**task_req.model_dump())
@@ -93,4 +97,5 @@ async def subject_task_request(message: IncomingMessage):
             async with RabbitMQClient("collector_task_respone") as client:
                 await client.publish(message=json.dumps({"error":str(e)}),properties=dict(delivery_mode=2,
                                                                                     headers=message.headers))
-    
+        finally:
+            db.close()

@@ -55,7 +55,9 @@ async def execute_historical_task(task:HistoricalTask):
             db_task.status = "failed"
             db.commit()
         raise e  # 重新抛出异常以便APScheduler记录日志
-
+    finally:
+        db.close()
+        
 
 async def execute_scheduled_task(task:ScheduledTask):
     """执行定时数据采集任务并生成历史任务记录"""
@@ -99,3 +101,5 @@ async def execute_scheduled_task(task:ScheduledTask):
     except Exception as e:
         db.rollback()
         raise e
+    finally:
+        db.close()

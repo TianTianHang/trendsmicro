@@ -76,3 +76,4 @@ async def process_collector_respone(message: IncomingMessage):
             logger.info(f"Successfully submitted task {headers.get('subject_id')} to collector")
         else:
             logger.error(f"Failed to submit task {headers.get('subject_id')},error:{result.get('error')}")
+        db.close()

@@ -194,4 +194,6 @@ def get_interest_over_time(keywords: list[str], geo_code: str, interval: str, st
             history.status = "failed"
             db.commit()
             raise
+        finally:
+            db.close()
     return interest_id

@@ -75,3 +75,5 @@ async def handle_interest_data(message: IncomingMessage):
         db.rollback()
         logger.error(f"保存任务 {req.task_id} 的数据失败: {str(e)}")
         raise
+    finally:
+        db.close()

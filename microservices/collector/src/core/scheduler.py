@@ -93,3 +93,4 @@ class SchedulerManager:
             job = self.scheduler.get_job(job_id)
             task.enabled = job is not None and job.next_run_time is not None
         db.commit()
+        db.close()
