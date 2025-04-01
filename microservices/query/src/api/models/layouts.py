@@ -11,5 +11,5 @@ class SaveRecord(Base):
     components = Column(JSON, nullable=False)  # 组件数据
     layouts = Column(JSON, nullable=False)  # 布局数据
     interlinks = Column(JSON, nullable=False)  # 关联数据
-    created_at = Column(DateTime, default=datetime.utcnow)  # 创建时间
-    updated_at = Column(DateTime, default=datetime.utcnow, onupdate=datetime.utcnow)  # 更新时间
+    created_at = Column(DateTime(timezone=True), server_default=func.now())
+    updated_at = Column(DateTime(timezone=True), onupdate=func.now())
