@@ -1,5 +1,3 @@
-version: '3.8'
-
 services: 
   api-gateway:
     build: ../microservices/api-gateway
@@ -22,7 +20,8 @@ services:
     environment:
       - CONSUL_HOST=consul
       - RABBITMQ_HOST=rabbitmq
-      - DATABASE_URL=postgresql://admin:admin@postgres-query:5433/query
+      - PORT=8000
+      - DATABASE_URL=postgresql://admin:admin@postgres-query:5432/query
     depends_on:
       - consul
       - rabbitmq

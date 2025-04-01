@@ -18,8 +18,8 @@ class RegionInterest(Base):
         orm_mode = True
     # 唯一约束：避免重复存储相同数据
     __table_args__ = (
-        UniqueConstraint("keywords", "geo_code", "timeframe_start", "timeframe_end"),
-        Index('idx_region', 'keywords', 'geo_code'),
+        UniqueConstraint("geo_code", "timeframe_start", "timeframe_end"),
+        Index('idx_region', 'geo_code'),
         Index('idx_timeframe', 'timeframe_start')
     )
 
@@ -40,7 +40,7 @@ class TimeInterest(Base):
         orm_mode = True
     # 唯一约束
     __table_args__ = (
-        UniqueConstraint("keywords", "timeframe_start", "geo_code"),
+        UniqueConstraint("timeframe_start", "geo_code"),
         Index('idx_time', 'timeframe_start'),
         Index('idx_geo_time', 'geo_code', 'timeframe_start')
     )

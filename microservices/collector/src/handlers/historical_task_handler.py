@@ -88,6 +88,7 @@ async def subject_task_request(message: IncomingMessage):
                 db.add(task)
                 db.commit()
                 db.refresh(task)
+                db.close()
                 dispatch(event_name="historical_task_create",payload=task,middleware_id=8888)
             async with RabbitMQClient("collector_task_respone") as client:
                 await client.publish(message=json.dumps({"task_id":task.id}),properties=dict(delivery_mode=2,

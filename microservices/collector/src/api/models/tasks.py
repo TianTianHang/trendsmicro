@@ -43,6 +43,6 @@ class RequestHistory(Base):
     interest_id = Column(Integer) 
     # 唯一约束：确保同一请求参数不会重复记录
     __table_args__ = (
-        UniqueConstraint("keywords","job_type", "geo_code", "timeframe_start", "timeframe_end"),
-        Index('idx_request_params', 'job_type','keywords', 'geo_code', 'timeframe_start')
+        UniqueConstraint("job_type", "geo_code", "timeframe_start", "timeframe_end"),
+        Index('idx_request_params', 'job_type', 'geo_code', 'timeframe_start')
     )

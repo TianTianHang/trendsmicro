@@ -17,3 +17,4 @@ scipy==1.15.2
 SQLAlchemy==2.0.37
 torch==2.6.0
 uvicorn==0.34.0
+psycopg2-binary

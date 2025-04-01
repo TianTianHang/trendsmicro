@@ -1,7 +1,7 @@
 import csv
 import requests
 from typing import List
-
+from time import sleep
 
 # 配置信息
 QUERY_API_URL = "http://localhost:8001/subject/create"
@@ -59,7 +59,7 @@ def create_subject(keyword: str):
         print(f"Failed to create subject for {keyword}: {response.text}")
     else:
         print(f"Created subject for keyword: {keyword}")
-
+    sleep(10)
 def main():
     keywords = read_latin_keywords()
     for keyword in keywords:

@@ -9,7 +9,7 @@ RUN apt-get update && apt-get install -y gcc wget unzip && rm -rf /var/lib/apt/l
 
 # 安装Python依赖
 COPY ./requirements.txt .
-RUN pip install --no-cache-dir -r requirements.txt
+RUN pip install --no-cache-dir -r requirements.txt -i https://mirrors.aliyun.com/pypi/simple/
 
 # 拷贝代码
 COPY ./src/ ./src/

@@ -4,7 +4,7 @@ from sqlalchemy.orm import sessionmaker
 from api.models.keywords import Word, Definition, Category  # 假设您的模型类存储在models.py文件中
 
 # 创建引擎和会话
-engine = create_engine('sqlite:///query.db')
+engine = create_engine('postgresql://admin:admin@localhost:5433/query')
 Session = sessionmaker(bind=engine)
 session = Session()
 
