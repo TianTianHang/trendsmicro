@@ -12,6 +12,8 @@ class Settings(BaseSettings):
     rabbitmq_port: int = 5672
     rabbitmq_username: str = "admin"
     rabbitmq_password: str = "admin"
+    debug:bool=True
+    
     class Config:
         env_file = Path(__file__).parent.parent / ".env"
 

@@ -108,6 +108,20 @@
         {
             "path": "/interests/collections",
             "required_permission": ["user", "admin"]
+        },
+        {
+            "path": "/layouts/save",
+            "required_permission": ["user", "admin"]
+        },
+        {
+            "path": "/layouts/list",
+            "required_permission": ["user", "admin"]
+            
+        },
+        {
+            "path": "/layouts/delete",
+            "required_permission": ["user", "admin"]
         }
+        
     ]
 }

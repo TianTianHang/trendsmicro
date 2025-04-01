@@ -15,6 +15,7 @@ from api.endpoints import keywords
 from api.endpoints import cfc
 from api.endpoints import moran
 from api.endpoints import interests
+from api.endpoints import layouts
 import handlers
 
 
@@ -49,6 +50,7 @@ app.include_router(subject.router)
 app.include_router(keywords.router)
 app.include_router(subjectData.router)
 app.include_router(interests.router)
+app.include_router(layouts.router)
 
 @app.get("/health")
 async def health_check():
@@ -60,7 +62,7 @@ async def global_exception_handler(request: Request, exc: Exception):
             status_code=500,
             content={
                 "message": "Internal Server Error",
-                "detail": str(exc) if settings.DEBUG else "An error occurred"
+                "detail": str(exc) if settings.debug else "An error occurred"
             }
         )
 if __name__ == "__main__":
