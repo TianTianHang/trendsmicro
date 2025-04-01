@@ -11,6 +11,7 @@ from api.models.layouts import SaveRecord
 router = APIRouter(prefix='/layouts', tags=['layouts'])
 
 class SaveRequest(BaseModel):
+    id:str
     name: str
     version: str
     timestamp: int
@@ -31,20 +32,31 @@ class LayoutResponse(BaseModel):
 
 @router.post("/save", response_model=LayoutResponse)
 async def save_data(data: SaveRequest, db: Session = Depends(get_db)):
-    record_id = str(uuid.uuid4())
-    record = SaveRecord(
-        id=record_id,
-        name=data.name,
-        version=data.version,
-        timestamp=data.timestamp,
-        components=data.components,
-        layouts=data.layouts,
-        interlinks=data.interlinks
-    )
-    db.add(record)
-    db.commit()
-    db.refresh(record)
-    return record
+    db_record=db.query(SaveRecord).filter(SaveRecord.id==data.id).first()
+    if db_record:
+        db_record.name=data.name
+        db_record.version=data.version
+        db_record.timestamp=data.timestamp
+        db_record.components=data.components
+        db_record.layouts=data.layouts
+        db_record.interlinks=data.interlinks
+        db.commit()
+        db.refresh(db_record)
+        return db_record
+    else:
+        record = SaveRecord(
+            id=data.id,
+            name=data.name,
+            version=data.version,
+            timestamp=data.timestamp,
+            components=data.components,
+            layouts=data.layouts,
+            interlinks=data.interlinks
+        )
+        db.add(record)
+        db.commit()
+        db.refresh(record)
+        return record
 
 @router.get("/list", response_model=List[LayoutResponse])
 async def get_all_data(db: Session = Depends(get_db)):
