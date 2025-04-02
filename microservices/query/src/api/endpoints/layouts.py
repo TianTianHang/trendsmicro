@@ -15,20 +15,20 @@ class SaveRequest(BaseModel):
     name: str
     version: str
     timestamp: int
-    components: dict
-    layouts: dict
-    interlinks: dict
+    components: list[dict]
+    layouts: list[dict]
+    interlinks: list[dict]
 
 class LayoutResponse(BaseModel):
     id: str
     name: str
     version: str
     timestamp: int
-    components: dict
-    layouts: dict
-    interlinks: dict
+    components: list[dict]
+    layouts: list[dict]
+    interlinks: list[dict]
     created_at: datetime
-    updated_at: datetime
+    updated_at: Optional[datetime]
 
 @router.post("/save", response_model=LayoutResponse)
 async def save_data(data: SaveRequest, db: Session = Depends(get_db)):

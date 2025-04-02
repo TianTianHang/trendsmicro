@@ -9,7 +9,7 @@ from api.models.subject import Subject, SubjectData
 from api.dependencies.database import Base
 from api.models.interest import InterestCollection, InterestMetaData, RegionInterest, TimeInterest
 
-DATABASE_URL = "sqlite:///query.db"
+DATABASE_URL = "postgresql://admin:admin@localhost:5433/query"
 
 engine = create_engine(DATABASE_URL)
 SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)
@@ -77,4 +77,4 @@ def import_data(data_type,data_path,geo_code=""):
 
 if __name__ == "__main__":
     init_db()
-    import_data("time","C:\\Users\\a2450\\Desktop\\project\\find-latin-word\\data\over_time\\original_data\\italy","IT")
+    import_data("time","C:/Users/Administrator/Desktop/project/data/latin(language)/over time")
