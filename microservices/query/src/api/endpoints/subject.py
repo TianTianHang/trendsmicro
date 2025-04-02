@@ -43,23 +43,24 @@ def read_subject_data(subject_id: int, db: Session = Depends(get_db)):
     if not db_subject_data:
         raise HTTPException(status_code=404, detail="Subject data not found")
     return [
-        SubjectDataTimeResponse(
-            id=data.id,
-            subject_id=data.subject_id,
-            timestamp=data.timestamp.strftime("%Y-%m-%d %H:%M:%S"),
-            data_type=data.data_type,
-            data=[[i.convert() for i in collection.time_interests]  for collection in data.interest_collections],
-            meta=[meta.convert() for meta in data.meta_data]
-        ) if data.data_type == "time" else
-        SubjectDataRegionResponse(
-            id=data.id,
-            subject_id=data.subject_id,
-            timestamp=data.timestamp.strftime("%Y-%m-%d %H:%M:%S"),
-            data_type=data.data_type,
-            data=[[i.convert() for i in collection.region_interests]  for collection in data.interest_collections],
-            meta=[meta.convert() for meta in data.meta_data]
-        )
-        for data in db_subject_data
+    (lambda sorted_meta=sorted([meta.convert() for meta in data.meta_data], key=lambda x: x.timeframe_start):
+     SubjectDataTimeResponse(
+         id=data.id,
+         subject_id=data.subject_id,
+         timestamp=data.timestamp.strftime("%Y-%m-%d %H:%M:%S"),
+         data_type=data.data_type,
+         data=[[i.convert() for i in collection.time_interests] for collection in data.interest_collections],
+         meta=sorted_meta
+     ) if data.data_type == "time" else
+     SubjectDataRegionResponse(
+         id=data.id,
+         subject_id=data.subject_id,
+         timestamp=data.timestamp.strftime("%Y-%m-%d %H:%M:%S"),
+         data_type=data.data_type,
+         data=[[i.convert() for i in collection.region_interests] for collection in data.interest_collections],
+         meta=sorted_meta
+     ))()
+    for data in db_subject_data
     ]
 
 #获取subject
