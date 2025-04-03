@@ -68,15 +68,36 @@ class GatewayMiddleware(BaseHTTPMiddleware):
         # 4. 调用权限服务进行token和权限校验
         current_path = '/' + '/'.join(path_parts[2:])
         auth_header = request.headers.get("Authorization")
-      
+       
         headers = {"Content-Type": "application/json", "Authorization": auth_header if auth_header else ""}
+        
+        # 先调用user_management服务检查并刷新token
+        user_service_url = self.get_service_url_from_registry("user_management")
+        if user_service_url and auth_header and auth_header.startswith("Bearer "):
+            try:
+                async with httpx.AsyncClient() as client:
+                    refresh_response = await client.post(
+                        f"{user_service_url}/refresh-token",
+                        headers={"Authorization": auth_header}
+                    )
+                    if refresh_response.status_code == 200:
+                        refresh_data = refresh_response.json()
+                        if refresh_data.get("new_token"):
+                            # 更新请求头中的token
+                            headers["Authorization"] = f"Bearer {refresh_data.get("new_token")}"
+                        new_token = refresh_data.get("new_token",None)
+                    
+            except httpx.RequestError:
+                pass
+                
+        # 然后调用权限服务验证权限
         permission_service_url = self.get_service_url_from_registry("permission")
         if not permission_service_url:
             return JSONResponse(
                 status_code=503,
                 content={"message": "Permission service unavailable"}
             )
-        
+            
         verify_permission_url = f"{permission_service_url}/verify-permission"
         try:
             async with httpx.AsyncClient() as client:
@@ -91,6 +112,8 @@ class GatewayMiddleware(BaseHTTPMiddleware):
                         status_code=response.status_code,
                         content={"message": response.json().get("detail", "Permission denied")}
                     )
+                
+               
         except httpx.RequestError:
             return JSONResponse(
                 status_code=503,
@@ -98,9 +121,9 @@ class GatewayMiddleware(BaseHTTPMiddleware):
             )
         
         #转发请求
-        return await self._forward_request(request, call_next,user_info)
+        return await self._forward_request(request, call_next,user_info,new_token)
             
-    async def _forward_request(self, request: Request, call_next, user_info=None):
+    async def _forward_request(self, request: Request, call_next, user_info=None,new_token=None):
         """
         转发请求给服务，并携带用户信息（如果需要）
         """
@@ -149,6 +172,9 @@ class GatewayMiddleware(BaseHTTPMiddleware):
                     params=request.query_params,
                     content=await request.body()
                 )
+                 # 如果有新token，添加到响应头
+                if new_token:
+                    response.headers["X-New-Token"] = new_token
                 return JSONResponse(
                     content=response.json(),
                     status_code=response.status_code,
