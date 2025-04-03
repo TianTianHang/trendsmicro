@@ -5,7 +5,7 @@ from api.dependencies.database import get_db
 from api.models.tasks import HistoricalTask, ScheduledTask
 from core.trends import get_interest_by_region, get_interest_over_time
 from fastapi_events.dispatcher import dispatch
-def execute_task(job_type, keywords, geo_code, interval, start_date, end_date,task_id):
+async def execute_task(job_type, keywords, geo_code, interval, start_date, end_date,task_id):
     """通用任务执行函数"""
     # 根据任务类型调用对应的趋势函数
     logger.info("开始采集数据")
