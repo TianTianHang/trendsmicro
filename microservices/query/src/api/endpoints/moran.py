@@ -26,6 +26,7 @@ async def calculate_local_moran(input_data: MoranInput):
     moran_local = local_moran(y, iso_codes)
     return {
         "I": moran_local.Is.tolist(),
-        "p_values": moran_local.p_norm.tolist(),
-        "z_scores": moran_local.z_norm.tolist()
+        "p_values": moran_local.p_sim.tolist(),
+        "z_scores": moran_local.z_sim.tolist(),
+        "type": moran_local.q.tolist()
     }
