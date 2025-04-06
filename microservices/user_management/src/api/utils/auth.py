@@ -17,6 +17,7 @@ with open(settings.private_key_path, "rb") as key_file:
     private_key = key_file.read()
 with open(settings.public_key_path, "rb") as key_file:
     public_key = key_file.read()
+
 def verify_password(plain_password, hashed_password):
     return pwd_context.verify(plain_password, hashed_password)
 
@@ -32,6 +33,8 @@ def create_access_token(data: dict, expires_delta: timedelta = None):
     to_encode.update({"exp": expire})
     encoded_jwt = jwt.encode(to_encode, private_key, algorithm=settings.algorithm)
     return encoded_jwt
+def decode_token(token: Annotated[str, Depends(oauth2_scheme)]):
+    return jwt.decode(token, public_key, algorithms=["RS256"], options={"verify_exp": False})
 
 async def get_current_user(token: Annotated[str, Depends(oauth2_scheme)], db: Session = Depends(get_db)):
     credentials_exception = HTTPException(

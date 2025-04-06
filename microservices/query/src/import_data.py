@@ -30,7 +30,7 @@ def import_data(data_type,data_path,geo_code=""):
                     file_name = os.path.splitext(file)[0]  # 去掉文件扩展名
                     parts = file_name.split('-')
                     if len(parts) >= 3:
-                        keyword = parts[0]  # 关键词部分
+                        keywords:str = parts[0]  # 关键词部分
                         start_date = '-'.join(parts[1:4]) # 开始日期
                         end_date ='-'.join(parts[4:7]) # 结束日期
                         timeframe = f'{start_date} {end_date}'  # 时间范围
@@ -44,7 +44,7 @@ def import_data(data_type,data_path,geo_code=""):
                     
                         df.dropna(inplace=True)
                         ic=InterestCollection(interest_type = data_type)
-                        meta=InterestMetaData(keywords = [keyword],
+                        meta=InterestMetaData(keywords = keywords.split(","),
                                                 geo_code = geo_code,
                                                 timeframe_start = datetime.strptime(start_date,"%Y-%m-%d").date(),
                                                 timeframe_end= datetime.strptime(end_date,"%Y-%m-%d").date())
@@ -77,4 +77,4 @@ def import_data(data_type,data_path,geo_code=""):
 
 if __name__ == "__main__":
     init_db()
-    import_data("time","C:/Users/Administrator/Desktop/project/data/latin(language)/over time")
+    import_data("time","C:/Users/Administrator/Desktop/project/data/deepseek相关")

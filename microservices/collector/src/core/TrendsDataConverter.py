@@ -1,6 +1,6 @@
 import numpy as np
 import pandas as pd
-from trendspy.utils import *
+from trendspy.utils import extract_column
 
 class TrendsDataConverter:
     """趋势数据转换器，用于处理Google Trends API返回的原始数据"""
@@ -17,7 +17,7 @@ class TrendsDataConverter:
             bullets = [b+' | '+m for b,m in zip(bullets, metadata)]
             
         return bullets
-    
+        
     @staticmethod
     def interest_over_time(widget_data, keywords, time_as_index=True):
         """
@@ -38,9 +38,10 @@ class TrendsDataConverter:
         timeline_data = timeline_data.get('timelineData', timeline_data)
         if not timeline_data:
             return pd.DataFrame(columns=keywords)
-
+        def convert_elements(lst):
+            return [int(item) if item != "<1" else 0.1 for item in lst]
         # 提取值数据并转换为DataFrame格式
-        df_data = np.array(extract_column(timeline_data, 'formattedValue',f=lambda x:int(x) if x!="<1" else 0.1)).reshape(len(timeline_data), -1)
+        df_data = np.array(extract_column(timeline_data, 'formattedValue',f=lambda x:convert_elements(x))).reshape(len(timeline_data), -1)
         df_data = dict(zip(keywords, df_data.T))
         
         # 检查并添加部分数据标记

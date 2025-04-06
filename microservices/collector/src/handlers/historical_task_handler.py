@@ -32,38 +32,7 @@ async def handle_pending_tasks(event: Event):
             logger.error(f"任务 {task.id} 加入队列失败: {str(e)}")
         finally:
             db.close()
-@local_handler.register(event_name="historical_task_finish")
-async def handle_finish_tasks(event: Event):
-    _,task=event
-    db = next(get_db())
-    
-    interest_type = task.get("interest_type")
-    
-    interest_id = task.get("interest_id")
-    
-    if interest_type == "time":
-        interest = db.query(TimeInterest).filter(TimeInterest.id.in_(interest_id))
-    elif interest_type == "region":
-        interest = db.query(RegionInterest).filter(RegionInterest.id.in_(interest_id))
-    
-    interests = interest.all()
-   
-    req = dict(
-        task_id=task.get("task_id"),
-        type=task.get("type"),
-        interest_type=interest_type,
-        interests=[r.data for r in interests],
-        meta=[InterestMetaData(
-                geo_code=r.geo_code,
-                keywords=r.keywords,
-                timeframe_start=r.timeframe_start,
-                timeframe_end=r.timeframe_end
-            ).model_dump_json() for r in interests]
-    )
-    # 通过队列通知query 服务保存数据
-    async with RabbitMQClient("interest_data") as client:
-        await client.publish(json.dumps(req),properties=dict(delivery_mode=2))
-    db.close()      
+
         
 @RabbitMQClient.consumer("collector_task_request")
 async def subject_task_request(message: IncomingMessage):

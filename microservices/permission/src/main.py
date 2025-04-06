@@ -173,7 +173,8 @@ async def verify_permission(req: VerifyPermission, authorization: str = Header(N
             username: str = payload.get("sub")
             if not username:
                 raise HTTPException(status_code=401, detail="Invalid token")
-            token_role = payload.get("role")
+            token_roles:list[str] = payload.get("roles")
+            # print(token_roles)
         elif payload is False:
             raise HTTPException(status_code=401, detail="No public key")
         else:
@@ -182,7 +183,7 @@ async def verify_permission(req: VerifyPermission, authorization: str = Header(N
         raise HTTPException(status_code=401, detail="Token validation failed")
     if permission:
         required_permission = permission.required_permission.split(',')
-        if token_role in required_permission:
+        if set(token_roles) & set(required_permission):
             return {"message": "Permission granted"}
         else:
             raise HTTPException(status_code=403, detail="Permission denied")

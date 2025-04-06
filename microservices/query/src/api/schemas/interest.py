@@ -14,7 +14,7 @@ class TimeInterest(BaseModel):
     def convert(self,collect_id:int):
         from api.models.interest import TimeInterest as TimeModel
         return TimeModel(time_utc=self.time_utc,is_partial=self.is_partial,collect_id=collect_id,
-                         values=self.model_dump(exclude={'time_utc','is_partial'}))
+                         values=self.model_dump(exclude={'time_utc','is_partial',"time [UTC]"}))
         
 class RegionInterest(BaseModel):
     geo_name: str

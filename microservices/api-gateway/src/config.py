@@ -13,7 +13,7 @@ class Settings(BaseSettings):
     service_check_interval: str = "10s"
     service_check_timeout: str = "1s"
     service_tags: List[str] = ["api-gateway"]
-
+   
     class Config:
         env_file = Path(__file__).parent.parent / ".env"
         env_file_encoding = 'utf-8'

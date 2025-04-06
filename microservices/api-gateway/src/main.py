@@ -51,7 +51,7 @@ async def global_exception_handler(request: Request, exc: Exception):
             status_code=500,
             content={
                 "message": "Internal Server Error",
-                "detail": str(exc) if settings.DEBUG else "An error occurred"
+                "detail": str(exc) if settings.debug else "An error occurred"
             }
         )
 if __name__ == "__main__":

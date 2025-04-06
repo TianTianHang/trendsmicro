@@ -1,8 +1,8 @@
 #src/core/trends.py
 from datetime import datetime
 import time
-from fastapi.logger import logger
 from requests import HTTPError
+from sqlalchemy import JSON, cast
 from sqlalchemy.exc import IntegrityError
 from trendspy import Trends
 from api.dependencies.database import get_db
@@ -11,6 +11,11 @@ from config import get_settings
 from core.utils.time_splitter import split_time_ranges
 from api.models.tasks import RequestHistory
 from core.TrendsDataConverter import TrendsDataConverter
+from sqlalchemy.dialects.postgresql import JSONB
+
+import logging
+# 创建一个专用的日志记录器
+logger = logging.getLogger('DramatiqTasks')
 
 def _call_trends_api_with_retry(api_call_func, max_retries=3,**kwargs):
     """封装API调用，包含速率限制处理和重试机制"""
@@ -58,7 +63,7 @@ def get_interest_by_region(keywords: list[str], geo_code: str, interval: str, st
         # 查询请求历史表
         history = db.query(RequestHistory).filter(
             RequestHistory.job_type == "region",
-            RequestHistory.keywords == keywords,
+            RequestHistory.keywords == cast(keywords,JSONB),
             RequestHistory.geo_code == geo_code,
             RequestHistory.timeframe_start == timeframe_start,
             RequestHistory.timeframe_end == timeframe_end
@@ -133,7 +138,7 @@ def get_interest_over_time(keywords: list[str], geo_code: str, interval: str, st
         # 查询请求历史表
         history = db.query(RequestHistory).filter(
             RequestHistory.job_type == "time",
-            RequestHistory.keywords == keywords,
+            RequestHistory.keywords == cast(keywords,JSONB),
             RequestHistory.geo_code == geo_code,
             RequestHistory.timeframe_start == timeframe_start,
             RequestHistory.timeframe_end == timeframe_end
@@ -164,8 +169,9 @@ def get_interest_over_time(keywords: list[str], geo_code: str, interval: str, st
             token,time_data = _call_trends_api_with_retry(
                 trends.interest_over_time, max_retries=3, keywords=keywords, geo=geo_code, timeframe=timeframe,return_raw=True
             )   
-            bullets=TrendsDataConverter.token_to_bullets(token)
-            time_data=TrendsDataConverter.geo_data(time_data,bullets=bullets)
+            
+			
+            time_data=TrendsDataConverter.interest_over_time(time_data,keywords=keywords)
             record = TimeInterest(
                         keywords=keywords,
                         geo_code=geo_code,

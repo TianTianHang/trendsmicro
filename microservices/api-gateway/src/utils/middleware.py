@@ -81,10 +81,11 @@ class GatewayMiddleware(BaseHTTPMiddleware):
                         headers={"Authorization": auth_header}
                     )
                     if refresh_response.status_code == 200:
+                        
                         refresh_data = refresh_response.json()
-                        if refresh_data.get("new_token"):
+                        if refresh_data.get("refreshed"):
                             # 更新请求头中的token
-                            headers["Authorization"] = f"Bearer {refresh_data.get("new_token")}"
+                            headers["Authorization"] = f"Bearer {refresh_data.get('new_token')}"
                         new_token = refresh_data.get("new_token",None)
                     
             except httpx.RequestError:
@@ -106,7 +107,8 @@ class GatewayMiddleware(BaseHTTPMiddleware):
                     json={"service_name": service_name, "path": current_path},
                     headers=headers
                 )
-                user_info = response.json().get("user_info")
+              
+                user_info = response.json().get("user_info",None)
                 if response.status_code != 200:
                     return JSONResponse(
                         status_code=response.status_code,
@@ -121,7 +123,7 @@ class GatewayMiddleware(BaseHTTPMiddleware):
             )
         
         #转发请求
-        return await self._forward_request(request, call_next,user_info,new_token)
+        return await self._forward_request(request, call_next,user_info,new_token if "new_token" in locals() else None)
             
     async def _forward_request(self, request: Request, call_next, user_info=None,new_token=None):
         """

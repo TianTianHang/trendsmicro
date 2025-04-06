@@ -19,7 +19,7 @@ async def handle_interest_data(message: IncomingMessage):
         req=NotifyTimeRequest(task_id=json_req.get('task_id'),
                   type=json_req.get('type'),
                   interest_type=json_req.get('interest_type'),
-                  interests=[[{**j, 'time [UTC]': datetime.fromtimestamp(float(j.get('time [UTC]'))/1000).strftime("%Y-%m-%d %H:%M:%S")} for j in json.loads(i)]
+                  interests=[[{**j, 'time_utc': datetime.fromtimestamp(float(j.get('time [UTC]'))/1000).strftime("%Y-%m-%d %H:%M:%S")} for j in json.loads(i)]
                              for i in json_req.get('interests',[])],
                   meta=[json.loads(i) for i in json_req.get('meta',[])]
                   )
@@ -35,7 +35,7 @@ async def handle_interest_data(message: IncomingMessage):
     try:
         
         subjectData = db.query(SubjectData).filter(SubjectData.task_id == req.task_id,
-                                                   SubjectData.data_type == req.type
+                                                   SubjectData.data_type == req.interest_type
                                                    ).first()
         if not subjectData:
             logger.warning(f"SubjectData with task_id {req.task_id} not found")

@@ -1,5 +1,5 @@
 
-from datetime import time, timedelta
+from datetime import datetime, timedelta
 from typing import Annotated, List
 from fastapi import APIRouter, Depends, HTTPException, Request, status
 from fastapi.security import OAuth2PasswordRequestForm
@@ -7,7 +7,7 @@ from pydantic import BaseModel
 from sqlalchemy.orm import Session
 from api.models.user import User, UserRole, Role, user_role
 from api.dependencies.database import get_db
-from api.utils.auth import create_access_token, get_current_active_admin, get_current_user, get_password_hash, verify_password
+from api.utils.auth import create_access_token, decode_token, get_current_active_admin, get_current_user, get_password_hash, verify_password
 from config import get_settings
 from jose import JWTError, jwt
 
@@ -82,7 +82,7 @@ def login(form_data: Annotated[OAuth2PasswordRequestForm, Depends()], db: Sessio
     
     access_token_expires = timedelta(minutes=setting.access_token_expire_minutes)
     access_token = create_access_token(
-        data={"sub": user.username,"role":user.roles}, expires_delta=access_token_expires
+        data={"sub": user.username,"roles":[r.name for r in user.roles]}, expires_delta=access_token_expires
     )
     return {"access_token": access_token, "token_type": "bearer"}
 
@@ -242,7 +242,7 @@ async def refresh_token(
     token = auth_header.split(" ")[1]
     try:
         # 解码但不验证过期时间
-        payload = jwt.decode(token, setting.secret_key, algorithms=[setting.algorithm], options={"verify_exp": False})
+        payload = decode_token(token)
         username: str = payload.get("sub")
         if not username:
             raise HTTPException(status_code=401, detail="Invalid token")
@@ -252,19 +252,20 @@ async def refresh_token(
         if not user:
             raise HTTPException(status_code=401, detail="User not found")
         
-        result = {}
+        result = {"refreshed":False}
         
         # 检查token有效期
         exp = payload.get("exp")
-        if exp and (exp - time.time()) < 300:  # 剩余5分钟
+      
+        if exp and (exp - datetime.now().timestamp()) < 300:  # 剩余5分钟
             # 生成新token
             access_token_expires = timedelta(minutes=setting.access_token_expire_minutes)
             new_token = create_access_token(
-                data={"sub": user.username, "role": user.roles},
+                data={"sub": user.username, "roles": [r.name for r in user.roles]},
                 expires_delta=access_token_expires
             )
             result["new_token"] = new_token
-            
+            result["refreshed"] = True
         return result
         
     except JWTError:

@@ -20,3 +20,4 @@ class LocalMoranOutput(BaseModel):
     I: List[float]
     p_values: List[float]
     z_scores: List[float]
+    type: List[int]

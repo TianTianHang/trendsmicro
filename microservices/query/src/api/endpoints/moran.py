@@ -25,8 +25,8 @@ async def calculate_local_moran(input_data: MoranInput):
     iso_codes = input_data.iso_codes if hasattr(input_data, 'iso_codes') else None
     moran_local = local_moran(y, iso_codes)
     return {
-        "I": moran_local.Is.tolist(),
-        "p_values": moran_local.p_sim.tolist(),
-        "z_scores": moran_local.z_sim.tolist(),
-        "type": moran_local.q.tolist()
+        "I": [round(float(item), 5) if not np.isnan(item) else 0 for item in moran_local.Is],
+        "p_values": [round(float(item), 5) if not np.isnan(item) else 0 for item in moran_local.p_sim],
+        "z_scores": [round(float(item), 5) if not np.isnan(item) else 0 for item in moran_local.z_sim],
+        "type": [int(item) if not np.isnan(item) else -999 for item in moran_local.q]  # 假设q是整数类型，用-999或其他标志表示缺失
     }
