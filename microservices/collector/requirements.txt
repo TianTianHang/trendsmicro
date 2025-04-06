@@ -12,3 +12,5 @@ SQLAlchemy==2.0.37
 trendspy==0.1.6
 uvicorn==0.34.0
 psycopg2-binary
+dramatiq[rabbitmq]
+dramatiq-crontab

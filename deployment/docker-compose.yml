@@ -39,7 +39,7 @@ services:
     networks:
       - microservices-net
   collector:
-    build: ../microservices/collector 
+    build: ../microservices/collector
     ports:
       - "8002:8000"
     networks:

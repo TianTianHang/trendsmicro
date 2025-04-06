@@ -40,7 +40,7 @@ instance = ServiceInstance(
           
 async def lifespan_handler(app: FastAPI):
     await RabbitMQClient.start_consumers(app)
-    scheduler_manager.start()
+    #scheduler_manager.start()
     registry.register(instance)
     yield
     # 注销服务
@@ -53,7 +53,7 @@ async def lifespan_handler(app: FastAPI):
     
 Base.metadata.create_all(bind=engine)
 # 新增状态同步
-scheduler_manager.sync_job_status()
+# scheduler_manager.sync_job_status()
 app = FastAPI(title="Trends Collector API",lifespan=lifespan_handler)
 app.add_middleware(EventHandlerASGIMiddleware, 
                    handlers=[local_handler],middleware_id=8888)

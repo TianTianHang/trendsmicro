@@ -1,2 +1,2 @@
-from .scheduler import SchedulerManager
-scheduler_manager=SchedulerManager()
+from .dramatiq_manager import DramatiqManager
+scheduler_manager = DramatiqManager()

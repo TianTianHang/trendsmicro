@@ -13,4 +13,4 @@ RUN pip install --no-cache-dir -r requirements.txt -i https://mirrors.aliyun.com
 COPY ./src/ ./src/
 COPY .env ./.env
 WORKDIR /app/src
-CMD ["python", "main.py"]
+CMD ["uvicorn", "main:app","--host","0.0.0.0","--port","8000"]
