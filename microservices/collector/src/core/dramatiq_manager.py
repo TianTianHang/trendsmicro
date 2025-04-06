@@ -13,10 +13,12 @@ class DramatiqManager:
     def add_cron_job(self, task):
         """添加定时任务"""
         interval_config = self._parse_interval(task.interval)
-        delay = timedelta(**interval_config)
         execute_scheduled_task.send_with_options(
-            kwargs=task.to_dict(),
-            delay=delay.total_seconds() * 1000  # 转换为毫秒
+            kwargs={
+                **task.to_dict(),
+                'created_at': datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+            },
+            delay=timedelta(**interval_config).total_seconds() * 1000  # 转换为毫秒
         )
         
     def _parse_interval(self, interval):

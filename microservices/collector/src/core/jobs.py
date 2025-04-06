@@ -97,8 +97,19 @@ async def execute_historical_task(job_type, keywords, geo_code, interval, start_
         db.close()
         
 @dramatiq.actor(retry_when=lambda x: True)
-def execute_scheduled_task(job_type, keywords, geo_code, interval, start_date,id,**kwargs):
+def execute_scheduled_task(job_type, keywords, geo_code, interval, start_date, id, duration=None, created_at=None, **kwargs):
     """执行定时数据采集任务并生成历史任务记录"""
+    # 首次执行时记录创建时间
+    current_time = datetime.now()
+    if created_at is None:
+        created_at = current_time
+    else:
+        created_at = datetime.strptime(created_at, "%Y-%m-%d %H:%M:%S")
+    
+    # 检查是否超过duration限制
+    if duration and (current_time - created_at).days >= duration:
+        return
+
     db = next(get_db())
     try:
         # 创建关联的历史任务
@@ -107,36 +118,48 @@ def execute_scheduled_task(job_type, keywords, geo_code, interval, start_date,id
             keywords=keywords,
             geo_code=geo_code,
             start_date=datetime.strptime(start_date,"%Y-%m-%d"),
-            end_date=datetime.now().strftime("%Y-%m-%d"),
+            end_date=current_time.strftime("%Y-%m-%d"),
             interval=None,
             schedule_id=id,
             status='pending'
         )
-        if job_type=='region':
-            interval=interval
+        
+        if job_type == 'region':
             amount = int(interval[:-1])
             unit = interval[-1]
             if unit == 'h':
-                start_date=datetime.now()-timedelta(hours=amount)
+                start_date = current_time - timedelta(hours=amount)
             elif unit == 'd':
-                start_date=datetime.now()-timedelta(days=amount)
+                start_date = current_time - timedelta(days=amount)
             elif unit == 'm':
-                start_date=datetime.now()-timedelta(minutes=amount)
-            historical_task = HistoricalTask(
-            job_type=job_type,
-            keywords=keywords,
-            geo_code=geo_code,
-            start_date=start_date.strftime("%Y-%m-%d"),
-            end_date=datetime.now().strftime("%Y-%m-%d"),
-            interval=None,
-            schedule_id=id,
-            status='pending'
-        )
+                start_date = current_time - timedelta(minutes=amount)
+                
+            historical_task.start_date = start_date.strftime("%Y-%m-%d")
+
         db.add(historical_task)
         db.commit()
         db.refresh(historical_task)
         handle_pending_tasks(historical_task)
-      
+        
+        # 重新调度自己
+        execute_scheduled_task.send_with_options(
+            kwargs={
+                'job_type': job_type,
+                'keywords': keywords,
+                'geo_code': geo_code,
+                'interval': interval,
+                'start_date': start_date,
+                'id': id,
+                'duration': duration,
+                'created_at': created_at.strftime("%Y-%m-%d %H:%M:%S")
+            },
+            delay=timedelta(**{
+                'hours': amount if unit == 'h' else 0,
+                'days': amount if unit == 'd' else 0,
+                'minutes': amount if unit == 'm' else 0
+            }).total_seconds() * 1000
+        )
+        
     except Exception as e:
         db.rollback()
         raise e
