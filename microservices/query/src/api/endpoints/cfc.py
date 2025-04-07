@@ -130,7 +130,7 @@ async def async_train_task(data: FitRequest):
             )
             
             # 模型训练
-            model = CfcFit(input_size=1, units=128)
+            model = CfcFit(input_size=1, units=32)
             trainer = L.Trainer(
                 max_epochs=total_epochs,
                 callbacks=[progress_callback],

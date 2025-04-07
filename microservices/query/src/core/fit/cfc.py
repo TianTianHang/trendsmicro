@@ -41,12 +41,19 @@ class CfcFit(L.LightningModule):
     def training_step(self, batch, batch_idx):
         x, y = batch
         y_hat = self(x)
-        loss = F.mse_loss(y_hat, y)
+        loss = F.huber_loss(y_hat, y, delta=1.0)
         self.log("train_loss", loss)
         return loss
 
     def configure_optimizers(self):
-        return torch.optim.Adam(self.parameters(), lr=1e-3)
+        optimizer = torch.optim.Adam(self.parameters(), lr=1e-2)
+        scheduler = torch.optim.lr_scheduler.ReduceLROnPlateau(optimizer, patience=5)
+        return {
+            "optimizer": optimizer,
+            "lr_scheduler": scheduler,
+            "monitor": "train_loss"
+        }
+       
     
 class TrainingProgressCallback(L.Callback):
     """Lightning回调函数，用于捕捉训练进度"""

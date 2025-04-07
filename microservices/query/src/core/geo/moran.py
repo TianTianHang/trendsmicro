@@ -13,8 +13,10 @@ if not os.path.exists(shp_path):
 gdf = gpd.read_file(shp_path)
 
 
-def _match_data_with_countries(y, iso_codes, target_iso_codes):
-    """匹配输入数据与国家代码"""
+@lru_cache(maxsize=128)
+def _match_data_with_countries(y_tuple, iso_codes, target_iso_codes):
+    """匹配输入数据与国家代码(带缓存)"""
+    y = np.array(y_tuple)
     idx = [i for i, code in enumerate(iso_codes) if code in target_iso_codes]
     matched_y = y[[i for i, code in enumerate(target_iso_codes) if code in iso_codes]]
     return idx, matched_y
@@ -39,7 +41,7 @@ def _handle_missing_data(y, iso_codes, method: Literal['drop', 'interpolate'] = 
         return y_interp, iso_codes
     else:
         raise ValueError(f"Unknown method: {method}")
-
+@lru_cache(maxsize=128)
 def global_moran(y, iso_codes, missing_data_method: Literal['drop', 'interpolate'] = 'drop'):
     """
     计算全局莫兰指数
@@ -51,13 +53,13 @@ def global_moran(y, iso_codes, missing_data_method: Literal['drop', 'interpolate
     country_iso = gdf['ISO_A2'].values
     # 处理缺失数据
     y_processed, iso_processed = _handle_missing_data(y, iso_codes, missing_data_method)
-    # 匹配数据与国家代码
-    idx, matched_y = _match_data_with_countries(y_processed, country_iso, iso_processed)
-    # 获取对应的权重矩阵
-    w = weights.Queen.from_dataframe(gdf.iloc[idx])
+    # 匹配数据与国家代码(转换为元组用于缓存)
+    idx, matched_y = _match_data_with_countries(tuple(y_processed), country_iso, tuple(iso_processed))
+    # 获取对应的权重矩阵(带缓存)
+    w = _get_weights(gdf.iloc[idx])
     moran = Moran(matched_y, w)
     return moran
-
+@lru_cache(maxsize=128)
 def local_moran(y, iso_codes, missing_data_method: Literal['drop', 'interpolate'] = 'drop'):
     """
     计算局部莫兰指数
@@ -69,9 +71,14 @@ def local_moran(y, iso_codes, missing_data_method: Literal['drop', 'interpolate'
     country_iso = gdf['ISO_A2'].values
     # 处理缺失数据
     y_processed, iso_processed = _handle_missing_data(y, iso_codes, missing_data_method)
-    # 匹配数据与国家代码
-    idx, matched_y = _match_data_with_countries(y_processed, country_iso, iso_processed)
-    # 获取对应的权重矩阵
-    w = weights.Queen.from_dataframe(gdf.iloc[idx])
+    # 匹配数据与国家代码(转换为元组用于缓存)
+    idx, matched_y = _match_data_with_countries(tuple(y_processed), country_iso, tuple(iso_processed))
+    # 获取对应的权重矩阵(带缓存)
+    w = _get_weights(gdf.iloc[idx])
     moran_local = Moran_Local(matched_y, w)
     return moran_local
+@lru_cache(maxsize=128)
+def _get_weights(gdf_subset):
+    """获取权重矩阵(带缓存)"""
+    return weights.Queen.from_dataframe(gdf_subset)
+
