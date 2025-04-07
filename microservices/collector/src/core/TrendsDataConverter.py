@@ -98,7 +98,7 @@ class TrendsDataConverter:
             df_data['lng'] = extract_column(filtered_data, 'coordinates', f=lambda x:x['lng'])
 
         # 处理值数据并添加到DataFrame
-        values = np.array(extract_column(filter_data, 'formattedValue',f=lambda x:int(x) if x!="<1" else 0.1)).reshape(len(filtered_data), -1)
+        values = np.array(extract_column(filtered_data, 'formattedValue',f=lambda x:int(x) if x!="<1" else 0.1)).reshape(len(filtered_data), -1)
         for keyword,values_row in zip(bullets, values.T):
             df_data[keyword] = values_row
             
