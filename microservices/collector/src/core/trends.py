@@ -90,12 +90,11 @@ def get_interest_by_region(keywords: list[str], geo_code: str, interval: str, st
         try:
             # 调用API获取数据
             timeframe = f"{start} {end}"
-            token,region_data = _call_trends_api_with_retry(
+            region_data = _call_trends_api_with_retry(
                 trends.interest_by_region, max_retries=3,keywords=keywords,geo=geo_code, 
-                timeframe=timeframe,resolution='COUNTRY', inc_low_vol=True,return_raw=True
+                timeframe=timeframe,resolution='COUNTRY', inc_low_vol=True,return_raw=False
             )
-            bullets=TrendsDataConverter.token_to_bullets(token)
-            region_data=TrendsDataConverter.geo_data(region_data,bullets=bullets)
+
             record = RegionInterest(
                         keywords=keywords,
                         geo_code=geo_code,
