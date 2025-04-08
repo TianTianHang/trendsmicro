@@ -16,6 +16,7 @@ from api.endpoints import cfc
 from api.endpoints import moran
 from api.endpoints import interests
 from api.endpoints import layouts
+from api.endpoints import datasource
 import handlers
 
 
@@ -51,6 +52,7 @@ app.include_router(keywords.router)
 app.include_router(subjectData.router)
 app.include_router(interests.router)
 app.include_router(layouts.router)
+app.include_router(datasource.router)
 
 @app.get("/health")
 async def health_check():
