@@ -20,7 +20,7 @@ class DramatiqManager:
             },
             delay=timedelta(**interval_config).total_seconds() * 1000  # 转换为毫秒
         )
-        
+    
     def _parse_interval(self, interval):
         """解析时间间隔(与原有逻辑保持一致)"""
         amount = int(interval[:-1])

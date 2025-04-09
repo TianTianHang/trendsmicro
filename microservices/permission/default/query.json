@@ -121,6 +121,26 @@
         {
             "path": "/layouts/delete",
             "required_permission": ["user", "admin"]
+        },
+        {
+            "path":"/datasources/create",
+            "required_permission":["user","admin"]
+        },
+        {
+            "path":"/datasources/list",
+            "required_permission":["user","admin"]
+        },
+        {
+            "path":"/datasources/{id}",
+            "required_permission":["user","admin"]
+        },
+        {
+            "path":"/datasources/{id}/update",
+            "required_permission":["user","admin"]
+        },
+        {
+            "path":"/datasources/{id}/delete",
+            "required_permission":["user","admin"]
         }
         
     ]

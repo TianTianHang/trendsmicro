@@ -10,7 +10,7 @@ from utils.middleware import GatewayMiddleware
 from endpoints import api
 from config import get_settings
 from core import registry, balancer
-
+from fastapi.middleware.cors import CORSMiddleware
 
 settings= get_settings()
 hostname=socket.gethostname()
@@ -40,7 +40,17 @@ app.add_middleware(
     registry=registry,
     balancer=balancer
 )
-
+origins = [
+    "https://page.918113.top",  # 根据实际情况调整为您的前端应用的源
+    # 您可以根据需要添加更多的源
+]
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=origins,
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
 @app.get("/_internal/health")
 def gateway_health():
     return {"status": "healthy"}

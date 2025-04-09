@@ -11,7 +11,7 @@ class HistoricalTask(Base):
     geo_code = Column(String(10))
     start_date = Column(Date)  # 格式："YYYY-MM-DD"
     end_date = Column(Date)
-    interval = Column(String(2))     # "YS"（年）或 "MS"（月）
+    interval = Column(String(10))     # "YS"（年）或 "MS"（月）
     status = Column(String(20), default="pending")  # pending/running/completed/failed
     created_at = Column(DateTime, default=datetime.now())
     schedule_id = Column(Integer,ForeignKey('scheduled_tasks.id'))
@@ -33,7 +33,7 @@ class ScheduledTask(Base):
     geo_code = Column(String(10))
     duration = Column(Integer)
     start_date = Column(Date, nullable=False)  
-    interval = Column(String(2), default="MS") #任务执行的间隔时间
+    interval = Column(String(10), default="1d") #任务执行的间隔时间
     enabled = Column(Boolean, default=True)
     def to_dict(self):
         result = {}

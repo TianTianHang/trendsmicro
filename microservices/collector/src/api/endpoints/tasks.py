@@ -107,9 +107,10 @@ def toggle_scheduled_task(
     # 调度器操作
     job_id = f"scheduled_{task_id}"
     if enabled:
-        scheduler_manager.scheduler.resume_job(job_id)
+        scheduler_manager.add_cron_job(task)
     else:
-        scheduler_manager.scheduler.pause_job(job_id)
+        pass
+        #scheduler_manager.scheduler.pause_job(job_id)
     
     # 更新数据库状态
     task.enabled = enabled

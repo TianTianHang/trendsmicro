@@ -13,7 +13,7 @@ if not os.path.exists(shp_path):
 gdf = gpd.read_file(shp_path)
 
 
-@lru_cache(maxsize=128)
+
 def _match_data_with_countries(y_tuple, iso_codes, target_iso_codes):
     """匹配输入数据与国家代码(带缓存)"""
     y = np.array(y_tuple)
@@ -41,7 +41,7 @@ def _handle_missing_data(y, iso_codes, method: Literal['drop', 'interpolate'] = 
         return y_interp, iso_codes
     else:
         raise ValueError(f"Unknown method: {method}")
-@lru_cache(maxsize=128)
+
 def global_moran(y, iso_codes, missing_data_method: Literal['drop', 'interpolate'] = 'drop'):
     """
     计算全局莫兰指数
@@ -59,7 +59,7 @@ def global_moran(y, iso_codes, missing_data_method: Literal['drop', 'interpolate
     w = _get_weights(gdf.iloc[idx])
     moran = Moran(matched_y, w)
     return moran
-@lru_cache(maxsize=128)
+
 def local_moran(y, iso_codes, missing_data_method: Literal['drop', 'interpolate'] = 'drop'):
     """
     计算局部莫兰指数
@@ -77,7 +77,7 @@ def local_moran(y, iso_codes, missing_data_method: Literal['drop', 'interpolate'
     w = _get_weights(gdf.iloc[idx])
     moran_local = Moran_Local(matched_y, w)
     return moran_local
-@lru_cache(maxsize=128)
+
 def _get_weights(gdf_subset):
     """获取权重矩阵(带缓存)"""
     return weights.Queen.from_dataframe(gdf_subset)
