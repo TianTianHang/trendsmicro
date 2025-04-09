@@ -96,19 +96,12 @@ async def execute_historical_task(job_type, keywords, geo_code, interval, start_
     finally:
         db.close()
         
-@dramatiq.actor(retry_when=lambda x,y: True)
-def execute_scheduled_task(job_type, keywords, geo_code, interval, start_date, id, duration=None, created_at=None, **kwargs):
+@dramatiq.actor(retry_when=lambda x: True)
+def execute_scheduled_task(job_type, keywords, geo_code, interval, start_date, id,**kwargs):
     """执行定时数据采集任务并生成历史任务记录"""
     # 首次执行时记录创建时间
     current_time = datetime.now()
-    if created_at is None:
-        created_at = current_time
-    else:
-        created_at = datetime.strptime(created_at, "%Y-%m-%d %H:%M:%S")
     
-    # 检查是否超过duration限制
-    if duration and (current_time - created_at).days >= duration:
-        return
 
     db = next(get_db())
     try:
@@ -141,24 +134,7 @@ def execute_scheduled_task(job_type, keywords, geo_code, interval, start_date, i
         db.refresh(historical_task)
         handle_pending_tasks(historical_task)
         
-        # 重新调度自己
-        execute_scheduled_task.send_with_options(
-            kwargs={
-                'job_type': job_type,
-                'keywords': keywords,
-                'geo_code': geo_code,
-                'interval': interval,
-                'start_date': start_date,
-                'id': id,
-                'duration': duration,
-                'created_at': created_at.strftime("%Y-%m-%d %H:%M:%S")
-            },
-            delay=timedelta(**{
-                'hours': amount if unit == 'h' else 0,
-                'days': amount if unit == 'd' else 0,
-                'minutes': amount if unit == 'm' else 0
-            }).total_seconds() * 1000
-        )
+       
         
     except Exception as e:
         db.rollback()

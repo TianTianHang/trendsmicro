@@ -3,7 +3,7 @@ from datetime import datetime
 from typing import List, Optional
 from fastapi import APIRouter, Body, Depends, HTTPException, Path
 from sqlalchemy.orm import Session
-from core import scheduler_manager
+from core import scheduler_manager,aio_scheduler
 from api.dependencies.database import get_db
 from fastapi_events.dispatcher import dispatch
 from api.models.tasks import HistoricalTask, ScheduledTask
@@ -46,7 +46,7 @@ async def create_scheduled_task(
     db.commit()
     db.refresh(task)
     # 添加到调度器
-    scheduler_manager.add_cron_job(task)
+    aio_scheduler.add_cron_job(task)
     
     return {"task_id": task.id}
 
@@ -61,7 +61,7 @@ def list_scheduled_tasks(db: Session = Depends(get_db)):
     return db.query(ScheduledTask).all()
 
 
-@router.post("/historical/{task_id}/terminate")
+@router.post("/historical/{task_id}/terminate",deprecated=True)
 def terminate_historical_task(
     task_id: int, 
     db: Session = Depends(get_db)
@@ -107,10 +107,9 @@ def toggle_scheduled_task(
     # 调度器操作
     job_id = f"scheduled_{task_id}"
     if enabled:
-        scheduler_manager.add_cron_job(task)
+        aio_scheduler.scheduler.resume_job(job_id)
     else:
-        pass
-        #scheduler_manager.scheduler.pause_job(job_id)
+        aio_scheduler.scheduler.pause_job(job_id)
     
     # 更新数据库状态
     task.enabled = enabled
