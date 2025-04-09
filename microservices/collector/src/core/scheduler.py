@@ -11,10 +11,12 @@ from config import get_settings
 from core.jobs import execute_historical_task, execute_scheduled_task
 from api.dependencies.database import engine
 from apscheduler.triggers.interval import IntervalTrigger
+
+from core.dramatiq_manager import DramatiqManager
 settings = get_settings()
 
 class SchedulerManager:
-    def __init__(self):
+    def __init__(self,dramatiq:DramatiqManager):
         self.scheduler = AsyncIOScheduler(
             jobstores={
             'default': SQLAlchemyJobStore(engine=engine)
@@ -28,6 +30,7 @@ class SchedulerManager:
             'default': {'type': 'asyncio'}
             }
         )
+        self.dramatiq=dramatiq
     
     def start(self):
         self.scheduler.start()
@@ -51,13 +54,15 @@ class SchedulerManager:
         
         self.scheduler.add_job(
             id=f"scheduled_{task.id}",
-            func=execute_scheduled_task,
+            func=self.dramatiq.add_cron_job,
             args=[task],
             trigger=IntervalTrigger(**interval_config, end_date=datetime.now() + timedelta(days=task.duration)),
-            max_instances=1,  # 允许最大并发实例数
+            max_instances=2,  # 允许最大并发实例数
             misfire_grace_time=10  # 任务错过执行时间后的宽容时间
         )
         logger.info(f"interval_config: {interval_config}")
+        
+        
     def _parse_interval(self, interval):
         """解析时间间隔"""
         amount = int(interval[:-1])
