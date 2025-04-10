@@ -106,7 +106,15 @@
             "required_permission": ["user", "admin"]
         },
         {
-            "path": "/interests/collections",
+            "path": "/interests/collections/notBind",
+            "required_permission": ["user", "admin"]
+        },
+        {
+            "path": "/interests/collections/bind",
+            "required_permission": ["user", "admin"]
+        },
+        {
+            "path":"/interests/collections/stats",
             "required_permission": ["user", "admin"]
         },
         {

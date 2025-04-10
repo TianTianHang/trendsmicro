@@ -20,6 +20,10 @@
         {
             "path": "/tasks/scheduled/{task_id}/retry",
             "required_permission": ["admin"]
+        },
+        {
+            "path": "/tasks/stats",
+            "required_permission": ["admin","user"]
         }
         
     ]
