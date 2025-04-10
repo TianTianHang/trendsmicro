@@ -19,7 +19,7 @@ class DramatiqManager:
             },
             delay=Random.randrange(1000,60000)  # 转换为毫秒
         )
-        
+    
     def _parse_interval(self, interval):
         """解析时间间隔(与原有逻辑保持一致)"""
         amount = int(interval[:-1])

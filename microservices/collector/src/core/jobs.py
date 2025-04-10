@@ -48,7 +48,7 @@ def execute_task(job_type, keywords, geo_code, interval, start_date, end_date,ta
         raise ValueError(f"无效的任务类型: {job_type}")
     logger.info("采集数据结束")
     return last_id
-@dramatiq.actor(retry_when=lambda x: True)
+@dramatiq.actor(retry_when=lambda x,y: True)
 async def execute_historical_task(job_type, keywords, geo_code, interval, start_date, end_date,id,**kwargs):
     """执行历史数据采集任务"""
    
@@ -116,10 +116,10 @@ def execute_scheduled_task(job_type, keywords, geo_code, interval, start_date, i
             schedule_id=id,
             status='pending'
         )
-        
+        amount = int(interval[:-1])
+        unit = interval[-1]
         if job_type == 'region':
-            amount = int(interval[:-1])
-            unit = interval[-1]
+           
             if unit == 'h':
                 start_date = current_time - timedelta(hours=amount)
             elif unit == 'd':
