@@ -28,6 +28,11 @@
         {
             "path":"/trends/over-time",
             "required_permission": ["admin","user"]
+        },
+        {
+
+            "path": "/tasks/stats",
+            "required_permission": ["admin","user"]
         }
         
     ]

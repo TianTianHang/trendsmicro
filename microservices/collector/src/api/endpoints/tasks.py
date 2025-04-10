@@ -120,3 +120,29 @@ def toggle_scheduled_task(
     task.enabled = enabled
     db.commit()
     return {"message": "状态已更新"}
+
+@router.get("/stats")
+def get_task_stats(db: Session = Depends(get_db)):
+    """获取任务统计信息"""
+    # 历史任务统计
+    completed_count = db.query(HistoricalTask).filter(
+        HistoricalTask.status == "completed"
+    ).count()
+    failed_count = db.query(HistoricalTask).filter(
+        HistoricalTask.status == "failed"
+    ).count()
+    
+    # 定时任务统计
+    enabled_scheduled_count = db.query(ScheduledTask).filter(
+        ScheduledTask.enabled == True
+    ).count()
+    
+    return {
+        "historical_tasks": {
+            "completed": completed_count,
+            "failed": failed_count
+        },
+        "scheduled_tasks": {
+            "enabled": enabled_scheduled_count
+        }
+    }

@@ -30,6 +30,41 @@ def get_interest_collections(
                     meta_data=r.meta_data.convert()
         ) for r in result.all()]
 
+@router.get("/collections/stats")
+def get_collection_stats(
+    db: Session = Depends(get_db)
+):
+    # 总数量统计
+    total = db.query(InterestCollection).count()
+    
+    # 按interest_type统计
+    time_count = db.query(InterestCollection).filter(
+        InterestCollection.interest_type == "time"
+    ).count()
+    region_count = db.query(InterestCollection).filter(
+        InterestCollection.interest_type == "region"
+    ).count()
+    
+    # 按绑定状态统计
+    bound_count = db.query(InterestCollection).filter(
+        InterestCollection.subject_data_id.isnot(None)
+    ).count()
+    unbound_count = db.query(InterestCollection).filter(
+        InterestCollection.subject_data_id.is_(None)
+    ).count()
+    
+    return {
+        "total": total,
+        "by_type": {
+            "time": time_count,
+            "region": region_count
+        },
+        "by_binding": {
+            "bound": bound_count,
+            "unbound": unbound_count
+        }
+    }
+
 @router.get("/collections/bind", response_model=List[InterestCollectionResponse])
 def get_interest_collections(
     interest_type:str=Query(None),
