@@ -5,7 +5,7 @@ from fastapi.logger import logger
 from api.dependencies.database import get_db
 from fastapi_events.typing import Event
 from fastapi_events.handlers.local import local_handler
-from core import scheduler_manager
+from core import scheduler_manager,aio_scheduler
 from api.models.interest import RegionInterest, TimeInterest
 from api.schemas.interest import InterestMetaData
 from api.schemas.tasks import HistoricalTaskRequest, ScheduledTaskRequest
@@ -48,7 +48,7 @@ async def subject_task_request(message: IncomingMessage):
                 db.commit()
                 db.refresh(task)
                 # 添加到调度器
-                scheduler_manager.add_cron_job(task)
+                aio_scheduler.add_cron_job(task)
             #HistoricalTaskRequest
             elif task_req.get("end_date",None)!=None:
                 task_req=HistoricalTaskRequest.model_validate(task_req)

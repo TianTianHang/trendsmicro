@@ -20,6 +20,14 @@
         {
             "path": "/tasks/scheduled/{task_id}/retry",
             "required_permission": ["admin"]
+        },
+        {
+            "path":"/trends/by-region",
+            "required_permission": ["admin","user"]
+        },
+        {
+            "path":"/trends/over-time",
+            "required_permission": ["admin","user"]
         }
         
     ]

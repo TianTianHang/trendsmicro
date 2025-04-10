@@ -30,5 +30,6 @@ class ScheduledTaskResponse(BaseModel):
     job_type: str
     duration: int
     interval: str = None
+    start_date: date
     keywords: List[str]
     enabled: bool

@@ -106,10 +106,15 @@ def toggle_scheduled_task(
     
     # 调度器操作
     job_id = f"scheduled_{task_id}"
+    job =  aio_scheduler.scheduler.get_job(job_id)
     if enabled:
-        aio_scheduler.scheduler.resume_job(job_id)
+        if job is not None:
+            aio_scheduler.scheduler.resume_job(job_id)
+        else:
+            aio_scheduler.add_cron_job(task)
     else:
-        aio_scheduler.scheduler.pause_job(job_id)
+        if job is not None:
+            aio_scheduler.scheduler.pause_job(job_id)
     
     # 更新数据库状态
     task.enabled = enabled
