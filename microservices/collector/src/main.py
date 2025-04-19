@@ -41,6 +41,7 @@ instance = ServiceInstance(
 async def lifespan_handler(app: FastAPI):
     await RabbitMQClient.start_consumers(app)
     aio_scheduler.start()
+    aio_scheduler.sync_job_status()
     registry.register(instance)
     yield
     # 注销服务

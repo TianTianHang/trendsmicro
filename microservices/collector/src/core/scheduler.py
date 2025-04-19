@@ -85,17 +85,20 @@ class SchedulerManager:
         """启动时同步调度器与应用表状态"""
         db = next(get_db())
         # 同步历史任务
-        historical_tasks = db.query(HistoricalTask).all()
-        for task in historical_tasks:
-            if task and task.status == "waiting":
-                task.status = "pending"  # 历史任务是一次性执行的
-            if task and task.status == "running":
-                task.status = "failed"  
+        # historical_tasks = db.query(HistoricalTask).all()
+        # for task in historical_tasks:
+        #     if task and task.status == "waiting":
+        #         task.status = "pending"  # 历史任务是一次性执行的
+        #     if task and task.status == "running":
+        #         task.status = "failed"  
         # 同步定时任务
         scheduled_tasks = db.query(ScheduledTask).all()
         for task in scheduled_tasks:
             job_id = f"scheduled_{task.id}"
             job = self.scheduler.get_job(job_id)
-            task.enabled = job is not None and job.next_run_time is not None
+            if job is None and task.enabled:
+                self.add_cron_job(task)
+            elif job is not None and not task.enabled:
+                self.scheduler.pause_job(job_id)
         db.commit()
         db.close()

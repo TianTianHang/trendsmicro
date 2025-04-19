@@ -54,8 +54,10 @@ async def process_subject(event: Event):
         db.commit()
     except ValueError as ve:
         logger.error(f"Invalid task parameters for subject {subject.subject_id}: {str(ve)}")
+        db.rollback()
     except Exception as e:
         logger.error(f"Error processing subject {subject.subject_id}: {str(e)}")
+        db.rollback()
         
         
 @RabbitMQClient.consumer("collector_task_respone")        

@@ -22,6 +22,15 @@
             "required_permission": ["admin"]
         },
         {
+            "path":"/trends/by-region",
+            "required_permission": ["admin","user"]
+        },
+        {
+            "path":"/trends/over-time",
+            "required_permission": ["admin","user"]
+        },
+        {
+
             "path": "/tasks/stats",
             "required_permission": ["admin","user"]
         }

@@ -77,4 +77,4 @@ def import_data(data_type,data_path,geo_code=""):
 
 if __name__ == "__main__":
     init_db()
-    import_data("time","C:/Users/Administrator/Desktop/project/data/deepseek相关")
+    import_data("region","C:\\Users\\Administrator\\Desktop\\new,novel")
