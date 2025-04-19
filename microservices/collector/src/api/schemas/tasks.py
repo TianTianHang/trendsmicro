@@ -23,6 +23,10 @@ class HistoricalTaskResponse(BaseModel):
     job_type: str
     keywords: List[str]
     status: str
+    schedule_id:int
+    geo_code: str = ""
+    start_date: date
+    end_date: date
     created_at: datetime
 
 class ScheduledTaskResponse(BaseModel):
