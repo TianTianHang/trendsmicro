@@ -73,6 +73,21 @@ def register_user(user: UserCreate, db: Session = Depends(get_db)):
 
 @router.post("/token", response_model=Token)
 def login(form_data: Annotated[OAuth2PasswordRequestForm, Depends()], db: Session = Depends(get_db)):
+    # 游客模式处理
+    if form_data.username == "guest":
+        # 构造一个游客用户对象（不写入数据库）
+       
+        class GuestUser:
+            id = 0
+            username = "guest"
+            roles = ["guest"]
+        user = GuestUser()
+        access_token_expires = timedelta(minutes=60*24)
+        access_token = create_access_token(
+            data={"sub": user.username, "roles": [r.name for r in user.roles]}, expires_delta=access_token_expires
+        )
+        return {"access_token": access_token, "token_type": "bearer"}
+    
     user = db.query(User).filter(User.username == form_data.username).first()
     if not user or not verify_password(form_data.password, user.hashed_password):
         raise HTTPException(
