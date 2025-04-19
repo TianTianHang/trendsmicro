@@ -44,12 +44,12 @@ def _call_trends_api_with_retry(api_call_func, max_retries=3,**kwargs):
 settings = get_settings()
 trends=Trends(
         request_delay=settings.request_delay,
-       proxies = {
-            'http': settings.proxy,
-            'https': settings.proxy
-        }
     )
-
+# print(settings.proxy)
+# trends.session.proxies.update({
+#             'http': settings.proxy,
+#             'https': settings.proxy
+#         })
 def get_interest_by_region(keywords: list[str], geo_code: str, interval: str, start_date: str, end_date: str,task_id:int):
     db=next(get_db())
     time_ranges = split_time_ranges(start_date, end_date, interval,'%Y-%m-%dT%H:%M')

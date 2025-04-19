@@ -49,6 +49,7 @@ services:
       - RABBITMQ_HOST=rabbitmq
       - PORT=8000
       - DATABASE_URL=postgresql://admin:admin@postgres-trends:5432/trends
+      - PROXY=http://JfNMSNSKm-session-raSCc3:vMBZwiPmY5EdXZc5@proxy.proxy302.com:2222
     depends_on:
       - consul
       - rabbitmq

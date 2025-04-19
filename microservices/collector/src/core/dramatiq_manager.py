@@ -1,5 +1,5 @@
 from datetime import datetime, timedelta
-from random import Random
+import random 
 from .jobs import execute_historical_task, execute_scheduled_task
 
 
@@ -17,7 +17,7 @@ class DramatiqManager:
             kwargs={
                 **task.to_dict()
             },
-            delay=Random.randrange(1000,60000)  # 转换为毫秒
+            delay=random.randrange(1000,60000)  # 转换为毫秒
         )
     
     def _parse_interval(self, interval):

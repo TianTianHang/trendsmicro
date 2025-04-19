@@ -27,7 +27,8 @@ async def handle_interest_data(message: IncomingMessage):
         req=NotifyRegionRequest(task_id=json_req.get('task_id'),
                       type=json_req.get('type'),
                       interest_type=json_req.get('interest_type'),
-                      interests=[json.loads(i) for i in json_req.get('interests',[])],
+                      interests=[[{**j,"geo_name":j.get("geoName"),"geo_code":j.get("geoCode")} for j in json.loads(i)]
+                                 for i in json_req.get('interests',[])],
                       meta=[json.loads(i) for i in json_req.get('meta',[])]
                       )
     db = next(get_db())
