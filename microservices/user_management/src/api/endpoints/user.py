@@ -13,7 +13,12 @@ from jose import JWTError, jwt
 
 router = APIRouter()
 setting = get_settings()
-
+class UserUpdate(BaseModel):
+    email: Optional[EmailStr] = None
+    full_name: Optional[str] = None
+    phone: Optional[str] = None
+    is_active: Optional[int] = None
+    
 class UserCreate(BaseModel):
     username: str
     password: str
@@ -346,3 +351,55 @@ async def refresh_token(
         
     except JWTError:
         raise HTTPException(status_code=401, detail="Token validation failed")
+
+
+@router.put("/users/{user_id}/update", response_model=UserResponse)
+async def update_user_by_id(
+    user_id: int,
+    user_update: UserUpdate,
+    current_user: Annotated[User, Depends(get_current_active_admin)],
+    db: Session = Depends(get_db)
+):
+    """
+    管理员根据用户ID更新用户信息
+    """
+    db_user = db.query(User).filter(User.id == user_id).first()
+    if not db_user:
+        raise HTTPException(status_code=404, detail="User not found")
+    
+    if user_update.email is not None:
+        # 检查邮箱是否已被其他用户使用
+        existing_user = db.query(User).filter(
+            User.email == user_update.email,
+            User.id != db_user.id
+        ).first()
+        if existing_user:
+            raise HTTPException(
+                status_code=400,
+                detail="Email already registered by another user"
+            )
+        db_user.email = user_update.email
+    
+    if user_update.full_name is not None:
+        db_user.full_name = user_update.full_name
+    
+    if user_update.phone is not None:
+        db_user.phone = user_update.phone
+    
+    db.commit()
+    db.refresh(db_user)
+    
+    return {
+        "id": db_user.id,
+        "username": db_user.username,
+        "email": db_user.email,
+        "full_name": db_user.full_name,
+        "phone": db_user.phone,
+        "is_active": db_user.is_active,
+        "created_at": db_user.created_at.strftime("%Y-%m-%d %H:%M:%S") if db_user.created_at else None,
+        "last_login": db_user.last_login.strftime("%Y-%m-%d %H:%M:%S") if db_user.last_login else None,
+        "role": db_user.role,
+        "roles": db_user.roles
+    }
+
+

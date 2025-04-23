@@ -40,6 +40,10 @@
         {
             "path":"/users/change_password",
             "required_permission":["public"]
+        },
+        {
+            "path":"/users/{user_id}/update",
+            "required_permission":["admin"]
         }
     ]
 }
