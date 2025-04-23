@@ -3,7 +3,7 @@ from typing import Annotated
 from sqlalchemy.orm import Session
 from fastapi import Depends, HTTPException, status
 from jose import JWTError, jwt
-from api.models.user import User, UserRole
+from api.models.user import Role, User, UserRole
 from passlib.context import CryptContext
 from fastapi.security import OAuth2PasswordBearer
 
@@ -49,7 +49,22 @@ async def get_current_user(token: Annotated[str, Depends(oauth2_scheme)], db: Se
             raise credentials_exception
     except JWTError:
         raise credentials_exception
-
+    if username=="guest": 
+        guestRole=Role(id=0,name="guest",description="guest",is_default=False)
+        current_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+        user = User(
+            id = 0,
+            username = "guest",
+            email = "guest@example.com",
+            full_name = "Guest User",
+            phone = None,
+            is_active = 1,
+            created_at = current_time,
+            last_login = current_time,
+            role = "guest",
+            roles=[guestRole]
+        )
+        return user
     user = db.query(User).filter(User.username == username).first()
     if user is None:
         raise credentials_exception

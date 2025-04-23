@@ -24,7 +24,8 @@ async def create_datasource(
     db_datasource = DataSourceModel(
         id=datasource.id,
         type=datasource.type,
-        config=datasource.config.dict()
+        config=datasource.config.model_dump(),
+        fetch=datasource.fetch
     )
     db.add(db_datasource)
     db.commit()
@@ -54,7 +55,8 @@ async def update_datasource(
         raise HTTPException(status_code=404, detail="DataSource not found")
     
     db_datasource.type = datasource.type
-    db_datasource.config = datasource.config.dict()
+    db_datasource.config = datasource.config.model_dump()
+    db_datasource.fetch = datasource.fetch
     db.commit()
     db.refresh(db_datasource)
     return db_datasource.to_dict()

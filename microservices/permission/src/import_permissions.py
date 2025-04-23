@@ -13,13 +13,16 @@ def import_permissions(file_path: str, db: Session):
                 service_name=service_name,
                 path=permission['path']
             ).first()
+            new_required_permission = ','.join(permission['required_permission'])
             if not existing_permission:
                 route_permission = Permission(
                     service_name=service_name,
                     path=permission['path'],
-                    required_permission=','.join(permission['required_permission'])
+                    required_permission=new_required_permission
                 )
                 db.add(route_permission)
+            elif existing_permission.required_permission != new_required_permission:
+                existing_permission.required_permission = new_required_permission
         db.commit()
 
 if __name__ == "__main__":

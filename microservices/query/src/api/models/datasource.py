@@ -16,6 +16,7 @@ class DataSource(Base):
     id = Column(String(36), primary_key=True, index=True)
     type = Column(SQLEnum(DataSourceType), nullable=False)
     config = Column(JSON, nullable=False)
+    fetch = Column(String(200), nullable=False)  
     created_at = Column(DateTime, server_default=func.now())
     updated_at = Column(DateTime, server_default=func.now(), onupdate=func.now())
 
@@ -24,6 +25,7 @@ class DataSource(Base):
             "id": self.id,
             "type": self.type.value,
             "config": self.config,
+            "fetch": self.fetch,
             "created_at": self.created_at.isoformat(),
             "updated_at": self.updated_at.isoformat()
         }

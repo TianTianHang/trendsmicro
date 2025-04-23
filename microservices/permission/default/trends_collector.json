@@ -32,7 +32,7 @@
         {
 
             "path": "/tasks/stats",
-            "required_permission": ["admin","user"]
+            "required_permission": ["admin","user","guest"]
         }
         
     ]

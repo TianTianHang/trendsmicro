@@ -11,7 +11,7 @@
         },
         {
             "path": "/users/me",
-            "required_permission": ["user", "admin"]
+            "required_permission": ["user", "admin","guest"]
         },
         {
             "path": "/users",
@@ -40,7 +40,6 @@
         {
             "path":"/users/change_password",
             "required_permission":["public"]
-
         }
     ]
 }

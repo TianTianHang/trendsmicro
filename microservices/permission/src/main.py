@@ -170,6 +170,7 @@ async def verify_permission(req: VerifyPermission, authorization: str = Header(N
         # 验证JWT令牌
         payload =await jwt_validatort.verify_token(token)
         if payload:
+           
             username: str = payload.get("sub")
             if not username:
                 raise HTTPException(status_code=401, detail="Invalid token")

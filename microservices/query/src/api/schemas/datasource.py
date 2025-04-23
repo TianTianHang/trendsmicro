@@ -13,13 +13,13 @@ class DataSourceConfig(BaseModel):
     method: Optional[str] = None
     params: Optional[Dict[str, Any]] = None
     headers: Optional[Dict[str, str]] = None
-    render_data: Optional[str] = None
+    renderData: Optional[str] = None
     file: Optional[str] = None
 
 class DataSourceBase(BaseModel):
     type: DataSourceType
     config: DataSourceConfig
-
+    fetch: str
 class DataSourceCreate(DataSourceBase):
     id: str  # 手动输入的ID
 

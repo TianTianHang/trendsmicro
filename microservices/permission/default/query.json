@@ -7,7 +7,7 @@
         },
         {
             "path": "/subject/{subject_id}",
-            "required_permission": ["user", "admin"]
+            "required_permission": ["user", "admin","guest"]
         },
         {
             "path": "/subject/{subject_id}/data",
@@ -23,19 +23,19 @@
         },
         {
             "path": "/cfc/fit",
-            "required_permission": ["user", "admin"]
+            "required_permission": ["user", "admin","guest"]
         },
         {
             "path": "/cfc/fit/{task_id}",
-            "required_permission": ["user", "admin"]
+            "required_permission": ["user", "admin","guest"]
         },
         {
             "path": "/moran/global",
-            "required_permission": ["user", "admin"]
+            "required_permission": ["user", "admin","guest"]
         },
         {
             "path": "/moran/local",
-            "required_permission": ["user", "admin"]
+            "required_permission": ["user", "admin","guest"]
         },
         {
             "path": "/keywords/words/create",
@@ -51,11 +51,11 @@
         },
         {
             "path": "/keywords/words/{keyword_id}",
-            "required_permission": ["user", "admin"]
+            "required_permission": ["user", "admin","guest"]
         },
         {
             "path": "/keywords/words/list",
-            "required_permission": ["user", "admin"]
+            "required_permission": ["user", "admin","guest"]
         },
         {
             "path": "/keywords/definitions/create",
@@ -71,7 +71,7 @@
         },
         {
             "path": "/keywords/definitions/{definition_id}",
-            "required_permission": ["user", "admin"]
+            "required_permission": ["user", "admin","guest"]
         },
         {
             "path": "/keywords/categories/create",
@@ -79,7 +79,7 @@
         },
         {
             "path": "/keywords/categories/{category_id}",
-            "required_permission": ["user", "admin"]
+            "required_permission": ["user", "admin","guest"]
         },
         {
             "path": "/keywords/categories/{category_id}/update",
@@ -91,7 +91,7 @@
         },
         {
             "path": "/keywords/categories/list",
-            "required_permission": ["user", "admin"]
+            "required_permission": ["user", "admin","guest"]
         },
         {
             "path": "/subjectData/create",
@@ -115,7 +115,7 @@
         },
         {
             "path":"/interests/collections/stats",
-            "required_permission": ["user", "admin"]
+            "required_permission": ["user", "admin","guest"]
         },
         {
             "path": "/layouts/save",
@@ -123,7 +123,7 @@
         },
         {
             "path": "/layouts/list",
-            "required_permission": ["user", "admin"]
+            "required_permission": ["user", "admin","guest"]
             
         },
         {
@@ -136,11 +136,11 @@
         },
         {
             "path":"/datasources/list",
-            "required_permission":["user","admin"]
+            "required_permission":["user","admin","guest"]
         },
         {
             "path":"/datasources/{id}",
-            "required_permission":["user","admin"]
+            "required_permission":["user","admin","guest"]
         },
         {
             "path":"/datasources/{id}/update",

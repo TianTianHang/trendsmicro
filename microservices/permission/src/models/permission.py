@@ -1,9 +1,9 @@
 from typing import List
 from pydantic import BaseModel
-from sqlalchemy import Column, String
+from sqlalchemy import Column, String,DateTime
 
 from dependencies.database import Base
-
+from sqlalchemy.sql import func
 
 class RoutePermission(BaseModel):
     path: str
@@ -18,7 +18,9 @@ class Permission(Base):
     service_name = Column(String, primary_key=True)
     path = Column(String, primary_key=True, index=True)
     required_permission = Column(String)  # 存储为逗号分隔的字符串
-
+    created_at = Column(DateTime, default=func.now())
+    updated_at = Column(DateTime, default=func.now(), onupdate=func.now())
+    
     def __init__(self,service_name, path, required_permission):
         self.service_name= service_name
         self.path = path
