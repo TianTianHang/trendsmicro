@@ -79,7 +79,8 @@ services:
     depends_on:
       - consul
       - rabbitmq
-
+    volumes:
+      - ./user.db:/app/src/user.db
   permission:
     build: ../microservices/permission
     ports:
@@ -94,7 +95,8 @@ services:
       - user-management
       - consul
       - rabbitmq
-
+    volumes:
+      - ./permission.db:/app/src/permission.db
   # 新增基础设施服务
   consul:
     image: consul:1.15

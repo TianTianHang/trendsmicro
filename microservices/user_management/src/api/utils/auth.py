@@ -51,7 +51,7 @@ async def get_current_user(token: Annotated[str, Depends(oauth2_scheme)], db: Se
         raise credentials_exception
     if username=="guest": 
         guestRole=Role(id=0,name="guest",description="guest",is_default=False)
-        current_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+        current_time = datetime.now()
         user = User(
             id = 0,
             username = "guest",
@@ -73,6 +73,7 @@ async def get_current_user(token: Annotated[str, Depends(oauth2_scheme)], db: Se
 async def get_current_active_admin(
     current_user: Annotated[User, Depends(get_current_user)]
 ):
-    if current_user.role != UserRole.ADMIN:
+    #print(current_user.roles[0].name)
+    if all(role.name != "admin" for role in current_user.roles):
         raise HTTPException(status_code=400, detail="Insufficient permissions")
     return current_user

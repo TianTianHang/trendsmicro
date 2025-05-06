@@ -45,8 +45,8 @@ class UserResponse(BaseModel):
     id: int
     username: str
     email: EmailStr
-    full_name: str = None
-    phone: str = None
+    full_name: Optional[str] = None
+    phone: Optional[str] = None
     is_active: int
     created_at: str
     last_login: Optional[str] = None
@@ -107,8 +107,8 @@ def login(form_data: Annotated[OAuth2PasswordRequestForm, Depends()], db: Sessio
             full_name="Guest User",
             phone=None,
             is_active=1,
-            created_at=datetime.now().strftime("%Y-%m-%d %H:%M:%S"),
-            last_login=datetime.now().strftime("%Y-%m-%d %H:%M:%S"),
+            created_at=datetime.now(),
+            last_login=datetime.now(),
             role="guest",
             roles=[guestRole]
         )
@@ -385,7 +385,8 @@ async def update_user_by_id(
     
     if user_update.phone is not None:
         db_user.phone = user_update.phone
-    
+    if user_update.is_active is not None:
+        db_user.is_active = user_update.is_active
     db.commit()
     db.refresh(db_user)
     
